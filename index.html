@@ -49,7 +49,6 @@
         .new-p { font-weight: 900; font-size: 17px; color: #000; }
         .old-p { font-size: 12px; text-decoration: line-through; color: #bbb; }
 
-        /* FLOATING BUTTONS */
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
@@ -85,7 +84,6 @@
     <div class="category-title">Graphic T-Shirts</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('OUMRAN Graphic Tee', 'clothe')"><div class="img-area"><img src="tee1.jpg"></div><div class="info-area"><h3>Graphic Tee</h3><div class="price-row"><span class="new-p">$20</span><span class="old-p">$35</span></div></div></div>
-        <div class="product-card" onclick="openP('OUMRAN Oversize Tee', 'clothe')"><div class="img-area"><img src="tee2.jpg"></div><div class="info-area"><h3>Oversize Tee</h3><div class="price-row"><span class="new-p">$25</span><span class="old-p">$40</span></div></div></div>
     </div>
 </div>
 
@@ -114,6 +112,27 @@
     <div class="category-title">Luxury Perfumes</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('OUMRAN Gold Oud', 'acc')"><div class="img-area"><img src="perfume1.jpg"></div><div class="info-area"><h3>Gold Oud</h3><div class="price-row"><span class="new-p">$45</span><span class="old-p">$75</span></div></div></div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Watches & Shades</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('OUMRAN Silver Classic', 'acc')"><div class="img-area"><img src="watch1.jpg"></div><div class="info-area"><h3>Silver Classic</h3><div class="price-row"><span class="new-p">$50</span><span class="old-p">$80</span></div></div></div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Woman Bags</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('OUMRAN Mini Bag', 'acc')"><div class="img-area"><img src="bag1.jpg"></div><div class="info-area"><h3>Mini Bag</h3><div class="price-row"><span class="new-p">$40</span><span class="old-p">$65</span></div></div></div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Jewelry & Accessories</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('OUMRAN Gold Chain', 'acc')"><div class="img-area"><img src="chain1.jpg"></div><div class="info-area"><h3>Gold Chain</h3><div class="price-row"><span class="new-p">$20</span><span class="old-p">$35</span></div></div></div>
     </div>
 </div>
 
@@ -146,9 +165,10 @@
             <p style="color: #28a745; font-weight: bold;">Order Sent! ✅</p>
             <div class="contact-box">
                 <p><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
-                <p><strong>Telegram:</strong> @OUMER_FETE</p>
+                <p><strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael</p>
             </div>
             <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Oumer</button>
+            <button class="btn btn-tg" onclick="window.location.href='https://t.me/Afran_Ismael'">Message Afran</button>
         </div>
         <button class="btn" style="background:#f5f5f5; color:black; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
