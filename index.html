@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OUMRAN STORE</title>
     <style>
-        :root { --bg: #000; --card: #fff; --tg: #0088cc; }
+        :root { --bg: #000; --card: #fff; --tg: #0088cc; --accent: #ff3b30; }
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             margin:0; background: var(--bg); color: white; 
             overflow-x: hidden; position: relative; min-height: 100vh;
         }
 
-        /* 1.7 BRIGHTNESS LOGO BACKGROUND */
         #motion-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("IMG_8765.jpeg"); 
@@ -50,15 +49,21 @@
         .new-p { font-weight: 900; font-size: 17px; color: #000; }
         .old-p { font-size: 12px; text-decoration: line-through; color: #bbb; }
 
+        /* FLOATING BUTTONS */
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
 
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
-        .modal-content { background: white; color: black; margin: 10% auto; padding: 30px; width: 80%; max-width: 380px; border-radius: 25px; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: white; color: black; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; }
         .btn { width: 100%; padding: 18px; background: black; color: white; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .btn-tg { background: var(--tg); margin-top: 10px; }
         
         #payment-details { display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 13px; }
         .contact-box { background: #f9f9f9; padding: 12px; border-radius: 15px; margin-top: 8px; border: 1px solid #eee; text-align: left; }
+        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .remove-btn { color: var(--accent); font-weight: bold; cursor: pointer; padding: 5px; }
     </style>
 </head>
 <body>
@@ -102,7 +107,6 @@
     <div class="category-title">Jeans & Pants</div>
     <div class="scroll-wrapper">
         <div class="product-card" onclick="openP('OUMRAN Baggy Denim', 'clothe')"><div class="img-area"><img src="jeans1.jpg"></div><div class="info-area"><h3>Baggy Denim</h3><div class="price-row"><span class="new-p">$40</span><span class="old-p">$60</span></div></div></div>
-        <div class="product-card" onclick="openP('OUMRAN Cargo Pants', 'clothe')"><div class="img-area"><img src="cargo1.jpg"></div><div class="info-area"><h3>Cargo Pants</h3><div class="price-row"><span class="new-p">$45</span><span class="old-p">$65</span></div></div></div>
     </div>
 </div>
 
@@ -113,56 +117,49 @@
     </div>
 </div>
 
-<div class="category-section">
-    <div class="category-title">Watches & Shades</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Silver Classic', 'acc')"><div class="img-area"><img src="watch1.jpg"></div><div class="info-area"><h3>Silver Classic</h3><div class="price-row"><span class="new-p">$50</span><span class="old-p">$80</span></div></div></div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Jewelry & Accessories</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Gold Chain', 'acc')"><div class="img-area"><img src="chain1.jpg"></div><div class="info-area"><h3>Gold Chain</h3><div class="price-row"><span class="new-p">$20</span><span class="old-p">$35</span></div></div></div>
-    </div>
+<div class="cart-float" onclick="showCart()" id="cart-btn">
+    🛒<span class="cart-count" id="cart-count">0</span>
 </div>
 
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
 <form id="orderForm" action="https://formspree.io/f/xkoqwjke" method="POST" style="display:none;">
-    <input type="hidden" name="Product" id="form-product">
-    <input type="hidden" name="Size" id="form-size">
-    <input type="hidden" name="Store" value="OUMRAN STORE">
+    <input type="hidden" name="Order_Summary" id="form-summary">
 </form>
 
 <div id="pModal" class="modal">
     <div class="modal-content">
         <h2 id="m-name" style="margin-top:0; font-size: 18px;">Product</h2>
-        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE / TYPE</label>
+        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; font-weight:bold; border: 1px solid #ddd;"></select>
-        
-        <button id="main-order-btn" class="btn" onclick="submitOrder()">Place Order</button>
-        
-        <div id="payment-details">
-            <p style="color: #28a745; font-weight: bold; margin: 0;">Order Logged! ✅</p>
-            <div class="contact-box">
-                <p><strong>Usernames:</strong> @OUMER_FETE / @Afran_Ismael</p>
-                <hr style="border:0; border-top:1px solid #ddd; margin:8px 0;">
-                <p><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
-            </div>
-            <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Oumer</button>
-            <button class="btn btn-tg" onclick="window.location.href='https://t.me/Afran_Ismael'">Message Afran</button>
-        </div>
-        
+        <button class="btn" onclick="addToCart()">Add to Bag</button>
         <button class="btn" style="background:#f5f5f5; color:black;" onclick="closeModal()">Go Back</button>
     </div>
 </div>
 
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <h2 style="margin-top:0;">Your Bag 🛍️</h2>
+        <div id="cart-items-list"></div>
+        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm All Items</button>
+        <div id="payment-details">
+            <p style="color: #28a745; font-weight: bold;">Order Sent! ✅</p>
+            <div class="contact-box">
+                <p><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
+                <p><strong>Telegram:</strong> @OUMER_FETE</p>
+            </div>
+            <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Oumer</button>
+        </div>
+        <button class="btn" style="background:#f5f5f5; color:black; margin-top:10px;" onclick="closeCart()">Close</button>
+    </div>
+</div>
+
 <script>
+let cart = [];
 const sz = { 
     clothe: ["S", "M", "L", "XL", "XXL"], 
     shoes: ["40", "41", "42", "43", "44", "45"], 
-    acc: ["One Size / Standard"] 
+    acc: ["Standard"] 
 };
 let currentP = "";
 
@@ -173,20 +170,45 @@ function openP(n, t) {
     b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
-    document.getElementById("payment-details").style.display = "none";
-    document.getElementById("main-order-btn").style.display = "block";
 }
 
+function addToCart() {
+    let size = document.getElementById("size-box").value;
+    cart.push({ name: currentP, size: size });
+    updateCartUI();
+    closeModal();
+}
+
+function updateCartUI() {
+    document.getElementById("cart-count").innerText = cart.length;
+    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+}
+
+function showCart() {
+    const list = document.getElementById("cart-items-list");
+    list.innerHTML = "";
+    cart.forEach((item, index) => {
+        list.innerHTML += `<div class="cart-item"><span>${item.name} (${item.size})</span><span class="remove-btn" onclick="removeItem(${index})">X</span></div>`;
+    });
+    document.getElementById("cartModal").style.display = "block";
+    document.getElementById("payment-details").style.display = "none";
+    document.getElementById("checkout-btn").style.display = "block";
+}
+
+function removeItem(i) { cart.splice(i, 1); updateCartUI(); showCart(); if(cart.length === 0) closeCart(); }
+
 function submitOrder() {
-    document.getElementById("form-product").value = currentP;
-    document.getElementById("form-size").value = document.getElementById("size-box").value;
+    let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
+    document.getElementById("form-summary").value = summary;
     const form = document.getElementById("orderForm");
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
     document.getElementById("payment-details").style.display = "block";
-    document.getElementById("main-order-btn").style.display = "none";
+    document.getElementById("checkout-btn").style.display = "none";
+    cart = []; updateCartUI();
 }
 
 function closeModal() { document.getElementById("pModal").style.display = "none"; }
+function closeCart() { document.getElementById("cartModal").style.display = "none"; }
 </script>
 </body>
 </html>
