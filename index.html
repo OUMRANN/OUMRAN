@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UMRAN Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+background:#f4f4f4;
+text-align:center;
+}
+
+header{
+background:black;
+color:white;
+padding:20px;
+font-size:28px;
+}
+
+.container{
+padding:20px;
+}
+
+.product{
+background:white;
+padding:20px;
+margin:20px;
+border-radius:10px;
+display:inline-block;
+width:250px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+background:black;
+color:white;
+border:none;
+padding:10px 20px;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#333;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+UMRAN – Habesha Fashion
+</header>
+
+<div class="container">
+
+<h2>Welcome to UMRAN</h2>
+<p>Clothes and shoes for Habesha people.</p>
+
+<h2>Our Products</h2>
+
+<div class="product">
+<h3>Street Hoodie</h3>
+<p>Price: $30</p>
+<button onclick="order()">Order Now</button>
+</div>
+
+<div class="product">
+<h3>Classic Sneakers</h3>
+<p>Price: $50</p>
+<button onclick="order()">Order Now</button>
+</div>
+
+<div class="product">
+<h3>Casual Jacket</h3>
+<p>Price: $60</p>
+<button onclick="order()">Order Now</button>
+</div>
+
+<h2>Contact Us</h2>
+<p>Phone: YOUR PHONE NUMBER</p>
+<p>Telegram: YOUR TELEGRAM</p>
+
+</div>
+
+<script>
+function order(){
+alert("To order, please contact us via phone or Telegram.");
+}
+</script>
+
+</body>
+</html>
