@@ -3,88 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OUMRAN ONLINE STORE</title>
+    <title>OUMRAN STORE</title>
     <style>
-        :root { --bg: #000; --card: #fff; --accent: #d9534f; }
+        :root { --bg: #000; --card: #fff; }
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
-            margin:0; background: var(--bg); color: white; text-align:center; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            margin:0; background: var(--bg); color: white; 
             overflow-x: hidden; position: relative; min-height: 100vh;
         }
 
-        /* MOTION SENSOR LOGO BACKGROUND */
+        /* 1. MAXIMUM VISIBILITY LOGO BACKGROUND */
         #motion-bg {
-            position: fixed; top: 0; left: 0; width: 110%; height: 110%;
-            background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat;
-            background-position: center; background-size: 70%;
-            opacity: 0.22; z-index: -1;
-            transform: translate(-5%, -5%); /* Offset for movement room */
-            transition: transform 0.1s ease-out; /* Smooth motion */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("IMG_8765.jpeg"); 
+            background-repeat: no-repeat;
+            background-position: center; 
+            background-size: 85%;
+            opacity: 0.92; /* Very light and visible */
+            z-index: -1;
+            filter: brightness(1.7); /* Perfectly clear for the naked eye */
         }
         
-        /* LUXURY HEADER */
         header { 
-            background: rgba(0,0,0,0.85); padding: 18px; border-bottom: 1px solid #333; 
-            position: sticky; top: 0; z-index: 100; display: flex; align-items: center; 
-            justify-content: center; gap: 12px; backdrop-filter: blur(15px);
-            animation: slideDown 0.8s ease-out;
+            background: rgba(0,0,0,0.96); padding: 18px; border-bottom: 1px solid #333; 
+            position: sticky; top: 0; z-index: 100; text-align: center;
         }
-        .header-logo { height: 35px; border-radius: 6px; }
-        .brand-name { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; font-weight: 900; }
+        .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
+        .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
 
+        /* 2. ADDIS ABABA EXCLUSIVE BAR */
         .promo-bar { 
-            background: #111; font-size: 10px; padding: 10px; color: #888; 
-            text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #222; 
+            background: #000; color: #fff; font-size: 11px; padding: 12px; 
+            font-weight: 900; text-align: center; border-bottom: 1px solid #222;
         }
 
-        /* GRID & STAGGERED ENTRANCE */
-        .product-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; 
-            max-width: 1000px; margin: 0 auto; z-index: 1; 
+        /* 3. SIDEWAYS SCROLLING (FOR ALL ITEMS) */
+        .category-section { padding: 25px 0 0 15px; text-align: left; position: relative; z-index: 1; }
+        .category-title { 
+            font-size: 13px; text-transform: uppercase; font-weight: 900; 
+            margin-bottom: 12px; letter-spacing: 1.5px; border-left: 4px solid #fff; padding-left: 10px;
         }
 
-        .product { 
-            background: var(--card); border-radius: 18px; color: black; position: relative; 
-            overflow: hidden; display: flex; flex-direction: column; cursor: pointer; 
-            transition: all 0.3s ease; opacity: 0; transform: translateY(30px);
-            animation: cardFade 0.6s forwards;
+        .scroll-wrapper { 
+            display: flex; 
+            overflow-x: auto; /* FORCED SIDEWAYS */
+            gap: 15px; 
+            padding: 5px 15px 30px 5px;
+            scrollbar-width: none;
         }
-        .product:active { transform: scale(0.96); }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-        .image-slider { height: 180px; background: #f4f4f4; overflow: hidden; }
-        .image-slider img { width: 100%; height: 100%; object-fit: cover; }
-
-        .product-info { padding: 12px; text-align: left; }
-        .product h3 { font-size: 11px; margin: 0; text-transform: uppercase; color: #444; }
-        .new-price { font-weight: 900; font-size: 16px; color: #000; margin-top: 4px; display: block; }
-
-        /* MODAL POPUP */
-        .modal { 
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); 
+        .product-card { 
+            flex: 0 0 175px; /* Fixed width for sideways rows */
+            background: var(--card); border-radius: 20px; color: black; 
+            overflow: hidden; position: relative;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+            transition: 0.3s;
         }
-        .modal-content { 
-            background: white; color: black; margin: 12% auto; padding: 30px; width: 85%; max-width: 380px; 
-            border-radius: 30px; text-align: left; animation: modalSlide 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        .product-card:active { transform: scale(0.95); }
+
+        .img-area { height: 175px; background: #f9f9f9; overflow: hidden; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; }
+
+        .info-area { padding: 12px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
+        .price-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+        .new-p { font-weight: 900; font-size: 17px; color: #000; }
+        .old-p { font-size: 12px; text-decoration: line-through; color: #bbb; }
+
+        /* 4. FLOATING TELEGRAM BUTTON */
+        .tg-float {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #0088cc; color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none; z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,136,204,0.4);
+            animation: pulseTg 2s infinite;
         }
+        @keyframes pulseTg { 0% { box-shadow: 0 0 0 0 rgba(0,136,204,0.7); } 70% { box-shadow: 0 0 0 15px rgba(0,136,204,0); } 100% { box-shadow: 0 0 0 0 rgba(0,136,204,0); } }
 
-        /* KEYFRAMES */
-        @keyframes cardFade { to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideDown { from { transform: translateY(-100%); } }
-        @keyframes modalSlide { from { transform: translateY(50px); opacity: 0; } }
-        
-        .product:nth-child(1) { animation-delay: 0.1s; }
-        .product:nth-child(2) { animation-delay: 0.2s; }
-        .product:nth-child(3) { animation-delay: 0.3s; }
-        .product:nth-child(4) { animation-delay: 0.4s; }
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
+        .modal-content { background: white; color: black; margin: 20% auto; padding: 30px; width: 80%; max-width: 380px; border-radius: 25px; animation: pop 0.3s ease; }
+        .btn { width: 100%; padding: 18px; background: black; color: white; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
 
-        .order-btn { 
-            width: 100%; padding: 18px; background: black; color: white; border: none; 
-            border-radius: 18px; font-weight: 900; margin-top: 20px; cursor: pointer;
-        }
-
-        #payment-info { display: none; background: #fff1f1; padding: 20px; border-radius: 20px; margin-top: 15px; border: 1px solid #ffdcdc; }
-        .copy-btn { background: black; color: white; border: none; padding: 6px 10px; border-radius: 8px; font-size: 10px; cursor: pointer; float: right; }
+        @keyframes pop { from { transform: scale(0.9); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -93,109 +96,83 @@
 
 <header>
     <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
-    <span class="brand-name">OUMRAN ONLINE STORE📲</span>
+    <span class="brand-name">OUMRAN STORE📲</span>
 </header>
 
-<div class="promo-bar">Premium Quality • Global Shipping</div>
+<div class="promo-bar">
+    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDISABABA✅
+    <br><span style="color: #888; font-size: 10px; font-weight: 400;">14-20 DAYS DELIVERY</span>
+</div>
 
-<div class="product-grid">
-    <div class="product" onclick="openSpace('OUMRAN Street Hoodie', '$35', 'Luxury cotton streetwear.', 'clothe')">
-        <div class="image-slider"><img src="https://via.placeholder.com/400x400/eee?text=CLOTHING"></div>
-        <div class="product-info"><h3>Street Hoodie</h3><span class="new-price">$35</span></div>
-    </div>
-
-    <div class="product" onclick="openSpace('OUMRAN Sport Kicks', '$60', 'High-performance sneakers.', 'shoes')">
-        <div class="image-slider"><img src="https://via.placeholder.com/400x400/ddd?text=SHOES"></div>
-        <div class="product-info"><h3>Sport Kicks</h3><span class="new-price">$60</span></div>
-    </div>
-
-    <div class="product" onclick="openSpace('OUMRAN Silver Chain', '$20', 'Signature designer chain.', 'accessory')">
-        <div class="image-slider"><img src="https://via.placeholder.com/400x400/ccc?text=ACCESSORY"></div>
-        <div class="product-info"><h3>Silver Chain</h3><span class="new-price">$20</span></div>
-    </div>
-
-    <div class="product" onclick="openSpace('OUMRAN Mini Bag', '$45', 'Exclusive woman bag collection.', 'bag')">
-        <div class="image-slider"><img src="https://via.placeholder.com/400x400/bbb?text=BAGS"></div>
-        <div class="product-info"><h3>Mini Bag</h3><span class="new-price">$45</span></div>
+<div class="category-section">
+    <div class="category-title">Hoodies & Jackets</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('OUMRAN Street Hoodie', '$35', '$55', 'clothe')">
+            <div class="img-area"><img src="https://via.placeholder.com/400x400/eee?text=Hoodie+1"></div>
+            <div class="info-area"><h3>Street Hoodie</h3><div class="price-row"><span class="new-p">$35</span><span class="old-p">$55</span></div></div>
+        </div>
+        <div class="product-card" onclick="openP('OUMRAN Zip Jacket', '$45', '$65', 'clothe')">
+            <div class="img-area"><img src="https://via.placeholder.com/400x400/eee?text=Jacket"></div>
+            <div class="info-area"><h3>Zip Jacket</h3><div class="price-row"><span class="new-p">$45</span><span class="old-p">$65</span></div></div>
+        </div>
     </div>
 </div>
 
-<div id="productModal" class="modal">
-  <div class="modal-content">
-    <span onclick="closeSpace()" style="float:right; cursor:pointer; font-weight:bold; font-size:22px; color:#ccc;">✕</span>
-    <h2 id="m-title" style="margin:0; font-size: 20px;">Product</h2>
-    <p id="m-desc" style="color:#666; font-size: 13px; margin: 10px 0 20px 0;"></p>
-    
-    <label style="font-size: 10px; font-weight: 900; color: #bbb; letter-spacing: 1px;">SELECT SIZE</label>
-    <select id="size-dropdown" style="width:100%; padding:16px; margin-top:8px; border-radius:15px; border: 1px solid #eee; background:#f9f9f9; font-weight: bold;"></select>
-    
-    <button id="order-now-btn" class="order-btn" onclick="sendOrderIntent()">Confirm Order</button>
-
-    <div id="payment-info">
-        <p style="font-weight:900; color: #d9534f; margin: 0 0 10px 0;">Order Sent! ✅</p>
-        <p style="font-size: 13px; margin: 5px 0;">0939620004 <button class="copy-btn" onclick="copyNum('0939620004')">COPY</button></p>
-        <p style="font-size: 13px; margin: 5px 0;">0940028820 <button class="copy-btn" onclick="copyNum('0940028820')">COPY</button></p>
-        <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
-        <p style="font-size: 12px;"><strong>Message us on Telegram:</strong></p>
-        <a href="https://t.me/OUMER_FETE" style="color:black; font-weight:bold; text-decoration:none; border-bottom:1px solid #000;">@OUMER_FETE</a>
+<div class="category-section">
+    <div class="category-title">Exclusive Shoes</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Leather Kicks', '$60', '$95', 'shoes')">
+            <div class="img-area"><img src="https://via.placeholder.com/400x400/ddd?text=Shoes"></div>
+            <div class="info-area"><h3>Leather Kicks</h3><div class="price-row"><span class="new-p">$60</span><span class="old-p">$95</span></div></div>
+        </div>
+        <div class="product-card" onclick="openP('Retro Sneakers', '$55', '$80', 'shoes')">
+            <div class="img-area"><img src="https://via.placeholder.com/400x400/ddd?text=Retro"></div>
+            <div class="info-area"><h3>Retro Sneakers</h3><div class="price-row"><span class="new-p">$55</span><span class="old-p">$80</span></div></div>
+        </div>
     </div>
-  </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Jeans & Pants</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Baggy Jeans', '$40', '$65', 'clothe')">
+            <div class="img-area"><img src="https://via.placeholder.com/400x400/ccc?text=Jeans"></div>
+            <div class="info-area"><h3>Baggy Jeans</h3><div class="price-row"><span class="new-p">$40</span><span class="old-p">$65</span></div></div>
+        </div>
+    </div>
+</div>
+
+<a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
+
+<div id="pModal" class="modal">
+    <div class="modal-content">
+        <h2 id="m-name" style="margin-top:0;">Product</h2>
+        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; font-weight:bold; border: 1px solid #ddd;"></select>
+        <button class="btn" onclick="sendOrder()">Place Order</button>
+        <button class="btn" style="background:#f5f5f5; color:black;" onclick="document.getElementById('pModal').style.display='none'">Go Back</button>
+    </div>
 </div>
 
 <script>
-// TILT MOTION SENSOR LOGIC
-const bg = document.getElementById('motion-bg');
-window.addEventListener('deviceorientation', (event) => {
-    const x = event.gamma; // tilt left/right
-    const y = event.beta;  // tilt front/back
-    
-    if (x && y) {
-        // Subtle move range of 20 pixels
-        const moveX = (x / 45) * 10;
-        const moveY = (y / 45) * 10;
-        bg.style.transform = `translate(calc(-5% + ${moveX}px), calc(-5% + ${moveY}px))`;
-    }
-});
-
-const sizes = {
-    clothe: ["Small", "Medium", "Large", "XL"],
-    shoes: ["39", "40EUR", "41", "42", "43", "44"],
+const sz = { 
+    clothe: ["S", "M", "L", "XL"], 
+    shoes: ["40", "41", "42", "43", "44"],
     accessory: ["One Size"],
     bag: ["Standard Size"]
 };
 
-function openSpace(name, price, desc, type) {
-    document.getElementById("m-title").innerText = name + " - " + price;
-    document.getElementById("m-desc").innerText = desc;
-    let dropdown = document.getElementById("size-dropdown");
-    dropdown.innerHTML = "";
-    (sizes[type] || sizes.clothe).forEach(s => {
-        let opt = document.createElement("option");
-        opt.value = s; opt.innerHTML = s; dropdown.appendChild(opt);
-    });
-    document.getElementById("productModal").style.display = "block";
-    document.getElementById("payment-info").style.display = "none";
-    document.getElementById("order-now-btn").style.display = "block";
+function openP(n, p, t) {
+    document.getElementById("m-name").innerText = n + " (" + p + ")";
+    let b = document.getElementById("size-box");
+    b.innerHTML = "";
+    (sz[t] || sz.clothe).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
+    document.getElementById("pModal").style.display = "block";
 }
 
-function sendOrderIntent() {
-    fetch("https://formspree.io/f/xkoqwjke", {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ Product: document.getElementById("m-title").innerText, Size: document.getElementById("size-dropdown").value })
-    });
-    document.getElementById("payment-info").style.display = "block";
-    document.getElementById("order-now-btn").style.display = "none";
+function sendOrder() {
+    window.location.href = "https://t.me/OUMER_FETE";
 }
-
-function copyNum(num) {
-    navigator.clipboard.writeText(num);
-    alert("Copied: " + num);
-}
-
-function closeSpace() { document.getElementById("productModal").style.display = "none"; }
-window.onclick = function(e) { if (e.target == document.getElementById("productModal")) closeSpace(); }
 </script>
 </body>
-</html
-
+</html>
