@@ -80,8 +80,8 @@
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
         .price-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-        .new-p { font-weight: 900; font-size: 15px; color: #000; letter-spacing: -0.5px; }
-        .old-p { font-size: 11px; text-decoration: line-through; color: #bbb; }
+        .new-p { font-weight: 900; font-size: 14px; color: #000; letter-spacing: -0.5px; }
+        .old-p { font-size: 10px; text-decoration: line-through; color: #bbb; }
 
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.2s ease; }
@@ -245,6 +245,7 @@ function filterProducts() {
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
         let name = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        // Fixed filtering to hide entire block
         cards[i].parentElement.style.display = name.includes(input) ? "block" : "none";
     }
 }
