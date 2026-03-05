@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>OUMRAN Store</title>
+title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body{ font-family: Arial, sans-serif; margin:0; background:#f4f4f4; text-align:center; }
@@ -23,102 +20,6 @@ button{
 .modal {
     display: none; 
     position: fixed; z-index: 1; left: 0; top: 0;
-    width: 100%; height: 100%; background-color: rgba(0,0,0,0.7);
-}
+    width: 100%; height: 100%; 
 
-.modal-content {
-    background-color: white; margin: 10% auto; padding: 30px;
-    border-radius: 15px; width: 80%; max-width: 400px; text-align: left;
-}
-
-.close { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-
-select, button.confirm { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; }
-.shipping-info { color: green; font-weight: bold; margin-top: 15px; font-size: 14px; }
-</style>
-</head>
-
-<body>
-
-<header>OUMRAN – Habesha Fashion</header>
-
-<div class="container">
-    <h2>Welcome to OUMRAN</h2>
-    <p>Premium clothes and shoes for Habesha people.</p>
-
-    <div class="product">
-        <h3>Street Hoodie</h3>
-        <p>Price: $30</p>
-        <button onclick="openModal('Street Hoodie', '$30', 'Hand-stitched premium cotton with traditional patterns.', '3-5 Business Days')">Order Now</button>
-    </div>
-
-    <div class="product">
-        <h3>Classic Sneakers</h3>
-        <p>Price: $50</p>
-        <button onclick="openModal('Classic Sneakers', '$50', 'Genuine leather sneakers with Habesha soul.', '5-7 Business Days')">Order Now</button>
-    </div>
-
-    <div class="product">
-        <h3>Casual Jacket</h3>
-        <p>Price: $60</p>
-        <button onclick="openModal('Casual Jacket', '$60', 'Perfect for cool nights, stylish and warm.', '4-6 Business Days')">Order Now</button>
-    </div>
-</div>
-
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2 id="m-title">Product Name</h2>
-    <p id="m-price" style="font-weight:bold; font-size:20px;"></p>
-    <p id="m-desc" style="color:#555;"></p>
-    
-    <label for="size"><strong>Choose Size:</strong></label>
-    <select id="size">
-        <option>Small (S)</option>
-        <option>Medium (M)</option>
-        <option>Large (L)</option>
-        <option>XL</option>
-        <option>Shoe Size 40</option>
-        <option>Shoe Size 41</option>
-        <option>Shoe Size 42</option>
-    </select>
-
-    <p class="shipping-info">🚚 Shipping: <span id="m-ship"></span></p>
-    
-    <button class="confirm" onclick="finalStep()">Confirm & Contact via Telegram</button>
-  </div>
-</div>
-
-<script>
-var currentProduct = "";
-
-function openModal(name, price, desc, ship) {
-    currentProduct = name;
-    document.getElementById("m-title").innerText = name;
-    document.getElementById("m-price").innerText = "Price: " + price;
-    document.getElementById("m-desc").innerText = desc;
-    document.getElementById("m-ship").innerText = ship;
-    document.getElementById("orderModal").style.display = "block";
-}
-
-function closeModal() {
-    document.getElementById("orderModal").style.display = "none";
-}
-
-function finalStep() {
-    var size = document.getElementById("size").value;
-    alert("You selected " + currentProduct + " (Size: " + size + ").\n\nPlease send this info to our Telegram to finish your order!");
-    window.location.href = "https://t.me/YOUR_TELEGRAM_USERNAME"; // Replace with your actual username
-}
-
-// Close if user clicks outside the box
-window.onclick = function(event) {
-    if (event.target == document.getElementById("orderModal")) {
-        closeModal();
-    }
-}
-</script>
-
-</body>
-</html>
 
