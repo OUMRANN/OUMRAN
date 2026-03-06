@@ -43,60 +43,32 @@
         .category-section { padding: 35px 0 0 15px; text-align: left; position: relative; z-index: 1; }
         
         .category-title { 
-            font-family: 'Playfair Display', serif;
-            font-size: 19px; 
-            font-style: italic;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700;
+            color: var(--gold); margin-bottom: 20px; letter-spacing: 1px; text-align: center;
         }
 
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card { 
-            flex: 0 0 175px; 
-            background: var(--card); 
-            border-radius: 15px; 
-            color: black; 
-            overflow: hidden; 
-            position: relative; 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
+            flex: 0 0 175px; background: var(--card); border-radius: 15px; color: black; 
+            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.7);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .product-card:active {
-            transform: scale(0.93) translateY(4px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 5px; text-transform: uppercase; z-index: 10; }
-        .badge-gold { background: var(--gold); color: black; }
 
         .img-area { height: 175px; background: #f9f9f9; overflow: hidden; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; }
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
-        .price-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-        .new-p { font-weight: 900; font-size: 14px; color: #000; letter-spacing: -0.5px; }
-        .old-p { font-size: 10px; text-decoration: line-through; color: #bbb; }
+        .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
 
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.2s ease; }
-        .cart-float:active { transform: scale(0.9); }
-        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
 
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
         .modal-content { background: white; color: black; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; }
         .btn { width: 100%; padding: 18px; background: black; color: white; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
-        .btn-tg { background: var(--tg); margin-top: 10px; }
-        
-        #payment-details { display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 13px; }
-        .contact-box { background: #f9f9f9; padding: 12px; border-radius: 15px; margin-top: 8px; border: 1px solid #eee; text-align: left; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-        .remove-btn { color: var(--accent); font-weight: bold; cursor: pointer; padding: 5px; }
     </style>
 </head>
 <body>
@@ -109,9 +81,8 @@
 </header>
 
 <div class="promo-bar">
-    VENDOR FROM CHINA🇨🇳✈️<br>
-    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDISABABA✅<br>
-    <span style="color: #888; font-size: 10px; font-weight: 400;">14-20 DAYS DELIVERY</span>
+    VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+    NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
 </div>
 
 <div class="search-container">
@@ -121,10 +92,9 @@
 <div class="category-section">
     <div class="category-title">Graphic T-Shirts</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Graphic Tee', 'clothe')">
-            <div class="badge-gold badge">Best Seller</div>
-            <div class="img-area"><img src="tee1.jpg"></div>
-            <div class="info-area"><h3>Graphic Tee</h3><div class="price-row"><span class="new-p">2,500 ETB</span><span class="old-p">4,000 ETB</span></div></div>
+        <div class="product-card" onclick="openP('White Ribbed Zip Polo', 'clothe')">
+            <div class="img-area"><img src="white_zip_polo.jpg"></div>
+            <div class="info-area"><h3>White Ribbed Zip Polo</h3><div class="new-p">4,000 ETB</div></div>
         </div>
     </div>
 </div>
@@ -132,10 +102,31 @@
 <div class="category-section">
     <div class="category-title">Hoodies & Sweaters</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Street Hoodie', 'clothe')">
-            <div class="badge">Limited</div>
-            <div class="img-area"><img src="hoodie1.jpg"></div>
-            <div class="info-area"><h3>Street Hoodie</h3><div class="price-row"><span class="new-p">4,500 ETB</span><span class="old-p">6,000 ETB</span></div></div>
+        <div class="product-card" onclick="openP('Grey Knit Polo', 'clothe')">
+            <div class="img-area"><img src="grey_knit_polo.jpg"></div>
+            <div class="info-area"><h3>Grey Knit Polo</h3><div class="new-p">4,000 ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Black Velvet Crewneck', 'clothe')">
+            <div class="img-area"><img src="black_velvet_sweater.jpg"></div>
+            <div class="info-area"><h3>Black Velvet Crewneck</h3><div class="new-p">2,650 ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Lacoste Grey Crewneck', 'clothe')">
+            <div class="img-area"><img src="lacoste_grey_sweater.jpg"></div>
+            <div class="info-area"><h3>Lacoste Grey Crewneck</h3><div class="new-p">3,000 ETB</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="category-section">
+    <div class="category-title">Jackets & Coats</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" onclick="openP('Suede Brown Bomber', 'clothe')">
+            <div class="img-area"><img src="suede_vintage_jacket.jpg"></div>
+            <div class="info-area"><h3>Suede Brown Bomber</h3><div class="new-p">4,600 ETB</div></div>
+        </div>
+        <div class="product-card" onclick="openP('Fleece Colorblock Zip', 'clothe')">
+            <div class="img-area"><img src="fleece_colorblock_jacket.jpg"></div>
+            <div class="info-area"><h3>Fleece Colorblock Zip</h3><div class="new-p">4,000 ETB</div></div>
         </div>
     </div>
 </div>
@@ -143,10 +134,9 @@
 <div class="category-section">
     <div class="category-title">Exclusive Shoes</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Retro Kicks', 'shoes')">
-            <div class="badge-gold badge">Hottest</div>
-            <div class="img-area"><img src="shoe1.jpg"></div>
-            <div class="info-area"><h3>Retro Kicks</h3><div class="price-row"><span class="new-p">8,000 ETB</span><span class="old-p">12,000 ETB</span></div></div>
+        <div class="product-card" onclick="openP('Grey Suede Loafers', 'shoes')">
+            <div class="img-area"><img src="grey_suede_loafers.jpg"></div>
+            <div class="info-area"><h3>Grey Suede Loafers</h3><div class="new-p">5,000 ETB</div></div>
         </div>
     </div>
 </div>
@@ -154,49 +144,23 @@
 <div class="category-section">
     <div class="category-title">Jeans & Pants</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Baggy Denim', 'clothe')">
-            <div class="img-area"><img src="jeans1.jpg"></div>
-            <div class="info-area"><h3>Baggy Denim</h3><div class="price-row"><span class="new-p">5,000 ETB</span><span class="old-p">7,500 ETB</span></div></div>
+        <div class="product-card" onclick="openP('White Polo Trackpants', 'clothe')">
+            <div class="img-area"><img src="white_polo_trackpants.jpg"></div>
+            <div class="info-area"><h3>White Polo Trackpants</h3><div class="new-p">3,000 ETB</div></div>
         </div>
     </div>
 </div>
 
 <div class="category-section">
-    <div class="category-title">Luxury Perfumes</div>
+    <div class="category-title">Watches & Accessories</div>
     <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Gold Oud', 'acc')">
-            <div class="img-area"><img src="perfume1.jpg"></div>
-            <div class="info-area"><h3>Gold Oud</h3><div class="price-row"><span class="new-p">5,500 ETB</span><span class="old-p">8,000 ETB</span></div></div>
+        <div class="product-card" onclick="openP('Hublot Classic Watch', 'acc')">
+            <div class="img-area"><img src="hublot_watch.jpg"></div>
+            <div class="info-area"><h3>Hublot Classic Watch</h3><div class="new-p">1,600 ETB</div></div>
         </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Watches & Shades</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Silver Classic', 'acc')">
-            <div class="img-area"><img src="watch1.jpg"></div>
-            <div class="info-area"><h3>Silver Classic</h3><div class="price-row"><span class="new-p">6,000 ETB</span><span class="old-p">9,500 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Woman Bags</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Mini Bag', 'acc')">
-            <div class="img-area"><img src="bag1.jpg"></div>
-            <div class="info-area"><h3>Mini Bag</h3><div class="price-row"><span class="new-p">4,800 ETB</span><span class="old-p">7,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Jewelry & Accessories</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Gold Chain', 'acc')">
-            <div class="img-area"><img src="chain1.jpg"></div>
-            <div class="info-area"><h3>Gold Chain</h3><div class="price-row"><span class="new-p">2,200 ETB</span><span class="old-p">3,500 ETB</span></div></div>
+        <div class="product-card" onclick="openP('Polo Black Beanie', 'acc')">
+            <div class="img-area"><img src="polo_beanie.jpg"></div>
+            <div class="info-area"><h3>Polo Black Beanie</h3><div class="new-p">3,000 ETB</div></div>
         </div>
     </div>
 </div>
@@ -210,9 +174,8 @@
 
 <div id="pModal" class="modal">
     <div class="modal-content">
-        <h2 id="m-name" style="margin-top:0; font-size: 18px; font-family: 'Playfair Display', serif;">Product</h2>
-        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; font-weight:bold; border: 1px solid #ddd;"></select>
+        <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd;"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
         <button class="btn" style="background:#f5f5f5; color:black;" onclick="closeModal()">Go Back</button>
     </div>
@@ -222,15 +185,7 @@
     <div class="modal-content">
         <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
         <div id="cart-items-list"></div>
-        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm All Items</button>
-        <div id="payment-details">
-            <p style="color: #28a745; font-weight: bold;">Order Sent! ✅</p>
-            <div class="contact-box">
-                <p><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
-                <p><strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael</p>
-            </div>
-            <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Oumer</button>
-        </div>
+        <button class="btn" onclick="submitOrder()">Confirm All Items</button>
         <button class="btn" style="background:#f5f5f5; color:black; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
@@ -261,36 +216,24 @@ function openP(n, t) {
 function addToCart() {
     let size = document.getElementById("size-box").value;
     cart.push({ name: currentP, size: size });
-    updateCartUI();
-    closeModal();
-}
-
-function updateCartUI() {
     document.getElementById("cart-count").innerText = cart.length;
-    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+    document.getElementById("cart-btn").style.display = "flex";
+    closeModal();
 }
 
 function showCart() {
     const list = document.getElementById("cart-items-list");
-    list.innerHTML = "";
-    cart.forEach((item, index) => {
-        list.innerHTML += `<div class="cart-item"><span>${item.name} (${item.size})</span><span class="remove-btn" onclick="removeItem(${index})">X</span></div>`;
-    });
+    list.innerHTML = cart.map(item => `<div style="padding:10px 0; border-bottom:1px solid #eee;">${item.name} (${item.size})</div>`).join("");
     document.getElementById("cartModal").style.display = "block";
-    document.getElementById("payment-details").style.display = "none";
-    document.getElementById("checkout-btn").style.display = "block";
 }
-
-function removeItem(i) { cart.splice(i, 1); updateCartUI(); showCart(); if(cart.length === 0) closeCart(); }
 
 function submitOrder() {
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
     document.getElementById("form-summary").value = summary;
     const form = document.getElementById("orderForm");
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-    document.getElementById("payment-details").style.display = "block";
-    document.getElementById("checkout-btn").style.display = "none";
-    cart = []; updateCartUI();
+    alert("Order Sent! Redirecting to Telegram...");
+    window.location.href = "https://t.me/OUMER_FETE";
 }
 
 function closeModal() { document.getElementById("pModal").style.display = "none"; }
@@ -298,4 +241,3 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
-
