@@ -41,62 +41,39 @@
         }
 
         .category-section { padding: 35px 0 0 15px; text-align: left; position: relative; z-index: 1; }
-        
         .category-title { 
-            font-family: 'Playfair Display', serif;
-            font-size: 19px; 
-            font-style: italic;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            text-align: center;
+            font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic;
+            font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center;
         }
 
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 5px 15px 30px 5px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card { 
-            flex: 0 0 175px; 
-            background: var(--card); 
-            border-radius: 15px; 
-            color: black; 
-            overflow: hidden; 
-            position: relative; 
-            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 0 0 180px; background: var(--card); border-radius: 15px; color: black; 
+            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.7);
         }
 
-        .product-card:active {
-            transform: scale(0.93) translateY(4px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; font-size: 9px; font-weight: 900; padding: 4px 8px; border-radius: 5px; text-transform: uppercase; z-index: 10; }
-        .badge-gold { background: var(--gold); color: black; }
-
-        .img-area { height: 175px; background: #f9f9f9; overflow: hidden; }
+        .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; }
         .info-area { padding: 12px; }
-        .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; }
-        .price-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-        .new-p { font-weight: 900; font-size: 14px; color: #000; letter-spacing: -0.5px; }
-        .old-p { font-size: 10px; text-decoration: line-through; color: #bbb; }
+        .info-area h3 { font-size: 11px; margin: 0; color: #111; font-weight: bold; }
+        .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
 
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,136,204,0.4); }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.2s ease; }
-        .cart-float:active { transform: scale(0.9); }
-        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
+        .contact-section { 
+            background: rgba(255,255,255,0.05); margin: 20px; padding: 25px; 
+            border-radius: 20px; border: 1px solid #333; text-align: center;
+        }
+        .contact-info { font-size: 14px; color: #ccc; margin: 10px 0; line-height: 1.6; }
 
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
-        .modal-content { background: white; color: black; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
+
         .btn { width: 100%; padding: 18px; background: black; color: white; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
-        .btn-tg { background: var(--tg); margin-top: 10px; }
-        
-        #payment-details { display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; font-size: 13px; }
-        .contact-box { background: #f9f9f9; padding: 12px; border-radius: 15px; margin-top: 8px; border: 1px solid #eee; text-align: left; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-        .remove-btn { color: var(--accent); font-weight: bold; cursor: pointer; padding: 5px; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); }
+        .modal-content { background: white; color: black; margin: 10% auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; }
+        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -110,8 +87,7 @@
 
 <div class="promo-bar">
     VENDOR FROM CHINA🇨🇳✈️<br>
-    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDISABABA✅<br>
-    <span style="color: #888; font-size: 10px; font-weight: 400;">14-20 DAYS DELIVERY</span>
+    PREMIUM QUALITY: NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
 </div>
 
 <div class="search-container">
@@ -119,156 +95,87 @@
 </div>
 
 <div class="category-section">
-    <div class="category-title">Graphic T-Shirts</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Graphic Tee', 'clothe')">
-            <div class="badge-gold badge">Best Seller</div>
-            <div class="img-area"><img src="tee1.jpg"></div>
-            <div class="info-area"><h3>Graphic Tee</h3><div class="price-row"><span class="new-p">2,500 ETB</span><span class="old-p">4,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Hoodies & Sweaters</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Street Hoodie', 'clothe')">
-            <div class="badge">Limited</div>
-            <div class="img-area"><img src="hoodie1.jpg"></div>
-            <div class="info-area"><h3>Street Hoodie</h3><div class="price-row"><span class="new-p">4,500 ETB</span><span class="old-p">6,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Exclusive Shoes</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Retro Kicks', 'shoes')">
-            <div class="badge-gold badge">Hottest</div>
-            <div class="img-area"><img src="shoe1.jpg"></div>
-            <div class="info-area"><h3>Retro Kicks</h3><div class="price-row"><span class="new-p">8,000 ETB</span><span class="old-p">12,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Jeans & Pants</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Baggy Denim', 'clothe')">
-            <div class="img-area"><img src="jeans1.jpg"></div>
-            <div class="info-area"><h3>Baggy Denim</h3><div class="price-row"><span class="new-p">5,000 ETB</span><span class="old-p">7,500 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Luxury Perfumes</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Gold Oud', 'acc')">
-            <div class="img-area"><img src="perfume1.jpg"></div>
-            <div class="info-area"><h3>Gold Oud</h3><div class="price-row"><span class="new-p">5,500 ETB</span><span class="old-p">8,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Watches & Shades</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Silver Classic', 'acc')">
-            <div class="img-area"><img src="watch1.jpg"></div>
-            <div class="info-area"><h3>Silver Classic</h3><div class="price-row"><span class="new-p">6,000 ETB</span><span class="old-p">9,500 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Woman Bags</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Mini Bag', 'acc')">
-            <div class="img-area"><img src="bag1.jpg"></div>
-            <div class="info-area"><h3>Mini Bag</h3><div class="price-row"><span class="new-p">4,800 ETB</span><span class="old-p">7,000 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section">
-    <div class="category-title">Jewelry & Accessories</div>
-    <div class="scroll-wrapper">
-        <div class="product-card" onclick="openP('OUMRAN Gold Chain', 'acc')">
-            <div class="img-area"><img src="chain1.jpg"></div>
-            <div class="info-area"><h3>Gold Chain</h3><div class="price-row"><span class="new-p">2,200 ETB</span><span class="old-p">3,500 ETB</span></div></div>
-        </div>
-    </div>
-</div>
-
-<div class="category-section" style="padding-bottom: 40px;">
-    <div class="category-title">Customer Reviews ⭐</div>
+    <div class="category-title">Vendor Exclusives 🇨🇳</div>
     <div class="scroll-wrapper">
         
-        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
-            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 12px; font-style: italic; line-height: 1.5;">"The quality is crazy! I ordered the hoodie and it arrived in exactly 15 days. Best vendor in Addis."</p>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
-                <div style="width: 30px; height: 30px; background: #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">NA</div>
-                <div>
-                    <div style="font-size: 12px; font-weight: bold;">Nahom A. <span style="color: #0088cc; font-size: 10px;">✔ Verified</span></div>
-                    <div style="font-size: 10px; color: #888;">Bole, Addis Ababa</div>
-                </div>
-            </div>
+        <div class="product-card" onclick="openP('Elegant Zip Polo', 'clothe')">
+            <div class="img-area"><img src="zip_polo.jpg"></div>
+            <div class="info-area"><h3>Elegant Zip Polo</h3><div class="new-p">2,250 ETB</div></div>
         </div>
 
-        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
-            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
-            <p style="font-size: 12px; font-style: italic; line-height: 1.5;">"I was scared to send Telebirr first, but Oumer is honest. My Retro Kicks look exactly like the photos."</p>
-            <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px;">
-                <div style="width: 30px; height: 30px; background: #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;">MS</div>
-                <div>
-                    <div style="font-size: 12px; font-weight: bold;">Meskarem S. <span style="color: #0088cc; font-size: 10px;">✔ Verified</span></div>
-                    <div style="font-size: 10px; color: #888;">CMC, Addis Ababa</div>
-                </div>
-            </div>
+        <div class="product-card" onclick="openP('Grey Polo Knit Sweater', 'clothe')">
+            <div class="img-area"><img src="mexican_sweater.jpg"></div>
+            <div class="info-area"><h3>Grey Polo Knit</h3><div class="new-p">2,550 ETB</div></div>
+        </div>
+
+        <div class="product-card" onclick="openP('Vintage Suede Jacket', 'clothe')">
+            <div class="img-area"><img src="suede_jacket.jpg"></div>
+            <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">3,000 ETB</div></div>
+        </div>
+
+        <div class="product-card" onclick="openP('Luxury Suede Loafers', 'shoes')">
+            <div class="img-area"><img src="lp_loafers.jpg"></div>
+            <div class="info-area"><h3>Luxury Suede Loafers</h3><div class="new-p">7,850 ETB</div></div>
         </div>
 
     </div>
 </div>
 
-<div class="cart-float" onclick="showCart()" id="cart-btn">🛒<span class="cart-count" id="cart-count">0</span></div>
-<a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
+<div class="category-section">
+    <div class="category-title">Customer Reviews ⭐</div>
+    <div class="scroll-wrapper">
+        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
+            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+            <p style="font-size: 12px; font-style: italic;">"The quality is crazy! Arrived in 15 days. Best vendor in Addis."</p>
+            <div style="font-size: 12px; font-weight: bold; margin-top: 10px;">Nahom A. <span style="color: #0088cc;">✔ Verified</span></div>
+        </div>
+        <div class="product-card" style="flex: 0 0 250px; padding: 20px; background: #111; color: white; border: 1px solid #333;">
+            <div style="color: #FFD700; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+            <p style="font-size: 12px; font-style: italic;">"Honestly best service. Everything looks exactly like the photos."</p>
+            <div style="font-size: 12px; font-weight: bold; margin-top: 10px;">Meskarem S. <span style="color: #0088cc;">✔ Verified</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="contact-section">
+    <div class="category-title" style="margin-bottom: 10px;">Contact Us 📞</div>
+    <div class="contact-info">
+        <strong>Phone:</strong> 0939620004 / 0940028820<br>
+        <strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael<br>
+        <strong>Location:</strong> Addis Ababa, Ethiopia 🇪🇹
+    </div>
+    <button class="btn" style="background: var(--tg);" onclick="window.location.href='https://t.me/OUMER_FETE'">Message on Telegram</button>
+</div>
 
 <form id="orderForm" action="https://formspree.io/f/xkoqwjke" method="POST" style="display:none;">
     <input type="hidden" name="Order_Summary" id="form-summary">
 </form>
 
+<div class="cart-float" onclick="showCart()" id="cart-btn">🛒<span class="cart-count" id="cart-count">0</span></div>
+<a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
+
 <div id="pModal" class="modal">
     <div class="modal-content">
-        <h2 id="m-name" style="margin-top:0; font-size: 18px; font-family: 'Playfair Display', serif;">Product</h2>
+        <h2 id="m-name" style="font-family: 'Playfair Display', serif;">Product</h2>
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; font-weight:bold; border: 1px solid #ddd;"></select>
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd;"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
-        <button class="btn" style="background:#f5f5f5; color:black;" onclick="closeModal()">Go Back</button>
+        <button class="btn" style="background:#eee; color:black; margin-top:10px;" onclick="closeModal()">Back</button>
     </div>
 </div>
 
 <div id="cartModal" class="modal">
     <div class="modal-content">
-        <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
+        <h2 style="font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
         <div id="cart-items-list"></div>
-        <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm All Items</button>
-        <div id="payment-details">
-            <p style="color: #28a745; font-weight: bold;">Order Sent! ✅</p>
-            <div class="contact-box">
-                <p><strong>Telebirr:</strong> 0939620004 / 0940028820</p>
-                <p><strong>Telegram:</strong> @OUMER_FETE / @Afran_Ismael</p>
-            </div>
-            <button class="btn btn-tg" onclick="window.location.href='https://t.me/OUMER_FETE'">Message Oumer</button>
-        </div>
-        <button class="btn" style="background:#f5f5f5; color:black; margin-top:10px;" onclick="closeCart()">Close</button>
+        <button class="btn" onclick="submitOrder()">Confirm Order</button>
+        <button class="btn" style="background:#eee; color:black; margin-top:10px;" onclick="closeCart()">Close</button>
     </div>
 </div>
 
 <script>
 let cart = [];
-const sz = { clothe: ["S", "M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+const sz = { clothe: ["S", "M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"] };
 let currentP = "";
 
 function filterProducts() {
@@ -276,9 +183,7 @@ function filterProducts() {
     let cards = document.getElementsByClassName('product-card');
     for (let i = 0; i < cards.length; i++) {
         let name = cards[i].getElementsByTagName('h3')[0] ? cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase() : "";
-        if (name) {
-            cards[i].parentElement.style.display = name.includes(input) ? "block" : "none";
-        }
+        if (name) cards[i].style.display = name.includes(input) ? "block" : "none";
     }
 }
 
@@ -287,7 +192,7 @@ function openP(n, t) {
     document.getElementById("m-name").innerText = n;
     let b = document.getElementById("size-box");
     b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
+    (sz[t] || ["Standard"]).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
 }
 
@@ -305,25 +210,17 @@ function updateCartUI() {
 
 function showCart() {
     const list = document.getElementById("cart-items-list");
-    list.innerHTML = "";
-    cart.forEach((item, index) => {
-        list.innerHTML += `<div class="cart-item"><span>${item.name} (${item.size})</span><span class="remove-btn" onclick="removeItem(${index})">X</span></div>`;
-    });
+    list.innerHTML = cart.map(item => `<div class="cart-item"><span>${item.name} (${item.size})</span></div>`).join("");
     document.getElementById("cartModal").style.display = "block";
-    document.getElementById("payment-details").style.display = "none";
-    document.getElementById("checkout-btn").style.display = "block";
 }
 
-function removeItem(i) { cart.splice(i, 1); updateCartUI(); showCart(); if(cart.length === 0) closeCart(); }
-
 function submitOrder() {
-    let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
+    let summary = cart.map(i => `${i.name} (${i.size})`).join(", ");
     document.getElementById("form-summary").value = summary;
     const form = document.getElementById("orderForm");
     fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-    document.getElementById("payment-details").style.display = "block";
-    document.getElementById("checkout-btn").style.display = "none";
-    cart = []; updateCartUI();
+    alert("Order Request Sent! Please message us on Telegram to complete payment.");
+    window.location.href = "https://t.me/OUMER_FETE";
 }
 
 function closeModal() { document.getElementById("pModal").style.display = "none"; }
@@ -331,4 +228,6 @@ function closeCart() { document.getElementById("cartModal").style.display = "non
 </script>
 </body>
 </html>
+
+
 
