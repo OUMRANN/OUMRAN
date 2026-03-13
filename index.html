@@ -284,15 +284,24 @@ to {opacity:1;}
 <a href="https://t.me/OUMER_FETE" class="tg-float">📲</a>
 
 <div id="pModal" class="modal">
+    <div id="pModal" class="modal">
     <div class="modal-content">
-        <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
-        <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border: 1px solid #ddd; background: #fff; color: #000;"></select>
+
+        <img id="modal-img" style="width:100%; border-radius:15px; margin-bottom:15px;">
+
+        <h2 id="m-name" style="margin-top:0; font-family:'Playfair Display', serif;"></h2>
+
+        <label style="font-size:11px; font-weight:bold; color:#999;">SELECT SIZE</label>
+
+        <select id="size-box" style="width:100%; padding:15px; border-radius:12px; margin-top:8px; border:1px solid #ddd; background:#fff; color:#000;"></select>
+
         <button class="btn" onclick="addToCart()">Add to Bag</button>
+
         <button class="btn" style="background:#333; color:white;" onclick="closeModal()">Back</button>
+
     </div>
 </div>
-
+    
 <div id="cartModal" class="modal">
     <div class="modal-content">
         <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
@@ -333,15 +342,27 @@ function filterProducts() {
     }
 }
 
-function openP(n, t) {
+function openP(n, t)
+
     currentP = n || "Product";
+
     document.getElementById("m-name").innerText = currentP;
+
+    let imgName = n + ".jpg";
+    document.getElementById("modal-img").src = imgName;
+
     let b = document.getElementById("size-box");
     b.innerHTML = "";
-    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
-    document.getElementById("pModal").style.display = "block";
-}
 
+    (sz[t] || sz.acc).forEach(s => {
+        let o = document.createElement("option");
+        o.text = s;
+        b.add(o);
+    });
+
+    document.getElementById("pModal").style.display = "block";
+
+}
 function addToCart() {
     let size = document.getElementById("size-box").value;
     cart.push({ name: currentP, size: size });
