@@ -341,31 +341,36 @@ function filterProducts() {
     }
 }
 
+// Fixed openP to show the correct image
 function openP(n, t) {
-
     currentP = n || "Product";
-
     document.getElementById("m-name").innerText = currentP;
 
-    let imgName = n + ".jpg";
-    document.getElementById("modal-img").src = imgName;
+    // This finds the image from the card you clicked so it always matches
+    let clickedCardImg = event.currentTarget.querySelector('img').src;
+    document.getElementById("modal-img").src = clickedCardImg;
 
     let b = document.getElementById("size-box");
     b.innerHTML = "";
-
     (sz[t] || sz.acc).forEach(s => {
         let o = document.createElement("option");
         o.text = s;
         b.add(o);
     });
-
     document.getElementById("pModal").style.display = "block";
 }
+
 function addToCart() {
     let size = document.getElementById("size-box").value;
     cart.push({ name: currentP, size: size });
     updateCartUI();
     closeModal();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+    showCart(); // Refresh the list
 }
 
 function updateCartUI() {
@@ -375,14 +380,17 @@ function updateCartUI() {
 
 function showCart() {
     const list = document.getElementById("cart-items-list");
-    list.innerHTML = cart.map(item => `<div style="padding:10px 0; border-bottom:1px solid #333;">${item.name} (${item.size})</div>`).join("");
+    list.innerHTML = cart.map((item, index) => `
+        <div style="padding:10px 0; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
+            <span>${item.name} (${item.size})</span>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff3b30; cursor:pointer; font-weight:bold;">Remove</button>
+        </div>
+    `).join("");
     document.getElementById("cartModal").style.display = "block";
 }
 
 function submitOrder() {
     if(cart.length === 0) return;
-
-    // Get Customer Data
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value;
@@ -404,7 +412,7 @@ function submitOrder() {
         headers: { 'Accept': 'application/json' }
     }).then(response => {
         if (response.ok) {
-            alert("Order received successfully!\n\nWe will confirm your FINAL price and delivery details on Telegram.\n\nPlease send your payment screenshot after we confirm the price.");
+            alert("Order received successfully!\n\nWe will confirm your FINAL price on Telegram.");
             window.location.href = "https://t.me/OUMER_FETE";
         } else {
             alert("Oops! There was a problem sending your order.");
@@ -415,6 +423,3 @@ function submitOrder() {
 function closeModal() { document.getElementById("pModal").style.display = "none"; }
 function closeCart() { document.getElementById("cartModal").style.display = "none"; }
 </script>
-</body>
-</html>
-
