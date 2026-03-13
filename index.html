@@ -378,6 +378,7 @@ function showCart() {
 
 function submitOrder() {
     if(cart.length === 0) return;
+
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value;
@@ -385,15 +386,16 @@ function submitOrder() {
         alert("Fill all details!"); 
         return; 
     }
-    
+
     let summary = cart.map(i => `${i.name} [Size: ${i.size}]`).join(" | ");
     document.getElementById("form-summary").value = summary + " | Total: " + document.getElementById("cart-total").innerText + " ETB";
 
-    // Reset scroll/zoom before sending
+    // Reset zoom & scroll immediately before sending
     document.body.style.overflow = "auto";
-    window.scrollTo(0, 0);
+    document.body.style.zoom = "100%";
+    window.scrollTo(0,0);
 
-    // Show thank-you alert
+    // Thank-you message
     alert("Thank You for shopping with us! For more information and payment screenshot, we will direct you to your Telegram channel.");
 
     // Send form data to Formspree
@@ -404,6 +406,15 @@ function submitOrder() {
     }).then(() => { 
         // Redirect to Telegram after submission
         window.location.href = "https://t.me/OUMER_FETE"; 
+    });
+}
+
+// ===== Zoom reset after typing in input fields =====
+const orderInputs = document.querySelectorAll('#custName, #custPhone, #custAddress');
+orderInputs.forEach(input => {
+    input.addEventListener('blur', () => {
+        document.body.style.zoom = "100%";
+        document.body.style.overflow = "auto";
     });
 }
 
