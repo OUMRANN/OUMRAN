@@ -246,7 +246,8 @@
         
         <div class="payment-info">
             <strong style="color: #0088cc;">Telebirr Payment Info:</strong><br>
-            📞 0939620004 | 0940028820
+            📞 0939620004 | 0940028820<br>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Prices may change slightly depending on supplier stock or shipping. We'll confirm the final price on Telegram before payment.</span>
         </div>
         <button id="checkout-btn" class="btn" onclick="submitOrder()">Confirm Order</button>
         <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
@@ -289,7 +290,7 @@ function addToCart() {
     cart.push({ name: currentP, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay();
     closeModal();
-    showCart();
+    // REMOVED showCart() so user stays on shop page
 }
 
 function removeItem(index) {
