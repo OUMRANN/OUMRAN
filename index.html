@@ -17,7 +17,6 @@
             touch-action: none; 
         }
 
-        /* SCROLL FIX: No jumping to top */
         html.modal-open, body.modal-open { 
             overflow: hidden !important; 
         }
@@ -113,7 +112,6 @@
         .variant-item span { font-size: 10px; color: #fff; flex: 1; text-align: center; padding: 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .variant-item.active { border-color: #ff5000; background: #333; }
 
-        /* RESPONSIVE LAPTOP FIX */
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
@@ -205,15 +203,15 @@
                 <div class="img-area"><img src="black_zip_polo.jpg" alt="black polo t-shirt"></div>
                 <div class="info-area"><h3>black polo t-shirt</h3><div class="new-p">2,200 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)">
+            <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"Black","img":"Half zipped black t-shirt.jpg"},{"name":"Navy","img":"navy_zipped_tee.jpg"}]'>
                 <div class="img-area"><img src="Half zipped black t-shirt.jpg" alt="Half zipped black t-shirt"></div>
                 <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
             </div>
-            <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)">
+            <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"Grey","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"Beige","img":"beige_lapel.jpg"}]'>
                 <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg" alt="Lapel Short-Sleeved Sweater"></div>
                 <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
             </div>
-            <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"Apricot","img":"Strip knit t-shirt.jpg"},{"name":"Black","img":"black_strip_knit.jpg"},{"name":"White","img":"white_strip_knit.jpg"}]'>
+            <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"Apricot","img":"Strip knit t-shirt.jpg"},{"name":"Black","img":"black_strip_knit.jpg"}]'>
                 <div class="img-area"><img src="Strip knit t-shirt.jpg" alt="Strip knit t-shirt"></div>
                 <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div> 
             </div>
@@ -223,31 +221,31 @@
     <div class="category-section">
         <div class="category-title">Hoodies & Sweaters 🧶</div>
         <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)">
+            <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"Beige","img":"Polo knit sweater.jpg"},{"name":"Black","img":"black_knit_sweat.jpg"}]'>
                 <div class="img-area"><img src="Polo knit sweater.jpg" alt="Polo knit sweater"></div>
                 <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Black Textured Sweatshirt', 'clothe', 2800)">
+            <div class="product-card" onclick="openP('Black Textured Sweatshirt', 'clothe', 2800)" data-variants='[{"name":"Black","img":"Black Textured Sweatshirt.jpg"},{"name":"Grey","img":"grey_textured.jpg"}]'>
                 <div class="img-area"><img src="Black Textured Sweatshirt.jpg" alt="Black Textured Sweatshirt"></div>
                 <div class="info-area"><h3>Black Textured Sweatshirt</h3><div class="new-p">2,800 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)">
+            <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"Cream","img":"Half-Zip Sweater.jpg"},{"name":"Navy","img":"navy_half_zip.jpg"}]'>
                 <div class="img-area"><img src="Half-Zip Sweater.jpg" alt="Half-Zip Sweater"></div>
                 <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)">
+            <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"name":"White","img":"Polo cable knit collar soft sweater.jpg"},{"name":"Tan","img":"tan_cable_knit.jpg"}]'>
                 <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" alt="Polo cable knit collar soft sweater"></div>
                 <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">3,000 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)">
+            <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"Grey","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"Blue","img":"blue_versatile.jpg"}]'>
                 <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" alt="Versatile Polo Cable-Knit Sweater"></div>
                 <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)">
+            <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"Black","img":"Denim tears Hoodie.jpg"},{"name":"Red","img":"red_denim_tears.jpg"}]'>
                 <div class="img-area"><img src="Denim tears Hoodie.jpg" alt="Denim tears Hoodie"></div>
                 <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)">
+            <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"White","img":"Alo official casual half zip sweater.jpg"},{"name":"Black","img":"black_alo_half.jpg"}]'>
                 <div class="img-area"><img src="Alo official casual half zip sweater.jpg" alt="Alo official casual half zip sweater"></div>
                 <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
             </div>
@@ -257,15 +255,15 @@
     <div class="category-section">
         <div class="category-title">Jackets 🧥</div>
         <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)">
+            <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"Brown","img":"Suede vintage jacket.jpg"},{"name":"Black","img":"black_suede.jpg"}]'>
                 <div class="img-area"><img src="Suede vintage jacket.jpg" alt="Suede vintage jacket"></div>
                 <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)">
+            <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"Green","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"Blue","img":"blue_retro.jpg"}]'>
                 <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" alt="American Retro Stand-Collar Jacket"></div>
                 <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)">
+            <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"Tan","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"Dark Brown","img":"dark_corduroy.jpg"}]'>
                 <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" alt="Lapel Corduroy Pocket Jacket"></div>
                 <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
             </div>
@@ -275,23 +273,23 @@
     <div class="category-section">
         <div class="category-title">Jeans & Pants 👖</div>
         <div class="scroll-wrapper">
-            <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)">
+            <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"},{"name":"Black","img":"black_bp_pants.jpg"}]'>
                 <div class="img-area"><img src="Broken Planet Suede Loose Straight Casual Men’s Pants.jpg" alt="Broken Planet Suede Loose Straight Casual Men’s Pants"></div>
                 <div class="info-area"><h3>Broken Planet Suede Pants</h3><div class="new-p">2,850 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)">
+            <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"Brown","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"Green","img":"green_bp_fleece.jpg"}]'>
                 <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" alt="Broken Planet Fleece Sweatpants"></div>
                 <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)">
+            <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"Black","img":"black_street_sweats.jpg"}]'>
                 <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" alt="Loose Hip-Hop polo Streetwear Sweatpants"></div>
                 <div class="info-area"><h3>Polo Streetwear Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
             </div>
-            <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)">
+            <div class="product-card" onclick="openP('Denim tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"Black","img":"Denim tears Sweatpants.jpg"},{"name":"Red","img":"red_dt_sweats.jpg"}]'>
                 <div class="img-area"><img src="Denim tears Sweatpants.jpg" alt="Denim tears Sweatpants"></div>
                 <div class="info-area"><h3>Denim tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
            </div>
-            <div class="product-card" onclick="openP('Cross Pattern Curved-Leg Fleece Sweatpants', 'clothe', 3500)">
+            <div class="product-card" onclick="openP('Cross Pattern Curved-Leg Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"Black","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"White","img":"white_cross_pants.jpg"}]'>
                 <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" alt="Cross Pattern Curved-Leg Fleece Sweatpants"></div>
                 <div class="info-area"><h3>Cross Pattern Curved-Leg Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
             </div>
@@ -327,8 +325,7 @@
         
         <div id="variant-area" class="variant-section">
             <span class="variant-label">Select Color/Style</span>
-            <div id="variant-list" class="variant-scroll">
-                </div>
+            <div id="variant-list" class="variant-scroll"></div>
         </div>
 
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
@@ -413,7 +410,6 @@ function openP(n, t, price) {
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
 
-    // VARIANT HANDLING
     const variantArea = document.getElementById("variant-area");
     const variantList = document.getElementById("variant-list");
     variantList.innerHTML = "";
@@ -445,7 +441,6 @@ function openP(n, t, price) {
 }
 
 function addToCart() {
-    // Get the currently selected color if variations exist
     let selectedColor = "";
     const activeVariant = document.querySelector('.variant-item.active span');
     if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
@@ -495,7 +490,7 @@ function submitOrder() {
     const name = document.getElementById('custName').value;
     const phone = document.getElementById('custPhone').value;
     const address = document.getElementById('custAddress').value || "No address provided";
-    if(!name || !phone) { alert("Please enter Name, Adress and phone number!"); return; }
+    if(!name || !phone) { alert("Please enter Name, Address and phone number!"); return; }
     
     const botToken = "8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc";
     const chatId = "5715582254";
@@ -520,7 +515,7 @@ function closeModal() {
 }
 
 function closeCart() { 
-    document.documentElement.classList.remove('modal-remove');
+    document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
     document.getElementById("cartModal").style.display = "none"; 
 }
