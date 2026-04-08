@@ -21,9 +21,6 @@
             overflow: hidden !important; 
         }
 
-        /* Smooth Scrolling */
-        html { scroll-behavior: smooth; }
-
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
@@ -135,17 +132,6 @@
             outline: none;
         }
         
-        /* SCROLL ANIMATION CLASS */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         .category-section { padding: 35px 0 0 0; text-align: left; position: relative; z-index: 1; }
         .category-title { 
             font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic;
@@ -156,49 +142,28 @@
         
         .product-card { 
             flex: 0 0 180px; background: var(--card); border-radius: 15px; color: black; 
-            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor:pointer;
+            overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease; cursor:pointer;
         }
-        .product-card:active { transform: scale(0.95); }
-        
-        /* INTACT RATIO FIX + LUXURY SHADOW */
-        .img-area { height: 220px; background: #f9f9f9; overflow: hidden; position: relative; }
-        .img-area img { 
-            width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; 
-            transition: transform 0.5s ease;
-        }
-        .product-card:hover .img-area img { transform: scale(1.05); }
+        /* INTACT RATIO FIX */
+        .img-area { height: 220px; background: #f9f9f9; overflow: hidden; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
         
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: #444; font-weight: bold; height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: #000; margin-top: 5px; }
         
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
-        .tg-float:active, .cart-float:active { transform: scale(0.8); }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.92); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); overflow-y: auto; }
-        
-        /* ANIMATED MODAL CONTENT */
-        .modal-content { 
-            background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 30px; border: 1px solid #333; position: relative;
-            animation: slideUpModal 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes slideUpModal {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 50px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
-        .btn:active { transform: scale(0.96); background: #eee; }
-
-        .order-input, #size-box { width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; border: 1px solid #333; background: #000; color: white; box-sizing: border-box; font-size: 16px; outline: none; }
-        .order-input:focus { border-color: var(--gold); }
-
-        .payment-info { background: rgba(0, 136, 204, 0.1); padding: 15px; border-radius: 15px; margin-top: 15px; font-size: 13px; border: 1px solid rgba(0, 136, 204, 0.3); color: #ccc; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
-        .remove-btn { background:#ff3b30; color:white; padding: 8px 15px; border:none; border-radius: 50px; font-size: 10px; font-weight: 900; cursor: pointer; }
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
         
         /* PRICE UPDATER DISPLAY */
         .modal-price { font-size: 22px; font-weight: 900; color: var(--gold); margin: 10px 0; display: block; }
@@ -236,7 +201,7 @@
 </div>
 
 <main id="store-main">
-    <div class="category-section reveal">
+    <div class="category-section">
         <div class="category-title">Graphic T-Shirts 👕</div>
         <div class="scroll-wrapper"> 
             <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
@@ -254,7 +219,7 @@
         </div>
     </div>
 
-    <div class="category-section reveal">
+    <div class="category-section">
         <div class="category-title">Hoodies & Sweaters 🧶</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
@@ -267,7 +232,7 @@
             </div>
             <div class="product-card" onclick="openP('Polo cable knit collar soft sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
                 <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" alt="Polo cable knit collar soft sweater"></div>
-                <div class="info-area"><h3>Polo cable knit sweater</h3><div class="new-p">3,000 ETB</div></div>
+                <div class="info-area"><h3>Polo cable knit collar soft sweater</h3><div class="new-p">3,000 ETB</div></div>
             </div>
             <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"Grey","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"Blue","img":"blue_versatile.jpg"}]'>
                 <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" alt="Versatile Polo Cable-Knit Sweater"></div>
@@ -284,7 +249,7 @@
         </div>
     </div>
 
-    <div class="category-section reveal">
+    <div class="category-section">
         <div class="category-title">Jackets 🧥</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"Brown","img":"Suede vintage jacket.jpg"},{"name":"Black","img":"black_suede.jpg"}]'>
@@ -302,7 +267,7 @@
         </div>
     </div>
 
-    <div class="category-section reveal">
+    <div class="category-section">
         <div class="category-title">Jeans & Pants 👖</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"},{"name":"Black","img":"black_bp_pants.jpg"}]'>
@@ -323,12 +288,12 @@
            </div>
             <div class="product-card" onclick="openP('Cross Pattern Curved-Leg Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"Black","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"White","img":"white_cross_pants.jpg"}]'>
                 <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" alt="Cross Pattern Curved-Leg Fleece Sweatpants"></div>
-                <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="info-area"><h3>Cross Pattern Curved-Leg Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
             </div>
         </div>
     </div>
 
-    <div class="category-section reveal">
+    <div class="category-section">
         <div class="category-title">Full Outfits 👔</div>
         <div class="scroll-wrapper">
             <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
@@ -352,7 +317,7 @@
 
 <div id="pModal" class="modal">
     <div class="modal-content">
-        <img id="modal-img" alt="Product Image" style="width:100%; border-radius:20px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
         <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
         
         <span id="m-price" class="modal-price">0 ETB</span>
@@ -365,7 +330,7 @@
         <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
         <select id="size-box" class="order-input"></select>
         <button class="btn" onclick="addToCart()">Add to Bag</button>
-        <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeModal()">Cancel</button>
+        <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
     </div>
 </div>
 
@@ -412,23 +377,8 @@ window.addEventListener('load', () => {
         document.getElementById('splash-screen').classList.add('splash-exit');
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-        reveal(); // Run first check for animations
     }, 3000); 
 });
-
-// SCROLL REVEAL SCRIPT (THE "STUFF")
-function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
-        if (elementTop < windowHeight - elementVisible) {
-            reveals[i].classList.add("active");
-        }
-    }
-}
-window.addEventListener("scroll", reveal);
 
 function filterProducts() {
     let input = document.getElementById('search-input').value.toLowerCase();
