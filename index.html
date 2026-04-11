@@ -7,7 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
+        :root { 
+            --bg: #000; 
+            --card: #1a1a1a; 
+            --tg: #0088cc; 
+            --accent: #ff3b30; 
+            --gold: #FFD700; 
+            --beige: #d4c5b0;
+            --glass: rgba(0, 0, 0, 0.75);
+        }
         
         /* UPDATED: Scaling for Laptop/Tablet */
         body { 
@@ -16,12 +24,12 @@
             overflow-x: hidden; position: relative; min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers content on large screens */
+            align-items: center; 
         }
 
         .site-wrapper {
             width: 100%;
-            max-width: 1400px; /* Prevents stretching too wide on huge monitors */
+            max-width: 1400px; 
             margin: 0 auto;
         }
 
@@ -35,6 +43,17 @@
 
         html.modal-open, body.modal-open { 
             overflow: hidden !important; 
+        }
+
+        /* Reveal Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         #splash-screen {
@@ -98,8 +117,14 @@
             background-size: cover; opacity: 0.85; z-index: -1;
             filter: brightness(0.6); 
         }
+
+        /* NEW: Glassmorphism Header */
         header { 
-            background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; 
+            background: var(--glass); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 18px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
             position: sticky; top: 0; z-index: 100; text-align: center;
             width: 100%; box-sizing: border-box;
         }
@@ -151,25 +176,49 @@
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
+        /* Updated Card Design */
         .product-card { 
             flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; 
             overflow: hidden; position: relative; box-shadow: 0 12px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease; cursor:pointer; border: 1px solid #333;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor:pointer;
+            border: 1px solid rgba(255,255,255,0.05);
         }
+        .product-card:hover { transform: translateY(-10px) scale(1.02); }
+
         .img-area { height: 220px; background: #000; overflow: hidden; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; }
+        .img-area img { 
+            width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1/1; 
+            transition: transform 0.6s ease;
+        }
+        .product-card:hover .img-area img { transform: scale(1.1); }
         
         .info-area { padding: 12px; }
-        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); font-weight: bold; height: 30px; overflow: hidden; }
-        .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); font-weight: bold; height: 30px; overflow: hidden; letter-spacing: 0.5px; }
+        .new-p { font-weight: 900; font-size: 14px; color: #fff; margin-top: 5px; }
         
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.3s; }
+        .tg-float:hover { transform: scale(1.1) rotate(5deg); }
+
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
+        /* Modal with Ken Burns Zoom */
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
-        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        
+        #modal-img { 
+            width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;
+            animation: kenBurns 10s infinite alternate;
+        }
+
+        @keyframes kenBurns {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; transition: 0.2s; }
+        .btn:active { transform: scale(0.98); }
+
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
@@ -218,7 +267,7 @@
     </div>
 
     <main id="store-main">
-        <div class="category-section">
+        <div class="category-section reveal">
             <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper"> 
                 <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
@@ -236,7 +285,7 @@
             </div>
         </div>
 
-        <div class="category-section">
+        <div class="category-section reveal">
             <div class="category-title">Hoodies & Sweaters 🧶</div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
@@ -266,7 +315,7 @@
             </div>
         </div>
 
-        <div class="category-section">
+        <div class="category-section reveal">
             <div class="category-title">Jackets 🧥</div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"Brown","img":"Suede vintage jacket.jpg"},{"name":"Black","img":"black_suede.jpg"}]'>
@@ -284,7 +333,7 @@
             </div>
         </div>
 
-        <div class="category-section">
+        <div class="category-section reveal">
             <div class="category-title">Jeans & Pants 👖</div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Broken Planet Suede Loose Straight Casual Men’s Pants', 'clothe', 2850)" data-variants='[{"name":"Grey","img":"Broken Planet Suede Loose Straight Casual Men’s Pants.jpg"},{"name":"Black","img":"black_bp_pants.jpg"}]'>
@@ -310,7 +359,7 @@
             </div>
         </div>
 
-        <div class="category-section">
+        <div class="category-section reveal">
             <div class="category-title">Full Outfits 👔</div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
@@ -334,10 +383,12 @@
 
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
+            <div style="overflow: hidden; border-radius: 15px; margin-bottom: 15px;">
+                <img id="modal-img" alt="Product Image">
+            </div>
             <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
             
-            <span id="m-price" class="modal-price">0 ETB</span>
+            <span id="m-price" class="modal-price" style="color: var(--gold); font-weight: 900; font-size: 20px;">0 ETB</span>
             
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color/Style</span>
@@ -388,9 +439,23 @@ let currentPrice = 0;
 document.documentElement.classList.add('loading');
 document.body.classList.add('loading');
 
+// NEW: Intersection Observer for Reveal Animations
+const observerOptions = { threshold: 0.1 };
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, observerOptions);
+
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
     loadCart();
+    
+    // Start observing sections
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
         document.documentElement.classList.remove('loading');
@@ -500,7 +565,6 @@ function submitOrder() {
     const phone = document.getElementById('custPhone').value.trim();
     const address = document.getElementById('custAddress').value.trim();
     
-    // UPDATED VALIDATION: Requires all three fields
     if(!name || !phone || !address) { 
         alert("Please fill in ALL details (Name, Phone, and Delivery Address) first!"); 
         return; 
