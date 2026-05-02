@@ -9,7 +9,12 @@
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
         
-        /* UPDATED: Scaling for Laptop/Tablet */
+        /* FIX: Professional Scroll Behavior & Lag reduction */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* Fixes lag on iOS */
+        }
+
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
             margin:0; background: var(--bg); color: white; 
@@ -25,16 +30,14 @@
             margin: 0 auto;
         }
 
-        html.loading, body.loading { 
+        /* FIX: Freeze Background when Modals are Open */
+        html.loading, body.loading,
+        html.modal-open, body.modal-open { 
             overflow: hidden !important; 
             height: 100% !important; 
             position: fixed; 
             width: 100%;
             touch-action: none; 
-        }
-
-        html.modal-open, body.modal-open { 
-            overflow: hidden !important; 
         }
 
         #splash-screen {
@@ -112,6 +115,7 @@
             display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;
             scrollbar-width: none; -ms-overflow-style: none;
             scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
         .variant-scroll::-webkit-scrollbar { display: none; }
         .variant-item { 
@@ -148,7 +152,10 @@
             font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic;
             font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 1px; text-align: center;
         }
-        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
+        .scroll-wrapper { 
+            display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; 
+            scrollbar-width: none; -webkit-overflow-scrolling: touch; 
+        }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
         .product-card { 
@@ -167,7 +174,7 @@
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; font-weight: bold; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; position: relative; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
@@ -175,7 +182,7 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
 
-        /* NEW: Fullscreen Zoom Style */
+        /* Fullscreen Zoom Style */
         #zoom-container {
             display: none; position: fixed; top:0; left:0; width:100%; height:100%;
             background: #000; z-index: 9999; justify-content: center; align-items: center;
@@ -194,7 +201,7 @@
 </head>
 <body class="loading">
 
-<!-- NEW: Zoom Container -->
+<!-- Zoom Container -->
 <div id="zoom-container" onclick="closeZoom()">
     <button class="zoom-close">Close</button>
     <img id="zoom-img" src="" alt="Zoomed Product">
@@ -362,8 +369,7 @@
 
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <!-- UPDATED: Added onclick to image for Zoom -->
-            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px; cursor: zoom-in;">
             <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
             
             <span id="m-price" class="modal-price">0 ETB</span>
@@ -429,15 +435,22 @@ window.addEventListener('load', () => {
     }, 3000); 
 });
 
-// NEW: Zoom Functions
+// Zoom Functions
 function openZoom() {
     const mainImg = document.getElementById("modal-img").src;
     document.getElementById("zoom-img").src = mainImg;
     document.getElementById("zoom-container").style.display = "flex";
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
 }
 
 function closeZoom() {
     document.getElementById("zoom-container").style.display = "none";
+    // Keep background frozen if product modal is still open
+    if(document.getElementById("pModal").style.display !== "block") {
+        document.documentElement.classList.remove('modal-open');
+        document.body.classList.remove('modal-open');
+    }
 }
 
 function filterProducts() {
