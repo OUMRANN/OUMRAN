@@ -20,7 +20,7 @@
 
         .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; }
 
-        /* Background Lock */
+        /* Strict Background Lock */
         html.loading, body.loading, html.modal-open, body.modal-open { 
             overflow: hidden !important; height: 100% !important; position: fixed; width: 100%; touch-action: none; 
         }
@@ -59,12 +59,14 @@
         @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes shine { to { background-position: 200% center; } }
 
+        /* UPDATED: About Link & Page */
         .about-link { color: var(--gold); font-size: 12px; font-weight: 900; text-decoration: underline; cursor: pointer; margin-top: 5px; display: inline-block; }
         #aboutPage { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
         .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
         .about-content h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px; }
         .about-content p { line-height: 1.8; color: #ccc; font-size: 15px; margin-bottom: 20px; }
 
+        /* UPDATED: Straight Arrow-based Zoom Gallery */
         #zoom-container {
             display: none; position: fixed; top:0; left:0; width:100%; height:100%;
             background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
@@ -96,19 +98,19 @@
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
         
-        .variant-section { margin-bottom: 25px; }
-        .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        .variant-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .variant-section { margin-bottom: 15px; }
+        .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .variant-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
         .variant-scroll::-webkit-scrollbar { display: none; }
-        .variant-item { flex: 0 0 75px; height: 75px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.2s; }
+        .variant-item { flex: 0 0 65px; height: 65px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.2s; }
         .variant-item img { width: 100%; height: 100%; object-fit: cover; }
         .variant-item.active { border-color: var(--gold); }
 
-        .rec-title { font-size: 14px; font-weight: 900; color: var(--gold); margin: 40px 0 15px; border-top: 1px solid #222; padding-top: 25px; text-transform: uppercase; letter-spacing: 1px; }
-        .rec-scroll { display: flex; gap: 15px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
-        .rec-item { flex: 0 0 120px; cursor: pointer; text-align: left; }
-        .rec-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 15px; background: #111; }
-        .rec-item h4 { font-size: 10px; margin: 8px 0; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .rec-title { font-size: 13px; font-weight: 900; color: var(--gold); margin: 25px 0 10px; border-top: 1px solid #333; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
+        .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #444; }
+        .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
         .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
@@ -130,17 +132,16 @@
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background: #000; overflow-y: auto; }
-        .modal-content { background: transparent; color: white; margin: 0 auto; padding: 20px; width: 100%; max-width: 500px; box-sizing: border-box; }
-        
-        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 30px; font-weight: 900; margin-top: 15px; cursor: pointer; font-size: 16px; }
-        .order-input, #size-box { width: 100%; padding: 14px; margin-top: 10px; border-radius: 12px; border: 1px solid #333; background: #111; color: white; box-sizing: border-box; font-size: 16px; appearance: none; }
-        
-        .payment-info { background: #111; padding: 15px; border-radius: 15px; margin-top: 20px; font-size: 13px; border-left: 4px solid var(--tg); color: #ccc; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #222; font-size: 14px; }
-        .remove-btn { background:#ff3b30; color:white; padding: 8px 15px; border:none; border-radius: 10px; font-size: 10px; font-weight: 900; }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
         @media (min-width: 768px) {
+            .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
             .img-area { height: 300px !important; }
         }
@@ -148,6 +149,7 @@
 </head>
 <body class="loading">
 
+<!-- UPDATED: Straight Arrow-Based Zoom -->
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
@@ -157,10 +159,13 @@
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
+<!-- UPDATED: About Us Full Page -->
 <div id="aboutPage">
     <div class="about-content">
         <h2>About OUMRAN STORE</h2>
         <p>Welcome to OUMRAN STORE, your number one source for high-quality fashion in Addis Ababa. We are professional vendors sourcing premium apparel and luxury goods directly from the best suppliers in China.</p>
+        <p>Our mission is to bring global trends to Ethiopia with a focus on exclusivity, quality, and exceptional customer service.</p>
+        <p><strong>VENDOR FROM CHINA 🇨🇳✈️</strong><br>We handle the logistics so you get the best quality directly to your doorstep in Addis.</p>
         <button class="btn" onclick="closeAbout()">Go Back to Shopping</button>
     </div>
 </div>
@@ -184,6 +189,7 @@
 
     <div class="promo-bar">
         VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+        NOT GLOBAL❌ ONLY IN ADDIS ABABA✅<br>
         <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
     </div>
 
@@ -192,6 +198,7 @@
     </div>
 
     <main id="store-main">
+        <!-- ALL PRODUCTS RETAINED -->
         <div class="category-section">
             <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper"> 
@@ -295,7 +302,7 @@
         <div class="category-section">
             <div class="category-title">Full Outfits 👔</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 7000)">
+                <div class="product-card" onclick="openP('Essentials-Style Tracksuit', 'clothe', 6000)">
                     <div class="img-area"><img src="Essentials-Style Tracksuit.jpg"></div>
                     <div class="info-area"><h3>Essentials-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
                 </div>
@@ -318,47 +325,45 @@
     <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
-    <!-- Fixed Product Modal -->
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:20px; cursor: zoom-in; display: block;">
-            <h2 id="m-name" style="margin:0 0 8px 0; font-family: 'Playfair Display', serif; font-size: 28px;">Product</h2>
-            <div id="m-price" style="color:var(--gold); font-weight:900; font-size: 22px; margin-bottom: 25px;">0 ETB</div>
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; cursor: zoom-in;">
+            <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
+            <span id="m-price" style="color:var(--gold); font-weight:900; font-size: 18px;">0 ETB</span>
             
             <div id="variant-area" class="variant-section">
-                <span class="variant-label">SELECT COLOR/STYLE</span>
+                <span class="variant-label">Select Color/Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
 
-            <label style="font-size: 11px; font-weight: bold; color: #999; letter-spacing: 1px;">SELECT SIZE</label>
+            <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
             <select id="size-box" class="order-input"></select>
             <button class="btn" onclick="addToCart()">Add to Bag</button>
-            <button class="btn" style="background:transparent; color:#888; border:1px solid #333; margin-top:10px;" onclick="closeModal()">Cancel</button>
+            <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
 
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
         </div>
     </div>
 
-    <!-- Fixed Cart Modal -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin:0 0 20px 0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
             <div id="cart-items-list" style="margin-bottom: 15px;"></div>
-            <div style="font-weight:900; color:var(--gold); border-top:1px solid #222; padding-top:20px; text-align:right; font-size: 20px;">Total: <span id="cart-total">0</span> ETB</div>
+            <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
             <input type="text" id="custName" placeholder="Full Name" class="order-input">
             <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
             <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
             <div class="payment-info"><strong>Telebirr Payment Info:</strong><br>📞 0939620004 | 0940028820</div>
             <button class="btn" onclick="submitOrder()">Confirm Order</button>
-            <button class="btn" style="background:transparent; color:#888; border:1px solid #333; margin-top:10px;" onclick="closeCart()">Close</button>
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
         </div>
     </div>
 
     <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align: center; margin-top: 20vh;">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 32px;">Order Received!✨</h2>
-            <p style="color:#ccc; line-height:1.6;">Thank you for shopping! We will direct you to Telegram for final confirmation.</p>
+        <div class="modal-content" style="text-align: center;">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Received!✨</h2>
+            <p>Thank you for shopping! We will direct you to Telegram for final confirmation.</p>
             <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
         </div>
     </div>
@@ -378,10 +383,12 @@ window.addEventListener('load', () => {
     }, 3000); 
 });
 
+// UPDATED: Arrow-Based Zoom Control
 function openZoom() {
     zoomIdx = 0;
     const activeVarIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
     if(activeVarIdx !== -1) zoomIdx = activeVarIdx;
+    
     updateZoomImage();
     document.getElementById("zoom-container").style.display = "flex";
     document.documentElement.classList.add('modal-open');
@@ -397,22 +404,26 @@ function changeZoom(dir) {
 
 function updateZoomImage() {
     const zoomImg = document.getElementById("zoom-img");
-    if(currentVariants.length > 0) { zoomImg.src = currentVariants[zoomIdx].img; } 
-    else { zoomImg.src = document.getElementById("modal-img").src; }
+    if(currentVariants.length > 0) {
+        zoomImg.src = currentVariants[zoomIdx].img;
+    } else {
+        zoomImg.src = document.getElementById("modal-img").src;
+        document.querySelectorAll('.zoom-arrow').forEach(a => a.style.display = 'none');
+    }
 }
 
-function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
+function closeZoom() {
+    document.getElementById("zoom-container").style.display = "none";
+}
+
+// UPDATED: About Us Logic
 function openAbout() { document.getElementById('aboutPage').style.display = 'block'; document.documentElement.classList.add('modal-open'); }
 function closeAbout() { document.getElementById('aboutPage').style.display = 'none'; document.documentElement.classList.remove('modal-open'); }
 
-/* FIXED NAME CAPTURING HERE */
-function openP(name, type, price) {
-    currentP = name; 
-    currentPrice = price;
-    
-    document.getElementById("m-name").innerText = currentP;
-    document.getElementById("m-price").innerText = currentPrice.toLocaleString() + " ETB";
-    
+function openP(n, t, price) {
+    currentP = n; currentPrice = price;
+    document.getElementById("m-name").innerText = n;
+    document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
     const clickedCard = event.currentTarget;
     document.getElementById("modal-img").src = clickedCard.querySelector('img').src;
 
@@ -441,6 +452,7 @@ function openP(name, type, price) {
         document.getElementById("variant-area").style.display = "none";
     }
 
+    // Recommendation logic
     const recList = document.getElementById("rec-list"); recList.innerHTML = "";
     clickedCard.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
         if(prod !== clickedCard) {
@@ -452,7 +464,7 @@ function openP(name, type, price) {
     });
 
     let b = document.getElementById("size-box"); b.innerHTML = "";
-    (sz[type] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     document.getElementById("pModal").style.display = "block";
 }
 
