@@ -25,6 +25,7 @@
             margin: 0 auto;
         }
 
+        /* Update: Strict Background Lock */
         html.loading, body.loading { 
             overflow: hidden !important; 
             height: 100% !important; 
@@ -35,6 +36,10 @@
 
         html.modal-open, body.modal-open { 
             overflow: hidden !important; 
+            height: 100% !important;
+            touch-action: none;
+            position: fixed;
+            width: 100%;
         }
 
         #splash-screen {
@@ -74,6 +79,12 @@
             to { opacity: 1; transform: translateY(0); } 
         }
         @keyframes shine { to { background-position: 200% center; } }
+
+        /* Update: About Us Styles */
+        .about-section { padding: 25px; background: rgba(255,255,255,0.05); margin: 20px 15px; border-radius: 20px; border: 1px solid #333; text-align: center; }
+        .about-section h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 12px; }
+        .about-section p { font-size: 13.5px; color: #ccc; line-height: 1.6; margin-bottom: 12px; }
+        .about-tagline { font-weight: 900; font-size: 11px; color: var(--gold); letter-spacing: 1.5px; margin-top: 15px; }
 
         #added-toast {
             position: fixed; top: 20px; right: -400px; 
@@ -123,6 +134,24 @@
         .variant-item span { display: none !important; }
         .variant-item.active { border-color: var(--gold); }
 
+        /* Update: Swipeable Zoom Gallery Styles */
+        #zoom-container {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .zoom-nav { color: var(--gold); font-weight: 900; padding: 15px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+        .zoom-scroll { display: flex; overflow-x: auto; width: 100%; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+        .zoom-scroll::-webkit-scrollbar { display: none; }
+        .zoom-scroll img { flex: 0 0 100%; width: 100%; height: 75vh; object-fit: contain; scroll-snap-align: center; }
+        .zoom-close { margin-top: 20px; background: white; color: black; border: none; padding: 12px 30px; border-radius: 30px; font-weight: 900; cursor: pointer; }
+
+        /* Update: Recommendations Styles */
+        .rec-title { font-size: 13px; font-weight: 900; color: var(--gold); margin: 25px 0 10px; border-top: 1px solid #333; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
+        .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #444; }
+        .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
@@ -130,6 +159,8 @@
             .category-title { font-size: 28px !important; margin-bottom: 30px; }
             .brand-name { font-size: 24px !important; }
             .header-logo { height: 50px !important; }
+            .rec-item { flex: 0 0 140px; }
+            .rec-item img { height: 140px; }
         }
 
         .promo-bar { 
@@ -175,14 +206,6 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
 
-        /* NEW: Fullscreen Zoom Style */
-        #zoom-container {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: #000; z-index: 9999; justify-content: center; align-items: center;
-        }
-        #zoom-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .zoom-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-
         @media (max-width: 767px) {
             .modal-content { margin: 9px auto; width: 93%; padding: 15px; } 
             #modal-img { max-height: 250px !important; object-fit: contain !important; margin-bottom: 10px !important; cursor: zoom-in; }
@@ -194,10 +217,11 @@
 </head>
 <body class="loading">
 
-<!-- NEW: Zoom Container -->
-<div id="zoom-container" onclick="closeZoom()">
-    <button class="zoom-close">Close</button>
-    <img id="zoom-img" src="" alt="Zoomed Product">
+<!-- Update: Swipeable Zoom Container -->
+<div id="zoom-container">
+    <div class="zoom-nav">&lt; Swipe for Colors &gt;</div>
+    <div id="zoom-scroll-box" class="zoom-scroll"></div>
+    <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
 <div id="splash-screen">
@@ -225,6 +249,13 @@
     <div class="promo-bar">
         VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
         NOT GLOBAL❌ ONLY IN ADDIS ABABA✅
+    </div>
+
+    <!-- Update: About Us Section -->
+    <div class="about-section">
+        <h2>About OUMRAN STORE</h2>
+        <p>Welcome to OUMRAN STORE, the premium destination for luxury in Addis Ababa. We are professional vendors sourcing high-quality fashion directly from China to Ethiopia.</p>
+        <div class="about-tagline">PREMIUM QUALITY • CHINA VENDOR • ADDIS ABABA EXCLUSIVE</div>
     </div>
 
     <div class="search-container">
@@ -363,10 +394,10 @@
     <div id="pModal" class="modal">
         <div class="modal-content">
             <!-- UPDATED: Added onclick to image for Zoom -->
-            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px;">
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; object-fit: cover; aspect-ratio: 1/1; max-height: 500px; cursor: zoom-in;">
             <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif; margin-bottom: 5px;">Product</h2>
             
-            <span id="m-price" class="modal-price">0 ETB</span>
+            <span id="m-price" class="modal-price" style="color:var(--gold); font-weight:900; font-size: 18px;">0 ETB</span>
             
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color/Style</span>
@@ -377,6 +408,10 @@
             <select id="size-box" class="order-input"></select>
             <button class="btn" onclick="addToCart()">Add to Bag</button>
             <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+
+            <!-- Update: You May Also Like Section -->
+            <div class="rec-title">You May Also Like</div>
+            <div id="rec-list" class="rec-scroll"></div>
         </div>
     </div>
 
@@ -415,6 +450,7 @@ let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = ""; 
 let currentPrice = 0;
+let currentVariants = [];
 
 document.documentElement.classList.add('loading');
 document.body.classList.add('loading');
@@ -429,10 +465,21 @@ window.addEventListener('load', () => {
     }, 3000); 
 });
 
-// NEW: Zoom Functions
+// Update: Zoom Logic with Swiping
 function openZoom() {
-    const mainImg = document.getElementById("modal-img").src;
-    document.getElementById("zoom-img").src = mainImg;
+    const zoomBox = document.getElementById("zoom-scroll-box");
+    zoomBox.innerHTML = "";
+    if(currentVariants.length > 0) {
+        currentVariants.forEach(v => {
+            const img = document.createElement('img');
+            img.src = v.img;
+            zoomBox.appendChild(img);
+        });
+    } else {
+        const img = document.createElement('img');
+        img.src = document.getElementById("modal-img").src;
+        zoomBox.appendChild(img);
+    }
     document.getElementById("zoom-container").style.display = "flex";
 }
 
@@ -466,16 +513,21 @@ function openP(n, t, price) {
     const clickedCard = event.currentTarget;
     const defaultImg = clickedCard.querySelector('img').src;
     document.getElementById("modal-img").src = defaultImg;
+
+    // Strict Background Lock
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
+
     const variantArea = document.getElementById("variant-area");
     const variantList = document.getElementById("variant-list");
     variantList.innerHTML = "";
     const variantsData = clickedCard.getAttribute('data-variants');
-    if(variantsData) {
+    
+    currentVariants = variantsData ? JSON.parse(variantsData) : [];
+
+    if(currentVariants.length > 0) {
         variantArea.style.display = "block";
-        const variants = JSON.parse(variantsData);
-        variants.forEach((v, idx) => {
+        currentVariants.forEach((v, idx) => {
             const item = document.createElement("div");
             item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
             item.onclick = function() {
@@ -490,6 +542,22 @@ function openP(n, t, price) {
     } else {
         variantArea.style.display = "none";
     }
+
+    // Recommendations logic
+    const categorySection = clickedCard.closest('.category-section');
+    const recList = document.getElementById("rec-list");
+    recList.innerHTML = "";
+    const others = categorySection.querySelectorAll('.product-card');
+    others.forEach(prod => {
+        if(prod !== clickedCard) {
+            const item = document.createElement('div');
+            item.className = 'rec-item';
+            item.innerHTML = `<img src="${prod.querySelector('img').src}"><h4>${prod.querySelector('h3').innerText}</h4>`;
+            item.onclick = () => { closeModal(); setTimeout(() => prod.click(), 50); };
+            recList.appendChild(item);
+        }
+    });
+
     let b = document.getElementById("size-box"); b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { 
         let o = document.createElement("option"); o.text = s; b.add(o); 
