@@ -469,10 +469,10 @@ function openP(n, t, price) {
 }
 
 function addToCart() {
-    cart.push({ name: currentP, size: document.getElementById("size-box").value, price: currentPrice });
+    cart.push({ id: currentId, name: currentP, size: document.getElementById("size-box").value, price: currentPrice });
     updateCartDisplay(); closeModal();
     const toast = document.getElementById("added-toast");
-    document.getElementById("toast-text").innerHTML = `<strong>${currentP}</strong> Added`;
+    document.getElementById("toast-text").innerHTML = `<strong>${currentP} ${currentId}</strong> Added`;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 2800);
 }
