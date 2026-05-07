@@ -134,7 +134,7 @@
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
-        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid var(--gold); color: #ccc; text-align: left; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
@@ -194,7 +194,6 @@
     </div>
 
     <main id="store-main">
-        <!-- FIXED VARIANT DATA NAMES -->
         <div class="category-section">
             <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper"> 
@@ -355,26 +354,45 @@
             <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
             <div id="cart-items-list" style="margin-bottom: 15px;"></div>
             <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
+            
             <input type="text" id="custName" placeholder="Full Name" class="order-input">
             <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
             <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-            <p class="payment-info">
-  <strong style="color: white;">Telebirr Payment Info:</strong><br>
-  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
-</p>
-            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Payment Instruction:
-Please transfer a 50% deposit via Telebirr to the numbers above to confirm your order. You will pay the remaining ETB in cash when your order arrives at your door.</span>
+            
+            <div class="payment-info">
+                <strong style="color: white; font-size: 14px;">Telebirr Payment Info:</strong><br>
+                <span style="color: var(--gold); font-size: 19px; font-weight: 900; letter-spacing: 1px; display: block; margin: 8px 0;">0939620004 | 0940028820</span>
+                <span style="font-size: 11px; color: #aaa; display: block; line-height: 1.4;">
+                    <strong>Payment Instruction:</strong> Please transfer a 50% deposit via Telebirr to the numbers above to confirm your order. You will pay the remaining balance in cash upon delivery.
+                </span>
             </div>
+            
             <button class="btn" onclick="submitOrder()">Confirm Order</button>
             <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
         </div>
     </div>
 
     <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align: center;">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); ">Order Reserved!🕒</h2>
-            <p>Thank you for shopping with OUMRAN STORE! We have your details! To lock in your items, please click below to send your 50% deposit screenshot to our Telegram Once we see the screenshot, we’ll start the delivery process immediately. See you on Telegram!.</p>
-            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'">Open Telegram</button>
+        <div class="modal-content" style="text-align: center; border: 1px solid #444; border-radius: 25px; padding: 35px;">
+            <div style="margin-bottom: 20px; color: #888; font-size: 11px; text-transform: uppercase; letter-spacing: 3px;">
+                Cart ● Details ● <span style="color: var(--gold);">Payment</span>
+            </div>
+
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px; font-size: 24px;">Order Reserved! ✨</h2>
+            
+            <div style="background: #222; border-radius: 12px; padding: 12px; margin-bottom: 20px; border-left: 4px solid var(--gold);">
+                <p style="margin: 0; font-size: 13px; color: #bbb; font-weight: 600;">Status: Awaiting 50% Deposit Proof</p>
+            </div>
+
+            <p style="line-height: 1.7; color: #ddd; font-size: 14px; margin-bottom: 30px; text-align: left;">
+                Thank you for shopping with <strong>OUMRAN STORE</strong>! We have received your order details. 
+                <br><br>
+                To lock in your items, please tap below to **send your 50% deposit screenshot** to our Telegram. Once verified, we will start the delivery process immediately. See you on Telegram!
+            </p>
+
+            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'" style="background: white; color: black; font-size: 16px; letter-spacing: 1px;">
+                Open Telegram
+            </button>
         </div>
     </div>
 </div> 
@@ -442,7 +460,6 @@ function openP(n, t, price) {
                 document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
                 this.classList.add('active');
             };
-            // Paste logic from code 2: Adding the hidden span for variant name
             let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
             item.innerHTML = `<img src="${v.img}">${nameHtml}`;
             variantList.appendChild(item);
@@ -464,7 +481,6 @@ function openP(n, t, price) {
 
 function addToCart() {
     let selectedColor = "";
-    // Copy logic from Code 2 to pull the numeric variation name [1, 2, 3]
     const activeVariant = document.querySelector('.variant-item.active span');
     if(activeVariant) selectedColor = ` [${activeVariant.innerText}]`;
     
