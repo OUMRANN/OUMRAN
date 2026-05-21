@@ -1,657 +1,891 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HG ENGINEERING — Heavy Fabrication & Metal Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OUMRAN STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* CORPORATE LUXURY DESIGN TOKENS */
-        :root {
-            --bg-titanium: #0A0C10;
-            --bg-surface: #121620;
-            --steel-bright: #F8FAFC;
-            --steel-muted: #64748B;
-            --amber-industrial: #F59E0B;
-            --amber-hover: #FBBF24;
-            --amber-glow: rgba(245, 158, 11, 0.12);
-            --border-line: rgba(255, 255, 255, 0.04);
-            --blur-header: rgba(10, 12, 16, 0.94);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-titanium);
-            color: var(--steel-bright);
-            overflow-x: hidden;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* HARDWARE ACCELERATED APP BAR */
-        header {
+        :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
+        
+        /* FIX: Lock scroll when loading class is present */
+        html.loading, body.loading {
+            overflow: hidden !important;
+            height: 100% !important;
             position: fixed;
-            top: 0;
             width: 100%;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 6%;
-            background: linear-gradient(to bottom, var(--blur-header) 75%, rgba(10, 12, 16, 0) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-line);
         }
 
-        .logo-box {
-            font-size: 24px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: var(--steel-bright);
-            text-transform: uppercase;
-        }
-
-        .logo-box span {
-            color: var(--amber-industrial);
-            text-shadow: 0 0 15px var(--amber-glow);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--steel-muted);
-            font-size: 12px;
-            font-weight: 700;
-            transition: color 0.25s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        nav ul li a:hover, nav ul li a.active {
-            color: var(--amber-industrial);
-        }
-
-        /* BRUTALIST LUXURY HERO SECTION */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 0 6%;
-            background: linear-gradient(to right, rgba(10, 12, 16, 0.96) 40%, rgba(10, 12, 16, 0.3) 100%), 
-                        url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1920') no-repeat center center/cover;
-        }
-
-        .hero-content {
-            max-width: 850px;
-            z-index: 2;
-            padding-top: 50px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            color: var(--amber-industrial);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 11px;
-            font-weight: 800;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 6px 16px;
-            border-radius: 2px;
-            margin-bottom: 25px;
-            background-color: rgba(245, 158, 11, 0.03);
-        }
-
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 900;
-            line-height: 1.05;
-            margin-bottom: 25px;
-            letter-spacing: -2px;
-            color: var(--steel-bright);
-        }
-
-        .hero h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--steel-bright);
-        }
-
-        .hero p {
-            color: var(--steel-muted);
-            font-size: 18px;
-            margin-bottom: 40px;
-            max-width: 650px;
-        }
-
-        /* ANTI-LAG TRANSACTION CONTROL BUTTONS */
-        .cta-hub {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            padding: 18px 36px;
-            border-radius: 3px;
-            font-weight: 700;
-            font-size: 12px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .cta-btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-industrial {
-            background-color: var(--amber-industrial);
-            color: #0A0C10;
-            border: 1px solid var(--amber-industrial);
-        }
-
-        .btn-industrial:hover {
-            background-color: var(--amber-hover);
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.35);
-        }
-
-        .btn-glass {
-            background-color: transparent;
-            color: var(--steel-bright);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-glass:hover {
-            border-color: var(--amber-industrial);
-            color: var(--amber-industrial);
-        }
-
-        /* METRIC OVERVIEW SEGMENT */
-        .metric-banner {
-            background-color: #0E1117;
-            padding: 60px 6%;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            border-bottom: 1px solid var(--border-line);
-        }
-
-        .metric-card h2 {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--amber-industrial);
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .metric-card p {
-            color: var(--steel-muted);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        /* ANTI-OVERLAP PROTECTION SECTOR ARRAYS */
-        .grid-section {
-            padding: 120px 6%;
-            border-bottom: 1px solid var(--border-line);
-        }
-
-        .grid-header {
-            margin-bottom: 60px;
-            max-width: 750px;
-        }
-
-        .grid-tag {
-            color: var(--amber-industrial);
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .grid-title {
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            text-transform: uppercase;
-            color: var(--steel-bright);
-        }
-
-        .structural-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
-        }
-
-        .structural-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            border-radius: 4px;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            margin:0; background: var(--bg); color: white; 
+            overflow-x: hidden; 
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100%;
+            align-items: center; 
         }
 
-        .structural-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 158, 11, 0.25);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--amber-glow);
+        /* FIX: Ensure content is never cut off at bottom */
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
+
+        .admin-only { display: none; }
+
+        /* Updated modal-open logic to prevent scroll reset */
+        html.modal-open, body.modal-open { 
+            overflow: hidden !important;
+            height: auto;
         }
 
-        .img-container {
-            width: 100%;
-            height: 250px;
-            background-color: #1A1F2C;
-            overflow: hidden;
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 10000;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
         }
-
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, transform 0.5s ease;
+        .splash-content { text-align: center; }
+        .welcome-msg { 
+            font-size: 12px; color: #888; letter-spacing: 6px; 
+            text-transform: uppercase; margin-bottom: 15px;
+            opacity: 0; animation: fadeInSplash 0.8s ease forwards;
         }
-
-        .structural-card:hover .img-container img {
-            opacity: 1;
-            transform: scale(1.03);
-        }
-
-        .card-payload {
-            padding: 35px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card-payload h3 {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
-            color: var(--steel-bright);
-        }
-
-        .card-payload p {
-            color: var(--steel-muted);
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-
-        .industrial-tag {
-            align-self: flex-start;
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 6px 12px;
-            font-size: 10px;
-            color: var(--steel-bright);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* DOCK CONTACT INFO PANELS */
-        .dock-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .dock-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-line);
-            padding: 40px;
-            border-radius: 4px;
-        }
-
-        .dock-card h4 {
-            color: var(--amber-industrial);
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-weight: 800;
-        }
-
-        .dock-card p {
-            font-size: 15px;
-            color: var(--steel-bright);
-            font-weight: 500;
-        }
-
-        .dock-card span {
-            display: block;
-            margin-top: 5px;
-            color: var(--steel-muted);
-            font-size: 13px;
-        }
-
-        /* OPERATIONAL RADAR MODAL ENGINE */
-        .radar-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 12, 16, 0.97);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .splash-logo { 
+            font-family: 'Playfair Display', serif; font-size: 38px; 
+            letter-spacing: 10px; font-weight: 700; font-style: italic;
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 20px;
+            animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
+            animation-delay: 0.4s, 0s;
         }
-
-        .radar-modal.active {
-            opacity: 1;
-            pointer-events: auto;
+        .splash-slogan {
+            font-size: 11px; color: var(--gold); 
+            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
+            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
         }
+        .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        .modal-chassis {
-            width: 100%;
-            max-width: 520px;
-            background-color: var(--bg-surface);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-radius: 4px;
-            padding: 45px;
-            position: relative;
-            transform: translateY(15px);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .about-link { color: var(--gold); font-size: 12px; font-weight: 900; text-decoration: underline; cursor: pointer; margin-top: 5px; display: inline-block; }
+        #aboutPage { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
+        .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
+        .about-content h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px; }
+        .about-content p { line-height: 1.8; color: #ccc; font-size: 15px; margin-bottom: 20px; }
+
+        #zoom-container {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
         }
-
-        .radar-modal.active .modal-chassis {
-            transform: translateY(0);
+        .zoom-stage { position: relative; width: 100%; height: 70vh; display: flex; align-items: center; justify-content: center; }
+        #zoom-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .zoom-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(255,255,255,0.1); color: var(--gold); border: none; 
+            width: 50px; height: 50px; border-radius: 50%; font-size: 24px; font-weight: 900; 
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
+        .arrow-left { left: 10px; }
+        .arrow-right { right: 10px; }
+        .zoom-close { margin-top: 30px; background: white; color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: 900; cursor: pointer; }
 
-        .close-radar {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            background: transparent;
-            border: none;
-            color: var(--steel-muted);
-            font-size: 26px;
-            cursor: pointer;
-            transition: color 0.2s ease;
-            line-height: 1;
+        #added-toast {
+            position: fixed; top: 20px; right: -400px; visibility: hidden;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            color: white; padding: 15px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+            z-index: 5000; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #added-toast.show { right: 20px; visibility: visible; }
+        .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        .close-radar:hover {
-            color: var(--amber-industrial);
-        }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
+        header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
+        .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
+        .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
+        
+        .variant-section { margin-bottom: 15px; }
+        .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .variant-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .variant-scroll::-webkit-scrollbar { display: none; }
+        .variant-item { flex: 0 0 65px; height: 65px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.2s; position: relative; }
+        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-item span { display: none !important; }
+        .variant-item.active { border-color: var(--gold); }
 
-        .modal-chassis h2 {
-            font-size: 26px;
-            font-weight: 900;
-            color: var(--steel-bright);
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
-        }
+        .rec-title { font-size: 13px; font-weight: 900; color: var(--gold); margin: 25px 0 10px; border-top: 1px solid #333; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
+        .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #444; }
+        .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .modal-chassis p {
-            color: var(--steel-muted);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
+        .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
+        .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
+        #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; }
+        
+        .category-section { padding: 35px 0 0 0; position: relative; z-index: 1; }
+        .category-title { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center; }
+        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
+        
+        .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; border: 1px solid #333; cursor:pointer; }
+        .img-area { height: 220px; background: #000; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; }
+        .info-area { padding: 12px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
+        .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
+        
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
+        
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
-        .field-block {
-            margin-bottom: 20px;
-        }
-
-        .field-block label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--amber-industrial);
-            margin-bottom: 8px;
-        }
-
-        .field-block input, .field-block select {
-            width: 100%;
-            background-color: var(--bg-titanium);
-            border: 1px solid var(--border-line);
-            padding: 14px;
-            color: var(--steel-bright);
-            font-size: 14px;
-            border-radius: 2px;
-            outline: none;
-            transition: border-color 0.25s ease;
-        }
-
-        .field-block input:focus, .field-block select:focus {
-            border-color: var(--amber-industrial);
-        }
-
-        @media (max-width: 900px) {
-            header { padding: 20px 4%; }
-            nav ul { display: none; } /* Drop heavy layouts on mobile to protect bandwidth */
-            .hero h1 { font-size: 44px; }
-            .grid-section { padding: 80px 4%; }
-        }
-
-        footer {
-            background-color: #07080B;
-            text-align: center;
-            padding: 40px 0;
-            color: var(--steel-muted);
-            font-size: 11px;
-            border-top: 1px solid var(--border-line);
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+        @media (min-width: 768px) {
+            .modal-content { max-width: 600px !important; width: 50% !important; }
+            .product-card { flex: 0 0 250px !important; }
+            .img-area { height: 300px !important; }
         }
     </style>
 </head>
-<body>
+<body class="loading"> <div id="zoom-container">
+    <div class="zoom-stage">
+        <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
+        <img id="zoom-img" src="" alt="Zoomed Product">
+        <button class="zoom-arrow arrow-right" onclick="changeZoom(1)">&gt;</button>
+    </div>
+    <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
+</div>
+
+<div id="aboutPage">
+    <div class="about-content">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 5px;">About OUMRAN STORE</h2>
+        <h3 style="font-family: 'Playfair Display', serif; color: #aaa; margin-bottom: 30px; letter-spacing: 2px; font-size: 14px;">THE GOLD STANDARD OF FASHION</h3>
+
+        <div style="margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Curated Excellence</strong>
+            <p style="font-size: 14px; color: #eee; line-height: 1.6;">Welcome to OUMRAN STORE, Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Global Trends, Local Access</strong>
+            <p style="font-size: 14px; color: #eee; line-height: 1.6;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service. We handle every logistical detail to ensure the highest quality reaches your doorstep in Addis Ababa.</p>
+        </div>
+
+        <div style="background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">The Payment Process</strong>
+            
+            <div style="margin-bottom: 15px; text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Securing Your Selection:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">A 50% deposit via Telebirr is required to lock in your items and confirm the order.</span>
+            </div>
+
+            <div style="margin-bottom: 15px; text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Immediate Processing:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">Upon sharing your payment screenshot via Telegram, our team initiates the delivery process immediately.</span>
+            </div>
+
+            <div style="text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Final Settlement:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">The remaining balance is settled in cash/via telebirr upon arrival at your door.</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="closeAbout()">Go Back to Shopping</button>
+    </div>
+</div>
+
+
+<div id="splash-screen">
+    <div class="splash-content">
+        <div class="welcome-msg">WELCOME TO</div>
+        <div class="splash-logo">OUMRAN<br>STORE</div>
+        <div class="splash-slogan">DEFINING ADDIS ABABA LUXURY</div>
+    </div>
+</div>
+
+<div class="site-wrapper">
+    <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
+    <div id="motion-bg"></div>
 
     <header>
-        <div class="logo-box">HG<span>.</span>ENGINEERING</div>
-        <nav>
-            <ul>
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#capabilities">Capabilities</a></li>
-                <li><a href="#sectors">Industrial Sectors</a></li>
-                <li><a href="#contact">Procurement</a></li>
-            </ul>
-        </nav>
+        <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
+        <span class="brand-name">OUMRAN STORE📲</span>
     </header>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <span class="hero-badge">TRANSFORMING METAL INTO WEALTH</span>
-            <h1>HEAVY FABRICATION.<br><span>PRECISION SYSTEMS.</span></h1>
-            <p>HG Engineering (HG Metal Solutions) designs, manufactures, and deploys high-durability transit tanks, custom agricultural frameworks, and structural logistics fleets from our flagship facility in Addis Ababa.</p>
-            <div class="cta-hub">
-                <button class="cta-btn btn-industrial" onclick="toggleRadar(true)">Request Technical RFQ</button>
-                <a href="#capabilities" class="cta-btn btn-glass">Our Capabilities</a>
-            </div>
-        </div>
-    </section>
+    <div class="promo-bar">
+        VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+        EXCLUSIVELY SERVING IN ADDIS ABABA<br>
+        <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
+    </div>
 
-    <section class="metric-banner">
-        <div class="metric-card">
-            <h2>150+</h2>
-            <p>Enterprise Clients Guided</p>
-        </div>
-        <div class="metric-card">
-            <h2>24/7</h2>
-            <p>Structural Technical Support</p>
-        </div>
-        <div class="metric-card">
-            <h2>99.9%</h2>
-            <p>Operational Fleet Uptime</p>
-        </div>
-        <div class="metric-card">
-            <h2>Akaki</h2>
-            <p>Industrial Zone Hub Location</p>
-        </div>
-    </section>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
+    </div>
 
-    <section class="grid-section" id="capabilities">
-        <div class="grid-header">
-            <span class="grid-tag">Operational Expertise</span>
-            <h2 class="grid-title">Elite Fabrication Solutions</h2>
-        </div>
-        
-        <div class="structural-grid">
-            <div class="structural-card">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?q=80&w=600" alt="Tanker Vehicle Fabrication">
+    <main id="store-main">
+        <div class="category-section">
+            <div class="category-title">Graphic T-Shirts 👕</div>
+            <div class="scroll-wrapper"> 
+                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
+                    <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg"></div>
+                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div> 
                 </div>
-                <div class="card-payload">
-                    <div>
-                        <h3>Heavy Tanker Vehicles</h3>
-                        <p>Engineered liquid transit architectures featuring internal anti-slosh baffles, pressure relief systems, and precision corrosion-resistant finishes.</p>
-                    </div>
-                    <span class="industrial-tag">Logistics Sector Priority</span>
+               <div class="product-card" onclick="openP('Premium Floral Short Sleeve', 'clothe', 1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
+                    <div class="img-area"><img src="Premium Floral Short Sleeve.jpg"></div>
+                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div> 
                 </div>
-            </div>
-
-            <div class="structural-card">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=600" alt="Agricultural Metal Machineries">
+               <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
+                    <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
+                    <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
                 </div>
-                <div class="card-payload">
-                    <div>
-                        <h3>Agricultural Machinery</h3>
-                        <p>Bespoke robust metal systems built to optimize supply chain security and harvesting durability across diverse sub-continental topographies.</p>
-                    </div>
-                    <span class="industrial-tag">Agricultural Shielding</span>
+                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
+                    <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg"></div>
+                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div> 
                 </div>
-            </div>
-
-            <div class="structural-card">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600" alt="Custom Infrastructure Elements">
+                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
+                    <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
+                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
                 </div>
-                <div class="card-payload">
-                    <div>
-                        <h3>Structural Customization</h3>
-                        <p>High-end structural steel alignment engineering, metal processing, and after-sales field support designed specifically for national tier-1 contractors.</p>
-                    </div>
-                    <span class="industrial-tag">Construction Frameworks</span>
+                <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
+                    <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
+                    <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="grid-section" id="contact" style="background-color: #0B0D12;">
-        <div class="grid-header">
-            <span class="grid-tag">Fulfillment Coordinates</span>
-            <h2 class="grid-title">Logistics & Plant Inquiries</h2>
+        <div class="category-section">
+            <div class="category-title">Hoodies & Sweaters 🧶</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
+                    <div class="img-area"><img src="Polo knit sweater.jpg"></div>
+                    <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
+                    <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
+                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Polo cable knit sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
+                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
+                    <div class="info-area"><h3>Polo cable knit sweater</h3><div class="new-p">3,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
+                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg"></div>
+                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
+                    <div class="img-area"><img src="Denim tears Hoodie.jpg"></div>
+                    <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
+                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
+                    <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
+                </div>
+            </div>
         </div>
 
-        <div class="dock-container">
-            <div class="dock-card">
-                <h4>Primary Plant Location</h4>
-                <p>Rikaki Kality Zone</p>
-                <span>Addis Ababa, Ethiopia</span>
-            </div>
-            <div class="dock-card">
-                <h4>Direct Inbound Inquiries</h4>
-                <p>+251 11 16 26 262</p>
-                <span>Alternate line: +251 91 12 57 578</span>
-            </div>
-            <div class="dock-card">
-                <h4>Secure Electronic Delivery</h4>
-                <p>info@hgengo.com</p>
-                <span>Backup: hgengeering2000@gmail.com</span>
+        <div class="category-section">
+            <div class="category-title">Jackets 🧥</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
+                    <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
+                    <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
+                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
+                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
+                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
+                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
+                </div>
             </div>
         </div>
-    </section>
 
-    <div class="radar-modal" id="procurementRadar">
-        <div class="modal-chassis">
-            <button class="close-radar" onclick="toggleRadar(false)">&times;</button>
-            <h2>Enterprise Tender Portal</h2>
-            <p>Initiate standard hardware specifications routing. Our technical estimators will contact your corporate engineering division within 12 business hours.</p>
+        <div class="category-section">
+            <div class="category-title">Jeans & Pants 👖</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
+                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
+                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim Tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
+                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
+                    <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg"></div>
+                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers', 'clothe', 3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
+                    <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg"></div>
+                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
+                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
+                </div> 
+                <div class="product-card" onclick="openP('Elastic casual suit pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
+                    <div class="img-area"><img src="Elastic casual suit pants.jpg"></div>
+                    <div class="info-area"><h3>Elastic casual suit pants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Wide-Leg Drape Pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
+                    <div class="img-area"><img src="Wide-Leg Drape Pants.jpg"></div>
+                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers', 'clothe', 2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
+                    <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg"></div>
+                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-title">Full Outfits 👔</div>
+            <div class="scroll-wrapper">
+                 <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+                    <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP"></div>
+                    <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Synaworld Signature Paneled Suite-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+                    <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Synaworld Signature Paneled Suite-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+                    <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Mertra High-Street Heritage Set-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+                    <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Mertra High-Street Heritage Set-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim tears jeans-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Denim tears jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+ <section style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
+    
+    <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">
+        OFF-MARKET
+    </p>
+
+    <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; font-weight: 400; margin-bottom: 25px; pointer-events: none;">
+        PRIVATE REQUEST
+    </h2>
+
+    <div style="max-width: 600px; margin: 0 auto; margin-bottom: 40px; pointer-events: none;">
+        <p style="color: #888; font-size: 13px; line-height: 2.2; font-weight: 300; letter-spacing: 1px;">
+            While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here in the website—regardless of the category—we invite you to engage our private sourcing service. We specialize in securing rare, high-end essentials tailored to your individual lifestyle.
+        </p>
+    </div>
+
+    <button onclick="openPrivateSourcing()" style="background: none; border: none; color: #fff; text-decoration: none; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; border-bottom: 1px solid #d4af37; padding-bottom: 8px; font-weight: 600; display: inline-block; position: relative; z-index: 10; cursor: pointer;">
+       Submit a Private Request 
+    </button>
+
+</section>
+
+    <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
+    <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
+
+    <div id="pModal" class="modal">
+        <div class="modal-content">
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; cursor: zoom-in;">
+            <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
+            <span id="m-price" style="color:var(--gold); font-weight:900; font-size: 18px;">0 ETB</span>
             
-            <form id="radarForm" onsubmit="handleRadarSubmit(event)">
-                <div class="field-block">
-                    <label for="companyName">Corporate Institution</label>
-                    <input type="text" id="companyName" required placeholder="e.g., National Logistics Corp">
-                </div>
-                <div class="field-block">
-                    <label for="targetSector">Industrial Sector Classification</label>
-                    <select id="targetSector">
-                        <option value="logistics">Liquid & Dry Cargo Logistics Fleet</option>
-                        <option value="agri">Agricultural Machine Fabrication</option>
-                        <option value="construction">Custom Structural Steel Elements</option>
-                    </select>
-                </div>
-                <div class="field-block">
-                    <label for="contactScope">Procurement Priority Level</label>
-                    <select id="contactScope">
-                        <option value="immediate">Urgent Deployment (Under 30 Days)</option>
-                        <option value="budget">Future Project Estimate Planning</option>
-                    </select>
-                </div>
-                <button type="submit" class="cta-btn btn-industrial" style="width: 100%; border: none;">Transmit Encrypted RFQ</button>
-            </form>
+            <div id="variant-area" class="variant-section">
+                <span class="variant-label">Select Color/Style</span>
+                <div id="variant-list" class="variant-scroll"></div>
+            </div>
+
+            <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+            <select id="size-box" class="order-input"></select>
+            <button class="btn" onclick="addToCart()">Add to Bag</button>
+            <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+
+            <div class="rec-title">You May Also Like</div>
+            <div id="rec-list" class="rec-scroll"></div>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 HG METAL SOLUTIONS & ENGINEERING. ALL RIGHTS RESERVED. ARCHITECTURAL AND METALLURGICAL MANAGEMENT INFRASTRUCTURE.
-    </footer>
+    <div id="privateSourcingModal" class="modal">
+        <div class="modal-content" style="background: #1a1a1a; border: 1px solid #333;">
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif; color: #fff; letter-spacing: 1px;">Sourcing Intake 🌐</h2>
+            <p style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Private Concierge Service</p>
+            
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Client Profile Name</label>
+            <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
 
-    <script>
-        // High-end state painting engine (zero memory lag loop)
-        function toggleRadar(shouldOpen) {
-            const modal = document.getElementById('procurementRadar');
-            if (shouldOpen) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                modal.classList.remove('active');
-                document.body.style.overflow = ''; 
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Contact Number</label>
+            <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
+            
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Item Classification</label>
+            <select id="srcCategory" class="order-input" style="background: #000; color: white;">
+                <option value="Clothes">Clothes / Apparel</option>
+                <option value="Shoes">Shoes / Sneakers</option>
+                <option value="Watch">Watch / Horology</option>
+                <option value="Bag">Bag / Luxury Leather</option>
+                <option value="Other">Other Premium Goods</option>
+            </select>
+
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Product Name & Details</label>
+            <input type="text" id="srcProductName" placeholder="Brand, Model, Release Year, etc." class="order-input">
+
+            <div id="srcSizeWrapper">
+                <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Required Sizing</label>
+                <input type="text" id="srcSize" placeholder="Your size (e.g., XL, 43, Standard)" class="order-input">
+            </div>
+
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Preferred Allocation Budget</label>
+            <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
+
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Reference Link / Image Description</label>
+            <div id="srcReferenceWrapper" style="position: relative; border: 1px solid #444; border-radius: 10px; background-color: #000; margin-top: 10px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;">
+                <textarea id="srcReference" placeholder="Paste link to reference image, or details about the configuration/colorway" style="width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; min-height: 80px; resize: none; font-family: inherit; box-sizing: border-box; display: block; margin: 0;"></textarea>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; padding-top: 8px;">
+                    <div id="srcImagePreviewSlot" style="display: flex; align-items: center;"></div>
+                    
+                    <label for="srcHiddenImageUpload" style="display: flex; align-items: center; gap: 6px; color: #a0a0a0; font-size: 13px; cursor: pointer; transition: color 0.2s; font-family: sans-serif;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span>Add Photo</span>
+                    </label>
+                    <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <button class="btn" style="background: var(--gold); color: #000;" onclick="submitPrivateRequest()">Send to Concierge Network</button>
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
+            <div id="cart-items-list" style="margin-bottom: 15px;"></div>
+            <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
+            <input type="text" id="custName" placeholder="Full Name" class="order-input">
+            <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
+            <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
+            <p class="payment-info">
+  <strong style="color: white;">Telebirr Payment Info:</strong><br>
+  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
+</p>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Payment Instruction:
+Please transfer a 50% deposit via Telebirr to the numbers above to confirm your order. You will pay the remaining ETB in cash/via telebirr when your order arrives at your door.</span>
+            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #333; font-family: sans-serif;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: start; gap: 10px;">
+            <span style="color: #ffffff; font-size: 14px;">•</span>
+            <p style="margin: 0; font-size: 11px; color: #b0b0b0; letter-spacing: 0.5px;">
+                Prices may change slightly depending on the supplier stock.
+            </p>
+        </div>
+        <div style="display: flex; align-items: start; gap: 10px; margin-bottom: 15px;">
+            <span style="color: #ffffff; font-size: 14px;">•</span>
+            <p style="margin: 0; font-size: 11px; color: #b0b0b0; letter-spacing: 0.5px;">
+                Final pricing will be verified and confirmed during your Telegram order consultation.
+            </p>
+        </div>
+    </div>
+</div>
+
+            <button class="btn" onclick="submitOrder()">Confirm Order</button>
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
+        </div>
+    </div>
+
+       <div id="successModal" class="modal">
+        <div class="modal-content" style="background-color: #0b0b0b; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid #222; max-width: 400px; margin: 20px auto;">
+            
+            <h2 style="color: #d4af37; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 25px; font-weight: 400;">
+                ORDER RESERVED! 🕒
+            </h2>
+
+            <p style="text-transform: uppercase; font-size: 11px; letter-spacing: 3px; color: #888; margin-bottom: 10px;">
+                Thank you for shopping with OUMRAN STORE✨
+            </p>
+            <p style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.2;">
+                We have your details.
+            </p>
+
+            <div style="font-size: 13px; line-height: 1.8; color: #ccc; margin-bottom: 35px; padding: 0 10px;">
+                To lock in your items, please click below to send your 50% deposit screenshot to our Telegram. Once we see the screenshot, we’ll start the delivery process immediately.
+            </div>
+
+            <p style="font-size: 12px; letter-spacing: 2px; font-weight: 600; margin-bottom: 25px; text-transform: uppercase;">
+                See you on Telegram!
+            </p>
+
+            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'" style="display: inline-block; background-color: #ffffff; color: #000000; padding: 15px 45px; border: none; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer;">
+                Open Telegram
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let cart = [];
+const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx = 0;
+let scrollPos = 0; // FIX: Track scroll position
+let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
+
+window.addEventListener('load', () => {
+    loadCart();
+    // Splash screen logic updated to unlock scrolling only after exit
+    setTimeout(() => {
+        document.getElementById('splash-screen').classList.add('splash-exit');
+        // Unlocks scrolling
+        document.documentElement.classList.remove('loading');
+        document.body.classList.remove('loading');
+    }, 2000); 
+    
+    // Set up paste and attachment image hooks
+    initPrivateSourcingUploads();
+});
+
+function openZoom() {
+    zoomIdx = 0;
+    const activeVarIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
+    if(activeVarIdx !== -1) zoomIdx = activeVarIdx;
+    updateZoomImage();
+    document.getElementById("zoom-container").style.display = "flex";
+    document.documentElement.classList.add('modal-open');
+}
+
+function changeZoom(dir) {
+    if(currentVariants.length === 0) return;
+    zoomIdx += dir;
+    if(zoomIdx < 0) zoomIdx = currentVariants.length - 1;
+    if(zoomIdx >= currentVariants.length) zoomIdx = 0;
+    updateZoomImage();
+}
+
+function updateZoomImage() {
+    const zoomImg = document.getElementById("zoom-img");
+    if(currentVariants.length > 0) { zoomImg.src = currentVariants[zoomIdx].img; } 
+    else { zoomImg.src = document.getElementById("modal-img").src; document.querySelectorAll('.zoom-arrow').forEach(a => a.style.display = 'none'); }
+}
+
+function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
+function openAbout() { 
+    scrollPos = window.pageYOffset; // Save position
+    document.getElementById('aboutPage').style.display = 'block'; 
+    document.documentElement.classList.add('modal-open'); 
+}
+function closeAbout() { 
+    document.getElementById('aboutPage').style.display = 'none'; 
+    document.documentElement.classList.remove('modal-open'); 
+    window.scrollTo(0, scrollPos); // Restore position
+}
+
+function openP(n, t, price) {
+    scrollPos = window.pageYOffset; // FIX: Save position before opening modal
+    currentP = n; currentPrice = price;
+    document.getElementById("m-name").innerText = n;
+    document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
+    const clickedCard = event.currentTarget;
+    document.getElementById("modal-img").src = clickedCard.querySelector('img').src;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    const variantList = document.getElementById("variant-list");
+    variantList.innerHTML = "";
+    const variantsData = clickedCard.getAttribute('data-variants');
+    currentVariants = variantsData ? JSON.parse(variantsData) : [];
+    if(currentVariants.length > 0) {
+        document.getElementById("variant-area").style.display = "block";
+        currentVariants.forEach((v, idx) => {
+            const item = document.createElement("div");
+            item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
+            item.onclick = function() {
+                document.getElementById("modal-img").src = v.img;
+                document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            };
+            let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
+            item.innerHTML = `<img src="${v.img}">${nameHtml}`;
+            variantList.appendChild(item);
+        });
+    } else { document.getElementById("variant-area").style.display = "none"; }
+    const recList = document.getElementById("rec-list"); recList.innerHTML = "";
+    clickedCard.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
+        if(prod !== clickedCard) {
+            const item = document.createElement('div'); item.className = 'rec-item';
+            item.innerHTML = `<img src="${prod.querySelector('img').src}"><h4>${prod.querySelector('h3').innerText}</h4>`;
+            item.onclick = () => { closeModal(); setTimeout(() => prod.click(), 50); };
+            recList.appendChild(item);
+        }
+    });
+    
+    // ADJUSTED TO AUTOMATICALLY HIDE SIZE SELECTOR AND LABEL FOR ACCESSORIES / WATCHES
+    let b = document.getElementById("size-box"); b.innerHTML = "";
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
+    if (t === 'acc' || !sz[t]) {
+        b.style.display = "none";
+        b.previousElementSibling.style.display = "none";
+    } else {
+        b.style.display = "block";
+        b.previousElementSibling.style.display = "block";
+    }
+    
+    document.getElementById("pModal").style.display = "block";
+}
+
+function addToCart() {
+    let internalColor = "";
+    let displayColor = "";
+    const activeVariantSpan = document.querySelector('.variant-item.active span');
+    if(activeVariantSpan) {
+        displayColor = ` <span class="admin-only">[${activeVariantSpan.innerText}]</span>`;
+        internalColor = ` [${activeVariantSpan.innerText}]`;
+    }
+    cart.push({ 
+        name: currentP + displayColor, 
+        internalName: currentP + internalColor,
+        size: document.getElementById("size-box").value, 
+        price: currentPrice 
+    });
+    updateCartDisplay(); closeModal();
+    const toast = document.getElementById("added-toast");
+    document.getElementById("toast-text").innerHTML = `<strong>${currentP}</strong> Added`;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+function updateCartDisplay() {
+    document.getElementById("cart-count").innerText = cart.length;
+    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+    localStorage.setItem('oumer_cart', JSON.stringify(cart));
+}
+
+function showCart() {
+    scrollPos = window.pageYOffset; // Save position
+    document.documentElement.classList.add('modal-open');
+    let total = 0;
+    document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
+        total += item.price;
+        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
+    }).join("");
+    document.getElementById("cart-total").innerText = total.toLocaleString();
+    document.getElementById("cartModal").style.display = "block";
+}
+
+function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
+
+function submitOrder() {
+    const n = document.getElementById('custName').value;
+    const p = document.getElementById('custPhone').value;
+    const a = document.getElementById('custAddress').value;
+    if(!n || !p || !a) return alert("Fill all the details first!");
+    let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
+    let text = `🛍️ *NEW ORDER*\n👤 ${n}\n📞 ${p}\n📍 ${a}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
+    }).then(() => {
+        document.getElementById("cartModal").style.display = "none";
+        document.getElementById("successModal").style.display = "block";
+        cart = []; updateCartDisplay();
+    });
+}
+
+function closeModal() { 
+    document.documentElement.classList.remove('modal-open'); 
+    document.body.classList.remove('modal-open'); 
+    document.getElementById("pModal").style.display = "none"; 
+    window.scrollTo(0, scrollPos); // FIX: Restore position after closing
+}
+function closeCart() { 
+    document.documentElement.classList.remove('modal-open'); 
+    document.getElementById("cartModal").style.display = "none"; 
+    window.scrollTo(0, scrollPos); // Restore position
+}
+function loadCart() { const s = localStorage.getItem('oumer_cart'); if(s) { cart = JSON.parse(s); updateCartDisplay(); } }
+function filterProducts() {
+    let input = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('.category-section').forEach(sec => {
+        let match = false;
+        sec.querySelectorAll('.product-card').forEach(card => {
+            if(card.querySelector('h3').innerText.toLowerCase().includes(input)) { card.style.display="block"; match=true; }
+            else card.style.display="none";
+        });
+        sec.style.display = match ? "block" : "none";
+    });
+}
+
+/* PRIVATE SOURCING LOGIC PATHWAYS */
+function openPrivateSourcing() {
+    scrollPos = window.pageYOffset;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    document.getElementById("privateSourcingModal").style.display = "block";
+}
+
+function closePrivateSourcing() {
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    document.getElementById("privateSourcingModal").style.display = "none";
+    window.scrollTo(0, scrollPos);
+}
+
+function initPrivateSourcingUploads() {
+    const fileInput = document.getElementById('srcHiddenImageUpload');
+    const previewSlot = document.getElementById('srcImagePreviewSlot');
+    const wrapper = document.getElementById('srcReferenceWrapper');
+
+    // DYNAMIC WATCH CATEGORY EVENT LISTENER FOR SOURCING FORM
+    const srcCategory = document.getElementById('srcCategory');
+    const srcSizeWrapper = document.getElementById('srcSizeWrapper');
+    const srcSizeInput = document.getElementById('srcSize');
+
+    srcCategory.addEventListener('change', function() {
+        if (this.value === 'Watch') {
+            srcSizeWrapper.style.display = 'none';
+            srcSizeInput.value = 'Standard'; // Pre-fills field so form logic passes
+        } else {
+            srcSizeWrapper.style.display = 'block';
+            if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
+        }
+    });
+
+    function processImageFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                srcAttachedImageBase64 = e.target.result;
+                previewSlot.innerHTML = `
+                    <div style="position: relative; display: inline-block; margin-right: 10px;">
+                        <img src="${e.target.result}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; border: 1px solid #333;">
+                        <span id="srcRemovePreviewBtn" style="position: absolute; top: -6px; right: -6px; background: #ff4d4d; color: white; border-radius: 50%; width: 14px; height: 14px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-family: sans-serif;">×</span>
+                    </div>
+                `;
+                document.getElementById('srcRemovePreviewBtn').addEventListener('click', function(ev) {
+                    ev.preventDefault();
+                    previewSlot.innerHTML = '';
+                    fileInput.value = '';
+                    srcAttachedImageBase64 = "";
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    fileInput.addEventListener('change', function() {
+        processImageFile(this.files[0]);
+    });
+
+    wrapper.addEventListener('paste', function(e) {
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let i in items) {
+            const item = items[i];
+            if (item.kind === 'file') {
+                const blob = item.getAsFile();
+                processImageFile(blob);
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(blob);
+                fileInput.files = dataTransfer.files;
             }
         }
+    });
+}
 
-        // Clean submit simulator execution loop
-        function handleRadarSubmit(event) {
-            event.preventDefault();
-            alert("⚙️ TRANSMISSION COMPLETE\nYour procurement requirements have been queued into the HG Engineering technical processing pipeline.");
-            toggleRadar(false);
-            document.getElementById('radarForm').reset();
+function submitPrivateRequest() {
+    const clientName = document.getElementById('srcClientName').value;
+    const clientPhone = document.getElementById('srcClientPhone').value;
+    const category = document.getElementById('srcCategory').value;
+    const productName = document.getElementById('srcProductName').value;
+    const size = document.getElementById('srcSize').value;
+    const budget = document.getElementById('srcBudget').value || "Not Specified";
+    const reference = document.getElementById('srcReference').value || "None Provided";
+
+    if(!clientName || !clientPhone || !productName || !size) {
+        return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
+    }
+
+    let text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
+               `👤 *Client:* ${clientName}\n` +
+               `📞 *Contact:* ${clientPhone}\n\n` +
+               `📦 *Classification:* ${category}\n` +
+               `🏷️ *Product Name:* ${productName}\n` +
+               `📐 *Size Required:* ${size}\n` +
+               `💰 *Target Budget:* ${budget}\n\n` +
+               `🔗 *Reference/Notes:* ${reference}`;
+
+    let apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
+    let formData = null;
+    let postOptions = {};
+
+    if (srcAttachedImageBase64) {
+        apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto`;
+        formData = new FormData();
+        formData.append("chat_id", "5715582254");
+        formData.append("caption", text);
+        formData.append("parse_mode", "Markdown");
+        
+        // Convert base64 data back to file blob for authentic upload payload
+        const base64Parts = srcAttachedImageBase64.split(',');
+        const mimeType = base64Parts[0].match(/:(.*?);/)[1];
+        const binaryStr = atob(base64Parts[1]);
+        let n = binaryStr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--) {
+            u8arr[n] = binaryStr.charCodeAt(n);
         }
+        const fileBlob = new Blob([u8arr], { type: mimeType });
+        formData.append("photo", fileBlob, "upload.jpg");
+        
+        postOptions = { method: "POST", body: formData };
+    } else {
+        postOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
+        };
+    }
 
-        // Active state navigation anchor evaluation tracking
-        const anchors = document.querySelectorAll('nav ul li a');
-        anchors.forEach(anchor => {
-            anchor.addEventListener('click', function() {
-                anchors.forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
+    fetch(apiUrl, postOptions).then(() => {
+        document.getElementById("privateSourcingModal").style.display = "none";
+        document.getElementById("successModal").style.display = "block";
+        
+        // Reset Sourcing form fields
+        document.getElementById('srcClientName').value = "";
+        document.getElementById('srcClientPhone').value = "";
+        document.getElementById('srcProductName').value = "";
+        document.getElementById('srcSize').value = "";
+        document.getElementById('srcBudget').value = "";
+        document.getElementById('srcReference').value = "";
+        document.getElementById('srcImagePreviewSlot').innerHTML = "";
+        document.getElementById('srcHiddenImageUpload').value = "";
+        srcAttachedImageBase64 = "";
+    }).catch(err => {
+        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
+    });
+}
+</script>
 </body>
 </html>
