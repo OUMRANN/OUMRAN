@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
@@ -6,14 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
     <style>
-        :root { 
-            --bg: #08090B; /* Premium OUMRAN Obsidian base */
-            --card: #111317; /* Luxury matte tint for product cards */
-            --tg: #0088cc; 
-            --accent: #ff3b30; 
-            --gold: #FFD700; 
-            --beige: #d4c5b0; 
-        }
+        :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
         
         /* FIX: Lock scroll when loading class is present */
         html.loading, body.loading {
@@ -25,15 +19,12 @@
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
-            margin:0; 
-            background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04) 0%, rgba(8, 9, 11, 0) 70%), var(--bg) !important; 
-            color: white; 
+            margin:0; background: var(--bg); color: white; 
             overflow-x: hidden; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center; 
-            -webkit-font-smoothing: antialiased;
         }
 
         /* FIX: Ensure content is never cut off at bottom */
@@ -82,7 +73,7 @@
         @keyframes shine { to { background-position: 200% center; } }
 
         .about-link { color: var(--gold); font-size: 12px; font-weight: 900; text-decoration: underline; cursor: pointer; margin-top: 5px; display: inline-block; }
-        #aboutPage { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #08090B; z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
+        #aboutPage { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
         .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
         .about-content h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px; }
         .about-content p { line-height: 1.8; color: #ccc; font-size: 15px; margin-bottom: 20px; }
@@ -113,8 +104,8 @@
         #added-toast.show { right: 20px; visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.15; z-index: -1; filter: brightness(0.4); }
-        header { background: rgba(8,9,11,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
+        header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
         
@@ -133,33 +124,32 @@
         .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #444; }
         .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .promo-bar { background: rgba(0,0,0,0.4); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .search-container { padding: 15px; background: transparent; }
-        #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(20,22,26,0.7); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; backdrop-filter: blur(8px); }
+        .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
+        .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
+        #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; }
         
         .category-section { padding: 35px 0 0 0; position: relative; z-index: 1; }
         .category-title { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center; }
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
         
-        .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); cursor:pointer; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease; }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
+        .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; border: 1px solid #333; cursor:pointer; }
         .img-area { height: 220px; background: #000; }
         .img-area img { width: 100%; height: 100%; object-fit: cover; }
         .info-area { padding: 12px; }
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,136,204,0.3); }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 8px 24px rgba(255,255,255,0.2); }
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
-        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(4,5,6,0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); overflow-y: auto; }
-        .modal-content { background: #111317; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.06); }
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
-        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: #08090B; color: white; box-sizing: border-box; font-size: 16px; }
-        .payment-info { background: #1a1c22; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; border-top: 1px solid rgba(255,255,255,0.02); }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
         @media (min-width: 768px) {
@@ -193,8 +183,8 @@
             <p style="font-size: 14px; color: #eee; line-height: 1.6;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service. We handle every logistical detail to ensure the highest quality reaches your doorstep in Addis Ababa.</p>
         </div>
 
-        <div style="background: #111317; padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 25px;">
-            <strong style="display: block; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">The Payment Process</strong>
+        <div style="background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">The Payment Process</strong>
             
             <div style="margin-bottom: 15px; text-align: left;">
                 <span style="color: #fff; font-weight: bold;">• Securing Your Selection:</span>
@@ -396,7 +386,7 @@
         </div>
     </main>
 
- <section style="background-color: transparent; padding: 100px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.04); margin-top: 50px; width: 100%; box-sizing: border-box;">
+ <section style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
     
     <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">
         OFF-MARKET
@@ -443,7 +433,7 @@
     </div>
 
     <div id="privateSourcingModal" class="modal">
-        <div class="modal-content" style="background: #111317; border: 1px solid rgba(255,255,255,0.06);">
+        <div class="modal-content" style="background: #1a1a1a; border: 1px solid #333;">
             <h2 style="margin-top:0; font-family: 'Playfair Display', serif; color: #fff; letter-spacing: 1px;">Sourcing Intake 🌐</h2>
             <p style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Private Concierge Service</p>
             
@@ -454,7 +444,7 @@
             <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
             
             <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Item Classification</label>
-            <select id="srcCategory" class="order-input" style="background: #08090B; color: white;">
+            <select id="srcCategory" class="order-input" style="background: #000; color: white;">
                 <option value="Clothes">Clothes / Apparel</option>
                 <option value="Shoes">Shoes / Sneakers</option>
                 <option value="Watch">Watch / Horology</option>
@@ -474,10 +464,10 @@
             <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
 
             <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Reference Link / Image Description</label>
-            <div id="srcReferenceWrapper" style="position: relative; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; background-color: #08090B; margin-top: 10px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;">
+            <div id="srcReferenceWrapper" style="position: relative; border: 1px solid #444; border-radius: 10px; background-color: #000; margin-top: 10px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;">
                 <textarea id="srcReference" placeholder="Paste link to reference image, or details about the configuration/colorway" style="width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; min-height: 80px; resize: none; font-family: inherit; box-sizing: border-box; display: block; margin: 0;"></textarea>
                 
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; padding-top: 8px;">
                     <div id="srcImagePreviewSlot" style="display: flex; align-items: center;"></div>
                     
                     <label for="srcHiddenImageUpload" style="display: flex; align-items: center; gap: 6px; color: #a0a0a0; font-size: 13px; cursor: pointer; transition: color 0.2s; font-family: sans-serif;">
@@ -497,7 +487,7 @@
         <div class="modal-content">
             <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
             <div id="cart-items-list" style="margin-bottom: 15px;"></div>
-            <div style="font-weight:900; color:var(--gold); border-top:1px solid rgba(255,255,255,0.05); padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
+            <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
             <input type="text" id="custName" placeholder="Full Name" class="order-input">
             <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
             <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
@@ -507,7 +497,7 @@
 </p>
             <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Payment Instruction:
 Please transfer a 50% deposit via Telebirr to the numbers above to confirm your order. You will pay the remaining ETB in cash/via telebirr when your order arrives at your door.</span>
-            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); font-family: sans-serif;">
+            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #333; font-family: sans-serif;">
     <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="display: flex; align-items: start; gap: 10px;">
             <span style="color: #ffffff; font-size: 14px;">•</span>
@@ -530,7 +520,7 @@ Please transfer a 50% deposit via Telebirr to the numbers above to confirm your 
     </div>
 
        <div id="successModal" class="modal">
-        <div class="modal-content" style="background-color: #08090B; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid rgba(255,255,255,0.05); max-width: 400px; margin: 20px auto;">
+        <div class="modal-content" style="background-color: #0b0b0b; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid #222; max-width: 400px; margin: 20px auto;">
             
             <h2 style="color: #d4af37; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 25px; font-weight: 400;">
                 ORDER RESERVED! 🕒
@@ -898,11 +888,9 @@ function submitPrivateRequest() {
 }
 </script>
 
-<footer style="text-align: center; padding: 60px 0 40px 0; background: transparent;">
-    <p style="color: #64748B; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; margin: 0; line-height: 1.8; font-weight: 500;">
-        &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
-    </p>
-</footer>
+<p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
+    &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
+</p>
 
 </body>
 </html>
