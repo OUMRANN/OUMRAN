@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="am">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HABESHA CINEMA — Luxury Streaming</title>
+    <title>MAYA Polycarbonate & Steel — Premium Structural Solutions</title>
     <style>
-        /* LUXURY SYSTEM DESIGN - OBSIDIAN & IMPERIAL GOLD */
+        /* LUXURIOUS STRUCTURAL SYSTEM DESIGN */
         :root {
-            --bg-dark: #09090a;
-            --bg-card: #121214;
-            --gold-primary: #D4AF37;
-            --gold-hover: #F3E5AB;
-            --text-light: #F5F5F7;
-            --text-muted: #A1A1A6;
-            --accent-glow: rgba(212, 175, 55, 0.15);
+            --bg-obsidian: #0B0C0E;
+            --bg-card: #13151A;
+            --steel-silver: #F1F5F9;
+            --steel-muted: #94A3B8;
+            --gold-accent: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --border-line: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -25,12 +25,13 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-obsidian);
+            color: var(--steel-silver);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* PREMIUM NAVIGATION */
+        /* PREMIUM APP BAR NAVIGATION */
         header {
             position: fixed;
             top: 0;
@@ -39,445 +40,516 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 6%;
-            background: linear-gradient(to bottom, rgba(9,9,10,0.95) 60%, rgba(9,9,10,0) 100%);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 24px 6%;
+            background: linear-gradient(to bottom, rgba(11, 12, 14, 0.98) 70%, rgba(11, 12, 14, 0) 100%);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-line);
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--gold-primary);
+        .brand-logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: var(--steel-silver);
             text-transform: uppercase;
-            text-shadow: 0 0 10px var(--accent-glow);
         }
 
-        .logo span {
-            color: var(--text-light);
+        .brand-logo span {
+            color: var(--gold-accent);
             font-weight: 300;
+            text-shadow: 0 0 15px var(--gold-glow);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 35px;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--steel-muted);
+            font-size: 13px;
+            font-weight: 600;
+            transition: color 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         nav ul li a:hover, nav ul li a.active {
-            color: var(--gold-primary);
+            color: var(--gold-accent);
         }
 
-        /* KINETIC HERO BANNER */
+        /* ARCHITECTURAL HERO SPOTLIGHT */
         .hero {
             position: relative;
-            height: 85vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             padding: 0 6%;
-            background: linear-gradient(to right, rgba(9,9,10,0.9) 30%, rgba(9,9,10,0.2) 100%), 
-                        url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1920') no-repeat center center/cover;
-            margin-bottom: 40px;
+            background: linear-gradient(to right, rgba(11, 12, 14, 0.95) 40%, rgba(11, 12, 14, 0.4) 100%), 
+                        url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1920') no-repeat center center/cover;
         }
 
         .hero-content {
-            max-width: 650px;
+            max-width: 750px;
             z-index: 2;
         }
 
-        .tagline {
-            color: var(--gold-primary);
+        .hero-badge {
+            display: inline-block;
+            color: var(--gold-accent);
             text-transform: uppercase;
             letter-spacing: 3px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 15px;
+            border: 1px solid var(--gold-accent);
+            padding: 6px 14px;
+            border-radius: 2px;
+            margin-bottom: 25px;
+            background-color: rgba(212, 175, 55, 0.05);
         }
 
-        .hero-content h1 {
-            font-size: 56px;
+        .hero h1 {
+            font-size: 64px;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            margin-bottom: 25px;
+            letter-spacing: -1.5px;
         }
 
-        .hero-content p {
-            color: var(--text-muted);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--steel-silver);
         }
 
-        .btn-container {
+        .hero p {
+            color: var(--steel-muted);
+            font-size: 18px;
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+
+        /* BUTTON CONSTRUCTS */
+        .action-container {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .btn {
-            padding: 14px 28px;
+        .action-btn {
+            padding: 16px 32px;
             border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-gold {
-            background-color: var(--gold-primary);
-            color: #000;
-            border: 1px solid var(--gold-primary);
-        }
-
-        .btn-gold:hover {
-            background-color: var(--gold-hover);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-light);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-        }
-
-        /* MOVIE BROWSING SECTIONS */
-        .shelf {
-            padding: 0 6% 40px 6%;
-        }
-
-        .shelf-title {
-            font-size: 20px;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            border-left: 3px solid var(--gold-primary);
-            padding-left: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-premium {
+            background-color: var(--gold-accent);
+            color: #000;
+            border: 1px solid var(--gold-accent);
+        }
+
+        .btn-premium:hover {
+            background-color: #000;
+            color: var(--gold-accent);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            border-color: var(--gold-accent);
+        }
+
+        .btn-monochrome {
+            background-color: transparent;
+            color: var(--steel-silver);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-monochrome:hover {
+            border-color: var(--steel-silver);
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        /* SHOWCASE SHOWROOM ROW */
+        .section-container {
+            padding: 100px 6%;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .section-header {
+            margin-bottom: 50px;
+        }
+
+        .section-tag {
+            color: var(--gold-accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             text-transform: uppercase;
         }
 
-        .movie-grid {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        .movie-card {
+        .product-card {
             background-color: var(--bg-card);
-            border-radius: 6px;
+            border: 1px solid var(--border-line);
+            border-radius: 4px;
             overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .movie-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 12px var(--accent-glow);
+        .product-card:hover {
+            transform: translateY(-10px);
             border-color: rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow);
         }
 
-        .poster-wrapper {
-            position: relative;
+        .product-img {
             width: 100%;
-            height: 280px;
-            background-color: #222;
+            height: 240px;
+            background-color: #1a1d24;
+            position: relative;
         }
 
-        .poster-wrapper img {
+        .product-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.85;
+            transition: opacity 0.3s;
         }
 
-        .quality-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: var(--gold-primary);
-            color: #000;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 6px;
-            border-radius: 2px;
-        }
-
-        .movie-info {
-            padding: 15px;
-        }
-
-        .movie-title {
-            font-size: 15px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 5px;
-        }
-
-        .movie-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .rating {
-            color: var(--gold-primary);
-            font-weight: 700;
-        }
-
-        /* MODAL CINEMA ENGINE */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(5, 5, 6, 0.95);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal.active {
+        .product-card:hover .product-img img {
             opacity: 1;
-            pointer-events: auto;
         }
 
-        .modal-content {
-            width: 90%;
-            max-width: 900px;
-            background-color: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .video-player-container {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background-color: #000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .video-player-container video {
-            width: 100%;
-            height: 100%;
-            display: block;
-            outline: none;
-        }
-
-        .modal-details {
+        .product-meta {
             padding: 30px;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--text-light);
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
+        .product-meta h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .product-meta p {
+            color: var(--steel-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .spec-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            font-size: 11px;
+            color: var(--steel-silver);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* GOOGLE VERIFIED SOCIAL PROOF REVIEWS */
+        .reviews-section {
+            background-color: #0f1013;
+        }
+
+        .google-header-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            padding: 20px 30px;
+            border-radius: 4px;
+            border: 1px solid var(--border-line);
+            max-width: 450px;
+        }
+
+        .google-rating-score {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--steel-silver);
+        }
+
+        .stars-container {
+            color: var(--gold-accent);
+            font-size: 18px;
+        }
+
+        .verified-text {
+            font-size: 12px;
+            color: var(--steel-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-line);
+            padding: 35px;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .avatar-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-placeholder {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-accent);
             border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all 0.2s ease;
+            font-weight: 700;
+            color: var(--gold-accent);
         }
 
-        .close-modal:hover {
-            color: #000;
-            background-color: var(--gold-primary);
-            border-color: var(--gold-primary);
+        .reviewer-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .reviewer-info span {
+            font-size: 12px;
+            color: var(--steel-muted);
+        }
+
+        .quote-text {
+            color: var(--steel-silver);
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        /* CONTEXT-DRIVEN CONTACT INTERFACE */
+        .info-panel {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border: 1px solid var(--border-line);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-item h4 {
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            font-size: 15px;
+            color: var(--steel-silver);
         }
 
         footer {
+            background-color: #060708;
             text-align: center;
             padding: 40px 0;
-            color: var(--text-muted);
+            color: var(--steel-muted);
             font-size: 12px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 40px;
+            border-top: 1px solid var(--border-line);
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <!-- LUXURY GLASS NAV BAR -->
+    <!-- LUXURY NAVIGATION FRAMEWORK -->
     <header>
-        <div class="logo">Habesha<span>Cinema</span></div>
+        <div class="brand-logo">MAYA<span>.</span></div>
         <nav>
             <ul>
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Amharic Films</a></li>
-                <li><a href="#">Eritrean Series</a></li>
-                <li><a href="#">Classics</a></li>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#materials">Materials Portfolio</a></li>
+                <li><a href="#reviews">Client Ledger</a></li>
+                <li><a href="#contact">Inquiries</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- PREMIUM HERO SPOTLIGHT -->
-    <section class="hero">
+    <!-- ARCHITECTURAL SPOTLIGHT HERO -->
+    <section class="hero" id="home">
         <div class="hero-content">
-            <p class="tagline">Exclusive Premium Spotlight</p>
-            <h1 id="hero-title">የቀይ ምንጣፍ ህልም (Red Carpet Dream)</h1>
-            <p id="hero-desc">Experience elite cinema craftsmanship curated exclusively for Habesha culture. Stream premium award-winning stories in ultra-clear modern formats from top Ethiopian filmmakers.</p>
-            <div class="btn-container">
-                <!-- Connects the Hero button to the streaming data array index 0 -->
-                <button class="btn btn-gold" onclick="openCinema(trendingMovies[0])">Watch Now</button>
-                <button class="btn btn-outline">View Details</button>
+            <span class="hero-badge">Addis Ababa Premium Wholesale Distribution</span>
+            <h1>ENGINEERED STEEL.<br><span>CURATED SHIELDING.</span></h1>
+            <p>MAYA Polycarbonate and Steel delivers architectural metal frameworks and premium translucent paneling for luxury commercial properties, modern warehouses, and high-end boutique constructions across the region.</p>
+            <div class="action-container">
+                <a href="#materials" class="action-btn btn-premium">Explore Inventory</a>
+                <a href="#contact" class="action-btn btn-monochrome">Request Pricing</a>
             </div>
         </div>
     </section>
 
-    <!-- NEW RELEASES SHELF -->
-    <section class="shelf">
-        <h2 class="shelf-title">Trending Now (አሁን በመታየት ላይ)</h2>
-        <div class="movie-grid" id="trending-grid">
-            <!-- Dynamic Data Inject -->
+    <!-- MATERIALS SHOWCASE SECTOR -->
+    <section class="section-container" id="materials">
+        <div class="section-header">
+            <span class="section-tag">Elite Product Portfolio</span>
+            <h2 class="section-title">Industrial Steel & Polycarbonate</h2>
+        </div>
+        
+        <div class="product-grid">
+            <!-- Item 1: Premium Steel Profiles -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=600" alt="Structural Steel Profiles">
+                </div>
+                <div class="product-meta">
+                    <h3>Structural Steel Profiles</h3>
+                    <p>High-grade, load-bearing hollow sections, square tubes (40x40), and premium steel channel profiles treated for structural durability.</p>
+                    <span class="spec-badge">Wholesale Grades Available</span>
+                </div>
+            </div>
+
+            <!-- Item 2: Luxury Polycarbonate Sheets -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=600" alt="Polycarbonate Architectural Sheets">
+                </div>
+                <div class="product-meta">
+                    <h3>Polycarbonate Architectural Paneling</h3>
+                    <p>High-impact, UV-protected transparent and multiwall polycarbonate sheets designed for superior structural light transmittance and thermal efficiency.</p>
+                    <span class="spec-badge">Weather-Shield Standard</span>
+                </div>
+            </div>
+
+            <!-- Item 3: Heavy Reinforcement Components -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?q=80&w=600" alt="Heavy Metal Structural Elements">
+                </div>
+                <div class="product-meta">
+                    <h3>Industrial Grade Hardware</h3>
+                    <p>Comprehensive wholesale structural reinforcement sheets, supporting metal components, and tailored building profiles for large contractors.</p>
+                    <span class="spec-badge">Addis Ababa Priority Supply</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- CLASSICS SHELF -->
-    <section class="shelf">
-        <h2 class="shelf-title">Timeless Masterpieces (ታሪካዊ ፊልሞች)</h2>
-        <div class="movie-grid" id="classics-grid">
-            <!-- Dynamic Data Inject -->
+    <!-- REAL REVIEWS & SOCIAL PROOF SECTOR -->
+    <section class="section-container reviews-section" id="reviews">
+        <div class="section-header">
+            <span class="section-tag">Verified Public Authority</span>
+            <h2 class="section-title">Google Reviews & Trust Ledger</h2>
+        </div>
+
+        <!-- Google Aggregate Representation Card -->
+        <div class="google-header-card">
+            <div class="google-rating-score">4.0</div>
+            <div>
+                <div class="stars-container">★★★★★</div>
+                <div class="verified-text">MAYA POLYCARBONATE AND STEEL &bull; VERIFIED PLATFORM STATUS</div>
+            </div>
+        </div>
+
+        <div class="review-grid">
+            <!-- Review 1: Oumer -->
+            <div class="review-card">
+                <div class="avatar-row">
+                    <div class="avatar-placeholder">O</div>
+                    <div class="reviewer-info">
+                        <h4>Oumer</h4>
+                        <span>Google Local Guide &bull; Verified Transaction</span>
+                    </div>
+                </div>
+                <p class="quote-text">"They have a good things to buy. I always come here when I want something. It's a very good shop. 🙏❤️"</p>
+            </div>
+
+            <!-- Review 2: Elias Mahmud -->
+            <div class="review-card">
+                <div class="avatar-row">
+                    <div class="avatar-placeholder">E</div>
+                    <div class="reviewer-info">
+                        <h4>Elias Mahmud</h4>
+                        <span>Contractor Profile &bull; Verified Service</span>
+                    </div>
+                </div>
+                <p class="quote-text">"Maya I’ve been satisfied by their service 🤩 ❤️🙏"</p>
+            </div>
         </div>
     </section>
 
-    <!-- LUXURY IMMERSIVE CINEMA THEATER (MODAL) -->
-    <div class="modal" id="cinemaTheater">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeCinema()">&times;</button>
-            <div class="video-player-container">
-                <!-- Native Stream Player Architecture -->
-                <video id="luxuryNativePlayer" controls controlsList="nodownload">
-                    <source id="videoSource" src="" type="video/mp4">
-                    Your browser does not support high-end HTML5 media playback protocols.
-                </video>
-            </div>
-            <div class="modal-details">
-                <h2 id="modalMovieTitle" style="color: var(--gold-primary); margin-bottom: 10px;">Movie Title</h2>
-                <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">You are directly accessing authenticated premium high-definition audio and visual infrastructure optimized for high-bandwidth networks.</p>
+    <!-- CONTEXTUAL DIRECT CONTACT SECTOR -->
+    <section class="section-container" id="contact">
+        <div class="section-header">
+            <span class="section-tag">Secure Logistics Routing</span>
+            <h2 class="section-title">Corporate Wholesale Inquiries</h2>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 40px;">
+            <div class="info-panel">
+                <div class="info-item">
+                    <h4>Operational Command Location</h4>
+                    <p>Addis Ababa, Ethiopia — Principal Construction Material Distribution Hub</p>
+                </div>
+                <div class="info-item">
+                    <h4>Fulfillment Network Capacity</h4>
+                    <p>Exclusive direct-to-site regional delivery routing and secure terminal pick-ups.</p>
+                </div>
+                <div class="info-item">
+                    <h4>Direct Procurement Service Hours</h4>
+                    <p>Monday Through Saturday &bull; Open Active Commercial Hours</p>
+                </div>
+                <div>
+                    <a href="https://t.me/" target="_blank" class="action-btn btn-premium" style="text-align: center; width: 100%;">Connect via Enterprise Telecommunication</a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
+    <!-- FOOTER ARCHITECTURE -->
     <footer>
-        &copy; 2026 HABESHA CINEMA. ALL RIGHTS RESERVED. EXCLUSIVE HIGH-END CULTURAL MEDIA NETWORKS.
+        &copy; 2026 MAYA POLYCARBONATE AND STEEL. ALL RIGHTS RESERVED. ARCHITECTURAL MATERIAL MANAGEMENT AND DISTRIBUTION SYSTEMS.
     </footer>
 
     <script>
-        // High-End Curated Datasets containing actual open-source streamable video files (.mp4 links)
-        const trendingMovies = [
-            { id: 1, title: "ፍቅር እና ግዴታ", year: "2026", rating: "9.2", quality: "4K UHD", img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-            { id: 2, title: "ዋዜማ", year: "2025", rating: "8.9", quality: "HD 1080p", img: "https://images.unsplash.com/photo-1478720143033-6a972678aa30?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" },
-            { id: 3, title: "የበጋው እረፍት", year: "2026", rating: "8.5", quality: "4K UHD", img: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" },
-            { id: 4, title: "ምስጢራዊው መንገድ", year: "2025", rating: "8.8", quality: "HD", img: "https://images.unsplash.com/photo-1574267432553-4b4628081c31?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" }
-        ];
-
-        const classicMovies = [
-            { id: 5, title: "ጥቁር እንግዳ", year: "2014", rating: "9.5", quality: "Remastered", img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
-            { id: 6, title: "ላሊበላ ፍለጋ", year: "2018", rating: "9.1", quality: "HD", img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" },
-            { id: 7, title: "ቴዎድሮስ", year: "2012", rating: "9.7", quality: "Remastered", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" },
-            { id: 8, title: "ሰማያዊ ፈረስ", year: "2016", rating: "8.7", quality: "HD", img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400", video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" }
-        ];
-
-        // Dynamic Card Factory Orchestrator
-        function populateGrid(gridId, movieArray) {
-            const grid = document.getElementById(gridId);
-            grid.innerHTML = movieArray.map((movie, index) => `
-                <div class="movie-card" onclick="triggerPlayback('${gridId}', ${index})">
-                    <div class="poster-wrapper">
-                        <span class="quality-tag">${movie.quality}</span>
-                        <img src="${movie.img}" alt="${movie.title}">
-                    </div>
-                    <div class="movie-info">
-                        <div class="movie-title">${movie.title}</div>
-                        <div class="movie-meta">
-                            <span>${movie.year}</span>
-                            <span class="rating">★ ${movie.rating}</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Bridge to route specific catalog selections into the video modal
-        function triggerPlayback(gridId, index) {
-            const selectedMovie = gridId === 'trending-grid' ? trendingMovies[index] : classicMovies[index];
-            openCinema(selectedMovie);
-        }
-
-        // Modal Media Trigger Real-Time Routine
-        function openCinema(movieObj) {
-            document.getElementById('modalMovieTitle').innerText = movieObj.title;
-            
-            const player = document.getElementById('luxuryNativePlayer');
-            const source = document.getElementById('videoSource');
-            
-            // Set the new real video link into the streaming media track
-            source.src = movieObj.video;
-            player.load(); // Flush internal buffer and load new source
-            
-            // Activate structural overlay UI
-            document.getElementById('cinemaTheater').classList.add('active');
-            
-            // Execute absolute media playback instantly
-            player.play().catch(error => {
-                console.log("Autoplay was prevented by browser security permissions. User action required.");
+        // High-end link accent tracking logic
+        const links = document.querySelectorAll('nav ul li a');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                links.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
             });
-        }
-
-        // Active Interruption Cleanup Loop (Kills tracking and stops playback)
-        function closeCinema() {
-            const player = document.getElementById('luxuryNativePlayer');
-            
-            // Immediately pause streaming signals and tear down live tracks
-            player.pause();
-            document.getElementById('videoSource').src = "";
-            player.load(); 
-            
-            document.getElementById('cinemaTheater').classList.remove('active');
-        }
-
-        // Global Bootstrapper Initialization
-        window.onload = () => {
-            populateGrid('trending-grid', trendingMovies);
-            populateGrid('classics-grid', classicMovies);
-        };
+        });
     </script>
 </body>
 </html>
