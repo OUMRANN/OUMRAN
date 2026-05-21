@@ -1,571 +1,896 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ziyad Kedir | Official Editorial Profile</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Plus+Jakarta+Sans:wght@200;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OUMRAN STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
     <style>
-        /* Luxury Minimalist Design Tokens */
-        :root {
-            --color-bg: #0b0b0c;
-            --color-surface: #131315;
-            --color-accent: #e5c158;
-            --color-accent-soft: rgba(229, 193, 88, 0.15);
-            --color-text-primary: #ffffff;
-            --color-text-secondary: #9a9a9f;
-            --font-editorial: 'Cinzel', serif;
-            --font-clean: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--color-bg);
-            color: var(--color-text-primary);
-            font-family: var(--font-clean);
-            font-size: 15px;
-            line-height: 1.8;
-            letter-spacing: 0.3px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        section {
-            padding: 120px 0;
-        }
-
-        .header-meta {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-
-        .header-meta .subtitle {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            color: var(--color-accent);
-            display: block;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .header-meta .main-title {
-            font-family: var(--font-editorial);
-            font-size: 2.8rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-        }
-
-        /* Fixed Elegant Top Nav */
-        nav {
+        :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
+        
+        /* FIX: Lock scroll when loading class is present */
+        html.loading, body.loading {
+            overflow: hidden !important;
+            height: 100% !important;
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            z-index: 1000;
-            background: rgba(11, 11, 12, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 90px;
-        }
-
-        .brand-logo {
-            font-family: var(--font-editorial);
-            font-size: 1.5rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--color-text-primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .brand-logo span {
-            color: var(--color-accent);
-        }
-
-        .menu-links {
-            display: flex;
-            gap: 45px;
-            list-style: none;
-        }
-
-        .menu-links a {
-            text-decoration: none;
-            color: var(--color-text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .menu-links a:hover {
-            color: var(--color-accent);
-        }
-
-        /* Hero Section */
-        #home {
+        body { 
+            font-family: 'Inter', -apple-system, sans-serif; 
+            margin:0; background: var(--bg); color: white; 
+            overflow-x: hidden; 
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            padding-top: 110px;
-            position: relative;
+            flex-direction: column;
+            align-items: center; 
         }
 
-        .hero-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            align-items: center;
-            gap: 80px;
+        /* FIX: Ensure content is never cut off at bottom */
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
+
+        .admin-only { display: none; }
+
+        /* Updated modal-open logic to prevent scroll reset */
+        html.modal-open, body.modal-open { 
+            overflow: hidden !important;
+            height: auto;
         }
 
-        .hero-content h1 {
-            font-family: var(--font-editorial);
-            font-size: 4.8rem;
-            line-height: 1.1;
-            font-weight: 400;
-            margin-bottom: 30px;
-            letter-spacing: -1px;
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 10000;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
         }
-
-        .hero-content h1 span {
-            display: block;
-            font-size: 1.5rem;
-            font-family: var(--font-clean);
-            color: var(--color-text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-top: 15px;
+        .splash-content { text-align: center; }
+        .welcome-msg { 
+            font-size: 12px; color: #888; letter-spacing: 6px; 
+            text-transform: uppercase; margin-bottom: 15px;
+            opacity: 0; animation: fadeInSplash 0.8s ease forwards;
         }
-
-        .hero-content p {
-            color: var(--color-text-secondary);
-            font-size: 1.05rem;
-            font-weight: 300;
-            margin-bottom: 45px;
-            max-width: 520px;
+        .splash-logo { 
+            font-family: 'Playfair Display', serif; font-size: 38px; 
+            letter-spacing: 10px; font-weight: 700; font-style: italic;
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 20px;
+            background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
+            animation-delay: 0.4s, 0s;
         }
-
-        .btn-luxury {
-            display: inline-block;
-            padding: 18px 42px;
-            border: 1px solid var(--color-accent);
-            background: transparent;
-            color: var(--color-text-primary);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 4px;
-            font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .splash-slogan {
+            font-size: 11px; color: var(--gold); 
+            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
+            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
         }
+        .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        .btn-luxury:hover {
-            background: var(--color-accent);
-            color: #000;
-            box-shadow: 0 15px 35px var(--color-accent-soft);
+        @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .about-link { color: var(--gold); font-size: 12px; font-weight: 900; text-decoration: underline; cursor: pointer; margin-top: 5px; display: inline-block; }
+        #aboutPage { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box; }
+        .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
+        .about-content h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 20px; }
+        .about-content p { line-height: 1.8; color: #ccc; font-size: 15px; margin-bottom: 20px; }
+
+        #zoom-container {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
         }
-
-        .hero-frame-container {
-            display: flex;
-            justify-content: flex-end;
+        .zoom-stage { position: relative; width: 100%; height: 70vh; display: flex; align-items: center; justify-content: center; }
+        #zoom-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .zoom-arrow { 
+            position: absolute; top: 50%; transform: translateY(-50%); 
+            background: rgba(255,255,255,0.1); color: var(--gold); border: none; 
+            width: 50px; height: 50px; border-radius: 50%; font-size: 24px; font-weight: 900; 
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
         }
+        .arrow-left { left: 10px; }
+        .arrow-right { right: 10px; }
+        .zoom-close { margin-top: 30px; background: white; color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: 900; cursor: pointer; }
 
-        .portrait-frame {
-            width: 100%;
-            max-width: 420px;
-            aspect-ratio: 3/4;
-            background: var(--color-surface);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            position: relative;
-            padding: 15px;
+        #added-toast {
+            position: fixed; top: 20px; right: -400px; visibility: hidden;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            color: white; padding: 15px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+            z-index: 5000; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #added-toast.show { right: 20px; visibility: visible; }
+        .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        .portrait-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: contrast(105%) brightness(95%) grayscale(20%);
-        }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
+        header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
+        .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
+        .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
+        
+        .variant-section { margin-bottom: 15px; }
+        .variant-label { font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .variant-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .variant-scroll::-webkit-scrollbar { display: none; }
+        .variant-item { flex: 0 0 65px; height: 65px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: 0.2s; position: relative; }
+        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-item span { display: none !important; }
+        .variant-item.active { border-color: var(--gold); }
 
-        /* Quotes Section */
-        .quote-banner {
-            background: var(--color-surface);
-            padding: 90px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            text-align: center;
-        }
+        .rec-title { font-size: 13px; font-weight: 900; color: var(--gold); margin: 25px 0 10px; border-top: 1px solid #333; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
+        .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #444; }
+        .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .quote-container blockquote {
-            font-family: var(--font-editorial);
-            font-size: 2.2rem;
-            line-height: 1.5;
-            max-width: 850px;
-            margin: 0 auto 20px auto;
-            font-style: italic;
-            color: #f0f0f2;
-        }
+        .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
+        .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
+        #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; }
+        
+        .category-section { padding: 35px 0 0 0; position: relative; z-index: 1; }
+        .category-title { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center; }
+        .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
+        
+        .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; border: 1px solid #333; cursor:pointer; }
+        .img-area { height: 220px; background: #000; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; }
+        .info-area { padding: 12px; }
+        .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
+        .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
+        
+        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
+        
+        .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
+        .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
+        .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
+        .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
+        .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
-        .quote-container cite {
-            font-family: var(--font-clean);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--color-accent);
-            font-style: normal;
-            display: block;
-        }
-
-        /* TikTok Content Matrix */
-        #portfolio {
-            background: #0f0f11;
-        }
-
-        .portfolio-matrix {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 35px;
-        }
-
-        .matrix-item {
-            background: var(--color-surface);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            transition: all 0.4s ease;
-        }
-
-        .matrix-item:hover {
-            transform: translateY(-8px);
-            border-color: rgba(229, 193, 88, 0.25);
-        }
-
-        .video-box-container {
-            width: 100%;
-            aspect-ratio: 9/16;
-            position: relative;
-            overflow: hidden;
-            background: #17171a;
-        }
-
-        .video-box-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .item-details {
-            padding: 25px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-details h4 {
-            font-family: var(--font-editorial);
-            font-size: 1.2rem;
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-
-        .item-details span {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--color-accent);
-            letter-spacing: 2px;
-        }
-
-        /* Biography Section */
-        .bio-split {
-            display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 90px;
-            align-items: center;
-        }
-
-        .bio-text-area h3 {
-            font-family: var(--font-editorial);
-            font-size: 2.4rem;
-            font-weight: 400;
-            margin-bottom: 25px;
-            line-height: 1.3;
-        }
-
-        .bio-text-area p {
-            color: var(--color-text-secondary);
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-
-        /* Contact Panel */
-        #connect {
-            background: #0f0f11;
-        }
-
-        .booking-card {
-            max-width: 750px;
-            margin: 0 auto;
-            background: var(--color-surface);
-            padding: 70px 60px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-        }
-
-        .luxury-input-group {
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .luxury-input-group label {
-            display: block;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--color-accent);
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .luxury-field {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #2e2e33;
-            padding: 10px 0;
-            color: var(--color-text-primary);
-            font-family: var(--font-clean);
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .luxury-field:focus {
-            outline: none;
-            border-bottom-color: var(--color-accent);
-        }
-
-        .btn-submit-luxury {
-            width: 100%;
-            background: var(--color-accent);
-            color: #000;
-            border: none;
-            padding: 20px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .btn-submit-luxury:hover {
-            background: #f1d47e;
-        }
-
-        /* Footer System */
-        footer {
-            padding: 60px 0;
-            background: var(--color-bg);
-            border-top: 1px solid rgba(255, 255, 255, 0.02);
-            text-align: center;
-        }
-
-        .social-matrix {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            margin-bottom: 30px;
-        }
-
-        .social-matrix a {
-            color: var(--color-text-secondary);
-            font-size: 1.3rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-matrix a:hover {
-            color: var(--color-accent);
-        }
-
-        footer p {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--color-text-secondary);
-        }
-
-        @media (max-width: 992px) {
-            .hero-layout, .bio-split, .portfolio-matrix {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            .hero-layout {
-                text-align: center;
-            }
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-            .hero-frame-container {
-                justify-content: center;
-                order: -1;
-            }
-            .booking-card {
-                padding: 40px 25px;
-            }
-            .quote-banner blockquote {
-                font-size: 1.6rem;
-            }
+        @media (min-width: 768px) {
+            .modal-content { max-width: 600px !important; width: 50% !important; }
+            .product-card { flex: 0 0 250px !important; }
+            .img-area { height: 300px !important; }
         }
     </style>
 </head>
-<body>
+<body class="loading"> <div id="zoom-container">
+    <div class="zoom-stage">
+        <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
+        <img id="zoom-img" src="" alt="Zoomed Product">
+        <button class="zoom-arrow arrow-right" onclick="changeZoom(1)">&gt;</button>
+    </div>
+    <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
+</div>
 
-    <nav>
-        <div class="container nav-inner">
-            <a href="#" class="brand-logo">Ziyad Kedir<span>.</span></a>
-            <ul class="menu-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#portfolio">Showcase</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#connect">Inquiries</a></li>
-            </ul>
+<div id="aboutPage">
+    <div class="about-content">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 5px;">About OUMRAN STORE</h2>
+        <h3 style="font-family: 'Playfair Display', serif; color: #aaa; margin-bottom: 30px; letter-spacing: 2px; font-size: 14px;">THE GOLD STANDARD OF FASHION</h3>
+
+        <div style="margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Curated Excellence</strong>
+            <p style="font-size: 14px; color: #eee; line-height: 1.6;">Welcome to OUMRAN STORE, Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p>
         </div>
-    </nav>
 
-    <section id="home">
-        <div class="container">
-            <div class="hero-layout">
-                <div class="hero-content">
-                    <h1>Ziyad Kedir <span>Digital Creator & Influencer</span></h1>
-                    <p>Crafting elite visual media at the intersection of athletics, luxury aesthetics, and lifestyle design. Inspiring a global audience daily through disciplined performance.</p>
-                    <a href="#connect" class="btn-luxury">Discover Collaborations</a>
+        <div style="margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Global Trends, Local Access</strong>
+            <p style="font-size: 14px; color: #eee; line-height: 1.6;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service. We handle every logistical detail to ensure the highest quality reaches your doorstep in Addis Ababa.</p>
+        </div>
+
+        <div style="background: #1a1a1a; padding: 20px; border-radius: 10px; border: 1px solid #333; margin-bottom: 25px;">
+            <strong style="display: block; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">The Payment Process</strong>
+            
+            <div style="margin-bottom: 15px; text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Securing Your Selection:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">A 50% deposit via Telebirr is required to lock in your items and confirm the order.</span>
+            </div>
+
+            <div style="margin-bottom: 15px; text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Immediate Processing:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">Upon sharing your payment screenshot via Telegram, our team initiates the delivery process immediately.</span>
+            </div>
+
+            <div style="text-align: left;">
+                <span style="color: #fff; font-weight: bold;">• Final Settlement:</span>
+                <span style="display: block; font-size: 13px; color: #aaa; margin-left: 15px;">The remaining balance is settled in cash/via telebirr upon arrival at your door.</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="closeAbout()">Go Back to Shopping</button>
+    </div>
+</div>
+
+
+<div id="splash-screen">
+    <div class="splash-content">
+        <div class="welcome-msg">WELCOME TO</div>
+        <div class="splash-logo">OUMRAN<br>STORE</div>
+        <div class="splash-slogan">DEFINING ADDIS ABABA LUXURY</div>
+    </div>
+</div>
+
+<div class="site-wrapper">
+    <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
+    <div id="motion-bg"></div>
+
+    <header>
+        <img src="IMG_8765.jpeg" alt="Logo" class="header-logo">
+        <span class="brand-name">OUMRAN STORE📲</span>
+    </header>
+
+    <div class="promo-bar">
+        VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
+        EXCLUSIVELY SERVING IN ADDIS ABABA<br>
+        <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
+    </div>
+
+    <main id="store-main">
+        <div class="category-section">
+            <div class="category-title">Graphic T-Shirts 👕</div>
+            <div class="scroll-wrapper"> 
+                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
+                    <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg"></div>
+                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div> 
                 </div>
-                <div class="hero-frame-container">
-                    <div class="portrait-frame">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600" alt="Ziyad Kedir Brand Portrait">
-                    </div>
+               <div class="product-card" onclick="openP('Premium Floral Short Sleeve', 'clothe', 1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
+                    <div class="img-area"><img src="Premium Floral Short Sleeve.jpg"></div>
+                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div> 
+                </div>
+               <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
+                    <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
+                    <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
+                </div>
+                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
+                    <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg"></div>
+                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div> 
+                </div>
+                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
+                    <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
+                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
+                </div>
+                <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
+                    <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
+                    <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <div class="quote-banner">
-        <div class="container">
-            <div class="quote-container">
-                <blockquote>"Do not pray for an easy life, pray for the strength to endure a difficult one."</blockquote>
-                <cite>Ziyad Kedir — Mindset & Discipline</cite>
+        <div class="category-section">
+            <div class="category-title">Hoodies & Sweaters 🧶</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
+                    <div class="img-area"><img src="Polo knit sweater.jpg"></div>
+                    <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
+                    <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
+                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Polo cable knit sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
+                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
+                    <div class="info-area"><h3>Polo cable knit sweater</h3><div class="new-p">3,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
+                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg"></div>
+                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
+                    <div class="img-area"><img src="Denim tears Hoodie.jpg"></div>
+                    <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
+                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
+                    <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
+                </div>
             </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-title">Jackets 🧥</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
+                    <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
+                    <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
+                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
+                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
+                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
+                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-title">Jeans & Pants 👖</div>
+            <div class="scroll-wrapper">
+                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
+                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
+                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim Tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
+                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
+                    <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg"></div>
+                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers', 'clothe', 3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
+                    <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg"></div>
+                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
+                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg"></div>
+                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
+                </div> 
+                <div class="product-card" onclick="openP('Elastic casual suit pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
+                    <div class="img-area"><img src="Elastic casual suit pants.jpg"></div>
+                    <div class="info-area"><h3>Elastic casual suit pants</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Wide-Leg Drape Pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
+                    <div class="img-area"><img src="Wide-Leg Drape Pants.jpg"></div>
+                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers', 'clothe', 2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
+                    <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg"></div>
+                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-section">
+            <div class="category-title">Full Outfits 👔</div>
+            <div class="scroll-wrapper">
+                 <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+                    <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP"></div>
+                    <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Synaworld Signature Paneled Suite-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+                    <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Synaworld Signature Paneled Suite-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+                    <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+               </div>
+                <div class="product-card" onclick="openP('Mertra High-Street Heritage Set-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+                    <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Mertra High-Street Heritage Set-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+                <div class="product-card" onclick="openP('Denim tears jeans-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg"></div>
+                    <div class="info-area"><h3>Denim tears jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+ <section style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
+    
+    <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">
+        OFF-MARKET
+    </p>
+
+    <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; font-weight: 400; margin-bottom: 25px; pointer-events: none;">
+        PRIVATE REQUEST
+    </h2>
+
+    <div style="max-width: 600px; margin: 0 auto; margin-bottom: 40px; pointer-events: none;">
+        <p style="color: #888; font-size: 13px; line-height: 2.2; font-weight: 300; letter-spacing: 1px;">
+            While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here in the website—regardless of the category—we invite you to engage our private sourcing service. We specialize in securing rare, high-end essentials tailored to your individual lifestyle.
+        </p>
+    </div>
+
+    <button onclick="openPrivateSourcing()" style="background: none; border: none; color: #fff; text-decoration: none; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; border-bottom: 1px solid #d4af37; padding-bottom: 8px; font-weight: 600; display: inline-block; position: relative; z-index: 10; cursor: pointer;">
+       Submit a Private Request 
+    </button>
+
+</section>
+
+    <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
+    <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
+
+    <div id="pModal" class="modal">
+        <div class="modal-content">
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; cursor: zoom-in;">
+            <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
+            <span id="m-price" style="color:var(--gold); font-weight:900; font-size: 18px;">0 ETB</span>
+            
+            <div id="variant-area" class="variant-section">
+                <span class="variant-label">Select Color/Style</span>
+                <div id="variant-list" class="variant-scroll"></div>
+            </div>
+
+            <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+            <select id="size-box" class="order-input"></select>
+            <button class="btn" onclick="addToCart()">Add to Bag</button>
+            <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+
+            <div class="rec-title">You May Also Like</div>
+            <div id="rec-list" class="rec-scroll"></div>
         </div>
     </div>
 
-    <section id="portfolio">
-        <div class="container">
-            <div class="header-meta">
-                <span class="subtitle">Media Showcase</span>
-                <h2 class="main-title">Trending Content</h2>
-            </div>
+    <div id="privateSourcingModal" class="modal">
+        <div class="modal-content" style="background: #1a1a1a; border: 1px solid #333;">
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif; color: #fff; letter-spacing: 1px;">Sourcing Intake 🌐</h2>
+            <p style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Private Concierge Service</p>
             
-            <div class="portfolio-matrix">
-                <div class="matrix-item">
-                    <div class="video-box-container">
-                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=500" alt="Fitness Training Concept">
-                    </div>
-                    <div class="item-details">
-                        <h4>Peak Athletic Form</h4>
-                        <span>TikTok Feature</span>
-                    </div>
-                </div>
-                <div class="matrix-item">
-                    <div class="video-box-container">
-                        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=500" alt="Lifestyle Aesthetics">
-                    </div>
-                    <div class="item-details">
-                        <h4>Minimalist Lifestyle</h4>
-                        <span>@ziyadkedir</span>
-                    </div>
-                </div>
-                <div class="matrix-item">
-                    <div class="video-box-container">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=500" alt="Creative Capture">
-                    </div>
-                    <div class="item-details">
-                        <h4>Daily Evolution</h4>
-                        <span>Creative Vision</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Client Profile Name</label>
+            <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
 
-    <section id="about">
-        <div class="container">
-            <div class="bio-split">
-                <div class="portrait-frame" style="max-width: 100%;">
-                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=600" alt="Ziyad Corporate Creative Context">
-                </div>
-                <div class="bio-text-area">
-                    <h3>Building authentic momentum through premium digital curation.</h3>
-                    <p>Ziyad Kedir operates dynamically within the elite digital creator landscape. Known across community platforms for pushing boundaries in fitness execution, styling, and modern motivation, he sets a high bar for content quality.</p>
-                    <p>By pairing focused training principles with clean visual arts, Ziyad builds content paths that don't just capture attention—they motivate lasting lifestyle shifts.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="connect">
-        <div class="container">
-            <div class="header-meta">
-                <span class="subtitle">Brand Strategy</span>
-                <h2 class="main-title">Initiate Alignment</h2>
-            </div>
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Contact Number</label>
+            <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
             
-            <div class="booking-card">
-                <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Inquiry sent successfully.');">
-                    <div class="luxury-input-group">
-                        <label for="client_name">Brand Identity / Agency Name</label>
-                        <input type="text" id="client_name" class="luxury-field" required autocomplete="off">
-                    </div>
-                    <div class="luxury-input-group">
-                        <label for="client_email">Direct Business Email</label>
-                        <input type="email" id="client_email" class="luxury-field" required autocomplete="off">
-                    </div>
-                    <div class="luxury-input-group">
-                        <label for="client_brief">Campaign Details & Project Scope</label>
-                        <textarea id="client_brief" rows="4" class="luxury-field" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit-luxury">Submit Briefing</button>
-                </form>
-            </div>
-        </div>
-    </section>
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Item Classification</label>
+            <select id="srcCategory" class="order-input" style="background: #000; color: white;">
+                <option value="Clothes">Clothes / Apparel</option>
+                <option value="Shoes">Shoes / Sneakers</option>
+                <option value="Watch">Watch / Horology</option>
+                <option value="Bag">Bag / Luxury Leather</option>
+                <option value="Other">Other Premium Goods</option>
+            </select>
 
-    <footer>
-        <div class="container">
-            <div class="social-matrix">
-                <a href="https://tiktok.com" target="_blank" aria-label="TikTok Link"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="https://instagram.com" target="_blank" aria-label="Instagram Link"><i class="fa-brands fa-instagram"></i></a>
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Product Name & Details</label>
+            <input type="text" id="srcProductName" placeholder="Brand, Model, Release Year, etc." class="order-input">
+
+            <div id="srcSizeWrapper">
+                <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Required Sizing</label>
+                <input type="text" id="srcSize" placeholder="Your size (e.g., XL, 43, Standard)" class="order-input">
             </div>
-            <p>&copy; 2026 Ziyad Kedir. Curated Prestige.</p>
+
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Preferred Allocation Budget</label>
+            <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
+
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Reference Link / Image Description</label>
+            <div id="srcReferenceWrapper" style="position: relative; border: 1px solid #444; border-radius: 10px; background-color: #000; margin-top: 10px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;">
+                <textarea id="srcReference" placeholder="Paste link to reference image, or details about the configuration/colorway" style="width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; min-height: 80px; resize: none; font-family: inherit; box-sizing: border-box; display: block; margin: 0;"></textarea>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; padding-top: 8px;">
+                    <div id="srcImagePreviewSlot" style="display: flex; align-items: center;"></div>
+                    
+                    <label for="srcHiddenImageUpload" style="display: flex; align-items: center; gap: 6px; color: #a0a0a0; font-size: 13px; cursor: pointer; transition: color 0.2s; font-family: sans-serif;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span>Add Photo</span>
+                    </label>
+                    <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <button class="btn" style="background: var(--gold); color: #000;" onclick="submitPrivateRequest()">Send to Concierge Network</button>
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
         </div>
-    </footer>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
+            <div id="cart-items-list" style="margin-bottom: 15px;"></div>
+            <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
+            <input type="text" id="custName" placeholder="Full Name" class="order-input">
+            <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
+            <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
+            <p class="payment-info">
+  <strong style="color: white;">Telebirr Payment Info:</strong><br>
+  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
+</p>
+            <span style="font-size: 11px; color: #aaa; display: block; margin-top: 5px;">Payment Instruction:
+Please transfer a 50% deposit via Telebirr to the numbers above to confirm your order. You will pay the remaining ETB in cash/via telebirr when your order arrives at your door.</span>
+            <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #333; font-family: sans-serif;">
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: start; gap: 10px;">
+            <span style="color: #ffffff; font-size: 14px;">•</span>
+            <p style="margin: 0; font-size: 11px; color: #b0b0b0; letter-spacing: 0.5px;">
+                Prices may change slightly depending on the supplier stock.
+            </p>
+        </div>
+        <div style="display: flex; align-items: start; gap: 10px; margin-bottom: 15px;">
+            <span style="color: #ffffff; font-size: 14px;">•</span>
+            <p style="margin: 0; font-size: 11px; color: #b0b0b0; letter-spacing: 0.5px;">
+                Final pricing will be verified and confirmed during your Telegram order consultation.
+            </p>
+        </div>
+    </div>
+</div>
+
+            <button class="btn" onclick="submitOrder()">Confirm Order</button>
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
+        </div>
+    </div>
+
+       <div id="successModal" class="modal">
+        <div class="modal-content" style="background-color: #0b0b0b; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid #222; max-width: 400px; margin: 20px auto;">
+            
+            <h2 style="color: #d4af37; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 25px; font-weight: 400;">
+                ORDER RESERVED! 🕒
+            </h2>
+
+            <p style="text-transform: uppercase; font-size: 11px; letter-spacing: 3px; color: #888; margin-bottom: 10px;">
+                Thank you for shopping with OUMRAN STORE✨
+            </p>
+            <p style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.2;">
+                We have your details.
+            </p>
+
+            <div style="font-size: 13px; line-height: 1.8; color: #ccc; margin-bottom: 35px; padding: 0 10px;">
+                To lock in your items, please click below to send your 50% deposit screenshot to our Telegram. Once we see the screenshot, we’ll start the delivery process immediately.
+            </div>
+
+            <p style="font-size: 12px; letter-spacing: 2px; font-weight: 600; margin-bottom: 25px; text-transform: uppercase;">
+                See you on Telegram!
+            </p>
+
+            <button class="btn" onclick="window.location.href='https://t.me/OUMER_FETE'" style="display: inline-block; background-color: #ffffff; color: #000000; padding: 15px 45px; border: none; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer;">
+                Open Telegram
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let cart = [];
+const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx = 0;
+let scrollPos = 0; // FIX: Track scroll position
+let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
+
+window.addEventListener('load', () => {
+    loadCart();
+    // Splash screen logic updated to unlock scrolling only after exit
+    setTimeout(() => {
+        document.getElementById('splash-screen').classList.add('splash-exit');
+        // Unlocks scrolling
+        document.documentElement.classList.remove('loading');
+        document.body.classList.remove('loading');
+    }, 2000); 
+    
+    // Set up paste and attachment image hooks
+    initPrivateSourcingUploads();
+});
+
+function openZoom() {
+    zoomIdx = 0;
+    const activeVarIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
+    if(activeVarIdx !== -1) zoomIdx = activeVarIdx;
+    updateZoomImage();
+    document.getElementById("zoom-container").style.display = "flex";
+    document.documentElement.classList.add('modal-open');
+}
+
+function changeZoom(dir) {
+    if(currentVariants.length === 0) return;
+    zoomIdx += dir;
+    if(zoomIdx < 0) zoomIdx = currentVariants.length - 1;
+    if(zoomIdx >= currentVariants.length) zoomIdx = 0;
+    updateZoomImage();
+}
+
+function updateZoomImage() {
+    const zoomImg = document.getElementById("zoom-img");
+    if(currentVariants.length > 0) { zoomImg.src = currentVariants[zoomIdx].img; } 
+    else { zoomImg.src = document.getElementById("modal-img").src; document.querySelectorAll('.zoom-arrow').forEach(a => a.style.display = 'none'); }
+}
+
+function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
+function openAbout() { 
+    scrollPos = window.pageYOffset; // Save position
+    document.getElementById('aboutPage').style.display = 'block'; 
+    document.documentElement.classList.add('modal-open'); 
+}
+function closeAbout() { 
+    document.getElementById('aboutPage').style.display = 'none'; 
+    document.documentElement.classList.remove('modal-open'); 
+    window.scrollTo(0, scrollPos); // Restore position
+}
+
+function openP(n, t, price) {
+    scrollPos = window.pageYOffset; // FIX: Save position before opening modal
+    currentP = n; currentPrice = price;
+    document.getElementById("m-name").innerText = n;
+    document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
+    const clickedCard = event.currentTarget;
+    document.getElementById("modal-img").src = clickedCard.querySelector('img').src;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    const variantList = document.getElementById("variant-list");
+    variantList.innerHTML = "";
+    const variantsData = clickedCard.getAttribute('data-variants');
+    currentVariants = variantsData ? JSON.parse(variantsData) : [];
+    if(currentVariants.length > 0) {
+        document.getElementById("variant-area").style.display = "block";
+        currentVariants.forEach((v, idx) => {
+            const item = document.createElement("div");
+            item.className = `variant-item ${idx === 0 ? 'active' : ''}`;
+            item.onclick = function() {
+                document.getElementById("modal-img").src = v.img;
+                document.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+            };
+            let nameHtml = (v.name && v.name.trim() !== "") ? `<span>${v.name}</span>` : "";
+            item.innerHTML = `<img src="${v.img}">${nameHtml}`;
+            variantList.appendChild(item);
+        });
+    } else { document.getElementById("variant-area").style.display = "none"; }
+    const recList = document.getElementById("rec-list"); recList.innerHTML = "";
+    clickedCard.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
+        if(prod !== clickedCard) {
+            const item = document.createElement('div'); item.className = 'rec-item';
+            item.innerHTML = `<img src="${prod.querySelector('img').src}"><h4>${prod.querySelector('h3').innerText}</h4>`;
+            item.onclick = () => { closeModal(); setTimeout(() => prod.click(), 50); };
+            recList.appendChild(item);
+        }
+    });
+    
+    // ADJUSTED TO AUTOMATICALLY HIDE SIZE SELECTOR AND LABEL FOR ACCESSORIES / WATCHES
+    let b = document.getElementById("size-box"); b.innerHTML = "";
+    (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
+    if (t === 'acc' || !sz[t]) {
+        b.style.display = "none";
+        b.previousElementSibling.style.display = "none";
+    } else {
+        b.style.display = "block";
+        b.previousElementSibling.style.display = "block";
+    }
+    
+    document.getElementById("pModal").style.display = "block";
+}
+
+function addToCart() {
+    let internalColor = "";
+    let displayColor = "";
+    const activeVariantSpan = document.querySelector('.variant-item.active span');
+    if(activeVariantSpan) {
+        displayColor = ` <span class="admin-only">[${activeVariantSpan.innerText}]</span>`;
+        internalColor = ` [${activeVariantSpan.innerText}]`;
+    }
+    cart.push({ 
+        name: currentP + displayColor, 
+        internalName: currentP + internalColor,
+        size: document.getElementById("size-box").value, 
+        price: currentPrice 
+    });
+    updateCartDisplay(); closeModal();
+    const toast = document.getElementById("added-toast");
+    document.getElementById("toast-text").innerHTML = `<strong>${currentP}</strong> Added`;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2800);
+}
+
+function updateCartDisplay() {
+    document.getElementById("cart-count").innerText = cart.length;
+    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+    localStorage.setItem('oumer_cart', JSON.stringify(cart));
+}
+
+function showCart() {
+    scrollPos = window.pageYOffset; // Save position
+    document.documentElement.classList.add('modal-open');
+    let total = 0;
+    document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
+        total += item.price;
+        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
+    }).join("");
+    document.getElementById("cart-total").innerText = total.toLocaleString();
+    document.getElementById("cartModal").style.display = "block";
+}
+
+function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
+
+function submitOrder() {
+    const n = document.getElementById('custName').value;
+    const p = document.getElementById('custPhone').value;
+    const a = document.getElementById('custAddress').value;
+    if(!n || !p || !a) return alert("Fill all the details first!");
+    let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
+    let text = `🛍️ *NEW ORDER*\n👤 ${n}\n📞 ${p}\n📍 ${a}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
+    }).then(() => {
+        document.getElementById("cartModal").style.display = "none";
+        document.getElementById("successModal").style.display = "block";
+        cart = []; updateCartDisplay();
+    });
+}
+
+function closeModal() { 
+    document.documentElement.classList.remove('modal-open'); 
+    document.body.classList.remove('modal-open'); 
+    document.getElementById("pModal").style.display = "none"; 
+    window.scrollTo(0, scrollPos); // FIX: Restore position after closing
+}
+function closeCart() { 
+    document.documentElement.classList.remove('modal-open'); 
+    document.getElementById("cartModal").style.display = "none"; 
+    window.scrollTo(0, scrollPos); // Restore position
+}
+function loadCart() { const s = localStorage.getItem('oumer_cart'); if(s) { cart = JSON.parse(s); updateCartDisplay(); } }
+function filterProducts() {
+    let input = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('.category-section').forEach(sec => {
+        let match = false;
+        sec.querySelectorAll('.product-card').forEach(card => {
+            if(card.querySelector('h3').innerText.toLowerCase().includes(input)) { card.style.display="block"; match=true; }
+            else card.style.display="none";
+        });
+        sec.style.display = match ? "block" : "none";
+    });
+}
+
+/* PRIVATE SOURCING LOGIC PATHWAYS */
+function openPrivateSourcing() {
+    scrollPos = window.pageYOffset;
+    document.documentElement.classList.add('modal-open');
+    document.body.classList.add('modal-open');
+    document.getElementById("privateSourcingModal").style.display = "block";
+}
+
+function closePrivateSourcing() {
+    document.documentElement.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
+    document.getElementById("privateSourcingModal").style.display = "none";
+    window.scrollTo(0, scrollPos);
+}
+
+function initPrivateSourcingUploads() {
+    const fileInput = document.getElementById('srcHiddenImageUpload');
+    const previewSlot = document.getElementById('srcImagePreviewSlot');
+    const wrapper = document.getElementById('srcReferenceWrapper');
+
+    // DYNAMIC WATCH CATEGORY EVENT LISTENER FOR SOURCING FORM
+    const srcCategory = document.getElementById('srcCategory');
+    const srcSizeWrapper = document.getElementById('srcSizeWrapper');
+    const srcSizeInput = document.getElementById('srcSize');
+
+    srcCategory.addEventListener('change', function() {
+        if (this.value === 'Watch') {
+            srcSizeWrapper.style.display = 'none';
+            srcSizeInput.value = 'Standard'; // Pre-fills field so form logic passes
+        } else {
+            srcSizeWrapper.style.display = 'block';
+            if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
+        }
+    });
+
+    function processImageFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                srcAttachedImageBase64 = e.target.result;
+                previewSlot.innerHTML = `
+                    <div style="position: relative; display: inline-block; margin-right: 10px;">
+                        <img src="${e.target.result}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; border: 1px solid #333;">
+                        <span id="srcRemovePreviewBtn" style="position: absolute; top: -6px; right: -6px; background: #ff4d4d; color: white; border-radius: 50%; width: 14px; height: 14px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-family: sans-serif;">×</span>
+                    </div>
+                `;
+                document.getElementById('srcRemovePreviewBtn').addEventListener('click', function(ev) {
+                    ev.preventDefault();
+                    previewSlot.innerHTML = '';
+                    fileInput.value = '';
+                    srcAttachedImageBase64 = "";
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    fileInput.addEventListener('change', function() {
+        processImageFile(this.files[0]);
+    });
+
+    wrapper.addEventListener('paste', function(e) {
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let i in items) {
+            const item = items[i];
+            if (item.kind === 'file') {
+                const blob = item.getAsFile();
+                processImageFile(blob);
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(blob);
+                fileInput.files = dataTransfer.files;
+            }
+        }
+    });
+}
+
+function submitPrivateRequest() {
+    const clientName = document.getElementById('srcClientName').value;
+    const clientPhone = document.getElementById('srcClientPhone').value;
+    const category = document.getElementById('srcCategory').value;
+    const productName = document.getElementById('srcProductName').value;
+    const size = document.getElementById('srcSize').value;
+    const budget = document.getElementById('srcBudget').value || "Not Specified";
+    const reference = document.getElementById('srcReference').value || "None Provided";
+
+    if(!clientName || !clientPhone || !productName || !size) {
+        return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
+    }
+
+    let text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
+               `👤 *Client:* ${clientName}\n` +
+               `📞 *Contact:* ${clientPhone}\n\n` +
+               `📦 *Classification:* ${category}\n` +
+               `🏷️ *Product Name:* ${productName}\n` +
+               `📐 *Size Required:* ${size}\n` +
+               `💰 *Target Budget:* ${budget}\n\n` +
+               `🔗 *Reference/Notes:* ${reference}`;
+
+    let apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
+    let formData = null;
+    let postOptions = {};
+
+    if (srcAttachedImageBase64) {
+        apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto`;
+        formData = new FormData();
+        formData.append("chat_id", "5715582254");
+        formData.append("caption", text);
+        formData.append("parse_mode", "Markdown");
+        
+        // Convert base64 data back to file blob for authentic upload payload
+        const base64Parts = srcAttachedImageBase64.split(',');
+        const mimeType = base64Parts[0].match(/:(.*?);/)[1];
+        const binaryStr = atob(base64Parts[1]);
+        let n = binaryStr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--) {
+            u8arr[n] = binaryStr.charCodeAt(n);
+        }
+        const fileBlob = new Blob([u8arr], { type: mimeType });
+        formData.append("photo", fileBlob, "upload.jpg");
+        
+        postOptions = { method: "POST", body: formData };
+    } else {
+        postOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
+        };
+    }
+
+    fetch(apiUrl, postOptions).then(() => {
+        document.getElementById("privateSourcingModal").style.display = "none";
+        document.getElementById("successModal").style.display = "block";
+        
+        // Reset Sourcing form fields
+        document.getElementById('srcClientName').value = "";
+        document.getElementById('srcClientPhone').value = "";
+        document.getElementById('srcProductName').value = "";
+        document.getElementById('srcSize').value = "";
+        document.getElementById('srcBudget').value = "";
+        document.getElementById('srcReference').value = "";
+        document.getElementById('srcImagePreviewSlot').innerHTML = "";
+        document.getElementById('srcHiddenImageUpload').value = "";
+        srcAttachedImageBase64 = "";
+    }).catch(err => {
+        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
+    });
+}
+</script>
+
+<p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
+    &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
+</p>
 
 </body>
 </html>
