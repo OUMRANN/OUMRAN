@@ -1,12 +1,443 @@
-Act as an expert Senior Frontend Engineer and UI/UX Designer. Generate a highly polished, luxury-tier streaming web application interface inspired by Netflix and modern UI frameworks, tailored exclusively for Habesha (Ethiopian/Eritrean) cinema named "Habesha Cinema". 
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HABESHA CINEMA — Luxury Streaming</title>
+    <style>
+        /* LUXURY SYSTEM DESIGN - OBSIDIAN & IMPERIAL GOLD */
+        :root {
+            --bg-dark: #09090a;
+            --bg-card: #121214;
+            --gold-primary: #D4AF37;
+            --gold-hover: #F3E5AB;
+            --text-light: #F5F5F7;
+            --text-muted: #A1A1A6;
+            --accent-glow: rgba(212, 175, 55, 0.15);
+        }
 
-Design Aesthetics:
-- Primary Color: Deep Obsidian Black (#0D0D0D) for an immersive dark mode.
-- Accent Color: Premium Matte Gold (#D4AF37) representing luxury, royalty, and elite curation.
-- Typography: Clean, elegant sans-serif (e.g., 'Inter' or 'Cinzel') combined with clean Amharic script capabilities.
-- Layout: Completely ad-free, high-end streaming feel. Hero section with a prominent, cinematic backdrop slider, clear category rows (Amharic Drama, Eritrean Film, Classic Guragigna, Contemporary Tarik), and dynamic movie cards showing IMDb-style ratings and HD tags.
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
 
-Technical Requirements:
-- Build the frontend structure entirely in a single clean file (HTML5 + CSS3 Flexbox/Grid + Native JavaScript for interactions).
-- Ensure a beautiful responsive grid system that looks elegant on both mobile screens and ultra-wide desktop setups.
-- Include interactive custom modern modal popups for video playing simulation or movie details.
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* PREMIUM NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: linear-gradient(to bottom, rgba(9,9,10,0.95) 60%, rgba(9,9,10,0) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .logo span {
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--gold-primary);
+        }
+
+        /* KINETIC HERO BANNER */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 6%;
+            background: linear-gradient(to right, rgba(9,9,10,0.9) 30%, rgba(9,9,10,0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1920') no-repeat center center/cover;
+            margin-bottom: 40px;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+        }
+
+        .tagline {
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-gold {
+            background-color: var(--gold-primary);
+            color: #000;
+            border: 1px solid var(--gold-primary);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--gold-hover);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        /* MOVIE BROWSING SECTIONS */
+        .shelf {
+            padding: 0 6% 40px 6%;
+        }
+
+        .shelf-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--gold-primary);
+            padding-left: 12px;
+            text-transform: uppercase;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .movie-card {
+            background-color: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 12px var(--accent-glow);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .poster-wrapper {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background-color: #222;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quality-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--gold-primary);
+            color: #000;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-title {
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 5px;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .rating {
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+
+        /* MODAL CINEMA ENGINE */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 6, 0.95);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            background-color: var(--bg-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-player-sim {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold-primary);
+            font-size: 18px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .modal-details {
+            padding: 30px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: var(--gold-primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 40px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LUXURY GLASS NAV BAR -->
+    <header>
+        <div class="logo">Habesha<span>Cinema</span></div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Amharic Films</a></li>
+                <li><a href="#">Eritrean Series</a></li>
+                <li><a href="#">Classics</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- PREMIUM HERO SPOTLIGHT -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="tagline">Exclusive Premium Spotlight</p>
+            <h1 id="hero-title">የቀይ ምንጣፍ ህልም (Red Carpet Dream)</h1>
+            <p id="hero-desc">Experience elite cinema craftsmanship curated exclusively for Habesha culture. Stream premium award-winning stories in ultra-clear modern formats from top Ethiopian filmmakers.</p>
+            <div class="btn-container">
+                <a href="#" class="btn btn-gold" onclick="openCinema('የቀይ ምንጣፍ ህልም (Red Carpet Dream)')">Watch Now</a>
+                <a href="#" class="btn btn-outline">View Details</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW RELEASES SHELF -->
+    <section class="shelf">
+        <h2 class="shelf-title">Trending Now (አሁን በመታየት ላይ)</h2>
+        <div class="movie-grid" id="trending-grid">
+            <!-- Dynamic Data Inject -->
+        </div>
+    </section>
+
+    <!-- CLASSICS SHELF -->
+    <section class="shelf">
+        <h2 class="shelf-title">Timeless Masterpieces (ታሪካዊ ፊልሞች)</h2>
+        <div class="movie-grid" id="classics-grid">
+            <!-- Dynamic Data Inject -->
+        </div>
+    </section>
+
+    <!-- LUXURY IMMERSIVE CINEMA THEATER (MODAL) -->
+    <div class="modal" id="cinemaTheater">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeCinema()">&times;</button>
+            <div class="video-player-sim">
+                <div style="text-align: center;">
+                    <span style="font-size: 48px; display:block; margin-bottom:10px;">👑</span>
+                    <span>SECURE PREMIUM STREAM INITIALIZING...</span>
+                </div>
+            </div>
+            <div class="modal-details">
+                <h2 id="modalMovieTitle" style="color: var(--gold-primary); margin-bottom: 10px;">Movie Title</h2>
+                <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">You are accessing authenticated premium high-definition audio and visual infrastructure optimized for high-bandwidth native devices.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 HABESHA CINEMA. ALL RIGHTS RESERVED. EXCLUSIVE HIGH-END CULTURAL MEDIA NETWORKS.
+    </footer>
+
+    <script>
+        // Premium Curated Datasets
+        const trendingMovies = [
+            { title: "ፍቅር እና ግዴታ", year: "2026", rating: "9.2", quality: "4K UHD", img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=400" },
+            { title: "ዋዜማ", year: "2025", rating: "8.9", quality: "HD 1080p", img: "https://images.unsplash.com/photo-1478720143033-6a972678aa30?q=80&w=400" },
+            { title: "የበጋው እረፍት", year: "2026", rating: "8.5", quality: "4K UHD", img: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=400" },
+            { title: "ምስጢራዊው መንገድ", year: "2025", rating: "8.8", quality: "HD", img: "https://images.unsplash.com/photo-1574267432553-4b4628081c31?q=80&w=400" }
+        ];
+
+        const classicMovies = [
+            { title: "ጥቁር እንግዳ", year: "2014", rating: "9.5", quality: "Remastered", img: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=400" },
+            { title: "ላሊበላ ፍለጋ", year: "2018", rating: "9.1", quality: "HD", img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=400" },
+            { title: "ቴዎድሮስ", year: "2012", rating: "9.7", quality: "Remastered", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=400" },
+            { title: "ሰማያዊ ፈረስ", year: "2016", rating: "8.7", quality: "HD", img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=400" }
+        ];
+
+        // Dynamic Card Factory
+        function populateGrid(gridId, movieArray) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = movieArray.map(movie => `
+                <div class="movie-card" onclick="openCinema('${movie.title}')">
+                    <div class="poster-wrapper">
+                        <span class="quality-tag">${movie.quality}</span>
+                        <img src="${movie.img}" alt="${movie.title}">
+                    </div>
+                    <div class="movie-info">
+                        <div class="movie-title">${movie.title}</div>
+                        <div class="movie-meta">
+                            <span>${movie.year}</span>
+                            <span class="rating">★ ${movie.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal State Controls
+        function openCinema(title) {
+            document.getElementById('modalMovieTitle').innerText = title;
+            document.getElementById('cinemaTheater').classList.add('active');
+        }
+
+        function closeCinema() {
+            document.getElementById('cinemaTheater').classList.remove('active');
+        }
+
+        // Layout Bootstrapper
+        window.onload = () => {
+            populateGrid('trending-grid', trendingMovies);
+            populateGrid('classics-grid', classicMovies);
+        };
+    </script>
+</body>
+</html>
