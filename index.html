@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZENA LUXE — Royal Habesha Event Engineering</title>
+    <title>HG ENGINEERING — Heavy Fabrication & Metal Solutions</title>
     <style>
-        /* LUXURY CULTURAL DESIGN MATRIX */
+        /* CORPORATE LUXURY DESIGN TOKENS */
         :root {
-            --bg-obsidian: #08090B;
-            --bg-card: #111317;
-            --gold-royal: #D4AF37;
-            --gold-hover: #F3E5AB;
-            --text-pure: #FFFFFF;
-            --text-silver: #E2E8F0;
-            --text-muted: #8A94A6;
-            --gold-glow: rgba(212, 175, 55, 0.12);
+            --bg-titanium: #0A0C10;
+            --bg-surface: #121620;
+            --steel-bright: #F8FAFC;
+            --steel-muted: #64748B;
+            --amber-industrial: #F59E0B;
+            --amber-hover: #FBBF24;
+            --amber-glow: rgba(245, 158, 11, 0.12);
             --border-line: rgba(255, 255, 255, 0.04);
-            --header-blur: rgba(8, 9, 11, 0.92);
+            --blur-header: rgba(10, 12, 16, 0.94);
         }
 
         * {
@@ -28,14 +27,14 @@
         }
 
         body {
-            background-color: var(--bg-obsidian);
-            color: var(--text-silver);
+            background-color: var(--bg-titanium);
+            color: var(--steel-bright);
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* LIQUID SMOOTH FIXED NAVIGATION */
+        /* HARDWARE ACCELERATED APP BAR */
         header {
             position: fixed;
             top: 0;
@@ -45,106 +44,105 @@
             justify-content: space-between;
             align-items: center;
             padding: 24px 6%;
-            background: linear-gradient(to bottom, var(--header-blur) 80%, rgba(8, 9, 11, 0) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: linear-gradient(to bottom, var(--blur-header) 75%, rgba(10, 12, 16, 0) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-line);
         }
 
-        .brand-logo {
-            font-size: 22px;
+        .logo-box {
+            font-size: 24px;
             font-weight: 900;
             letter-spacing: 4px;
-            color: var(--text-pure);
+            color: var(--steel-bright);
             text-transform: uppercase;
         }
 
-        .brand-logo span {
-            color: var(--gold-royal);
-            font-weight: 300;
-            text-shadow: 0 0 15px var(--gold-glow);
+        .logo-box span {
+            color: var(--amber-industrial);
+            text-shadow: 0 0 15px var(--amber-glow);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 35px;
+            gap: 40px;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: var(--text-muted);
+            color: var(--steel-muted);
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.25s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
         nav ul li a:hover, nav ul li a.active {
-            color: var(--gold-royal);
+            color: var(--amber-industrial);
         }
 
-        /* HIGH-END EDITORIAL HERO SPOTLIGHT */
+        /* BRUTALIST LUXURY HERO SECTION */
         .hero {
             position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             padding: 0 6%;
-            background: linear-gradient(to right, rgba(8, 9, 11, 0.96) 35%, rgba(8, 9, 11, 0.4) 100%), 
-                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920') no-repeat center center/cover;
+            background: linear-gradient(to right, rgba(10, 12, 16, 0.96) 40%, rgba(10, 12, 16, 0.3) 100%), 
+                        url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=1920') no-repeat center center/cover;
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 850px;
             z-index: 2;
-            padding-top: 60px;
+            padding-top: 50px;
         }
 
         .hero-badge {
             display: inline-block;
-            color: var(--gold-royal);
+            color: var(--amber-industrial);
             text-transform: uppercase;
             letter-spacing: 4px;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 800;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(245, 158, 11, 0.3);
             padding: 6px 16px;
             border-radius: 2px;
             margin-bottom: 25px;
-            background-color: rgba(212, 175, 55, 0.03);
+            background-color: rgba(245, 158, 11, 0.03);
         }
 
         .hero h1 {
-            font-size: 68px;
+            font-size: 72px;
             font-weight: 900;
             line-height: 1.05;
             margin-bottom: 25px;
             letter-spacing: -2px;
-            color: var(--text-pure);
+            color: var(--steel-bright);
         }
 
         .hero h1 span {
             color: transparent;
-            -webkit-text-stroke: 1px var(--text-silver);
+            -webkit-text-stroke: 1px var(--steel-bright);
         }
 
         .hero p {
-            color: var(--text-muted);
+            color: var(--steel-muted);
             font-size: 18px;
             margin-bottom: 40px;
-            max-width: 620px;
+            max-width: 650px;
         }
 
-        /* ANTI-LAG BOUTIQUE BUTTONS */
-        .action-hub {
+        /* ANTI-LAG TRANSACTION CONTROL BUTTONS */
+        .cta-hub {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
         }
 
-        .action-btn {
+        .cta-btn {
             padding: 18px 36px;
             border-radius: 3px;
             font-weight: 700;
@@ -158,45 +156,71 @@
             text-align: center;
         }
 
-        .action-btn:active {
+        .cta-btn:active {
             transform: scale(0.97);
         }
 
-        .btn-royal {
-            background-color: var(--gold-royal);
-            color: #000000;
-            border: 1px solid var(--gold-royal);
+        .btn-industrial {
+            background-color: var(--amber-industrial);
+            color: #0A0C10;
+            border: 1px solid var(--amber-industrial);
         }
 
-        .btn-royal:hover {
-            background-color: var(--gold-hover);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+        .btn-industrial:hover {
+            background-color: var(--amber-hover);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.35);
         }
 
-        .btn-outline {
+        .btn-glass {
             background-color: transparent;
-            color: var(--text-pure);
+            color: var(--steel-bright);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .btn-outline:hover {
-            border-color: var(--gold-royal);
-            color: var(--gold-royal);
+        .btn-glass:hover {
+            border-color: var(--amber-industrial);
+            color: var(--amber-industrial);
         }
 
-        /* ANTI-OVERLAP GRID PLATFORM */
-        .section-space {
+        /* METRIC OVERVIEW SEGMENT */
+        .metric-banner {
+            background-color: #0E1117;
+            padding: 60px 6%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid var(--border-line);
+        }
+
+        .metric-card h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--amber-industrial);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .metric-card p {
+            color: var(--steel-muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* ANTI-OVERLAP PROTECTION SECTOR ARRAYS */
+        .grid-section {
             padding: 120px 6%;
             border-bottom: 1px solid var(--border-line);
         }
 
-        .section-header {
+        .grid-header {
             margin-bottom: 60px;
-            max-width: 700px;
+            max-width: 750px;
         }
 
-        .section-tag {
-            color: var(--gold-royal);
+        .grid-tag {
+            color: var(--amber-industrial);
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
@@ -205,22 +229,22 @@
             display: block;
         }
 
-        .section-title {
+        .grid-title {
             font-size: 36px;
             font-weight: 900;
             letter-spacing: -1px;
             text-transform: uppercase;
-            color: var(--text-pure);
+            color: var(--steel-bright);
         }
 
-        .experience-grid {
+        .structural-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 35px;
         }
 
-        .experience-card {
-            background-color: var(--bg-card);
+        .structural-card {
+            background-color: var(--bg-surface);
             border: 1px solid var(--border-line);
             border-radius: 4px;
             overflow: hidden;
@@ -230,20 +254,20 @@
             height: 100%;
         }
 
-        .experience-card:hover {
+        .structural-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(212, 175, 55, 0.25);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow);
+            border-color: rgba(245, 158, 11, 0.25);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--amber-glow);
         }
 
-        .card-img-wrapper {
+        .img-container {
             width: 100%;
-            height: 260px;
-            background-color: #17191E;
+            height: 250px;
+            background-color: #1A1F2C;
             overflow: hidden;
         }
 
-        .card-img-wrapper img {
+        .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -251,12 +275,12 @@
             transition: opacity 0.3s ease, transform 0.5s ease;
         }
 
-        .experience-card:hover .card-img-wrapper img {
+        .structural-card:hover .img-container img {
             opacity: 1;
             transform: scale(1.03);
         }
 
-        .card-body {
+        .card-payload {
             padding: 35px;
             flex-grow: 1;
             display: flex;
@@ -264,94 +288,77 @@
             justify-content: space-between;
         }
 
-        .card-body h3 {
+        .card-payload h3 {
             font-size: 22px;
             font-weight: 800;
             margin-bottom: 12px;
             letter-spacing: -0.5px;
-            color: var(--text-pure);
+            color: var(--steel-bright);
         }
 
-        .card-body p {
-            color: var(--text-muted);
+        .card-payload p {
+            color: var(--steel-muted);
             font-size: 14px;
             line-height: 1.7;
             margin-bottom: 25px;
         }
 
-        .luxury-badge {
+        .industrial-tag {
             align-self: flex-start;
             background-color: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             padding: 6px 12px;
             font-size: 10px;
-            color: var(--text-silver);
+            color: var(--steel-bright);
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* CONTEXTUAL PAYMENTS HUB */
-        .pipeline-sector {
-            background-color: #0C0D10;
-        }
-
-        .pipeline-container {
+        /* DOCK CONTACT INFO PANELS */
+        .dock-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
-        .pipeline-card {
-            background: var(--bg-card);
+        .dock-card {
+            background-color: var(--bg-surface);
             border: 1px solid var(--border-line);
-            padding: 45px;
+            padding: 40px;
             border-radius: 4px;
-            border-top: 3px solid var(--border-line);
-            transition: border-color 0.3s ease;
         }
 
-        .pipeline-card.gold-tier {
-            border-top-color: var(--gold-royal);
-        }
-
-        .pipeline-card h3 {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--text-pure);
+        .dock-card h4 {
+            color: var(--amber-industrial);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
             margin-bottom: 15px;
-            letter-spacing: -0.5px;
+            font-weight: 800;
         }
 
-        .pipeline-card ul {
-            list-style: none;
-            margin-top: 20px;
+        .dock-card p {
+            font-size: 15px;
+            color: var(--steel-bright);
+            font-weight: 500;
         }
 
-        .pipeline-card ul li {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .dock-card span {
+            display: block;
+            margin-top: 5px;
+            color: var(--steel-muted);
+            font-size: 13px;
         }
 
-        .pipeline-card ul li::before {
-            content: "✓";
-            color: var(--gold-royal);
-            font-weight: 900;
-        }
-
-        /* LIVE MODAL SCHEDULER SYSTEM */
-        .concierge-modal {
+        /* OPERATIONAL RADAR MODAL ENGINE */
+        .radar-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(5, 6, 8, 0.96);
+            background-color: rgba(10, 12, 16, 0.97);
             z-index: 2000;
             display: flex;
             justify-content: center;
@@ -362,101 +369,100 @@
             padding: 20px;
         }
 
-        .concierge-modal.active {
+        .radar-modal.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .modal-box {
+        .modal-chassis {
             width: 100%;
-            max-width: 550px;
-            background-color: var(--bg-card);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 6px;
-            padding: 40px;
+            max-width: 520px;
+            background-color: var(--bg-surface);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 4px;
+            padding: 45px;
             position: relative;
-            transform: translateY(20px);
+            transform: translateY(15px);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .concierge-modal.active .modal-box {
+        .radar-modal.active .modal-chassis {
             transform: translateY(0);
         }
 
-        .close-concierge {
+        .close-radar {
             position: absolute;
             top: 25px;
             right: 25px;
             background: transparent;
             border: none;
-            color: var(--text-muted);
-            font-size: 28px;
+            color: var(--steel-muted);
+            font-size: 26px;
             cursor: pointer;
             transition: color 0.2s ease;
             line-height: 1;
         }
 
-        .close-concierge:hover {
-            color: var(--gold-royal);
+        .close-radar:hover {
+            color: var(--amber-industrial);
         }
 
-        .modal-box h2 {
-            font-size: 28px;
+        .modal-chassis h2 {
+            font-size: 26px;
             font-weight: 900;
-            color: var(--text-pure);
+            color: var(--steel-bright);
             margin-bottom: 10px;
             letter-spacing: -0.5px;
         }
 
-        .modal-box p {
-            color: var(--text-muted);
+        .modal-chassis p {
+            color: var(--steel-muted);
             font-size: 14px;
             margin-bottom: 30px;
         }
 
-        .input-group {
+        .field-block {
             margin-bottom: 20px;
         }
 
-        .input-group label {
+        .field-block label {
             display: block;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--gold-royal);
+            color: var(--amber-industrial);
             margin-bottom: 8px;
         }
 
-        .input-group input, .input-group select {
+        .field-block input, .field-block select {
             width: 100%;
-            background-color: var(--bg-obsidian);
+            background-color: var(--bg-titanium);
             border: 1px solid var(--border-line);
             padding: 14px;
-            color: var(--text-pure);
+            color: var(--steel-bright);
             font-size: 14px;
-            border-radius: 4px;
+            border-radius: 2px;
             outline: none;
             transition: border-color 0.25s ease;
         }
 
-        .input-group input:focus, .input-group select:focus {
-            border-color: var(--gold-royal);
+        .field-block input:focus, .field-block select:focus {
+            border-color: var(--amber-industrial);
         }
 
-        /* RESPONSIVE LAYOUT CALIBRATION */
         @media (max-width: 900px) {
             header { padding: 20px 4%; }
-            nav ul { display: none; } /* Adaptive clean minimalist structural reduction for mobile */
-            .hero h1 { font-size: 46px; }
-            .section-space { padding: 80px 4%; }
+            nav ul { display: none; } /* Drop heavy layouts on mobile to protect bandwidth */
+            .hero h1 { font-size: 44px; }
+            .grid-section { padding: 80px 4%; }
         }
 
         footer {
-            background-color: #050607;
+            background-color: #07080B;
             text-align: center;
-            padding: 45px 0;
-            color: var(--text-muted);
+            padding: 40px 0;
+            color: var(--steel-muted);
             font-size: 11px;
             border-top: 1px solid var(--border-line);
             letter-spacing: 1.5px;
@@ -467,164 +473,182 @@
 <body>
 
     <header>
-        <div class="brand-logo">ZENA<span>.</span>LUXE</div>
+        <div class="logo-box">HG<span>.</span>ENGINEERING</div>
         <nav>
             <ul>
                 <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#collective">The Collective</a></li>
-                <li><a href="#pipeline">Logistics Hub</a></li>
-                <li><a href="#" onclick="toggleConcierge(true)">Reserve Date</a></li>
+                <li><a href="#capabilities">Capabilities</a></li>
+                <li><a href="#sectors">Industrial Sectors</a></li>
+                <li><a href="#contact">Procurement</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <span class="hero-badge">Bespoke Habesha Event Systems</span>
-            <h1>ROYAL HARMONY.<br><span>IMMERSIVE DESIGN.</span></h1>
-            <p>Zena Luxe engineers flawless high-end traditional weddings, curated Mels productions, and majestic milestone celebrations across Addis Ababa and for the global Diaspora network.</p>
-            <div class="action-hub">
-                <button class="action-btn btn-royal" onclick="toggleConcierge(true)">Initiate Event Blueprint</button>
-                <a href="#collective" class="action-btn btn-outline">Explore Collective</a>
+            <span class="hero-badge">TRANSFORMING METAL INTO WEALTH</span>
+            <h1>HEAVY FABRICATION.<br><span>PRECISION SYSTEMS.</span></h1>
+            <p>HG Engineering (HG Metal Solutions) designs, manufactures, and deploys high-durability transit tanks, custom agricultural frameworks, and structural logistics fleets from our flagship facility in Addis Ababa.</p>
+            <div class="cta-hub">
+                <button class="cta-btn btn-industrial" onclick="toggleRadar(true)">Request Technical RFQ</button>
+                <a href="#capabilities" class="cta-btn btn-glass">Our Capabilities</a>
             </div>
         </div>
     </section>
 
-    <section class="section-space" id="collective">
-        <div class="section-header">
-            <span class="section-tag">Elite Curation Matrix</span>
-            <h2 class="section-title">The Master Artisans</h2>
+    <section class="metric-banner">
+        <div class="metric-card">
+            <h2>150+</h2>
+            <p>Enterprise Clients Guided</p>
+        </div>
+        <div class="metric-card">
+            <h2>24/7</h2>
+            <p>Structural Technical Support</p>
+        </div>
+        <div class="metric-card">
+            <h2>99.9%</h2>
+            <p>Operational Fleet Uptime</p>
+        </div>
+        <div class="metric-card">
+            <h2>Akaki</h2>
+            <p>Industrial Zone Hub Location</p>
+        </div>
+    </section>
+
+    <section class="grid-section" id="capabilities">
+        <div class="grid-header">
+            <span class="grid-tag">Operational Expertise</span>
+            <h2 class="grid-title">Elite Fabrication Solutions</h2>
         </div>
         
-        <div class="experience-grid">
-            <div class="experience-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=600" alt="Habesha Haute Couture">
+        <div class="structural-grid">
+            <div class="structural-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?q=80&w=600" alt="Tanker Vehicle Fabrication">
                 </div>
-                <div class="card-body">
+                <div class="card-payload">
                     <div>
-                        <h3>Habesha Haute Couture</h3>
-                        <p>Bespoke hand-woven Habesha Kemis masterpieces, tailored bridal ensembles, and luxury silk-embroidered wear for elite Mels operations.</p>
+                        <h3>Heavy Tanker Vehicles</h3>
+                        <p>Engineered liquid transit architectures featuring internal anti-slosh baffles, pressure relief systems, and precision corrosion-resistant finishes.</p>
                     </div>
-                    <span class="luxury-badge">Bespoke Royal Apparel</span>
+                    <span class="industrial-tag">Logistics Sector Priority</span>
                 </div>
             </div>
 
-            <div class="experience-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1519225495810-7512c696505a?q=80&w=600" alt="Grand Scenography & Flora">
+            <div class="structural-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=600" alt="Agricultural Metal Machineries">
                 </div>
-                <div class="card-body">
+                <div class="card-payload">
                     <div>
-                        <h3>Grand Scenography</h3>
-                        <p>Immersive structural lighting, cinematic space designs, master floral installations, and premium banqueting layout styling inside Addis Ababa's finest ballrooms.</p>
+                        <h3>Agricultural Machinery</h3>
+                        <p>Bespoke robust metal systems built to optimize supply chain security and harvesting durability across diverse sub-continental topographies.</p>
                     </div>
-                    <span class="luxury-badge">Elite Spatial Engineering</span>
+                    <span class="industrial-tag">Agricultural Shielding</span>
                 </div>
             </div>
 
-            <div class="experience-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600" alt="Cinematic Media & Symphony">
+            <div class="structural-card">
+                <div class="img-container">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600" alt="Custom Infrastructure Elements">
                 </div>
-                <div class="card-body">
+                <div class="card-payload">
                     <div>
-                        <h3>Orchestration & Media</h3>
-                        <p>Multi-camera 4K live-broadcast drone arrays, legendary traditional live orchestral ensembles, and ultra-crisp acoustics handling high-profile guest profiles.</p>
+                        <h3>Structural Customization</h3>
+                        <p>High-end structural steel alignment engineering, metal processing, and after-sales field support designed specifically for national tier-1 contractors.</p>
                     </div>
-                    <span class="luxury-badge">High-Fidelity Audio/Visual</span>
+                    <span class="industrial-tag">Construction Frameworks</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section-space pipeline-sector" id="pipeline">
-        <div class="section-header">
-            <span class="section-tag">Frictionless Capital Routing</span>
-            <h2 class="section-title">Unified Transaction Engine</h2>
+    <section class="grid-section" id="contact" style="background-color: #0B0D12;">
+        <div class="grid-header">
+            <span class="grid-tag">Fulfillment Coordinates</span>
+            <h2 class="grid-title">Logistics & Plant Inquiries</h2>
         </div>
 
-        <div class="pipeline-container">
-            <div class="pipeline-card">
-                <h3>Domestic Clearance</h3>
-                <p style="color: var(--text-muted); font-size: 14px;">Instant structural settlement pathways optimized for local production planners and venue operators.</p>
-                <ul>
-                    <li>Direct Telebirr Integration Network</li>
-                    <li>CBE Birr Instant Terminal Verification</li>
-                    <li>Local Corporate Escrow Options</li>
-                </ul>
+        <div class="dock-container">
+            <div class="dock-card">
+                <h4>Primary Plant Location</h4>
+                <p>Rikaki Kality Zone</p>
+                <span>Addis Ababa, Ethiopia</span>
             </div>
-
-            <div class="pipeline-card gold-tier">
-                <h3>Diaspora Portal</h3>
-                <p style="color: var(--text-muted); font-size: 14px;">Secure premium funding channels enabling international family nodes to book luxury logistics directly from abroad.</p>
-                <ul>
-                    <li>Secure Tier-1 Global Card Transacting</li>
-                    <li>Direct Addis Contractor Escrow Provision</li>
-                    <li>Zero Internal Exchange Deflation Safeguards</li>
-                </ul>
+            <div class="dock-card">
+                <h4>Direct Inbound Inquiries</h4>
+                <p>+251 11 16 26 262</p>
+                <span>Alternate line: +251 91 12 57 578</span>
+            </div>
+            <div class="dock-card">
+                <h4>Secure Electronic Delivery</h4>
+                <p>info@hgengo.com</p>
+                <span>Backup: hgengeering2000@gmail.com</span>
             </div>
         </div>
     </section>
 
-    <div class="concierge-modal" id="bookingConcierge">
-        <div class="modal-box">
-            <button class="close-concierge" onclick="toggleConcierge(false)">&times;</button>
-            <h2>Secure Engagement Setup</h2>
-            <p>Initiate your elite structural event configuration. A luxury concierge administrator will review your timeline requirements within 4 hours.</p>
+    <div class="radar-modal" id="procurementRadar">
+        <div class="modal-chassis">
+            <button class="close-radar" onclick="toggleRadar(false)">&times;</button>
+            <h2>Enterprise Tender Portal</h2>
+            <p>Initiate standard hardware specifications routing. Our technical estimators will contact your corporate engineering division within 12 business hours.</p>
             
-            <form id="luxeForm" onsubmit="handleLuxeSubmit(event)">
-                <div class="input-group">
-                    <label for="clientName">Principal Planner Name</label>
-                    <input type="text" id="clientName" required placeholder="e.g., Abraham Alamu">
+            <form id="radarForm" onsubmit="handleRadarSubmit(event)">
+                <div class="field-block">
+                    <label for="companyName">Corporate Institution</label>
+                    <input type="text" id="companyName" required placeholder="e.g., National Logistics Corp">
                 </div>
-                <div class="input-group">
-                    <label for="eventType">Celebration Classification</label>
-                    <select id="eventType">
-                        <option value="wedding">Bespoke Traditional Wedding Assembly</option>
-                        <option value="mels">Royal Mels Spatial Production</option>
-                        <option value="gala">High-Profile Corporate Gala</option>
+                <div class="field-block">
+                    <label for="targetSector">Industrial Sector Classification</label>
+                    <select id="targetSector">
+                        <option value="logistics">Liquid & Dry Cargo Logistics Fleet</option>
+                        <option value="agri">Agricultural Machine Fabrication</option>
+                        <option value="construction">Custom Structural Steel Elements</option>
                     </select>
                 </div>
-                <div class="input-group">
-                    <label for="eventDate">Target Operational Date</label>
-                    <input type="date" id="eventDate" required>
+                <div class="field-block">
+                    <label for="contactScope">Procurement Priority Level</label>
+                    <select id="contactScope">
+                        <option value="immediate">Urgent Deployment (Under 30 Days)</option>
+                        <option value="budget">Future Project Estimate Planning</option>
+                    </select>
                 </div>
-                <button type="submit" class="action-btn btn-royal" style="width: 100%; border: none;">Transmit Secure Request</button>
+                <button type="submit" class="cta-btn btn-industrial" style="width: 100%; border: none;">Transmit Encrypted RFQ</button>
             </form>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 ZENA LUXE CULTURAL MEDIA NETWORKS. DESIGNED FOR SUPREME CELEBRATIONS. ALL RIGHTS RESERVED.
+        &copy; 2026 HG METAL SOLUTIONS & ENGINEERING. ALL RIGHTS RESERVED. ARCHITECTURAL AND METALLURGICAL MANAGEMENT INFRASTRUCTURE.
     </footer>
 
     <script>
-        // High-performance state toggle (zero lag, uses native browser painting)
-        function toggleConcierge(shouldOpen) {
-            const modal = document.getElementById('bookingConcierge');
+        // High-end state painting engine (zero memory lag loop)
+        function toggleRadar(shouldOpen) {
+            const modal = document.getElementById('procurementRadar');
             if (shouldOpen) {
                 modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Freeze scrolling to prevent layout shifting
+                document.body.style.overflow = 'hidden'; 
             } else {
                 modal.classList.remove('active');
-                document.body.style.overflow = ''; // Unfreeze layout instantly
+                document.body.style.overflow = ''; 
             }
         }
 
-        // Elegant submit interaction simulation
-        function handleLuxeSubmit(event) {
+        // Clean submit simulator execution loop
+        function handleRadarSubmit(event) {
             event.preventDefault();
-            alert("🔒 SECURE TRANSMISSION SUCCESSFUL\nYour data vectors have been locked into the Zena Luxe queue. Our luxury concierge will contact you shortly.");
-            toggleConcierge(false);
-            document.getElementById('luxeForm').reset();
+            alert("⚙️ TRANSMISSION COMPLETE\nYour procurement requirements have been queued into the HG Engineering technical processing pipeline.");
+            toggleRadar(false);
+            document.getElementById('radarForm').reset();
         }
 
-        // Active link dynamic tracking
-        const navLinks = document.querySelectorAll('nav ul li a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.forEach(l => l.classList.remove('active'));
+        // Active state navigation anchor evaluation tracking
+        const anchors = document.querySelectorAll('nav ul li a');
+        anchors.forEach(anchor => {
+            anchor.addEventListener('click', function() {
+                anchors.forEach(a => a.classList.remove('active'));
                 this.classList.add('active');
             });
         });
