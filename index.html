@@ -124,7 +124,6 @@
             overflow: hidden;
         }
 
-        /* Subtle Geometric Background Asset */
         .hero::before {
             content: '';
             position: absolute;
@@ -172,7 +171,7 @@
             font-weight: 300;
         }
 
-        /* Google Business Card Embedded style inside Hero or standalone */
+        /* Google Business Card Style */
         .business-snippet {
             background: rgba(30, 38, 64, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -213,8 +212,8 @@
         }
 
         .status-badge {
-            background: rgba(239, 68, 68, 0.2);
-            color: #F87171;
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
             padding: 0.2rem 0.6rem;
             border-radius: 2px;
             font-size: 0.75rem;
@@ -286,6 +285,19 @@
             align-items: center;
         }
 
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
         .about-text h3 {
             font-family: var(--font-serif);
             font-size: 2rem;
@@ -326,4 +338,130 @@
         }
 
         .feature-item div p {
-            font
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Product Catalog Preview Style */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--secondary);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .product-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">MAYA<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Materials</a></li>
+            </ul>
+            <a href="https://t.me/" target="_blank" class="nav-cta">Inquire via Telegram</a>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Industrial Excellence</span>
+            <h1>Architectural Polycarbonate & Premium Structural Steel</h1>
+            <p>Sourcing high-performance structural profiles and luxury-grade translucent roofing elements tailored for robust architectural engineering masterpieces.</p>
+            
+            <div class="business-snippet">
+                <div class="snippet-info">
+                    <h3>MAYA Polycarbonate & Steel</h3>
+                    <div class="snippet-meta">
+                        <div class="rating">
+                            5.0 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span>• Premium Vendor</span>
+                        <span class="status-badge">Open</span>
+                    </div>
+                </div>
+                <div class="snippet-actions">
+                    <a href="https://t.me/" target="_blank" class="action-btn" title="Message Support"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="tel:#" class="action-btn" title="Call Us"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <span>Our Profile</span>
+            <h2>Uncompromising Structural Standards</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <h3>Vetted Materials. Engineered Integrity.</h3>
+                <p>We supply top-tier polycarbonate systems and heavy-duty steel profiles carefully audited for rigorous commercial build requirements, ensuring extreme weather defense and timeless architectural appeal.</p>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h4>Certified Quality</h4>
+                            <p>Strict structural assessment for structural engineering assurance.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shipping-fast"></i>
+                        <div>
+                            <h4>On-Site Logistics</h4>
+                            <p>Streamlined supply chain and direct delivery execution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="products">
+                <div class="product-card">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Polycarbonate Systems</h3>
+                    <p>Multi-wall and solid configurations featuring premium UV protection layers and unmatched impact resistance properties.</p>
+                </div>
+                <div class="product-card">
+                    <i class="fas fa-cubes"></i>
+                    <h3>Structural Steel</h3>
+                    <p>Heavy-duty structural metal configurations including precise 40/40 dimensions engineered for high load-bearing capacity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
