@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
@@ -152,10 +151,36 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
+        /* JIJI CONFIGURATIONS LAYOUT */
+        .jiji-profile-container { margin: 20px auto; padding: 0 15px; width: 100%; box-sizing: border-box; }
+        .jiji-card { background: rgba(26,26,26,0.85); border: 1px solid #333; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 20px; backdrop-filter: blur(10px); }
+        .jiji-header-side { display: flex; align-items: center; gap: 15px; }
+        .jiji-avatar { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .jiji-name-block h1 { font-size: 18px; margin: 0 0 4px 0; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .jiji-verified-badge { color: #2196F3; font-size: 16px; }
+        .jiji-meta-tag { font-size: 12px; color: #aaa; display: flex; align-items: center; gap: 4px; }
+        .jiji-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; border-top: 1px solid #2a2a2a; padding-top: 15px; }
+        .jiji-stat-box { background: #0a0a0a; border: 1px solid #222; padding: 12px; border-radius: 10px; text-align: center; }
+        .jiji-stat-box span { display: block; font-size: 10px; color: #777; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .jiji-stat-box strong { font-size: 13px; color: var(--gold); font-weight: bold; }
+        .jiji-action-row { display: flex; gap: 10px; margin-top: 5px; }
+        .jiji-btn-follow { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid var(--gold); background: transparent; color: var(--gold); font-size: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+        .jiji-btn-follow.active { background: var(--gold); color: #000; }
+        .jiji-tab-bar { display: flex; border-bottom: 1px solid #2a2a2a; margin: 25px 0 10px 0; padding: 0 15px; gap: 20px; }
+        .jiji-tab { padding: 10px 5px; font-size: 14px; font-weight: bold; color: #888; cursor: pointer; position: relative; text-transform: uppercase; letter-spacing: 1px; }
+        .jiji-tab.active { color: #fff; }
+        .jiji-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--gold); }
+        .jiji-view-panel { display: block; }
+        .jiji-view-panel.hidden { display: none !important; }
+
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
             .img-area { height: 300px !important; }
+            .jiji-card { flex-direction: row; justify-content: space-between; align-items: center; padding: 30px; }
+            .jiji-stats-grid { border-top: none; padding-top: 0; display: flex; gap: 20px; }
+            .jiji-stat-box { min-width: 140px; }
+            .jiji-action-row { flex-direction: column; }
         }
     </style>
 </head>
@@ -172,7 +197,6 @@
 <div id="aboutPage">
     <div class="about-content">
         <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 5px;">About OUMRAN STORE</h2>
-        <!-- FIX 1: Closed the broken h3 headline tag -->
         <h3 style="font-family: 'Playfair Display', serif; color: #aaa; margin-bottom: 30px; letter-spacing: 2px; font-size: 14px;">THE GOLD STANDARD OF FASHION</h3>
 
         <div style="margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;">
@@ -239,172 +263,204 @@
         <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
     </div>
 
+    <div class="jiji-profile-container">
+        <div class="jiji-card">
+            <div class="jiji-header-side">
+                <img src="IMG_8765.jpeg" class="jiji-avatar" alt="Oumran Store">
+                <div class="jiji-name-block">
+                    <h1>OUMRAN STORE <span class="jiji-verified-badge">✔</span></h1>
+                    <div class="jiji-meta-tag">📍 Addis Ababa, Ethiopia</div>
+                    <div class="jiji-meta-tag" style="color: #4CAF50; margin-top: 2px;">⚡ Typically responds within 1 hr</div>
+                </div>
+            </div>
+            <div class="jiji-stats-grid">
+                <div class="jiji-stat-box">
+                    <span>Feedback</span>
+                    <strong>98% Positive</strong>
+                </div>
+                <div class="jiji-stat-box">
+                    <span>Status</span>
+                    <strong>Verified Vendor</strong>
+                </div>
+            </div>
+            <div class="jiji-action-row">
+                <button class="jiji-btn-follow" id="jijiFollowBtn" onclick="toggleJijiFollow()">Follow Seller</button>
+            </div>
+        </div>
+    </div>
+
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
     </div>
 
-    <main id="store-main">
-        <div class="category-section">
-            <div class="category-title">Graphic T-Shirts 👕</div>
-            <div class="scroll-wrapper"> 
-                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg"></div>
-                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div> 
-              </div>
-               <div class="product-card" onclick="openP('Vintage Polo', 'clothe', 1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'>
-                    <div class="img-area"><img src="Vintage Polo.jpg"></div>
-                    <div class="info-area"><h3>Vintage Polo</h3><div class="new-p">1,800 ETB</div></div> 
-				</div>
-               <div class="product-card" onclick="openP('Italian-Style Knit Polo', 'clothe', 1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'>
-                    <div class="img-area"><img src="Italian-Style Knit Polo.jpg"></div>
-                    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="new-p">1,800 ETB</div></div> 
-                </div>
-               <div class="product-card" onclick="openP('Premium Floral Short Sleeve', 'clothe', 1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
-                    <div class="img-area"><img src="Premium Floral Short Sleeve.jpg"></div>
-                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div> 
-                </div>
-               <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
-                    <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
-                    <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
-                </div>
-                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg"></div>
-                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div> 
-                </div>
-                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
-                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
-                </div>
-                <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
-                    <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
-                    <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
+    <div class="jiji-tab-bar">
+        <div class="jiji-tab active" id="tab-all" onclick="switchJijiTab('all')">All Products</div>
+        <div class="jiji-tab" id="tab-requests" onclick="switchJijiTab('requests')">Private Sourcing</div>
+    </div>
+
+    <div id="jiji-panel-inventory" class="jiji-view-panel">
+        <main id="store-main">
+            <div class="category-section">
+                <div class="category-title">Graphic T-Shirts 👕</div>
+                <div class="scroll-wrapper"> 
+                    <div class="product-card" onclick="openP('Short-Sleeve Zip Knit', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
+                        <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg"></div>
+                        <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div> 
+                  </div>
+                   <div class="product-card" onclick="openP('Vintage Polo', 'clothe', 1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'>
+                        <div class="img-area"><img src="Vintage Polo.jpg"></div>
+                        <div class="info-area"><h3>Vintage Polo</h3><div class="new-p">1,800 ETB</div></div> 
+    				</div>
+                   <div class="product-card" onclick="openP('Italian-Style Knit Polo', 'clothe', 1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'>
+                        <div class="img-area"><img src="Italian-Style Knit Polo.jpg"></div>
+                        <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="new-p">1,800 ETB</div></div> 
+                    </div>
+                   <div class="product-card" onclick="openP('Premium Floral Short Sleeve', 'clothe', 1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
+                        <div class="img-area"><img src="Premium Floral Short Sleeve.jpg"></div>
+                        <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div> 
+                    </div>
+                   <div class="product-card" onclick="openP('Half zipped black t-shirt', 'clothe', 1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
+                        <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
+                        <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
+                    </div>
+                    <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
+                        <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg"></div>
+                        <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div> 
+                    </div>
+                    <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
+                        <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg"></div>
+                        <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div> 
+                    </div>
+                    <div class="product-card" onclick="openP('Strip knit t-shirt', 'clothe', 2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
+                        <div class="img-area"><img src="Strip knit t-shirt.jpg"></div>
+                        <div class="info-area"><h3>Strip knit t-shirt</h3><div class="new-p">2,850 ETB</div></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="category-section">
-            <div class="category-title">Hoodies & Sweaters 🧶</div>
-            <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
-                    <div class="img-area"><img src="Polo knit sweater.jpg"></div>
-                    <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
-                    <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
-                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Polo cable knit sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
-                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
-                    <div class="info-area"><h3>Polo cable knit sweater</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
-                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg"></div>
-                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
-                    <div class="img-area"><img src="Denim tears Hoodie.jpg"></div>
-                    <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
-                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
-                    <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
+            <div class="category-section">
+                <div class="category-title">Hoodies & Sweaters 🧶</div>
+                <div class="scroll-wrapper">
+                    <div class="product-card" onclick="openP('Polo knit sweater', 'clothe', 2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
+                        <div class="img-area"><img src="Polo knit sweater.jpg"></div>
+                        <div class="info-area"><h3>Polo knit sweater</h3><div class="new-p">2,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Half-Zip Sweater', 'clothe', 2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
+                        <div class="img-area"><img src="Half-Zip Sweater.jpg"></div>
+                        <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Polo cable knit sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
+                        <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg"></div>
+                        <div class="info-area"><h3>Polo cable knit sweater</h3><div class="new-p">3,000 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater', 'clothe', 3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
+                        <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg"></div>
+                        <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Denim tears Hoodie', 'clothe', 3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
+                        <div class="img-area"><img src="Denim tears Hoodie.jpg"></div>
+                        <div class="info-area"><h3>Denim tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Alo official casual half zip sweater', 'clothe', 3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
+                        <div class="img-area"><img src="Alo official casual half zip sweater.jpg"></div>
+                        <div class="info-area"><h3>Alo official casual half zip sweater</h3><div class="new-p">3,000 ETB</div></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="category-section">
-            <div class="category-title">Jackets 🧥</div>
-            <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
-                    <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
-                    <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
-                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
-                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
+            <div class="category-section">
+                <div class="category-title">Jackets 🧥</div>
+                <div class="scroll-wrapper">
+                    <div class="product-card" onclick="openP('Suede vintage jacket', 'clothe', 2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
+                        <div class="img-area"><img src="Suede vintage jacket.jpg"></div>
+                        <div class="info-area"><h3>Suede vintage jacket</h3><div class="new-p">2,800 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket', 'clothe', 3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
+                        <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg"></div>
+                        <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket', 'clothe', 3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
+                        <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg"></div>
+                        <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div> 
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="category-section">
-            <div class="category-title">Jeans & Pants 👖</div>
-            <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
-                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
-                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
-                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
-                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
-                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg"></div>
-                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
-                    <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg"></div>
-                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers', 'clothe', 3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
-                    <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg"></div>
-                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
-                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg"></div>
-                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
-                </div> 
-                <div class="product-card" onclick="openP('Elastic casual suit pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
-                    <div class="img-area"><img src="Elastic casual suit pants.jpg"></div>
-                    <div class="info-area"><h3>Elastic casual suit pants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Wide-Leg Drape Pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
-                    <div class="img-area"><img src="Wide-Leg Drape Pants.jpg"></div>
-                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
-               </div>
-                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers', 'clothe', 2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
-                    <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg"></div>
-                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
+            <div class="category-section">
+                <div class="category-title">Jeans & Pants 👖</div>
+                <div class="scroll-wrapper">
+                    <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants', 'clothe', 2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
+                        <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg"></div>
+                        <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Loose Hip-Hop polo Streetwear Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
+                        <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg"></div>
+                        <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Denim Tears Sweatpants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
+                        <div class="img-area"><img src="Denim Tears Sweatpants.jpg"></div>
+                        <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
+                        <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg"></div>
+                        <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers', 'clothe', 3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
+                        <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg"></div>
+                        <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants', 'clothe', 3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
+                        <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg"></div>
+                        <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
+                    </div> 
+                    <div class="product-card" onclick="openP('Elastic casual suit pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
+                        <div class="img-area"><img src="Elastic casual suit pants.jpg"></div>
+                        <div class="info-area"><h3>Elastic casual suit pants</h3><div class="new-p">2,850 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Wide-Leg Drape Pants', 'clothe', 2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
+                        <div class="img-area"><img src="Wide-Leg Drape Pants.jpg"></div>
+                        <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
+                   </div>
+                    <div class="product-card" onclick="openP('Slim-Fit Suit Trousers', 'clothe', 2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
+                        <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg"></div>
+                        <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="category-section">
-            <div class="category-title">Full Outfits 👔</div>
-            <div class="scroll-wrapper">
-                 <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
-                    <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP"></div>
-                    <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-               </div>
-                <div class="product-card" onclick="openP('Synaworld Signature Paneled Suite-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
-                    <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Synaworld Signature Paneled Suite-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
-                    <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-               </div>
-                <div class="product-card" onclick="openP('Mertra High-Street Heritage Set-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
-                    <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Mertra High-Street Heritage Set-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
-                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim tears jeans-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
-                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg"></div>
-                    <div class="info-area"><h3>Denim tears jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+            <div class="category-section">
+                <div class="category-title">Full Outfits 👔</div>
+                <div class="scroll-wrapper">
+                     <div class="product-card" onclick="openP('Denim tears-Style tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+                        <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP"></div>
+                        <div class="info-area"><h3>Denim tears-Style tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                   </div>
+                    <div class="product-card" onclick="openP('Synaworld Signature Paneled Suite-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+                        <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg"></div>
+                        <div class="info-area"><h3>Synaworld Signature Paneled Suite-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+                        <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg"></div>
+                        <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                   </div>
+                    <div class="product-card" onclick="openP('Mertra High-Street Heritage Set-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+                        <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg"></div>
+                        <div class="info-area"><h3>Mertra High-Street Heritage Set-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+                        <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg"></div>
+                        <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    </div>
+                    <div class="product-card" onclick="openP('Denim tears jeans-Style Tracksuit', 'clothe', 7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+                        <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg"></div>
+                        <div class="info-area"><h3>Denim tears jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
- <!-- FIX 2: Wrapped the private request profile in a self-contained div instead of an unclosed section tag -->
- <div style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
+ <div id="jiji-panel-requests" class="jiji-view-panel" style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
     
     <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">
         OFF-MARKET
@@ -585,6 +641,33 @@ window.addEventListener('load', () => {
     // Set up paste and attachment image hooks
     initPrivateSourcingUploads();
 });
+
+/* JIJI BUTTONS SCRIPT LOGIC INTERACTION */
+function toggleJijiFollow() {
+    const btn = document.getElementById('jijiFollowBtn');
+    if(btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        btn.innerText = "Follow Seller";
+    } else {
+        btn.classList.add('active');
+        btn.innerText = "Following";
+    }
+}
+
+function switchJijiTab(target) {
+    document.querySelectorAll('.jiji-tab').forEach(tab => tab.classList.remove('active'));
+    if(target === 'all') {
+        document.getElementById('tab-all').classList.add('active');
+        document.getElementById('jiji-panel-inventory').classList.remove('hidden');
+        document.getElementById('jiji-panel-requests').style.display = "block"; // Keep visibility attached but sequential
+    } else if(target === 'requests') {
+        document.getElementById('tab-requests').classList.add('active');
+        document.getElementById('jiji-panel-inventory').classList.add('hidden');
+        document.getElementById('jiji-panel-requests').style.display = "block";
+        // Auto scroll focus into private request layout component area safely
+        document.getElementById('jiji-panel-requests').scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
 function openZoom() {
     zoomIdx = 0;
