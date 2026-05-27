@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OUMRAN STORE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;900&display=swap" rel="stylesheet">
     
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
@@ -140,7 +140,7 @@
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .cart-float { position: fixed; bottom: 20px; right: 95px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
@@ -173,6 +173,68 @@
         .jiji-view-panel { display: block; }
         .jiji-view-panel.hidden { display: none !important; }
 
+        /* SHOPIFY AUTHENTIC CUSTOMER ENTRY MODAL GATE */
+        #shopify-gate-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; display: flex; align-items: center; justify-content: center;
+            z-index: 11000; overflow-y: auto; padding: 20px; box-sizing: border-box;
+        }
+        .shopify-gate-card {
+            background: #0d0d0d; border: 1px solid #222; width: 100%; max-width: 440px;
+            padding: 40px 30px; border-radius: 0px; text-align: center; box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;
+        }
+        .shopify-gate-close {
+            position: absolute; top: 20px; right: 20px; color: #666; font-size: 20px;
+            cursor: pointer; background: transparent; border: none; font-weight: 300; transition: color 0.2s;
+        }
+        .shopify-gate-close:hover { color: #fff; }
+        .shopify-gate-logo {
+            font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700;
+            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 15px; color: #fff;
+        }
+        .shopify-gate-tagline {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 30px;
+        }
+        .shopify-gate-desc {
+            font-size: 13px; color: #aaa; line-height: 1.6; margin-bottom: 30px;
+        }
+        .shopify-input-group {
+            margin-bottom: 15px; text-align: left;
+        }
+        .shopify-input-group label {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: #888; display: block; margin-bottom: 8px;
+        }
+        .shopify-gate-input {
+            width: 100%; padding: 14px; background: #000; border: 1px solid #333; color: #fff;
+            box-sizing: border-box; font-size: 15px; outline: none; border-radius: 0px; transition: border-color 0.2s;
+        }
+        .shopify-gate-input:focus { border-color: var(--gold); }
+        .shopify-gate-btn {
+            width: 100%; padding: 16px; background: #fff; color: #000; text-transform: uppercase;
+            font-weight: 900; font-size: 12px; letter-spacing: 2px; border: none; cursor: pointer;
+            margin-top: 10px; border-radius: 0px; transition: background 0.2s;
+        }
+        .shopify-gate-btn:hover { background: var(--gold); }
+
+        /* SHOPIFY PROFILE FIXED FOOTER HUB CONTROLS */
+        .shopify-profile-float {
+            position: fixed; bottom: 20px; left: 20px; background: rgba(17,17,17,0.9);
+            border: 1px solid #333; color: white; padding: 12px 22px; border-radius: 30px;
+            display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; z-index: 1000; cursor: pointer;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4); transition: border-color 0.2s, transform 0.2s;
+        }
+        .shopify-profile-float:hover { border-color: var(--gold); transform: translateY(-2px); }
+        .shopify-profile-dot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; display: inline-block; }
+
+        /* SHOPIFY ACCOUNTS VIEW STYLES HUB */
+        .shopify-acc-box { background: #0a0a0a; border: 1px solid #222; padding: 20px; margin-top: 20px; text-align: left; }
+        .shopify-acc-header { font-size: 11px; text-transform: uppercase; color: #777; letter-spacing: 1px; margin-bottom: 5px; }
+        .shopify-acc-value { font-size: 14px; color: #fff; font-weight: 500; word-break: break-all; }
+        .shopify-badge-pill { display: inline-block; padding: 4px 10px; background: rgba(255,215,0,0.1); color: var(--gold); font-size: 10px; text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px; margin-top: 8px; border: 1px solid rgba(255,215,0,0.2); }
+
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
@@ -185,6 +247,28 @@
     </style>
 </head>
 <body class="loading"> 
+
+<!-- SHOPIFY ENTRY AUTHENTIC MANDATORY EMAIL PORTAL GATE -->
+<div id="shopify-gate-overlay">
+    <div class="shopify-gate-card">
+        <button class="shopify-gate-close" onclick="bypassShopifyGate()">×</button>
+        <div class="shopify-gate-logo">OUMRAN STORE</div>
+        <div class="shopify-gate-tagline">Addis Ababa Concierge</div>
+        <div class="shopify-gate-desc">Enter your credentials to gain profile verification and unlock early premium item allocation drops directly inside our global luxury terminal network.</div>
+        
+        <div class="shopify-input-group">
+            <label>Customer Email Address</label>
+            <input type="email" id="shopifyGateEmail" placeholder="name@example.com" class="shopify-gate-input">
+        </div>
+        <div class="shopify-input-group">
+            <label>First Name (Optional)</label>
+            <input type="text" id="shopifyGateName" placeholder="Your name" class="shopify-gate-input">
+        </div>
+        
+        <button class="shopify-gate-btn" onclick="submitShopifyGate()">Sign In & Entry</button>
+    </div>
+</div>
+
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
@@ -263,6 +347,7 @@
         <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
     </div>
 
+    <!-- JIJI seller header profile module insert -->
     <div class="jiji-profile-container">
         <div class="jiji-card">
             <div class="jiji-header-side">
@@ -293,6 +378,7 @@
         <input type="text" id="search-input" placeholder="Search products..." onkeyup="filterProducts()">
     </div>
 
+    <!-- JIJI navigation interaction tab system elements layout structure -->
     <div class="jiji-tab-bar">
         <div class="jiji-tab active" id="tab-all" onclick="switchJijiTab('all')">All Products</div>
         <div class="jiji-tab" id="tab-requests" onclick="switchJijiTab('requests')">Private Sourcing</div>
@@ -323,7 +409,7 @@
                         <div class="img-area"><img src="Half zipped black t-shirt.jpg"></div>
                         <div class="info-area"><h3>Half zipped black t-shirt</h3><div class="new-p">1,800 ETB</div></div> 
                     </div>
-                    <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
+                    <div class="product-card" onclick="openP('Short-S some Sweaters', 'clothe', 1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
                         <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg"></div>
                         <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div> 
                     </div>
@@ -461,25 +547,21 @@
     </div>
 
  <div id="jiji-panel-requests" class="jiji-view-panel" style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
-    
-    <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">
-        OFF-MARKET
-    </p>
-
-    <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; font-weight: 400; margin-bottom: 25px; pointer-events: none;">
-        PRIVATE REQUEST
-    </h2>
-
+    <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">OFF-MARKET</p>
+    <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; font-weight: 400; margin-bottom: 25px; pointer-events: none;">PRIVATE REQUEST</h2>
     <div style="max-width: 600px; margin: 0 auto; margin-bottom: 40px; pointer-events: none;">
         <p style="color: #888; font-size: 13px; line-height: 2.2; font-weight: 300; letter-spacing: 1px;">
             While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here in the website—regardless of the category—we invite you to engage our private sourcing service. We specialize in securing rare, high-end essentials tailored to your individual lifestyle.
         </p>
     </div>
-
-	<button onclick="openPrivateSourcing()" style="display: inline-block; padding: 16px 42px; background-color: transparent; color: #d4af37; border: 2px solid #d4af37; border-radius: 50px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 20px;" onmouseover="this.style.backgroundColor='#d4af37'; this.style.color='#000000'; this.style.boxShadow='0 0 20px rgba(212, 175, 55, 0.4)';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#d4af37'; this.style.boxShadow='none';">
-	    Submit a Private Request
-	</button>
+	<button onclick="openPrivateSourcing()" style="display: inline-block; padding: 16px 42px; background-color: transparent; color: #d4af37; border: 2px solid #d4af37; border-radius: 50px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 20px;" onmouseover="this.style.backgroundColor='#d4af37'; this.style.color='#000000'; this.style.boxShadow='0 0 20px rgba(212, 175, 55, 0.4)';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#d4af37'; this.style.boxShadow='none';">Submit a Private Request</button>
  </div>
+
+    <!-- SHOPIFY PROFILE INTERACTION CORNER FLOATER WIDGET BUTTON -->
+    <div id="shopify-profile-widget" class="shopify-profile-float" onclick="openShopifyProfile()">
+        <span class="shopify-profile-dot"></span>
+        <span id="shopifyWidgetLabel">My Profile</span>
+    </div>
 
     <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
@@ -502,6 +584,42 @@
 
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
+        </div>
+    </div>
+
+    <!-- SHOPIFY INTEGRATED PROFILE MODAL BOX LAYOUT -->
+    <div id="shopifyProfileModal" class="modal">
+        <div class="modal-content" style="border-radius: 0px; max-width: 440px;">
+            <h2 style="margin-top:0; font-family: 'Playfair Display', serif; letter-spacing: 1px;">Customer Account 👤</h2>
+            <p style="font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;">Shopify Verified Member</p>
+            
+            <div class="shopify-acc-box">
+                <div class="shopify-acc-header">Account Status</div>
+                <div class="shopify-acc-value" style="color: #4CAF50; font-weight: bold; display: flex; align-items: center; gap: 6px;">
+                    Active Session <span style="font-size: 11px; padding: 2px 6px; background: rgba(76,175,80,0.1); border: 1px solid #4CAF50;">✓</span>
+                </div>
+            </div>
+
+            <div class="shopify-acc-box" style="margin-top: 10px;">
+                <div class="shopify-acc-header">Registered Email</div>
+                <div class="shopify-acc-value" id="shopifyAccEmail">guest-account@oumran.store</div>
+            </div>
+
+            <div class="shopify-acc-box" style="margin-top: 10px;">
+                <div class="shopify-acc-header">Profile Identity Holder</div>
+                <div class="shopify-acc-value" id="shopifyAccName">Anonymous Luxury Client</div>
+            </div>
+
+            <div class="shopify-acc-box" style="margin-top: 10px;">
+                <div class="shopify-acc-header">Addis Ababa Allocation Tracking</div>
+                <div style="font-size: 12px; color: #aaa; margin-top: 5px; line-height: 1.5;">
+                    • Active Order Batches: <strong style="color: white;" id="shopifyAccOrdersCount">0 Pending</strong><br>
+                    • Local Courier Routing: <span class="shopify-badge-pill">Addis Ababa Terminal</span>
+                </div>
+            </div>
+
+            <button class="btn" style="border-radius: 0px; background: #fff; color: #000; text-transform: uppercase; letter-spacing: 1px; font-size: 12px;" onclick="closeShopifyProfile()">Close Portal</button>
+            <button class="btn" style="border-radius: 0px; background: #222; color: #ff3b30; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; margin-top: 5px;" onclick="resetShopifySession()">Logout Session</button>
         </div>
     </div>
 
@@ -630,17 +748,101 @@ let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
 
 window.addEventListener('load', () => {
     loadCart();
+    checkShopifySession();
     // Splash screen logic updated to unlock scrolling only after exit
     setTimeout(() => {
         document.getElementById('splash-screen').classList.add('splash-exit');
-        // Unlocks scrolling
-        document.documentElement.classList.remove('loading');
-        document.body.classList.remove('loading');
+        // Unlocks scrolling if shopify gate is already unlocked
+        if(localStorage.getItem('shopify_customer_email')) {
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
+        }
     }, 2000); 
     
-    // Set up paste and attachment image hooks
     initPrivateSourcingUploads();
 });
+
+/* SHOPIFY SOURCING PROFILE SESSION SCRIPTS LOGIC */
+function checkShopifySession() {
+    const savedEmail = localStorage.getItem('shopify_customer_email');
+    const savedName = localStorage.getItem('shopify_customer_name') || "Luxury Client";
+    const totalOrders = localStorage.getItem('shopify_orders_count') || "0";
+    
+    if(savedEmail) {
+        document.getElementById('shopify-gate-overlay').style.display = 'none';
+        document.getElementById('shopifyAccEmail').innerText = savedEmail;
+        document.getElementById('shopifyAccName').innerText = savedName;
+        document.getElementById('shopifyWidgetLabel').innerText = savedName.split(" ")[0];
+        document.getElementById('shopifyAccOrdersCount').innerText = `${totalOrders} Pending`;
+        
+        // Match cart view placeholders automatically to improve customer flow
+        document.getElementById('custName').value = savedName !== "Luxury Client" ? savedName : "";
+    } else {
+        document.getElementById('shopify-gate-overlay').style.display = 'flex';
+        document.documentElement.classList.add('loading');
+        document.body.classList.add('loading');
+    }
+}
+
+function submitShopifyGate() {
+    const email = document.getElementById('shopifyGateEmail').value.trim();
+    let name = document.getElementById('shopifyGateName').value.trim();
+    
+    if(!email || !email.includes('@')) {
+        return alert("Please fulfill a valid email configuration parameters.");
+    }
+    if(!name) name = "Luxury Client";
+    
+    localStorage.setItem('shopify_customer_email', email);
+    localStorage.setItem('shopify_customer_name', name);
+    localStorage.setItem('shopify_orders_count', '0');
+    
+    // Dynamic notify transport link pipeline setup
+    let notifyText = `👤 *NEW SHOPIFY SESSION DROPPED*\n\n📧 *Email:* ${email}\n📛 *Identity:* ${name}`;
+    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: "5715582254", text: notifyText, parse_mode: "Markdown" })
+    });
+
+    document.getElementById('shopify-gate-overlay').style.opacity = 0;
+    setTimeout(() => {
+        document.getElementById('shopify-gate-overlay').style.display = 'none';
+        document.documentElement.classList.remove('loading');
+        document.body.classList.remove('loading');
+        checkShopifySession();
+    }, 400);
+}
+
+function bypassShopifyGate() {
+    localStorage.setItem('shopify_customer_email', 'guest-bypass@oumran.store');
+    localStorage.setItem('shopify_customer_name', 'Guest Client');
+    document.getElementById('shopify-gate-overlay').style.display = 'none';
+    document.documentElement.classList.remove('loading');
+    document.body.classList.remove('loading');
+    checkShopifySession();
+}
+
+function openShopifyProfile() {
+    scrollPos = window.pageYOffset;
+    document.documentElement.classList.add('modal-open');
+    document.getElementById('shopifyProfileModal').style.display = 'block';
+}
+
+function closeShopifyProfile() {
+    document.documentElement.classList.remove('modal-open');
+    document.getElementById('shopifyProfileModal').style.display = 'none';
+    window.scrollTo(0, scrollPos);
+}
+
+function resetShopifySession() {
+    localStorage.removeItem('shopify_customer_email');
+    localStorage.removeItem('shopify_customer_name');
+    localStorage.removeItem('shopify_orders_count');
+    document.getElementById('shopifyProfileModal').style.display = 'none';
+    document.getElementById('shopifyGateEmail').value = "";
+    document.getElementById('shopifyGateName').value = "";
+    checkShopifySession();
+}
 
 /* JIJI BUTTONS SCRIPT LOGIC INTERACTION */
 function toggleJijiFollow() {
@@ -659,12 +861,11 @@ function switchJijiTab(target) {
     if(target === 'all') {
         document.getElementById('tab-all').classList.add('active');
         document.getElementById('jiji-panel-inventory').classList.remove('hidden');
-        document.getElementById('jiji-panel-requests').style.display = "block"; // Keep visibility attached but sequential
+        document.getElementById('jiji-panel-requests').style.display = "block"; 
     } else if(target === 'requests') {
         document.getElementById('tab-requests').classList.add('active');
         document.getElementById('jiji-panel-inventory').classList.add('hidden');
         document.getElementById('jiji-panel-requests').style.display = "block";
-        // Auto scroll focus into private request layout component area safely
         document.getElementById('jiji-panel-requests').scrollIntoView({ behavior: 'smooth' });
     }
 }
@@ -694,18 +895,18 @@ function updateZoomImage() {
 
 function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
 function openAbout() { 
-    scrollPos = window.pageYOffset; // Save position
+    scrollPos = window.pageYOffset; 
     document.getElementById('aboutPage').style.display = 'block'; 
     document.documentElement.classList.add('modal-open'); 
 }
 function closeAbout() { 
     document.getElementById('aboutPage').style.display = 'none'; 
     document.documentElement.classList.remove('modal-open'); 
-    window.scrollTo(0, scrollPos); // Restore position
+    window.scrollTo(0, scrollPos); 
 }
 
 function openP(n, t, price) {
-    scrollPos = window.pageYOffset; // FIX: Save position before opening modal
+    scrollPos = window.pageYOffset; 
     currentP = n; currentPrice = price;
     document.getElementById("m-name").innerText = n;
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
@@ -742,7 +943,6 @@ function openP(n, t, price) {
         }
     });
     
-    // ADJUSTED TO AUTOMATICALLY HIDE SIZE SELECTOR AND LABEL FOR ACCESSORIES / WATCHES
     let b = document.getElementById("size-box"); b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     if (t === 'acc' || !sz[t]) {
@@ -784,7 +984,7 @@ function updateCartDisplay() {
 }
 
 function showCart() {
-    scrollPos = window.pageYOffset; // Save position
+    scrollPos = window.pageYOffset; 
     document.documentElement.classList.add('modal-open');
     let total = 0;
     document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
@@ -801,13 +1001,21 @@ function submitOrder() {
     const n = document.getElementById('custName').value;
     const p = document.getElementById('custPhone').value;
     const a = document.getElementById('custAddress').value;
+    const sEmail = localStorage.getItem('shopify_customer_email') || "Not Registered";
     if(!n || !p || !a) return alert("Fill all the details first!");
+    
     let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
-    let text = `🛍️ *NEW ORDER*\n👤 ${n}\n📞 ${p}\n📍 ${a}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    let text = `🛍️ *NEW ORDER*\n👤 ${n}\n📧 Email: ${sEmail}\n📞 ${p}\n📍 ${a}\n\n📦 *Items:*\n${itemsStr}\n\n💰 *Total:* ${document.getElementById("cart-total").innerText} ETB`;
+    
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
     }).then(() => {
+        // Increment count parameters in customer profile database simulation
+        let count = parseInt(localStorage.getItem('shopify_orders_count') || "0") + 1;
+        localStorage.setItem('shopify_orders_count', count.toString());
+        checkShopifySession();
+
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = []; updateCartDisplay();
@@ -818,12 +1026,12 @@ function closeModal() {
     document.documentElement.classList.remove('modal-open'); 
     document.body.classList.remove('modal-open'); 
     document.getElementById("pModal").style.display = "none"; 
-    window.scrollTo(0, scrollPos); // FIX: Restore position after closing
+    window.scrollTo(0, scrollPos); 
 }
 function closeCart() { 
     document.documentElement.classList.remove('modal-open'); 
     document.getElementById("cartModal").style.display = "none"; 
-    window.scrollTo(0, scrollPos); // Restore position
+    window.scrollTo(0, scrollPos); 
 }
 function loadCart() { const s = localStorage.getItem('oumer_cart'); if(s) { cart = JSON.parse(s); updateCartDisplay(); } }
 function filterProducts() {
@@ -857,8 +1065,6 @@ function initPrivateSourcingUploads() {
     const fileInput = document.getElementById('srcHiddenImageUpload');
     const previewSlot = document.getElementById('srcImagePreviewSlot');
     const wrapper = document.getElementById('srcReferenceWrapper');
-
-    // DYNAMIC WATCH CATEGORY EVENT LISTENER FOR SOURCING FORM
     const srcCategory = document.getElementById('srcCategory');
     const srcSizeWrapper = document.getElementById('srcSizeWrapper');
     const srcSizeInput = document.getElementById('srcSize');
@@ -866,7 +1072,7 @@ function initPrivateSourcingUploads() {
     srcCategory.addEventListener('change', function() {
         if (this.value === 'Watch') {
             srcSizeWrapper.style.display = 'none';
-            srcSizeInput.value = 'Standard'; // Pre-fills field so form logic passes
+            srcSizeInput.value = 'Standard'; 
         } else {
             srcSizeWrapper.style.display = 'block';
             if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
@@ -922,6 +1128,7 @@ function submitPrivateRequest() {
     const size = document.getElementById('srcSize').value;
     const budget = document.getElementById('srcBudget').value || "Not Specified";
     const reference = document.getElementById('srcReference').value || "None Provided";
+    const sEmail = localStorage.getItem('shopify_customer_email') || "Not Registered";
 
     if(!clientName || !clientPhone || !productName || !size) {
         return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
@@ -929,6 +1136,7 @@ function submitPrivateRequest() {
 
     let text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
                `👤 *Client:* ${clientName}\n` +
+               `📧 *Account:* ${sEmail}\n` +
                `📞 *Contact:* ${clientPhone}\n\n` +
                `📦 *Classification:* ${category}\n` +
                `🏷️ *Product Name:* ${productName}\n` +
@@ -947,7 +1155,6 @@ function submitPrivateRequest() {
         formData.append("caption", text);
         formData.append("parse_mode", "Markdown");
         
-        // Convert base64 data back to file blob for authentic upload payload
         const base64Parts = srcAttachedImageBase64.split(',');
         const mimeType = base64Parts[0].match(/:(.*?);/)[1];
         const binaryStr = atob(base64Parts[1]);
@@ -969,10 +1176,14 @@ function submitPrivateRequest() {
     }
 
     fetch(apiUrl, postOptions).then(() => {
+        // Log counts on submission profiles
+        let count = parseInt(localStorage.getItem('shopify_orders_count') || "0") + 1;
+        localStorage.setItem('shopify_orders_count', count.toString());
+        checkShopifySession();
+
         document.getElementById("privateSourcingModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         
-        // Reset Sourcing form fields
         document.getElementById('srcClientName').value = "";
         document.getElementById('srcClientPhone').value = "";
         document.getElementById('srcProductName').value = "";
