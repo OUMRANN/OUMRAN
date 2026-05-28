@@ -63,11 +63,6 @@
             animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
             animation-delay: 0.4s, 0s;
         }
-        .splash-slogan {
-            font-size: 11px; color: var(--gold); 
-            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
-            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
-        }
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
         @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -142,10 +137,60 @@
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
-        .profile-float { position: fixed; bottom: 90px; right: 20px; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
-        .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
+        /* FIXED: Professional Floating Bar Layout Alignment */
+        .docked-action-bar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(15, 15, 15, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 14px;
+            border-radius: 40px;
+            width: calc(100% - 48px);
+            max-width: 340px;
+            z-index: 5000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        .docked-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .docked-btn:active { transform: scale(0.92); }
+        .btn-profile { background: #fff; color: #000; font-size: 20px; }
+        .btn-cart { background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 20px; }
+        .btn-telegram { background: var(--tg); color: #fff; font-size: 20px; }
+        .cart-count-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            font-weight: 900;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(255,59,48,0.4);
+        }
         
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
@@ -250,7 +295,7 @@
             <div style="background: white; padding: 12px; display: inline-block; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                 <svg width="120" height="120" viewBox="0 0 29 29" shape-rendering="crispEdges">
                     <path fill="#ffffff" d="M0,0h29v29h-29z"/>
-                    <path fill="#000000" d="M0,0h7v7h-7z M22,0h7v7h-7z M0,22h7v7h-7z M2,2h3v3h-3z M24,2h3v3h-3z M2,24h3v3h-3z M7,0h1v3h-1z M11,0h4v1h-4z M16,0h1v2h-1z M18,0h3v1h-3z M8,1h2v2h-2z M10,1h1v1h-1z M15,1h1v1h-1z M17,1h1v3h-1z M21,1h1v1h-1z M11,2h1v3h-1z M13,2h1v1h-1z M14,2h1v2h-1z M20,2h1v2h-1z M7,3h3v1h-3z M12,3h1v1h-1z M15,3h1v1h-1z M18,3h1v1h-1z M10,4h1v1h-1z M13,4h1v2h-1z M16,4h1v1h-1z M19,4h2v1h-2z M7,5h1v1h-1z M9,5h2v1h-2z M14,5h3v1h-3z M18,5h1v1h-1z M20,5h2v1h-2z M8,6h1v1h-1z M11,6h1v1h-1z M17,6h1v1h-1z M19,6h1v1h-1z M21,6h1v1h-1z M8,8h3v1h-3z M12,8h2v1h-2z M17,8h1v1h-1z M19,8h1v3h-1z M21,8h2v1h-2z M24,8h1v1h-1z M27,8h1v1h-1z M9,9h1v1h-1z M11,9h1v1h-1z M15,9h2v1h-2z M20,9h1v1h-1z M23,9h1v2h-1z M25,9h2v1h-2z M28,9h1v2h-1z M8,10h1v1h-1z M10,10h1v1h-1z M12,10h2v1h-2z M16,10h1v1h-1z M18,10h1v1h-1z M24,10h1v2h-1z M26,10h1v1h-1z M7,11h1v1h-1z M9,11h1v1h-1z M11,11h1v1h-1z M15,11h1v1h-1z M17,11h1v1h-1z M21,11h2v1h-2z M25,11h1v1h-1z M0,12h1v1h-1z M3,12h2v1h-2z M6,12h2v1h-2z M9,12h3v1h-3z M13,12h2v1h-2z M16,12h2v1h-2z M19,12h2v1h-2z M22,12h1v1h-1z M27,12h2v1h-2z M1,13h3v1h-3z M5,13h1v1h-1z M7,13h1v1h-1z M9,13h1v1h-1z M11,13h1v1h-1z M14,13h1v1h-1z M16,13h2v1h-2z M19,13h1v1h-1z M21,13h1v1h-1z M23,13h1v1h-1z M25,13h1v1h-1z M26,13h2v1h-2z M0,14h2v1h-2z M3,14h1v1h-1z M5,14h1v1h-1z M8,14h2v1h-2z M11,14h1v1h-1z M13,14h1v1h-1z M17,14h1v1h-1z M22,14h1v1h-1z M24,14h1v1h-1z M28,14h1v1h-1z M2,15h3v1h-3z M7,15h3v1h-3z M11,15h1v1h-1z M14,15h1v1h-1z M16,15h1v1h-1z M18,15h1v1h-1z M20,15h4v1h-4z M25,15h2v1h-2z M0,16h2v1h-2z M3,16h4v1h-4z M9,16h1v1h-1z M11,16h1v1h-1z M13,16h1v1h-1z M15,16h3v1h-3z M22,16h2v1h-2z M27,16h1v1h-1z M2,17h1v1h-1z M4,17h1v1h-1z M6,17h2v1h-2z M9,17h1v1h-1z M11,17h1v1h-1z M14,17h1v1h-1z M16,17h1v1h-1z M18,17h1v1h-1z M20,17h1v1h-1z M24,17h4v1h-4z M0,18h1v1h-1z M4,18h2v1h-2z M8,18h1v1h-1z M10,18h1v1h-1z M12,18h2v1h-2z M15,18h1v1h-1z M17,18h2v1h-2z M20,18h2v1h-2z M23,18h2v1h-2z M27,18h1v1h-1z M1,19h2v1h-2z M4,19h2v1h-2z M7,19h1v1h-1z M9,19h1v1h-1z M11,19h3v1h-3z M15,19h1v1h-1z M18,19h1v1h-1z M21,19h2v1h-2z M24,19h1v1h-1z M26,19h1v1h-1z M0,20h2v1h-2z M3,20h1v1h-1z M6,20h2v1h-2z M9,20h2v1h-2z M12,20h2v1h-2z M15,20h1v1h-1z M17,20h1v1h-1z M19,20h2v1h-2z M23,20h3v1h-3z M27,20h1v1h-1z M1,21h1v1h-1z M4,21h1v1h-1z M7,21h1v1h-1z M10,21h1v1h-1z M12,21h1v1h-1z M14,21h3v1h-3z M18,21h1v1h-1z M20,21h1v1h-1z M22,21h1v1h-1z M24,21h2v1h-2z M27,21h1v1h-1z M8,22h1v1h-1z M10,22h1v1h-1z M13,22h1v1h-1z M15,22h2v1h-2z M19,22h2v1h-2z M22,22h1v1h-1z M24,22h1v1h-1z M27,22h1v1h-1z M7,23h2v1h-2z M10,23h2v1h-2z M14,23h1v1h-1z M16,23h1v1h-1z M18,23h2v1h-2z M22,23h1v1h-1z M25,23h2v1h-2z M28,23h1v1h-1z M8,24h2v1h-2z M11,24h1v1h-1z M13,24h1v1h-1z M16,24h1v1h-1z M18,24h3v1h-3z M23,24h3v1h-3z M7,25h2v1h-2z M10,25h2v1h-2z M13,25h2v1h-2z M16,25h1v1h-1z M22,25h2v1h-2z M26,25h1v1h-1z M8,26h1v1h-1z M10,26h1v1h-1z M12,26h1v1h-1z M14,26h2v1h-2z M18,26h1v1h-1z M21,26h2v1h-2z M24,26h2v1h-2z M27,26h1v1h-1z M7,27h1v1h-1z M11,27h1v1h-1z M13,27h1v1h-1z M15,27h2v1h-2z M19,27h2v1h-2z M22,27h3v1h-3z M27,27h1v1h-1z M8,28h2v1h-2z M11,28h2v1h-2z M15,28h3v1h-3z M19,28h1v1h-1z M21,28h1v1h-1z M23,28h3v1h-3z M27,28h2v1h-2z"/>
+                    <path fill="#000000" d="M0,0h7v7h-7z M22,0h7v7h-7z M0,22h7v7h-7z M2,2h3v3h-3z M24,2h3v3h-3z M2,24h3v3h-3z M7,0h1v3h-1z M11,0h4v1h-4z M16,0h1v2h-1z M18,0h3v1h-3z M8,1h2v2h-2z M10,1h1v1h-1z M15,1h1v1h-1z M17,1h1v3h-1z M21,1h1v1h-1z M11,2h1v3h-1z M13,2h1v1h-1z M14,2h1v2h-1z M20,2h1v2h-1z M7,3h3v1h-3z M12,3h1v1h-1z M15,3h1v1h-1z M18,3h1v1h-1z M10,4h1v1h-1z M13,4h1v2h-1z M16,4h1v1h-1z M19,4h2v1h-2z M7,5h1v1h-1z M9,5h2v1h-2z M14,5h3v1h-3z M18,5h1v1h-1z M20,5h2v1h-2z M8,6h1v1h-1z M11,6h1v1h-1z M17,6h1v1h-1z M19,6h1v1h-1z M21,6h1v1h-1z M8,8h3v1h-3z M12,8h2v1h-2z M17,8h1v1h-1z M19,8h1v3h-1z M21,8h2v1h-2z M24,8h1v1h-1z M27,8h1v1h-1z M9,9h1v1h-1z M11,9h1v1h-1z M15,9h2v1h-2z M20,9h1v1h-1z M23,9h1v2h-1z M25,9h2v1h-2z M28,9h1v2h-1z M8,10h1v1h-1z M10,10h1v1h-1z M12,10h2v1h-2z M16,10h1v1h-1z M18,10h1v1h-1z M24,10h1v2h-1z M26,10h1v1h-1z M7,11h1v1h-1z M9,11h1v1h-1z M11,11h1v1h-1z M15,11h1v1h-1z M17,11h1v1h-1z M21,11h2v1h-2z M25,11h1v1h-1z M0,12h1v1h-1z M3,12h2v1h-2z M6,12h2v1h-2z M9,12h3v1h-3z M13,12h2v1h-2z M16,12h2v1h-2z M19,12h2v1h-2z M22,12h1v1h-1z M27,12h2v1h-2z M1,13h3v1h-3z M5,13h1v1h-1z M7,13h1v1h-1z M9,13h1v1h-1z M11,13h1v1h-1z M14,13h1v1h-1z Peg,13h2v1h-2z M19,13h1v1h-1z M21,13h1v1h-1z M23,13h1v1h-1z M25,13h1v1h-1z M26,13h2v1h-2z M0,14h2v1h-2z M3,14h1v1h-1z M5,14h1v1h-1z M8,14h2v1h-2z M11,14h1v1h-1z M13,14h1v1h-1z M17,14h1v1h-1z M22,14h1v1h-1z M24,14h1v1h-1z M28,14h1v1h-1z M2,15h3v1h-3z M7,15h3v1h-3z M11,15h1v1h-1z M14,15h1v1h-1z M16,15h1v1h-1z M18,15h1v1h-1z M20,15h4v1h-4z M25,15h2v1h-2z M0,16h2v1h-2z M3,16h4v1h-4z M9,16h1v1h-1z M11,16h1v1h-1z M13,16h1v1h-1z M15,16h3v1h-3z M22,16h2v1h-2z M27,16h1v1h-1z M2,17h1v1h-1z M4,17h1v1h-1z M6,17h2v1h-2z M9,17h1v1h-1z M11,17h1v1h-1z M14,17h1v1h-1z M16,17h1v1h-1z M18,17h1v1h-1z M20,17h1v1h-1z M24,17h4v1h-4z M0,18h1v1h-1z M4,18h2v1h-2z M8,18h1v1h-1z M10,18h1v1h-1z M12,18h2v1h-2z M15,18h1v1h-1z M17,18h2v1h-2z M20,18h2v1h-2z M23,18h2v1h-2z M27,18h1v1h-1z M1,19h2v1h-2z M4,19h2v1h-2z M7,19h1v1h-1z M9,19h1v1h-1z M11,19h3v1h-3z M15,19h1v1h-1z M18,19h1v1h-1z M21,19h2v1h-2z M24,19h1v1h-1z M26,19h1v1h-1z M0,20h2v1h-2z M3,20h1v1h-1z M6,20h2v1h-2z M9,20h2v1h-2z M12,20h2v1h-2z M15,20h1v1h-1z M17,20h1v1h-1z M19,20h2v1h-2z M23,20h3v1h-3z M27,20h1v1h-1z M1,21h1v1h-1z M4,21h1v1h-1z M7,21h1v1h-1z M10,21h1v1h-1z M12,21h1v1h-1z M14,21h3v1h-3z M18,21h1v1h-1z M20,21h1v1h-1z M22,21h1v1h-1z M24,21h2v1h-2z M27,21h1v1h-1z M8,22h1v1h-1z M10,22h1v1h-1z M13,22h1v1h-1z M15,22h2v1h-2z M19,22h2v1h-2z M22,22h1v1h-1z M24,22h1v1h-1z M27,22h1v1h-1z M7,23h2v1h-2z M10,23h2v1h-2z M14,23h1v1h-1z M16,23h1v1h-1z M18,23h2v1h-2z M22,23h1v1h-1z M25,23h2v1h-2z M28,23h1v1h-1z M8,24h2v1h-2z M11,24h1v1h-1z M13,24h1v1h-1z M16,24h1v1h-1z M18,24h3v1h-3z M23,24h3v1h-3z M7,25h2v1h-2z M10,25h2v1h-2z M13,25h2v1h-2z M16,25h1v1h-1z M22,25h2v1h-2z M26,25h1v1h-1z M8,26h1v1h-1z M10,26h1v1h-1z M12,26h1v1h-1z M14,26h2v1h-2z M18,26h1v1h-1z M21,26h2v1h-2z M24,26h2v1h-2z M27,26h1v1h-1z M7,27h1v1h-1z M11,27h1v1h-1z M13,27h1v1h-1z M15,27h2v1h-2z M19,27h2v1h-2z M22,27h3v1h-3z M27,27h1v1h-1z M8,28h2v1h-2z M11,28h2v1h-2z M15,28h3v1h-3z M19,28h1v1h-1z M21,28h1v1h-1z M23,28h3v1h-3z M27,28h2v1h-2z"/>
                 </svg>
             </div>
             <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px;">User Profile</div>
@@ -472,9 +517,11 @@
 	</button>
  </div>
 
-    <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
-    <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
-    <a href="https://t.me/OUMRAN_STORE" class="tg-float" target="_blank">📲</a>
+    <div class="docked-action-bar">
+        <button id="profile-btn" class="docked-btn btn-profile" onclick="openProfileHub()">👤</button>
+        <button id="cart-btn" class="docked-btn btn-cart" onclick="showCart()" style="display: none;">🛒<span id="cart-count" class="cart-count-badge">0</span></button>
+        <a href="https://t.me/OUMRAN_STORE" class="docked-btn btn-telegram" target="_blank">📲</a>
+    </div>
 
     <div id="pModal" class="modal">
         <div class="modal-content">
@@ -561,9 +608,23 @@
                 <input type="text" id="custName" placeholder="Full Name" class="order-input">
                 <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
                 <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-                <div class="payment-info">
-                  <strong style="color: white;">Telebirr Payment Info:</strong><br>
-                  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
+                
+                <div style="margin-top: 30px; margin-bottom: 10px; padding: 24px; background: linear-gradient(135deg, rgba(30,30,30,0.6) 0%, rgba(15,15,15,0.8) 100%); border-radius: 20px; border: 1px solid rgba(255, 215, 0, 0.15); box-shadow: 0 15px 35px rgba(0,0,0,0.4); text-align: center;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px;">
+                        <span style="font-size: 15px;">💳</span>
+                        <span style="color: #888; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;">TELEBIRR OFFICIAL ACCOUNT</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px; font-family: 'Inter', sans-serif;">
+                        <div onclick="navigator.clipboard.writeText('0939620004'); alert('Copied: 0939620004')" style="padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; cursor: pointer; transition: background 0.2s;">
+                            <span style="color: #aaa; font-size: 12px; display: block; margin-bottom: 2px;">Account Holder 1</span>
+                            <span style="color: var(--gold); font-size: 18px; font-weight: 900; letter-spacing: 1px;">0939620004</span>
+                        </div>
+                        <div onclick="navigator.clipboard.writeText('0940028820'); alert('Copied: 0940028820')" style="padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; cursor: pointer; transition: background 0.2s;">
+                            <span style="color: #aaa; font-size: 12px; display: block; margin-bottom: 2px;">Account Holder 2</span>
+                            <span style="color: var(--gold); font-size: 18px; font-weight: 900; letter-spacing: 1px;">0940028820</span>
+                        </div>
+                    </div>
+                    <span style="display: block; margin-top: 12px; font-size: 11px; color: #555; letter-spacing: 0.5px;">Tap any number box to copy instantly</span>
                 </div>
                 
                 <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
@@ -893,7 +954,12 @@ function addToCart() {
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
-    document.getElementById("cart-btn").style.display = cart.length > 0 ? "flex" : "none";
+    
+    // Sync to action bar display property configurations
+    const actionCartBtn = document.getElementById("cart-btn");
+    if(actionCartBtn) {
+        actionCartBtn.style.display = cart.length > 0 ? "flex" : "none";
+    }
     localStorage.setItem('oumer_cart', JSON.stringify(cart));
 }
 
@@ -1137,7 +1203,7 @@ function submitPrivateRequest() {
 }
 </script> 
 
-<p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
+<p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0; margin-bottom: 80px;">
     &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
 </p>
 
