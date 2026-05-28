@@ -497,65 +497,68 @@
         </div>
     </div>
 
-    <div id="cartModal" class="modal">
+        <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-top:0; font-family: 'Playfair Display', serif;">Your Bag 🛍️</h2>
-            <div id="cart-items-list" style="margin-bottom: 15px;"></div>
-            <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px;">Total: <span id="cart-total">0</span> ETB</div>
-            <input type="text" id="custName" placeholder="Full Name" class="order-input">
-            <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
-            <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-            <div class="payment-info">
-			  <strong style="color: white;">Telebirr Payment Info:</strong><br>
-			  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
-			</div>
-            
-            <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
-                <span style="display: block; color: var(--gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Select Payment Preference</span>
+            <!-- Professional History Toggle Navigation -->
+            <div style="display: flex; background: #000; border-radius: 12px; padding: 4px; margin-bottom: 20px; border: 1px solid #333;">
+                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex: 1; padding: 10px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Active Bag</button>
+                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex: 1; padding: 10px; background: transparent; color: #888; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Order History</button>
+            </div>
+
+            <!-- Active Bag View Content -->
+            <div id="active-bag-view">
+                <div id="cart-items-list" style="margin-bottom: 15px;"></div>
+                <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px; margin-bottom: 15px;">Total: <span id="cart-total">0</span> ETB</div>
+                <input type="text" id="custName" placeholder="Full Name" class="order-input">
+                <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
+                <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
+                <div class="payment-info">
+                  <strong style="color: white;">Telebirr Payment Info:</strong><br>
+                  <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
+                </div>
                 
-                <div style="display: flex; flex-direction: column; gap: 14px; font-family: 'Inter', sans-serif;">
-                    <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                        <input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                        <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                            <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Cash on Delivery (COD)</strong>
-                            <span style="color: #aaa; font-size: 12px;">No deposit needed. Settle total balance strictly upon delivery at your doorstep.</span>
-                        </div>
-                    </label>
-
-                    <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                        <input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                        <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                            <strong style="color: var(--gold); display: block; margin-bottom: 2px;">50% Secure Deposit</strong>
-                            <span style="color: #aaa; font-size: 12px;">Pay half upfront via Telebirr to lock in your order; settle the rest at your door.</span>
-                        </div>
-                    </label>
-
-                    <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                        <input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                        <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                            <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Full Upfront Payment</strong>
-                            <span style="color: #aaa; font-size: 12px;">Settle the entire balance instantly via Telebirr for a completely seamless drop.</span>
-                        </div>
-                    </label>
+                <!-- Interactive Payment Options Selection -->
+                <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
+                    <span style="display: block; color: var(--gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Select Payment Preference</span>
+                    <div style="display: flex; flex-direction: column; gap: 14px; font-family: 'Inter', sans-serif;">
+                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                            <input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
+                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
+                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Cash on Delivery (COD)</strong>
+                                <span style="color: #aaa; font-size: 12px;">No deposit needed. Settle total balance strictly upon delivery at your doorstep.</span>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                            <input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
+                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
+                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">50% Secure Deposit</strong>
+                                <span style="color: #aaa; font-size: 12px;">Pay half upfront via Telebirr to lock in your order; settle the rest at your door.</span>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
+                            <input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
+                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
+                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Full Upfront Payment</strong>
+                                <span style="color: #aaa; font-size: 12px;">Settle the entire balance instantly via Telebirr for a completely seamless drop.</span>
+                            </div>
+                        </label>
+                    </div>
                 </div>
+
+                <div style="border-top: 1px solid #222; margin-top: 15px; padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; align-items: flex-start; gap: 8px;">
+                        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
+                        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="submitOrder()">Confirm Order</button>
             </div>
 
-            <div style="border-top: 1px solid #222; margin-top: 15px; padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                <div style="display: flex; align-items: flex-start; gap: 8px;">
-                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5; font-family: 'Inter', sans-serif;">
-                        Prices may change slightly depending on the supplier stock.
-                    </p>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 8px;">
-                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5; font-family: 'Inter', sans-serif;">
-                        Your selected preference will be verified and finalized during your Telegram order consultation.
-                    </p>
-                </div>
+            <!-- Archive History View Content -->
+            <div id="order-history-view" style="display: none;">
+                <div id="history-items-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;"></div>
             </div>
 
-            <button class="btn" onclick="submitOrder()">Confirm Order</button>
             <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
         </div>
     </div>
@@ -736,7 +739,99 @@ function showCart() {
     document.getElementById("cartModal").style.display = "block";
 }
 
-function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
+function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else 
+let cart = [];
+let orderHistory = []; // Master structural array for saved invoices
+const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
+let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx = 0;
+let scrollPos = 0;
+let srcAttachedImageBase64 = "";
+
+window.addEventListener('load', () => {
+    loadCart();
+    loadHistory(); // Securely extract past digital manifests
+    
+    // FIX: Check session assignment so splash won't fire constantly during active app navigation
+    if (!sessionStorage.getItem('oumran_session_active')) {
+        setTimeout(() => {
+            document.getElementById('splash-screen').classList.add('splash-exit');
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
+            sessionStorage.setItem('oumran_session_active', 'true');
+        }, 2000);
+    } else {
+        // Fast-pass bypass for users returning from multitasking or background apps
+        document.getElementById('splash-screen').style.display = 'none';
+        document.documentElement.classList.remove('loading');
+        document.body.classList.remove('loading');
+    }
+    
+    initPrivateSourcingUploads();
+});
+
+function loadHistory() {
+    const saved = localStorage.getItem('oumer_history');
+    if(saved) { orderHistory = JSON.parse(saved); }
+}
+
+function switchCartView(view) {
+    const btnBag = document.getElementById('toggle-active-bag');
+    const btnHist = document.getElementById('toggle-order-history');
+    const viewBag = document.getElementById('active-bag-view');
+    const viewHist = document.getElementById('order-history-view');
+
+    if(view === 'bag') {
+        btnBag.style.backgroundColor = '#1a1a1a'; btnBag.style.color = '#fff';
+        btnHist.style.backgroundColor = 'transparent'; btnHist.style.color = '#888';
+        viewBag.style.display = 'block'; viewHist.style.display = 'none';
+        showCart();
+    } else {
+        btnHist.style.backgroundColor = '#1a1a1a'; btnHist.style.color = '#fff';
+        btnBag.style.backgroundColor = 'transparent'; btnBag.style.color = '#888';
+        viewBag.style.display = 'none'; viewHist.style.display = 'block';
+        renderHistoryDisplay();
+    }
+}
+
+function showCart() {
+    scrollPos = window.pageYOffset;
+    document.documentElement.classList.add('modal-open');
+    let total = 0;
+    document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
+        total += item.price;
+        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
+    }).join("");
+    document.getElementById("cart-total").innerText = total.toLocaleString();
+    document.getElementById("cartModal").style.display = "block";
+    
+    // Always default display to Active Bag view reset layout upon fresh click open
+    switchCartView('bag');
+}
+
+function renderHistoryDisplay() {
+    const listContainer = document.getElementById('history-items-list');
+    if(orderHistory.length === 0) {
+        listContainer.innerHTML = `<div style="text-align:center; padding: 40px 10px; color:#666; font-size:13px;">No archived request profiles found.</div>`;
+        return;
+    }
+    
+    // Renders list layout grouped beautifully by their exact confirmation timestamps
+    listContainer.innerHTML = orderHistory.map((order) => {
+        let orderItems = order.items.map(i => `<div style="font-size:13px; color:#ccc; margin-top:4px;">• ${i.internalName} (${i.size})</div>`).join("");
+        return `
+            <div style="background:#000; padding:15px; border-radius:12px; border:1px solid #222; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--gold); font-weight:700;">
+                    <span>📜 ORDER RECORD</span>
+                    <span>${order.date}</span>
+                </div>
+                <div style="margin:10px 0;">${orderItems}</div>
+                <div style="text-align:right; font-size:12px; color:#fff; font-weight:bold; border-top:1px solid #111; padding-top:8px;">
+                    Total: ${order.total} ETB
+                </div>
+            </div>
+        `;
+    }).reverse().join(""); // Shows newest orders at the top
+}
 
 function submitOrder() {
     const n = document.getElementById('custName').value;
@@ -744,20 +839,18 @@ function submitOrder() {
     const a = document.getElementById('custAddress').value;
     if(!n || !p || !a) return alert("Fill all the details first!");
     
-    // Fetch the value of the active payment preference option clicked by the client
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
-    
     let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
+    const totalVal = document.getElementById("cart-total").innerText;
     
-    // Upgraded notification format to look luxurious and show payment option choice
-    let text = `🏛️ *NEW ORDER | OUMRAN STORE*\n\n` +
+    let text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n` +
                `✨ *CLIENT PROFILE*\n` +
                `▪️ Name: ${n}\n` +
                `▪️ Contact: ${p}\n` +
                `▪️ Destination: ${a}\n\n` +
                `📦 *ALLOCATED SELECTION*\n` +
                `${itemsStr}\n\n` +
-               `💰 *TOTAL PORTFOLIO VALUE:* ${document.getElementById("cart-total").innerText} ETB\n\n` +
+               `💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n` +
                `💳 *SERVICE PREFERENCE*\n` +
                `✨ [ ${selectedMethod} ]\n\n` +
                `—\n` +
@@ -767,6 +860,15 @@ function submitOrder() {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
     }).then(() => {
+        // PROFESSIONAL HISTORY ARCHIVAL STEP: Save current items to log array
+        const timestamp = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        orderHistory.push({
+            date: timestamp,
+            items: [...cart],
+            total: totalVal
+        });
+        localStorage.setItem('oumer_history', JSON.stringify(orderHistory));
+
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = []; updateCartDisplay();
