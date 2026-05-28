@@ -144,6 +144,7 @@
         
         .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
         .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+        .profile-float { position: fixed; bottom: 90px; right: 20px; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
@@ -219,6 +220,55 @@
         <div class="welcome-msg">WELCOME TO</div>
         <div class="splash-logo">OUMRAN<br>STORE</div>
         <div class="splash-slogan">DEFINING ADDIS ABABA LUXURY</div>
+    </div>
+</div>
+
+<div id="profileOnboardingModal" class="modal" style="display: none; background: rgba(0,0,0,0.98);">
+    <div class="modal-content" style="border: 1px solid #222; text-align: center; margin-top: 10vh; max-width: 360px;">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 24px; margin-bottom: 10px;">Create Your Profile</h2>
+        <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">OUMRAN LUXURY ACCESS ACCESS</p>
+        
+        <div style="text-align: left; margin-bottom: 15px;">
+            <label style="font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase;">Full Name</label>
+            <input type="text" id="onboardName" placeholder="Enter full name" class="order-input" style="background: #050505;">
+        </div>
+        
+        <div style="text-align: left; margin-bottom: 25px;">
+            <label style="font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase;">Gmail Address</label>
+            <input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input" style="background: #050505;">
+        </div>
+        
+        <button class="btn" style="background: #fff; color: #000; font-weight: 900;" onclick="saveOnboardingProfile()">Generate Profile</button>
+    </div>
+</div>
+
+<div id="profileHubModal" class="modal">
+    <div class="modal-content" style="background: #111; border: 1px solid #333; max-width: 380px;">
+        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); text-align: center; font-size: 22px; margin-top: 5px; margin-bottom: 20px; letter-spacing: 1px;">YOUR OUMRAN PROFILE</h2>
+        
+        <div style="background: #000; border: 1px solid #222; border-radius: 15px; padding: 20px; text-align: center; margin-bottom: 20px;">
+            <div style="background: white; padding: 12px; display: inline-block; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <svg width="120" height="120" viewBox="0 0 29 29" shape-rendering="crispEdges">
+                    <path fill="#ffffff" d="M0,0h29v29h-29z"/>
+                    <path fill="#000000" d="M0,0h7v7h-7z M22,0h7v7h-7z M0,22h7v7h-7z M2,2h3v3h-3z M24,2h3v3h-3z M2,24h3v3h-3z M7,0h1v3h-1z M11,0h4v1h-4z M16,0h1v2h-1z M18,0h3v1h-3z M8,1h2v2h-2z M10,1h1v1h-1z M15,1h1v1h-1z M17,1h1v3h-1z M21,1h1v1h-1z M11,2h1v3h-1z M13,2h1v1h-1z M14,2h1v2h-1z M20,2h1v2h-1z M7,3h3v1h-3z M12,3h1v1h-1z M15,3h1v1h-1z M18,3h1v1h-1z M10,4h1v1h-1z M13,4h1v2h-1z M16,4h1v1h-1z M19,4h2v1h-2z M7,5h1v1h-1z M9,5h2v1h-2z M14,5h3v1h-3z M18,5h1v1h-1z M20,5h2v1h-2z M8,6h1v1h-1z M11,6h1v1h-1z M17,6h1v1h-1z M19,6h1v1h-1z M21,6h1v1h-1z M8,8h3v1h-3z M12,8h2v1h-2z M17,8h1v1h-1z M19,8h1v3h-1z M21,8h2v1h-2z M24,8h1v1h-1z M27,8h1v1h-1z M9,9h1v1h-1z M11,9h1v1h-1z M15,9h2v1h-2z M20,9h1v1h-1z M23,9h1v2h-1z M25,9h2v1h-2z M28,9h1v2h-1z M8,10h1v1h-1z M10,10h1v1h-1z M12,10h2v1h-2z M16,10h1v1h-1z M18,10h1v1h-1z M24,10h1v2h-1z M26,10h1v1h-1z M7,11h1v1h-1z M9,11h1v1h-1z M11,11h1v1h-1z M15,11h1v1h-1z M17,11h1v1h-1z M21,11h2v1h-2z M25,11h1v1h-1z M0,12h1v1h-1z M3,12h2v1h-2z M6,12h2v1h-2z M9,12h3v1h-3z M13,12h2v1h-2z M16,12h2v1h-2z M19,12h2v1h-2z M22,12h1v1h-1z M27,12h2v1h-2z M1,13h3v1h-3z M5,13h1v1h-1z M7,13h1v1h-1z M9,13h1v1h-1z M11,13h1v1h-1z M14,13h1v1h-1z M16,13h2v1h-2z M19,13h1v1h-1z M21,13h1v1h-1z M23,13h1v1h-1z M25,13h1v1h-1z M26,13h2v1h-2z M0,14h2v1h-2z M3,14h1v1h-1z M5,14h1v1h-1z M8,14h2v1h-2z M11,14h1v1h-1z M13,14h1v1h-1z M17,14h1v1h-1z M22,14h1v1h-1z M24,14h1v1h-1z M28,14h1v1h-1z M2,15h3v1h-3z M7,15h3v1h-3z M11,15h1v1h-1z M14,15h1v1h-1z M16,15h1v1h-1z M18,15h1v1h-1z M20,15h4v1h-4z M25,15h2v1h-2z M0,16h2v1h-2z M3,16h4v1h-4z M9,16h1v1h-1z M11,16h1v1h-1z M13,16h1v1h-1z M15,16h3v1h-3z M22,16h2v1h-2z M27,16h1v1h-1z M2,17h1v1h-1z M4,17h1v1h-1z M6,17h2v1h-2z M9,17h1v1h-1z M11,17h1v1h-1z M14,17h1v1h-1z M16,17h1v1h-1z M18,17h1v1h-1z M20,17h1v1h-1z M24,17h4v1h-4z M0,18h1v1h-1z M4,18h2v1h-2z M8,18h1v1h-1z M10,18h1v1h-1z M12,18h2v1h-2z M15,18h1v1h-1z M17,18h2v1h-2z M20,18h2v1h-2z M23,18h2v1h-2z M27,18h1v1h-1z M1,19h2v1h-2z M4,19h2v1h-2z M7,19h1v1h-1z M9,19h1v1h-1z M11,19h3v1h-3z M15,19h1v1h-1z M18,19h1v1h-1z M21,19h2v1h-2z M24,19h1v1h-1z M26,19h1v1h-1z M0,20h2v1h-2z M3,20h1v1h-1z M6,20h2v1h-2z M9,20h2v1h-2z M12,20h2v1h-2z M15,20h1v1h-1z M17,20h1v1h-1z M19,20h2v1h-2z M23,20h3v1h-3z M27,20h1v1h-1z M1,21h1v1h-1z M4,21h1v1h-1z M7,21h1v1h-1z M10,21h1v1h-1z M12,21h1v1h-1z M14,21h3v1h-3z M18,21h1v1h-1z M20,21h1v1h-1z M22,21h1v1h-1z M24,21h2v1h-2z M27,21h1v1h-1z M8,22h1v1h-1z M10,22h1v1h-1z M13,22h1v1h-1z M15,22h2v1h-2z M19,22h2v1h-2z M22,22h1v1h-1z M24,22h1v1h-1z M27,22h1v1h-1z M7,23h2v1h-2z M10,23h2v1h-2z M14,23h1v1h-1z M16,23h1v1h-1z M18,23h2v1h-2z M22,23h1v1h-1z M25,23h2v1h-2z M28,23h1v1h-1z M8,24h2v1h-2z M11,24h1v1h-1z M13,24h1v1h-1z M16,24h1v1h-1z M18,24h3v1h-3z M23,24h3v1h-3z M7,25h2v1h-2z M10,25h2v1h-2z M13,25h2v1h-2z M16,25h1v1h-1z M22,25h2v1h-2z M26,25h1v1h-1z M8,26h1v1h-1z M10,26h1v1h-1z M12,26h1v1h-1z M14,26h2v1h-2z M18,26h1v1h-1z M21,26h2v1h-2z M24,26h2v1h-2z M27,26h1v1h-1z M7,27h1v1h-1z M11,27h1v1h-1z M13,27h1v1h-1z M15,27h2v1h-2z M19,27h2v1h-2z M22,27h3v1h-3z M27,27h1v1h-1z M8,28h2v1h-2z M11,28h2v1h-2z M15,28h3v1h-3z M19,28h1v1h-1z M21,28h1v1h-1z M23,28h3v1h-3z M27,28h2v1h-2z"/>
+                </svg>
+            </div>
+            <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px;">User Profile</div>
+            <div id="hubProfileEmail" style="font-size: 13px; color: var(--gold); font-family: 'Inter', sans-serif;">user@gmail.com</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: #161616; padding: 12px 15px; border-radius: 10px; border: 1px solid #222; display: flex; justify-content: space-between;">
+                <span style="color: #666; font-size: 12px; font-weight: bold; text-transform: uppercase;">Membership Status</span>
+                <span style="color: var(--gold); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">VIP Elite Client</span>
+            </div>
+            <div style="background: #161616; padding: 12px 15px; border-radius: 10px; border: 1px solid #222; display: flex; justify-content: space-between;">
+                <span style="color: #666; font-size: 12px; font-weight: bold; text-transform: uppercase;">Primary Terminal</span>
+                <span style="color: #fff; font-size: 12px; font-weight: 600;">Addis Ababa, ET</span>
+            </div>
+        </div>
+
+        <button class="btn" style="background: #222; color: #fff; margin-top: 20px; border: 1px solid #333;" onclick="closeProfileHub()">Close Space</button>
     </div>
 </div>
 
@@ -423,6 +473,7 @@
  </div>
 
     <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
+    <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/OUMRAN_STORE" class="tg-float" target="_blank">📲</a>
 
     <div id="pModal" class="modal">
@@ -499,13 +550,11 @@
 
         <div id="cartModal" class="modal">
         <div class="modal-content">
-            <!-- Professional History Toggle Navigation -->
             <div style="display: flex; background: #000; border-radius: 12px; padding: 4px; margin-bottom: 20px; border: 1px solid #333;">
                 <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex: 1; padding: 10px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Active Bag</button>
                 <button id="toggle-order-history" onclick="switchCartView('history')" style="flex: 1; padding: 10px; background: transparent; color: #888; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Order History</button>
             </div>
 
-            <!-- Active Bag View Content -->
             <div id="active-bag-view">
                 <div id="cart-items-list" style="margin-bottom: 15px;"></div>
                 <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px; margin-bottom: 15px;">Total: <span id="cart-total">0</span> ETB</div>
@@ -517,7 +566,6 @@
                   <span style="color: #FFD700; font-size: 18px; font-weight: bold;">0939620004 | 0940028820</span>
                 </div>
                 
-                <!-- Interactive Payment Options Selection -->
                 <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
                     <span style="display: block; color: var(--gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Select Payment Preference</span>
                     <div style="display: flex; flex-direction: column; gap: 14px; font-family: 'Inter', sans-serif;">
@@ -554,7 +602,6 @@
                 <button class="btn" onclick="submitOrder()">Confirm Order</button>
             </div>
 
-            <!-- Archive History View Content -->
             <div id="order-history-view" style="display: none;">
                 <div id="history-items-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;"></div>
             </div>
@@ -601,17 +648,140 @@ let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
 
 window.addEventListener('load', () => {
     loadCart();
-    // Splash screen logic updated to unlock scrolling only after exit
-    setTimeout(() => {
-        document.getElementById('splash-screen').classList.add('splash-exit');
-        // Unlocks scrolling
+    
+    // PERSISTENT SPLASH CONTROL LAYER
+    // Using sessionStorage ensures the splash screen runs ONLY once per app session instance.
+    // If they background the app, change tabs, or view another app, it will not bother them again.
+    if (!sessionStorage.getItem('oumran_splash_shown')) {
+        sessionStorage.setItem('oumran_splash_shown', 'true');
+        setTimeout(() => {
+            document.getElementById('splash-screen').classList.add('splash-exit');
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
+            checkProfileOnboarding();
+        }, 2000);
+    } else {
+        // Instantly close splash screen if already shown during this live execution window
+        document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-    }, 2000); 
+        checkProfileOnboarding();
+    }
     
     // Set up paste and attachment image hooks
     initPrivateSourcingUploads();
 });
+
+// PROFILE ONBOARDING & ACCOUNT LAYER ARCHITECTURE
+function checkProfileOnboarding() {
+    const userProfile = localStorage.getItem('oumran_user_profile');
+    if (!userProfile) {
+        scrollPos = window.pageYOffset;
+        document.getElementById('profileOnboardingModal').style.display = 'block';
+        document.documentElement.classList.add('modal-open');
+    } else {
+        syncProfileFieldsToForm();
+    }
+}
+
+function saveOnboardingProfile() {
+    const nameInput = document.getElementById('onboardName').value.trim();
+    const emailInput = document.getElementById('onboardEmail').value.trim();
+    
+    if (!nameInput || !emailInput) {
+        return alert("Please enter your Full Name and Gmail address to setup your Oumran Profile space.");
+    }
+    if (!emailInput.toLowerCase().endsWith('@gmail.com')) {
+        return alert("Please enter a valid official @gmail.com account.");
+    }
+    
+    const profileData = { name: nameInput, email: emailInput.toLowerCase() };
+    localStorage.setItem('oumran_user_profile', JSON.stringify(profileData));
+    
+    document.getElementById('profileOnboardingModal').style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    window.scrollTo(0, scrollPos);
+    syncProfileFieldsToForm();
+}
+
+function syncProfileFieldsToForm() {
+    const userProfileStr = localStorage.getItem('oumran_user_profile');
+    if (userProfileStr) {
+        const profile = JSON.parse(userProfileStr);
+        // Pre-fill active delivery text areas with onboarding data for faster conversions
+        if (document.getElementById('custName')) document.getElementById('custName').value = profile.name;
+        if (document.getElementById('srcClientName')) document.getElementById('srcClientName').value = profile.name;
+        
+        // Update Account Hub UI labels
+        if (document.getElementById('hubProfileName')) document.getElementById('hubProfileName').innerText = profile.name;
+        if (document.getElementById('hubProfileEmail')) document.getElementById('hubProfileEmail').innerText = profile.email;
+    }
+}
+
+function openProfileHub() {
+    scrollPos = window.pageYOffset;
+    syncProfileFieldsToForm();
+    document.getElementById('profileHubModal').style.display = 'block';
+    document.documentElement.classList.add('modal-open');
+}
+
+function closeProfileHub() {
+    document.getElementById('profileHubModal').style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    window.scrollTo(0, scrollPos);
+}
+
+// CART TAB TOGGLE ARCHITECTURE
+function switchCartView(view) {
+    const bagView = document.getElementById('active-bag-view');
+    const historyView = document.getElementById('order-history-view');
+    const btnBag = document.getElementById('toggle-active-bag');
+    const btnHistory = document.getElementById('toggle-order-history');
+
+    if (view === 'bag') {
+        bagView.style.display = 'block';
+        historyView.style.display = 'none';
+        btnBag.style.background = '#1a1a1a';
+        btnBag.style.color = '#fff';
+        btnHistory.style.background = 'transparent';
+        btnHistory.style.color = '#888';
+    } else if (view === 'history') {
+        bagView.style.display = 'none';
+        historyView.style.display = 'block';
+        btnBag.style.background = 'transparent';
+        btnBag.style.color = '#888';
+        btnHistory.style.background = '#1a1a1a';
+        btnHistory.style.color = '#fff';
+        renderOrderHistory();
+    }
+}
+
+function renderOrderHistory() {
+    const historyContainer = document.getElementById('history-items-list');
+    let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
+    
+    if (history.length === 0) {
+        historyContainer.innerHTML = `<p style="text-align:center; color:#555; font-family:'Inter',sans-serif; margin-top:40px; font-size:13px;">No orders found under this account.</p>`;
+        return;
+    }
+    
+    // Newest orders appear on top
+    history.sort((a, b) => b.timestamp - a.timestamp);
+    
+    historyContainer.innerHTML = history.map(order => `
+        <div style="background:#090909; border:1px solid #222; border-radius:12px; padding:15px; margin-bottom:12px; font-family:'Inter',sans-serif;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1a1a1a; padding-bottom:8px; margin-bottom:8px;">
+                <span style="color:var(--gold); font-size:11px; font-weight:700; text-transform:uppercase;">ID: #${order.id}</span>
+                <span style="color:#555; font-size:11px;">${order.date}</span>
+            </div>
+            <div style="color:#ccc; font-size:13px; line-height:1.5; margin-bottom:8px;">${order.items.replace(/\n/g, '<br>')}</div>
+            <div style="font-size:12px; color:#aaa; background:#141414; padding:8px; border-radius:6px; margin-bottom:8px; border:1px solid #1d1d1d;">
+                <strong style="color:var(--gold); display:block; margin-bottom:2px; font-size:10px; text-transform:uppercase;">Payment Preference:</strong> ${order.method}
+            </div>
+            <div style="text-align:right; font-weight:900; color:#fff; font-size:14px;">Total: <span style="color:var(--gold);">${order.total}</span> ETB</div>
+        </div>
+    `).join('');
+}
 
 function openZoom() {
     zoomIdx = 0;
@@ -737,6 +907,9 @@ function showCart() {
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
+    
+    // Always default to the Active Bag view upon opening
+    switchCartView('bag');
 }
 
 function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
@@ -751,6 +924,20 @@ function submitOrder() {
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
     
     let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
+    let totalVal = document.getElementById("cart-total").innerText;
+    
+    // LOCAL HISTORY ORDER PRESERVATION IN LOCALSTORAGE
+    let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
+    let newArchivedOrder = {
+        id: Math.floor(1000 + Math.random() * 9000),
+        timestamp: Date.now(),
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        items: itemsStr,
+        method: selectedMethod,
+        total: totalVal
+    };
+    history.push(newArchivedOrder);
+    localStorage.setItem('oumran_order_history', JSON.stringify(history));
     
     // Upgraded notification format to look luxurious and show payment option choice
     let text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n` +
@@ -760,7 +947,7 @@ function submitOrder() {
                `▪️ Destination: ${a}\n\n` +
                `📦 *ALLOCATED SELECTION*\n` +
                `${itemsStr}\n\n` +
-               `💰 *TOTAL PORTFOLIO VALUE:* ${document.getElementById("cart-total").innerText} ETB\n\n` +
+               `💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n` +
                `💳 *SERVICE PREFERENCE*\n` +
                `✨ [ ${selectedMethod} ]\n\n` +
                `—\n` +
