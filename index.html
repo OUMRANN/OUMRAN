@@ -555,8 +555,10 @@
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
 
-            <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
-            <select id="size-box" class="order-input"></select>
+            <div id="pModalSizeWrapper">
+                <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+                <select id="size-box" class="order-input"></select>
+            </div>
             <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
             <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
 
@@ -570,12 +572,10 @@
             <h2 style="margin-top:0; font-family: 'Playfair Display', serif; color: #fff; letter-spacing: 1px;">Sourcing Intake 🌐</h2>
             <p style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Private Concierge Service</p>
             
-            <!-- The Category Section Label -->
-<label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block; margin-bottom: 6px;">
+            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block; margin-bottom: 6px;">
     Item Classification
 </label>
 
-<!-- The Private Request Note (Styled elegantly as a sub-caption) -->
 <p style="font-size: 10px; font-weight: 500; color: #777; margin-bottom: 10px; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.3px;">
     Our catalog is tailored for men, but women’s apparel, shoes, and accessories are exclusively available via private request. Specify your item below.
 </p>
@@ -728,6 +728,7 @@ let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx =
 let scrollPos = 0; // FIX: Track scroll position
 let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
 let pendingActionType = ""; // Tracks if onboarding was triggered by 'cart' or 'sourcing'
+let currentProductType = ""; // Tracks current product classification type globally
 
 window.addEventListener('load', () => {
     loadCart();
@@ -926,7 +927,7 @@ function closeAbout() {
 
 function openP(n, t, price) {
     scrollPos = window.pageYOffset; // FIX: Save position before opening modal
-    currentP = n; currentPrice = price;
+    currentP = n; currentPrice = price; currentProductType = t;
     document.getElementById("m-name").innerText = n;
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
     const clickedCard = event.currentTarget;
@@ -965,12 +966,12 @@ function openP(n, t, price) {
     // ADJUSTED TO AUTOMATICALLY HIDE SIZE SELECTOR AND LABEL FOR ACCESSORIES / WATCHES
     let b = document.getElementById("size-box"); b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
-    if (t === 'acc' || !sz[t]) {
-        b.style.display = "none";
-        b.previousElementSibling.style.display = "none";
+    
+    const pModalSizeWrapper = document.getElementById("pModalSizeWrapper");
+    if (t === 'clothe' || t === 'shoes') {
+        pModalSizeWrapper.style.display = "block";
     } else {
-        b.style.display = "block";
-        b.previousElementSibling.style.display = "block";
+        pModalSizeWrapper.style.display = "none";
     }
     
     document.getElementById("pModal").style.display = "block";
@@ -991,10 +992,17 @@ function addToCart() {
         displayColor = ` <span class="admin-only">[${activeVariantSpan.innerText}]</span>`;
         internalColor = ` [${activeVariantSpan.innerText}]`;
     }
+    
+    // Set sizing text depending on whether it requires sizing parameters or not
+    let configuredSize = document.getElementById("size-box").value;
+    if (currentProductType !== 'clothe' && currentProductType !== 'shoes') {
+        configuredSize = "Standard";
+    }
+
     cart.push({ 
         name: currentP + displayColor, 
         internalName: currentP + internalColor,
-        size: document.getElementById("size-box").value, 
+        size: configuredSize, 
         price: currentPrice 
     });
     updateCartDisplay(); closeModal();
@@ -1106,6 +1114,16 @@ function openPrivateSourcing() {
     document.body.classList.add('modal-open');
     document.getElementById("privateSourcingModal").style.display = "block";
     syncProfileFieldsToForm();
+    
+    // Ensure accurate layout configuration on modal open step trigger
+    const srcCategory = document.getElementById('srcCategory');
+    if (srcCategory) {
+        if (srcCategory.value === 'Clothes' || srcCategory.value === 'Shoes') {
+            document.getElementById('srcSizeWrapper').style.display = 'block';
+        } else {
+            document.getElementById('srcSizeWrapper').style.display = 'none';
+        }
+    }
 }
 
 function closePrivateSourcing() {
@@ -1128,18 +1146,18 @@ function initPrivateSourcingUploads() {
     const previewSlot = document.getElementById('srcImagePreviewSlot');
     const wrapper = document.getElementById('srcReferenceWrapper');
 
-    // DYNAMIC WATCH CATEGORY EVENT LISTENER FOR SOURCING FORM
+    // DYNAMIC SOURCING CATEGORY EVENT LISTENER FOR CONDITIONAL SIZING
     const srcCategory = document.getElementById('srcCategory');
     const srcSizeWrapper = document.getElementById('srcSizeWrapper');
     const srcSizeInput = document.getElementById('srcSize');
 
     srcCategory.addEventListener('change', function() {
-        if (this.value === 'Watch') {
-            srcSizeWrapper.style.display = 'none';
-            srcSizeInput.value = 'Standard'; // Pre-fills field so form logic passes
-        } else {
+        if (this.value === 'Clothes' || this.value === 'Shoes') {
             srcSizeWrapper.style.display = 'block';
             if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
+        } else {
+            srcSizeWrapper.style.display = 'none';
+            srcSizeInput.value = 'Standard'; // Auto-fills value to bypass validation checks
         }
     });
 
