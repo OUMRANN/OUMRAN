@@ -126,6 +126,16 @@
         .rec-item h4 { font-size: 9px; margin: 7px 0; color: #ccc; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
+        
+        /* NEW: Luxury Trust Badges Styling Container */
+        .trust-badges-container {
+            display: flex; justify-content: center; align-items: center; gap: 24px;
+            background-color: #080808; padding: 12px 15px; border-bottom: 1px solid #1c1c1c; flex-wrap: wrap;
+        }
+        .badge-item { display: flex; align-items: center; gap: 6px; }
+        .badge-icon { color: var(--gold); font-weight: 900; font-size: 12px; }
+        .badge-text { color: #aaaaaa; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+
         .search-container { padding: 15px; background: rgba(0,0,0,0.6); }
         #search-input { width: 100%; padding: 12px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(34,34,34,0.9); color: white; font-size: 16px; box-sizing: border-box; text-align: center; outline: none; }
         
@@ -159,6 +169,11 @@
             .modal-content { max-width: 600px !important; width: 50% !important; }
             .product-card { flex: 0 0 250px !important; }
             .img-area { height: 300px !important; }
+        }
+
+        /* Responsive Mobile Tweaks for Trust Badges */
+        @media (max-width: 768px) {
+            .trust-badges-container { gap: 10px; padding: 12px; flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -310,6 +325,29 @@
         VENDOR FROM CHINA🇨🇳✈️ | PREMIUM QUALITY<br>
         EXCLUSIVELY SERVING IN ADDIS ABABA<br>
         <span class="about-link" onclick="openAbout()">About OUMRAN STORE</span>
+    </div>
+
+    <div class="trust-badges-container">
+        <div class="badge-item">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">Premium Quality Guaranteed</span>
+        </div>
+        <div class="badge-item">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">Direct China Sourcing</span>
+        </div>
+        <div class="badge-item">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">Cash on Delivery Available</span>
+        </div>
+        <div class="badge-item">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">Delivery Across Addis Ababa</span>
+        </div>
+        <div class="badge-item">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">Telegram Support 24/7</span>
+        </div>
     </div>
 
     <div class="search-container">
@@ -527,7 +565,7 @@
 
             <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
             <select id="size-box" class="order-input"></select>
-            <button class="btn" onclick="addToCart()">Add to Bag</button>
+            <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
             <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
 
             <div class="rec-title">You May Also Like</div>
@@ -581,7 +619,7 @@
                 </div>
             </div>
 
-            <button class="btn" style="background: var(--gold); color: #000;" onclick="submitPrivateRequest()">Send to Concierge Network</button>
+            <button class="btn" style="background: var(--gold); color: #000;" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
             <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
         </div>
     </div>
@@ -599,8 +637,7 @@
                 <input type="text" id="custName" placeholder="Full Name" class="order-input">
                 <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
                 <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-                <!-- Telebirr Info Section -->
-             <div style="margin-top: 15px;">
+                <div style="margin-top: 15px;">
                <strong style="color: var(--gold);">Telebirr Payment Info:</strong><br>
                <span style="font-size: 18px; font-weight: bold; color: #fff;">0939620004 | 0940028820</span>
             </div>
@@ -685,43 +722,50 @@ const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "4
 let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx = 0;
 let scrollPos = 0; // FIX: Track scroll position
 let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
+let pendingActionType = ""; // Tracks if onboarding was triggered by 'cart' or 'sourcing'
 
 window.addEventListener('load', () => {
     loadCart();
     
     // PERSISTENT SPLASH CONTROL LAYER
-    // Using sessionStorage ensures the splash screen runs ONLY once per app session instance.
-    // If they background the app, change tabs, or view another app, it will not bother them again.
     if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown', 'true');
         setTimeout(() => {
             document.getElementById('splash-screen').classList.add('splash-exit');
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
-            checkProfileOnboarding();
+            // IMPROVEMENT: Removed automatic checkProfileOnboarding call from here to let them browse safely first!
+            syncProfileFieldsToForm();
         }, 2000);
     } else {
-        // Instantly close splash screen if already shown during this live execution window
         document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-        checkProfileOnboarding();
+        // IMPROVEMENT: Removed automatic checkProfileOnboarding call from here to let them browse safely first!
+        syncProfileFieldsToForm();
     }
     
     // Set up paste and attachment image hooks
     initPrivateSourcingUploads();
 });
 
-// PROFILE ONBOARDING & ACCOUNT LAYER ARCHITECTURE
-function checkProfileOnboarding() {
+// IMPROVED PROFILE ONBOARDING TRIGGER FLOW
+function checkProfileOnboarding(actionType) {
     const userProfile = localStorage.getItem('oumran_user_profile');
     if (!userProfile) {
+        pendingActionType = actionType;
+        // Close product details modal or sourcing modal temporarily to draw crisp focus to creation
+        if (actionType === 'cart') {
+            document.getElementById("pModal").style.display = "none";
+        } else if (actionType === 'sourcing') {
+            document.getElementById("privateSourcingModal").style.display = "none";
+        }
         scrollPos = window.pageYOffset;
         document.getElementById('profileOnboardingModal').style.display = 'block';
         document.documentElement.classList.add('modal-open');
-    } else {
-        syncProfileFieldsToForm();
+        return false;
     }
+    return true;
 }
 
 function saveOnboardingProfile() {
@@ -742,6 +786,16 @@ function saveOnboardingProfile() {
     document.documentElement.classList.remove('modal-open');
     window.scrollTo(0, scrollPos);
     syncProfileFieldsToForm();
+
+    // Resume their actions smoothly exactly where they left off!
+    if (pendingActionType === 'cart') {
+        document.getElementById("pModal").style.display = "block";
+        addToCart();
+    } else if (pendingActionType === 'sourcing') {
+        document.getElementById("privateSourcingModal").style.display = "block";
+        submitPrivateRequest();
+    }
+    pendingActionType = "";
 }
 
 // Fixed synchronization logic for custom fields layout
@@ -760,6 +814,12 @@ function syncProfileFieldsToForm() {
 }
 
 function openProfileHub() {
+    // If they manually try to view profile panel icon before setup, trigger onboarding directly
+    const userProfile = localStorage.getItem('oumran_user_profile');
+    if (!userProfile) {
+        checkProfileOnboarding('hub');
+        return;
+    }
     scrollPos = window.pageYOffset;
     syncProfileFieldsToForm();
     document.getElementById('profileHubModal').style.display = 'block';
@@ -911,6 +971,13 @@ function openP(n, t, price) {
     document.getElementById("pModal").style.display = "block";
 }
 
+// Intercepts the add to bag interaction to guarantee onboarding execution safely
+function handleAddToCartClick() {
+    if (checkProfileOnboarding('cart')) {
+        addToCart();
+    }
+}
+
 function addToCart() {
     let internalColor = "";
     let displayColor = "";
@@ -991,7 +1058,7 @@ function submitOrder() {
                `💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n` +
                `💳 *SERVICE PREFERENCE*\n` +
                `✨ [ ${selectedMethod} ]\n\n` +
-               `—\n` +
+               `—\n`;
 
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
@@ -1033,6 +1100,7 @@ function openPrivateSourcing() {
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
     document.getElementById("privateSourcingModal").style.display = "block";
+    syncProfileFieldsToForm();
 }
 
 function closePrivateSourcing() {
@@ -1040,6 +1108,13 @@ function closePrivateSourcing() {
     document.body.classList.remove('modal-open');
     document.getElementById("privateSourcingModal").style.display = "none";
     window.scrollTo(0, scrollPos);
+}
+
+// Sourcing form entry point check
+function submitPrivateSourcingWithOnboardingCheck() {
+    if (checkProfileOnboarding('sourcing')) {
+        submitPrivateRequest();
+    }
 }
 
 // Sourcing Upload Layer
@@ -1138,9 +1213,9 @@ function submitPrivateRequest() {
         formData.append("parse_mode", "Markdown");
         
         // Convert base64 data back to file blob for authentic upload payload
-        const base64Parts = srcAttachedImageBase64.split(',');
-        const mimeType = base64Parts[0].match(/:(.*?);/)[1];
-        const binaryStr = atob(base64Parts[1]);
+        const basePart = srcAttachedImageBase64.split(',');
+        const mimeType = basePart[0].match(/:(.*?);/)[1];
+        const binaryStr = atob(basePart[1]);
         let n = binaryStr.length;
         const u8arr = new Uint8Array(n);
         while(n--) {
