@@ -472,7 +472,13 @@
 	</button>
  </div>
 
-    <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
+  <style>
+.tg-float { position: fixed !important; bottom: 20px !important; right: 20px !important; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
+.cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
+.profile-float { position: fixed !important; bottom: 20px !important; right: 90px !important; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
+</style>
+  
+	<div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
