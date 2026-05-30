@@ -45,6 +45,7 @@
         html.modal-open, body.modal-open { 
             overflow: hidden !important;
             touch-action: none;
+            height: 100% !important;
         }
 
         #splash-screen {
@@ -253,6 +254,7 @@
 
 <div id="profileOnboardingModal" class="modal" style="display: none; background: rgba(0,0,0,0.98);">
     <div class="modal-content" style="border: 1px solid #222; text-align: center; margin-top: 10vh; max-width: 360px;">
+        <div class="welcome-msg">WELCOME TO OUMRAN</div>
         <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 24px; margin-bottom: 10px;">Create Your Profile</h2>
         <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">OUMRAN LUXURY ACCESS</p>
         
@@ -630,7 +632,7 @@
         </div>
     </div>
 
-        <div id="cartModal" class="modal">
+    <div id="cartModal" class="modal">
         <div class="modal-content">
             <div style="display: flex; background: #000; border-radius: 12px; padding: 4px; margin-bottom: 20px; border: 1px solid #333;">
                 <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex: 1; padding: 10px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Active Bag</button>
@@ -644,11 +646,10 @@
                 <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
                 <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
                 <div style="margin-top: 15px;">
-               <strong style="color: var(--gold);">Telebirr Payment Info:</strong><br>
-               <span style="font-size: 18px; font-weight: bold; color: #fff;">0939620004 | 0940028820</span>
-            </div>
+                   <strong style="color: var(--gold);">Telebirr Payment Info:</strong><br>
+                   <span style="font-size: 18px; font-weight: bold; color: #fff;">0939620004 | 0940028820</span>
+                </div>
 
-                
                 <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
                     <span style="display: block; color: var(--gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Select Payment Preference</span>
                     <div style="display: flex; flex-direction: column; gap: 14px; font-family: 'Inter', sans-serif;">
@@ -676,27 +677,27 @@
                     </div>
                 </div>
 
-                    <div style="display: flex; align-items: flex-start; gap: 8px;">
-        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
-    </div>
-    <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 8px;">
-        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Final pricing will be verified and confirmed during your Telegram order consultation.</p>
+                <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 15px;">
+                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
+                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
+                </div>
+                <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 8px;">
+                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
+                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Final pricing will be verified and confirmed during your Telegram order consultation.</p>
+                </div>
 
-    </div>
-
-        <button class="btn" onclick="submitOrder()">Confirm Order</button>
-        <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
+                <button class="btn" onclick="submitOrder()">Confirm Order</button>
+                <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
+            </div>
 					
-        
             <div id="order-history-view" style="display: none;">
                 <div id="history-items-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;"></div>
+                <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
             </div>
         </div>
     </div>
 
-       <div id="successModal" class="modal">
+    <div id="successModal" class="modal">
         <div class="modal-content" style="background-color: #0b0b0b; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid #222; max-width: 400px; margin: 20px auto;">
             
             <h2 style="color: #d4af37; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 25px; font-weight: 400;">
