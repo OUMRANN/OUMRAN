@@ -14,7 +14,7 @@
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
         
-        /* FIX: Lock scroll cleanly when loading class is present without layout shifts */
+        /* Lock scroll cleanly when loading class is present without layout shifts */
         html.loading, body.loading {
             overflow: hidden !important;
             height: 100% !important;
@@ -33,37 +33,25 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* FIX: Ensure content is never cut off at bottom & accelerate layout compositor with GPU layer caching */
         .site-wrapper { 
             width: 100%; 
             max-width: 1400px; 
             margin: 0 auto; 
             display: block;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            will-change: transform;
         }
 
         .admin-only { display: none; }
 
-        /* FIX: Optimized open state to eliminate rendering lag on diverse mobile chipsets */
         html.modal-open, body.modal-open { 
             overflow: hidden !important;
             touch-action: none;
         }
 
-        /* PERFORMANCE FIX: Applied hardware acceleration layout to splash viewport layer to eliminate entry paint lag */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
             transition: opacity 0.8s ease-out, visibility 0.8s;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
         }
         .splash-content { text-align: center; }
         .welcome-msg { 
@@ -82,8 +70,18 @@
             opacity: 0;
             animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
             animation-delay: 0.4s, 0s;
-            will-change: background-position, transform;
+            will-change: background-position;
         }
+        
+        /* RESTORED: Slogan typography settings exactly as originally defined */
+        .splash-slogan {
+            font-size: 10px;
+            color: #fff;
+            letter-spacing: 3px;
+            font-weight: 900;
+            margin-top: 5px;
+        }
+        
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
         @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -121,7 +119,7 @@
         #added-toast.show { right: 20px; visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); will-change: transform; transform: translateZ(0); -webkit-transform: translateZ(0); }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
         header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
@@ -143,7 +141,6 @@
 
         .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
         
-        /* NEW: Luxury Trust Badges Styling Container */
         .trust-badges-container {
             display: flex; justify-content: center; align-items: center; gap: 24px;
             background-color: #080808; padding: 12px 15px; border-bottom: 1px solid #1c1c1c; flex-wrap: wrap;
@@ -168,9 +165,10 @@
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
-        .tg-float { position: fixed; bottom: 20px; right: 20px; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 1000; }
-        .cart-float { position: fixed; bottom: 20px; left: 20px; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; }
-        .profile-float { position: fixed; bottom: 90px; right: 20px; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 1000; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
+        /* FIXED: Amplified structural specificity and z-indexing to keep action controls floating clean above interfaces */
+        .tg-float { position: fixed !important; bottom: 20px !important; right: 90px !important; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 99999 !important; }
+        .cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; }
+        .profile-float { position: fixed !important; bottom: 20px !important; right: 20px !important; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); backdrop-filter: blur(10px); overflow-y: auto; }
@@ -187,7 +185,6 @@
             .img-area { height: 300px !important; }
         }
 
-        /* Responsive Mobile Tweaks for Trust Badges */
         @media (max-width: 768px) {
             .trust-badges-container { gap: 10px; padding: 12px; flex-direction: column; text-align: center; }
         }
@@ -257,7 +254,7 @@
 <div id="profileOnboardingModal" class="modal" style="display: none; background: rgba(0,0,0,0.98);">
     <div class="modal-content" style="border: 1px solid #222; text-align: center; margin-top: 10vh; max-width: 360px;">
         <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 24px; margin-bottom: 10px;">Create Your Profile</h2>
-        <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">OUMRAN LUXURY ACCESS ACCESS</p>
+        <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">OUMRAN LUXURY ACCESS</p>
         
         <div style="text-align: left; margin-bottom: 15px;">
             <label style="font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase;">Full Name</label>
@@ -544,19 +541,6 @@
 	</button>
  </div>
 
-<style>
-.tg-float {
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 90px !important;
-}
-.profile-float {
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-}
-</style>
-
 	<div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
@@ -745,42 +729,36 @@
 let cart = [];
 const sz = { clothe: ["M", "L", "XL", "XXL"], shoes: ["40", "41", "42", "43", "44", "45"], acc: ["Standard"] };
 let currentP = ""; let currentPrice = 0; let currentVariants = []; let zoomIdx = 0;
-let scrollPos = 0; // FIX: Track scroll position
-let srcAttachedImageBase64 = ""; // Holds uploaded image string globally
-let pendingActionType = ""; // Tracks if onboarding was triggered by 'cart' or 'sourcing'
-let currentProductType = ""; // Tracks current product classification type globally
+let scrollPos = 0; 
+let srcAttachedImageBase64 = ""; 
+let pendingActionType = ""; 
+let currentProductType = ""; 
 
 window.addEventListener('load', () => {
     loadCart();
     
-    // PERSISTENT SPLASH CONTROL LAYER
     if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown', 'true');
         setTimeout(() => {
             document.getElementById('splash-screen').classList.add('splash-exit');
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
-            // IMPROVEMENT: Removed automatic checkProfileOnboarding call from here to let them browse safely first!
             syncProfileFieldsToForm();
         }, 2000);
     } else {
         document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-        // IMPROVEMENT: Removed automatic checkProfileOnboarding call from here to let them browse safely first!
         syncProfileFieldsToForm();
     }
     
-    // Set up paste and attachment image hooks
     initPrivateSourcingUploads();
 });
 
-// IMPROVED PROFILE ONBOARDING TRIGGER FLOW
 function checkProfileOnboarding(actionType) {
     const userProfile = localStorage.getItem('oumran_user_profile');
     if (!userProfile) {
         pendingActionType = actionType;
-        // Close product details modal or sourcing modal temporarily to draw crisp focus to creation
         if (actionType === 'cart') {
             document.getElementById("pModal").style.display = "none";
         } else if (actionType === 'sourcing') {
@@ -813,7 +791,6 @@ function saveOnboardingProfile() {
     window.scrollTo(0, scrollPos);
     syncProfileFieldsToForm();
 
-    // Resume their actions smoothly exactly where they left off!
     if (pendingActionType === 'cart') {
         document.getElementById("pModal").style.display = "block";
         addToCart();
@@ -824,12 +801,10 @@ function saveOnboardingProfile() {
     pendingActionType = "";
 }
 
-// FIX: Let users decline profile creation and return safely to their current context
 function cancelOnboardingProfile() {
     document.getElementById('profileOnboardingModal').style.display = 'none';
     document.documentElement.classList.remove('modal-open');
     
-    // Restore previous active modals if they were cancelled midway
     if (pendingActionType === 'cart') {
         document.getElementById("pModal").style.display = "block";
         document.documentElement.classList.add('modal-open');
@@ -842,23 +817,19 @@ function cancelOnboardingProfile() {
     pendingActionType = "";
 }
 
-// Fixed synchronization logic for custom fields layout
 function syncProfileFieldsToForm() {
     const userProfileStr = localStorage.getItem('oumran_user_profile');
     if (userProfileStr) {
         const profile = JSON.parse(userProfileStr);
-        // Pre-fill active delivery text areas with onboarding data for faster conversions
         if (document.getElementById('custName')) document.getElementById('custName').value = profile.name;
         if (document.getElementById('srcClientName')) document.getElementById('srcClientName').value = profile.name;
         
-        // Update Account Hub UI labels
         if (document.getElementById('hubProfileName')) document.getElementById('hubProfileName').innerText = profile.name;
         if (document.getElementById('hubProfileEmail')) document.getElementById('hubProfileEmail').innerText = profile.email;
     }
 }
 
 function openProfileHub() {
-    // If they manually try to view profile panel icon before setup, trigger onboarding directly
     const userProfile = localStorage.getItem('oumran_user_profile');
     if (!userProfile) {
         checkProfileOnboarding('hub');
@@ -876,7 +847,6 @@ function closeProfileHub() {
     window.scrollTo(0, scrollPos);
 }
 
-// CART TAB TOGGLE ARCHITECTURE
 function switchCartView(view) {
     const bagView = document.getElementById('active-bag-view');
     const historyView = document.getElementById('order-history-view');
@@ -901,7 +871,6 @@ function switchCartView(view) {
     }
 }
 
-// HISTORY LOG RENDER
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
@@ -911,7 +880,6 @@ function renderOrderHistory() {
         return;
     }
     
-    // Newest orders appear on top
     history.sort((a, b) => b.timestamp - a.timestamp);
     
     historyContainer.innerHTML = history.map(order => `
@@ -954,18 +922,18 @@ function updateZoomImage() {
 
 function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
 function openAbout() { 
-    scrollPos = window.pageYOffset; // Save position
+    scrollPos = window.pageYOffset; 
     document.getElementById('aboutPage').style.display = 'block'; 
     document.documentElement.classList.add('modal-open'); 
 }
 function closeAbout() { 
     document.getElementById('aboutPage').style.display = 'none'; 
     document.documentElement.classList.remove('modal-open'); 
-    window.scrollTo(0, scrollPos); // Restore position
+    window.scrollTo(0, scrollPos); 
 }
 
 function openP(n, t, price) {
-    scrollPos = window.pageYOffset; // FIX: Save position before opening modal
+    scrollPos = window.pageYOffset; 
     currentP = n; currentPrice = price; currentProductType = t;
     document.getElementById("m-name").innerText = n;
     document.getElementById("m-price").innerText = price.toLocaleString() + " ETB";
@@ -1002,7 +970,6 @@ function openP(n, t, price) {
         }
     });
     
-    // ADJUSTED TO AUTOMATICALLY HIDE SIZE SELECTOR AND LABEL FOR ACCESSORIES / WATCHES
     let b = document.getElementById("size-box"); b.innerHTML = "";
     (sz[t] || sz.acc).forEach(s => { let o = document.createElement("option"); o.text = s; b.add(o); });
     
@@ -1016,14 +983,12 @@ function openP(n, t, price) {
     document.getElementById("pModal").style.display = "block";
 }
 
-// Intercepts the add to bag interaction to guarantee onboarding execution safely
 function handleAddToCartClick() {
     if (checkProfileOnboarding('cart')) {
         addToCart();
     }
 }
 
-// FIX: Wrap scroll positions carefully on window drop triggers
 function addToCart() {
     let internalColor = "";
     let displayColor = "";
@@ -1033,7 +998,6 @@ function addToCart() {
         internalColor = ` [${activeVariantSpan.innerText}]`;
     }
     
-    // Set sizing text depending on whether it requires sizing parameters or not
     let configuredSize = document.getElementById("size-box").value;
     if (currentProductType !== 'clothe' && currentProductType !== 'shoes') {
         configuredSize = "Standard";
@@ -1059,7 +1023,7 @@ function updateCartDisplay() {
 }
 
 function showCart() {
-    scrollPos = window.pageYOffset; // Save position
+    scrollPos = window.pageYOffset; 
     document.documentElement.classList.add('modal-open');
     let total = 0;
     document.getElementById("cart-items-list").innerHTML = cart.map((item, i) => {
@@ -1068,8 +1032,6 @@ function showCart() {
     }).join("");
     document.getElementById("cart-total").innerText = total.toLocaleString();
     document.getElementById("cartModal").style.display = "block";
-    
-    // Always default to the Active Bag view upon opening
     switchCartView('bag');
 }
 
@@ -1081,13 +1043,11 @@ function submitOrder() {
     const a = document.getElementById('custAddress').value;
     if(!n || !p || !a) return alert("Fill all the details first!");
     
-    // Fetch the value of the active payment preference option clicked by the client
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
     
     let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
     let totalVal = document.getElementById("cart-total").innerText;
     
-    // LOCAL HISTORY ORDER PRESERVATION IN LOCALSTORAGE
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
     let newArchivedOrder = {
         id: Math.floor(1000 + Math.random() * 9000),
@@ -1100,7 +1060,6 @@ function submitOrder() {
     history.push(newArchivedOrder);
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
     
-    // Upgraded notification format to look luxurious and show payment option choice
     let text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n` +
                `✨ *CLIENT PROFILE*\n` +
                `▪️ Name: ${n}\n` +
@@ -1127,12 +1086,12 @@ function closeModal() {
     document.documentElement.classList.remove('modal-open'); 
     document.body.classList.remove('modal-open'); 
     document.getElementById("pModal").style.display = "none"; 
-    window.scrollTo(0, scrollPos); // FIX: Restore position after closing
+    window.scrollTo(0, scrollPos); 
 }
 function closeCart() { 
     document.documentElement.classList.remove('modal-open'); 
     document.getElementById("cartModal").style.display = "none"; 
-    window.scrollTo(0, scrollPos); // Restore position
+    window.scrollTo(0, scrollPos); 
 }
 function loadCart() { const s = localStorage.getItem('oumer_cart'); if(s) { cart = JSON.parse(s); updateCartDisplay(); } }
 function filterProducts() {
@@ -1147,7 +1106,6 @@ function filterProducts() {
     });
 }
 
-/* PRIVATE SOURCING LOGIC PATHWAYS */
 function openPrivateSourcing() {
     scrollPos = window.pageYOffset;
     document.documentElement.classList.add('modal-open');
@@ -1155,7 +1113,6 @@ function openPrivateSourcing() {
     document.getElementById("privateSourcingModal").style.display = "block";
     syncProfileFieldsToForm();
     
-    // Ensure accurate layout configuration on modal open step trigger
     const srcCategory = document.getElementById('srcCategory');
     if (srcCategory) {
         if (srcCategory.value === 'Clothes' || srcCategory.value === 'Shoes') {
@@ -1173,33 +1130,32 @@ function closePrivateSourcing() {
     window.scrollTo(0, scrollPos);
 }
 
-// Sourcing form entry point check
 function submitPrivateSourcingWithOnboardingCheck() {
     if (checkProfileOnboarding('sourcing')) {
         submitPrivateRequest();
     }
 }
 
-// Sourcing Upload Layer
 function initPrivateSourcingUploads() {
     const fileInput = document.getElementById('srcHiddenImageUpload');
     const previewSlot = document.getElementById('srcImagePreviewSlot');
     const wrapper = document.getElementById('srcReferenceWrapper');
 
-    // DYNAMIC SOURCING CATEGORY EVENT LISTENER FOR CONDITIONAL SIZING
     const srcCategory = document.getElementById('srcCategory');
     const srcSizeWrapper = document.getElementById('srcSizeWrapper');
     const srcSizeInput = document.getElementById('srcSize');
 
-    srcCategory.addEventListener('change', function() {
-        if (this.value === 'Clothes' || this.value === 'Shoes') {
-            srcSizeWrapper.style.display = 'block';
-            if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
-        } else {
-            srcSizeWrapper.style.display = 'none';
-            srcSizeInput.value = 'Standard'; // Auto-fills value to bypass validation checks
-        }
-    });
+    if (srcCategory) {
+        srcCategory.addEventListener('change', function() {
+            if (this.value === 'Clothes' || this.value === 'Shoes') {
+                srcSizeWrapper.style.display = 'block';
+                if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
+            } else {
+                srcSizeWrapper.style.display = 'none';
+                srcSizeInput.value = 'Standard'; 
+            }
+        });
+    }
 
     function processImageFile(file) {
         if (file && file.type.startsWith('image/')) {
@@ -1223,23 +1179,27 @@ function initPrivateSourcingUploads() {
         }
     }
 
-    fileInput.addEventListener('change', function() {
-        processImageFile(this.files[0]);
-    });
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            processImageFile(this.files[0]);
+        });
+    }
 
-    wrapper.addEventListener('paste', function(e) {
-        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-        for (let i in items) {
-            const item = items[i];
-            if (item.kind === 'file') {
-                const blob = item.getAsFile();
-                processImageFile(blob);
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(blob);
-                fileInput.files = dataTransfer.files;
+    if (wrapper) {
+        wrapper.addEventListener('paste', function(e) {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let i in items) {
+                const item = items[i];
+                if (item.kind === 'file') {
+                    const blob = item.getAsFile();
+                    processImageFile(blob);
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(blob);
+                    fileInput.files = dataTransfer.files;
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function submitPrivateRequest() {
@@ -1275,7 +1235,6 @@ function submitPrivateRequest() {
         formData.append("caption", text);
         formData.append("parse_mode", "Markdown");
         
-        // Convert base64 data back to file blob for authentic upload payload
         const basePart = srcAttachedImageBase64.split(',');
         const mimeType = basePart[0].match(/:(.*?);/)[1];
         const binaryStr = atob(basePart[1]);
@@ -1300,7 +1259,6 @@ function submitPrivateRequest() {
         document.getElementById("privateSourcingModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         
-        // Reset Sourcing form fields
         document.getElementById('srcClientName').value = "";
         document.getElementById('srcClientPhone').value = "";
         document.getElementById('srcProductName').value = "";
