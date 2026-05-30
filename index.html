@@ -5,19 +5,17 @@
     <title>OUMRAN STORE</title>
   <meta name="description" content="About OUMRAN STORE. Every piece in our signature collection is crafted with premium quality and meticulous design. Explore our exclusive luxury streetwear.">
 
-	<link rel="preload" href="IMG_8765.jpeg" as="image">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
         
-        /* FIX: Lock scroll cleanly when loading class is present without layout shifts */
+        /* FIX: Lock scroll when loading class is present */
         html.loading, body.loading {
             overflow: hidden !important;
             height: 100% !important;
+            position: fixed;
+            width: 100%;
         }
 
         body { 
@@ -28,40 +26,24 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* FIX: Ensure content is never cut off at bottom & accelerate layout compositor */
-        .site-wrapper { 
-            width: 100%; 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            display: block;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-        }
+        /* FIX: Ensure content is never cut off at bottom */
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
 
         .admin-only { display: none; }
 
-        /* FIX: Optimized open state to eliminate rendering lag on diverse mobile chipsets */
+        /* Updated modal-open logic to prevent scroll reset */
         html.modal-open, body.modal-open { 
             overflow: hidden !important;
-            touch-action: none;
+            height: auto;
         }
 
-        /* PERFORMANCE FIX: Applied hardware acceleration layout to splash viewport layer to eliminate entry paint lag */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
             transition: opacity 0.8s ease-out, visibility 0.8s;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
         }
         .splash-content { text-align: center; }
         .welcome-msg { 
@@ -80,7 +62,6 @@
             opacity: 0;
             animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
             animation-delay: 0.4s, 0s;
-            will-change: background-position, transform;
         }
         .splash-slogan {
             font-size: 11px; color: var(--gold); 
@@ -124,7 +105,7 @@
         #added-toast.show { right: 20px; visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); will-change: transform; transform: translateZ(0); -webkit-transform: translateZ(0); }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); }
         header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
@@ -273,7 +254,6 @@
         </div>
         
         <button class="btn" style="background: #fff; color: #000; font-weight: 900;" onclick="saveOnboardingProfile()">Generate Profile</button>
-        <button class="btn" style="background: #222; color: #fff; font-weight: 900; margin-top: 8px;" onclick="cancelOnboardingProfile()">Cancel</button>
     </div>
 </div>
 
@@ -695,23 +675,20 @@
                     </div>
                 </div>
 
+                <div style="border-top: 1px solid #222; margin-top: 15px; padding-top: 15px; display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; align-items: flex-start; gap: 8px;">
-        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
-    </div>
-    <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 8px;">
-        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Final pricing will be verified and confirmed during your Telegram order consultation.</p>
+                        <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
+                        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
+                    </div>
+                </div>
+                <button class="btn" onclick="submitOrder()">Confirm Order</button>
+            </div>
 
-    </div>
-
-        <button class="btn" onclick="submitOrder()">Confirm Order</button>
-        <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
-					
-        
             <div id="order-history-view" style="display: none;">
                 <div id="history-items-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;"></div>
             </div>
+
+            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closeCart()">Close</button>
         </div>
     </div>
 
@@ -827,24 +804,6 @@ function saveOnboardingProfile() {
     pendingActionType = "";
 }
 
-// FIX: Let users decline profile creation and return safely to their current context
-function cancelOnboardingProfile() {
-    document.getElementById('profileOnboardingModal').style.display = 'none';
-    document.documentElement.classList.remove('modal-open');
-    
-    // Restore previous active modals if they were cancelled midway
-    if (pendingActionType === 'cart') {
-        document.getElementById("pModal").style.display = "block";
-        document.documentElement.classList.add('modal-open');
-    } else if (pendingActionType === 'sourcing') {
-        document.getElementById("privateSourcingModal").style.display = "block";
-        document.documentElement.classList.add('modal-open');
-    } else {
-        window.scrollTo(0, scrollPos);
-    }
-    pendingActionType = "";
-}
-
 // Fixed synchronization logic for custom fields layout
 function syncProfileFieldsToForm() {
     const userProfileStr = localStorage.getItem('oumran_user_profile');
@@ -904,7 +863,6 @@ function switchCartView(view) {
     }
 }
 
-// HISTORY LOG RENDER
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
@@ -1026,7 +984,6 @@ function handleAddToCartClick() {
     }
 }
 
-// FIX: Wrap scroll positions carefully on window drop triggers
 function addToCart() {
     let internalColor = "";
     let displayColor = "";
