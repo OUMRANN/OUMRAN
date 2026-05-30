@@ -31,7 +31,6 @@
             align-items: center; 
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            padding-bottom: 80px; /* Added padding to prevent bottom clipping */
         }
 
         .site-wrapper { 
@@ -167,8 +166,20 @@
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
-        /* UPDATED: Buttons are now visible by default. Transition removed for instant readiness */
+        /* FIXED FOR WELCOME ENTRANCE: Default baseline rules hide elements cleanly until animation sequence signals readiness */
         .cart-float, .profile-float, .tg-float, .crisp-client, #tidio-chat { 
+            opacity: 0 !important; 
+            visibility: hidden !important; 
+            pointer-events: none !important; 
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important; 
+        }
+        
+        /* Once intro triggers on body, interface components gracefully fade operational into position */
+        body.intro-complete .cart-float, 
+        body.intro-complete .profile-float, 
+        body.intro-complete .tg-float,
+        body.intro-complete .crisp-client,
+        body.intro-complete #tidio-chat { 
             opacity: 1 !important; 
             visibility: visible !important; 
             pointer-events: auto !important; 
@@ -215,7 +226,7 @@
 
         <div style="margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;">
             <h3 style="color: var(--gold); font-size: 18px; font-weight: bold; margin-bottom: 15px; text-align: center;">The OUMRAN Standard</h3>
-            <p style="color: #ccc; line-height: 1.6; font-size: 14px;">
+            <p style="color: #ccc; line-height: 1.8; font-size: 14px;">
                WELCOME TO OUMRAN STORE, Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before it is prepared for delivery in Addis Ababa. We guarantee premium fabrics and exact fits.
             </p>
         </div>
@@ -752,12 +763,20 @@ window.addEventListener('load', () => {
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
             syncProfileFieldsToForm();
+            
+            // FIXED TIMER REVEAL: Keeps controls hidden while texts render, then drops them cleanly into focus
+            setTimeout(() => {
+                document.body.classList.add('intro-complete');
+            }, 2000);
         }, 2000);
     } else {
         document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
         syncProfileFieldsToForm();
+        
+        // If welcome splash already displayed previously during session, bring buttons up immediately
+        document.body.classList.add('intro-complete');
     }
     
     initPrivateSourcingUploads();
@@ -1026,6 +1045,7 @@ function addToCart() {
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
+    // Modified to cooperate cleanly with the animation initialization sequence
     const cartBtn = document.getElementById("cart-btn");
     if (cartBtn) {
         cartBtn.style.display = cart.length > 0 ? "flex" : "none";
