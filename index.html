@@ -28,10 +28,21 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* FIX: Ensure content is never cut off at bottom */
-        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
+        /* FIX: Ensure content is never cut off at bottom & accelerate layout compositor */
+        .site-wrapper { 
+            width: 100%; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: block;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
 
         .admin-only { display: none; }
 
@@ -41,11 +52,16 @@
             touch-action: none;
         }
 
+        /* PERFORMANCE FIX: Applied hardware acceleration layout to splash viewport layer to eliminate entry paint lag */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
             transition: opacity 0.8s ease-out, visibility 0.8s;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         .splash-content { text-align: center; }
         .welcome-msg { 
@@ -64,6 +80,7 @@
             opacity: 0;
             animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
             animation-delay: 0.4s, 0s;
+            will-change: background-position, transform;
         }
         .splash-slogan {
             font-size: 11px; color: var(--gold); 
@@ -107,7 +124,7 @@
         #added-toast.show { right: 20px; visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); will-change: transform; }
+        #motion-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("IMG_8765.jpeg"); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.85; z-index: -1; filter: brightness(0.6); will-change: transform; transform: translateZ(0); -webkit-transform: translateZ(0); }
         header { background: rgba(0,0,0,0.9); padding: 18px; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; text-align: center; width: 100%; box-sizing: border-box; }
         .header-logo { height: 35px; border-radius: 5px; vertical-align: middle; }
         .brand-name { font-size: 15px; letter-spacing: 2px; font-weight: 900; margin-left: 10px; }
@@ -887,6 +904,7 @@ function switchCartView(view) {
     }
 }
 
+// HISTORY LOG RENDER
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
