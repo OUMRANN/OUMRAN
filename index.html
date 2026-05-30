@@ -767,8 +767,8 @@ window.addEventListener('load', () => {
             // FIXED TIMER REVEAL: Keeps controls hidden while texts render, then drops them cleanly into focus
             setTimeout(() => {
                 document.body.classList.add('intro-complete');
-            }, 2000);
-        }, 2000);
+            }, 0);
+        }, 0);
     } else {
         document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
