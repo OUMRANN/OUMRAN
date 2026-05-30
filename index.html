@@ -18,6 +18,7 @@
         html.loading, body.loading {
             overflow: hidden !important;
             height: 100% !important;
+            touch-action: none;
         }
 
         body { 
@@ -32,7 +33,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* FIX: Ensure content is never cut off at bottom & accelerate layout compositor */
+        /* FIX: Ensure content is never cut off at bottom & accelerate layout compositor with GPU layer caching */
         .site-wrapper { 
             width: 100%; 
             max-width: 1400px; 
@@ -42,6 +43,7 @@
             -webkit-transform: translateZ(0);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
+            will-change: transform;
         }
 
         .admin-only { display: none; }
@@ -81,11 +83,6 @@
             animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
             animation-delay: 0.4s, 0s;
             will-change: background-position, transform;
-        }
-        .splash-slogan {
-            font-size: 11px; color: var(--gold); 
-            letter-spacing: 3px; text-transform: uppercase; font-weight: 400;
-            opacity: 0; animation: fadeInSplash 1s ease forwards; animation-delay: 1s;
         }
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
 
