@@ -823,24 +823,23 @@ let currentProductType = "";
 window.addEventListener('load', () => {
     loadCart();
     
-    if (!sessionStorage.getItem('oumran_splash_shown')) {
+        if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown', 'true');
+        
         setTimeout(() => {
-            document.getElementById('splash-screen').classList.add('splash-exit');
+            document.getElementById('splash-screen').style.display = 'none';
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
             syncProfileFieldsToForm();
-            
-            // FIXED TIMER REVEAL: Keeps controls hidden while texts render, then drops them cleanly into focus
-            setTimeout(() => {
-                document.body.classList.add('intro-complete');
-            }, 0);
         }, 2000);
+        
     } else {
         document.getElementById('splash-screen').style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
         syncProfileFieldsToForm();
+    }
+
         
         // If welcome splash already displayed previously during session, bring buttons up immediately
         document.body.classList.add('intro-complete');
