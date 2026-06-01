@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
@@ -167,6 +166,7 @@
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
+        /* FIXED FOR WELCOME ENTRANCE: Default baseline rules hide elements cleanly until animation sequence signals readiness */
         .cart-float, .profile-float, .tg-float, .crisp-client, #tidio-chat { 
             opacity: 0 !important; 
             visibility: hidden !important; 
@@ -174,6 +174,7 @@
             transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important; 
         }
         
+        /* Once intro triggers on body, interface components gracefully fade operational into position */
         body.intro-complete .cart-float, 
         body.intro-complete .profile-float, 
         body.intro-complete .tg-float,
@@ -196,10 +197,6 @@
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; display: none; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
-        
-        /* Added for Trust/Legal */
-        .legal-footer { padding: 30px 20px; text-align: center; color: #666; font-size: 11px; margin-top: 40px; border-top: 1px solid #333; }
-        .legal-footer a { color: var(--gold); text-decoration: none; margin: 0 10px; }
 
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
@@ -294,8 +291,8 @@
     </div>
 </div>
 
-<div id="profileHubModal" class="modal" style="background: #000000;">
-  <div class="modal-content" style="background: #050505; border: 1px solid rgba(214,175,55,0.25); max-width: 440px; padding: 30px 20px; border-radius: 30px;">
+<div id="profileHubModal" class="modal">
+    <div class="modal-content" style="background: #050505; border: 1px solid rgba(214,175,55,0.25); max-width: 440px; padding: 30px 20px; border-radius: 30px;">
         <div style="text-align: center; margin-bottom: 25px;">
             <p style="color: var(--gold); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; margin: 0 0 8px 0; font-weight: 900;">AUTHENTIC SPACE</p>
             <h2 style="font-family: 'Playfair Display', serif; color: #fff; text-align: center; font-size: 26px; margin: 0; letter-spacing: 1px; font-style: italic;">Oumran Client Profile</h2>
@@ -315,12 +312,7 @@
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div id="nameContainer" style="text-align: center; margin-bottom: 5px;">
-    <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; cursor: pointer;" onclick="enableEdit()">User Profile</div>
-    <input type="text" id="editNameInput" style="display: none; background: #111; color: #fff; border: 1px solid var(--gold); padding: 5px; text-align: center; font-family: 'Playfair Display', serif; font-size: 20px; width: 80%; border-radius: 5px;" onblur="saveName()" onkeydown="if(event.key==='Enter') saveName()">
-    <div style="font-size: 9px; color: #333; margin-top: 2px; text-transform: uppercase;">Tap name to edit</div>
-</div>
-
+            <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">User Profile</div>
             <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">user@gmail.com</div>
         </div>
 
@@ -734,8 +726,7 @@
                 Thank you for shopping with OUMRAN STORE✨
             </p>
             <p style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.2;">
-                Your order has been successfully reserved and is awaiting payment verification.
-
+                We have your details.
             </p>
 
             <div style="font-size: 13px; line-height: 1.8; color: #ccc; margin-bottom: 35px; padding: 0 10px;">
@@ -907,7 +898,6 @@ function switchCartView(view) {
     }
 }
 
-<script>
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
@@ -1055,6 +1045,7 @@ function addToCart() {
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
+    // Modified to cooperate cleanly with the animation initialization sequence
     const cartBtn = document.getElementById("cart-btn");
     if (cartBtn) {
         cartBtn.style.display = cart.length > 0 ? "flex" : "none";
@@ -1077,15 +1068,11 @@ function showCart() {
 
 function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
 
-function submitOrder(event) {
-    const btn = event.target;
+function submitOrder() {
     const n = document.getElementById('custName').value;
     const p = document.getElementById('custPhone').value;
     const a = document.getElementById('custAddress').value;
     if(!n || !p || !a) return alert("Fill all the details first!");
-    
-    btn.disabled = true;
-    btn.innerText = "Processing...";
     
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
     
@@ -1119,15 +1106,11 @@ function submitOrder(event) {
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Network error");
+    }).then(() => {
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = []; updateCartDisplay();
-    })
-    .catch(err => { alert("Transmission failed."); })
-    .finally(() => { btn.disabled = false; btn.innerText = "Confirm Order"; });
+    });
 }
 
 function closeModal() { 
@@ -1178,28 +1161,10 @@ function closePrivateSourcing() {
     window.scrollTo(0, scrollPos);
 }
 
-function submitPrivateSourcingWithOnboardingCheck(event) {
+function submitPrivateSourcingWithOnboardingCheck() {
     if (checkProfileOnboarding('sourcing')) {
-        submitPrivateRequest(event);
+        submitPrivateRequest();
     }
-}
-function enableEdit() {
-    const nameDisplay = document.getElementById('hubProfileName');
-    const nameInput = document.getElementById('editNameInput');
-    nameInput.value = nameDisplay.innerText;
-    nameDisplay.style.display = 'none';
-    nameInput.style.display = 'inline-block';
-    nameInput.focus();
-}
-
-function saveName() {
-    const nameDisplay = document.getElementById('hubProfileName');
-    const nameInput = document.getElementById('editNameInput');
-    if (nameInput.value.trim() !== "") {
-        nameDisplay.innerText = nameInput.value;
-    }
-    nameDisplay.style.display = 'block';
-    nameInput.style.display = 'none';
 }
 
 function initPrivateSourcingUploads() {
@@ -1268,8 +1233,7 @@ function initPrivateSourcingUploads() {
     }
 }
 
-function submitPrivateRequest(event) {
-    const btn = event.target || document.querySelector('#privateSourcingModal .btn');
+function submitPrivateRequest() {
     const clientName = document.getElementById('srcClientName').value;
     const clientPhone = document.getElementById('srcClientPhone').value;
     const category = document.getElementById('srcCategory').value;
@@ -1281,9 +1245,6 @@ function submitPrivateRequest(event) {
     if(!clientName || !clientPhone || !productName || !size) {
         return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
     }
-
-    btn.disabled = true;
-    btn.innerText = "Sending...";
 
     let text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
                `👤 *Client:* ${clientName}\n` +
@@ -1310,9 +1271,12 @@ function submitPrivateRequest(event) {
         const binaryStr = atob(basePart[1]);
         let n = binaryStr.length;
         const u8arr = new Uint8Array(n);
-        while(n--) { u8arr[n] = binaryStr.charCodeAt(n); }
+        while(n--) {
+            u8arr[n] = binaryStr.charCodeAt(n);
+        }
         const fileBlob = new Blob([u8arr], { type: mimeType });
         formData.append("photo", fileBlob, "upload.jpg");
+        
         postOptions = { method: "POST", body: formData };
     } else {
         postOptions = {
@@ -1322,11 +1286,10 @@ function submitPrivateRequest(event) {
         };
     }
 
-    fetch(apiUrl, postOptions)
-    .then(response => {
-        if (!response.ok) throw new Error("Network error");
+    fetch(apiUrl, postOptions).then(() => {
         document.getElementById("privateSourcingModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
+        
         document.getElementById('srcClientName').value = "";
         document.getElementById('srcClientPhone').value = "";
         document.getElementById('srcProductName').value = "";
@@ -1336,9 +1299,9 @@ function submitPrivateRequest(event) {
         document.getElementById('srcImagePreviewSlot').innerHTML = "";
         document.getElementById('srcHiddenImageUpload').value = "";
         srcAttachedImageBase64 = "";
-    })
-    .catch(err => { alert("Transmission failed."); })
-    .finally(() => { btn.disabled = false; btn.innerText = "Send to Concierge Network"; });
+    }).catch(err => {
+        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
+    });
 }
 </script> 
 
@@ -1348,4 +1311,3 @@ function submitPrivateRequest(event) {
 
 </body>
 </html>
-
