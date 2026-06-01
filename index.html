@@ -36,6 +36,14 @@
             overflow-x: hidden;
             background-color: var(--bg);
         }
+           .welcome-container {
+        height: 100vh !important;
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
@@ -374,7 +382,7 @@
 
       <button class="btn" style="background: #222; color: #fff; margin-bottom: 10px;" onclick="editProfileName()">Edit My Name</button>
 <button class="btn" style="background: #ffffff; color: #000000; ..." onclick="closeProfileHub()">Return to Platform</button>
-  
+  <script>
    // Profile Edit Function
 function editProfileName() {
     const newName = prompt("Enter your new name:");
@@ -401,7 +409,7 @@ function openLegal(type) {
         text.innerHTML = "<p>We offer returns on defective items within 48 hours of delivery.</p>";
     }
 }
-
+<script>
 	</div>
 </div>
 
