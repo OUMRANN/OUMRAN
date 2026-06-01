@@ -312,7 +312,12 @@
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">User Profile</div>
+            <div id="nameContainer" style="text-align: center; margin-bottom: 5px;">
+    <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; cursor: pointer;" onclick="enableEdit()">User Profile</div>
+    <input type="text" id="editNameInput" style="display: none; background: #111; color: #fff; border: 1px solid var(--gold); padding: 5px; text-align: center; font-family: 'Playfair Display', serif; font-size: 20px; width: 80%; border-radius: 5px;" onblur="saveName()" onkeydown="if(event.key==='Enter') saveName()">
+    <div style="font-size: 9px; color: #333; margin-top: 2px; text-transform: uppercase;">Tap name to edit</div>
+</div>
+
             <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">user@gmail.com</div>
         </div>
 
@@ -1165,6 +1170,24 @@ function submitPrivateSourcingWithOnboardingCheck() {
     if (checkProfileOnboarding('sourcing')) {
         submitPrivateRequest();
     }
+}
+function enableEdit() {
+    const nameDisplay = document.getElementById('hubProfileName');
+    const nameInput = document.getElementById('editNameInput');
+    nameInput.value = nameDisplay.innerText;
+    nameDisplay.style.display = 'none';
+    nameInput.style.display = 'inline-block';
+    nameInput.focus();
+}
+
+function saveName() {
+    const nameDisplay = document.getElementById('hubProfileName');
+    const nameInput = document.getElementById('editNameInput');
+    if (nameInput.value.trim() !== "") {
+        nameDisplay.innerText = nameInput.value;
+    }
+    nameDisplay.style.display = 'block';
+    nameInput.style.display = 'none';
 }
 
 function initPrivateSourcingUploads() {
