@@ -1370,7 +1370,14 @@ function submitPrivateRequest() {
         alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
     });
 }
-</script> 
+    setTimeout(function() {
+        const welcome = document.querySelector('.welcome-container');
+        if (welcome) {
+            welcome.style.display = 'none';
+        }
+    }, 2000);
+
+  </script> 
 
 <p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
     &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
