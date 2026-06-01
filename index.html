@@ -871,19 +871,15 @@ function syncProfileFieldsToForm() {
 }
 
 function openProfileHub() {
-    const userProfile = localStorage.getItem('oumran_user');
-    if (!userProfile) {
-        checkProfileOnboarding('hub');
-        return;
-    }
     document.getElementById('profileHubModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // This locks the background
 }
 
 function closeProfileHub() {
     document.getElementById('profileHubModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'auto'; // This unlocks the background
 }
+
 
 
 function switchCartView(view) {
@@ -1318,19 +1314,21 @@ function submitPrivateRequest() {
 </script> 
 <script>
     function editUsername() {
-        const newName = prompt("Enter your new username:", document.getElementById('hubProfileName').innerText);
+        const nameDiv = document.getElementById('hubProfileName');
+        const newName = prompt("Enter your new username:", nameDiv.innerText);
         if (newName && newName.trim() !== "") {
-            document.getElementById('hubProfileName').innerText = newName;
+            nameDiv.innerText = newName;
             localStorage.setItem('oumran_username', newName);
         }
     }
 
-    // Load the saved name when the page opens
+    // This ensures your custom name stays after you refresh the page
     window.addEventListener('load', () => {
         const savedName = localStorage.getItem('oumran_username');
         if (savedName) document.getElementById('hubProfileName').innerText = savedName;
     });
 </script>
+
 
 <p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
     &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
