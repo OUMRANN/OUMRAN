@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="loading"> <head>
     <meta charset="UTF-8">
@@ -166,7 +167,6 @@
         .info-area h3 { font-size: 11px; margin: 0; color: var(--beige); height: 30px; overflow: hidden; }
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
         
-        /* FIXED FOR WELCOME ENTRANCE: Default baseline rules hide elements cleanly until animation sequence signals readiness */
         .cart-float, .profile-float, .tg-float, .crisp-client, #tidio-chat { 
             opacity: 0 !important; 
             visibility: hidden !important; 
@@ -174,7 +174,6 @@
             transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important; 
         }
         
-        /* Once intro triggers on body, interface components gracefully fade operational into position */
         body.intro-complete .cart-float, 
         body.intro-complete .profile-float, 
         body.intro-complete .tg-float,
@@ -197,6 +196,10 @@
         .payment-info { background: #222; padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 4px solid #0088cc; color: #ccc; display: none; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
+        
+        /* Added for Trust/Legal */
+        .legal-footer { padding: 30px 20px; text-align: center; color: #666; font-size: 11px; margin-top: 40px; border-top: 1px solid #333; }
+        .legal-footer a { color: var(--gold); text-decoration: none; margin: 0 10px; }
 
         @media (min-width: 768px) {
             .modal-content { max-width: 600px !important; width: 50% !important; }
@@ -904,6 +907,7 @@ function switchCartView(view) {
     }
 }
 
+<script>
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
@@ -1051,7 +1055,6 @@ function addToCart() {
 
 function updateCartDisplay() {
     document.getElementById("cart-count").innerText = cart.length;
-    // Modified to cooperate cleanly with the animation initialization sequence
     const cartBtn = document.getElementById("cart-btn");
     if (cartBtn) {
         cartBtn.style.display = cart.length > 0 ? "flex" : "none";
@@ -1074,11 +1077,15 @@ function showCart() {
 
 function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if(cart.length === 0) closeCart(); else showCart(); }
 
-function submitOrder() {
+function submitOrder(event) {
+    const btn = event.target;
     const n = document.getElementById('custName').value;
     const p = document.getElementById('custPhone').value;
     const a = document.getElementById('custAddress').value;
     if(!n || !p || !a) return alert("Fill all the details first!");
+    
+    btn.disabled = true;
+    btn.innerText = "Processing...";
     
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
     
@@ -1112,11 +1119,15 @@ function submitOrder() {
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: "5715582254", text: text, parse_mode: "Markdown" })
-    }).then(() => {
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Network error");
         document.getElementById("cartModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = []; updateCartDisplay();
-    });
+    })
+    .catch(err => { alert("Transmission failed."); })
+    .finally(() => { btn.disabled = false; btn.innerText = "Confirm Order"; });
 }
 
 function closeModal() { 
@@ -1167,9 +1178,9 @@ function closePrivateSourcing() {
     window.scrollTo(0, scrollPos);
 }
 
-function submitPrivateSourcingWithOnboardingCheck() {
+function submitPrivateSourcingWithOnboardingCheck(event) {
     if (checkProfileOnboarding('sourcing')) {
-        submitPrivateRequest();
+        submitPrivateRequest(event);
     }
 }
 function enableEdit() {
@@ -1257,7 +1268,8 @@ function initPrivateSourcingUploads() {
     }
 }
 
-function submitPrivateRequest() {
+function submitPrivateRequest(event) {
+    const btn = event.target || document.querySelector('#privateSourcingModal .btn');
     const clientName = document.getElementById('srcClientName').value;
     const clientPhone = document.getElementById('srcClientPhone').value;
     const category = document.getElementById('srcCategory').value;
@@ -1269,6 +1281,9 @@ function submitPrivateRequest() {
     if(!clientName || !clientPhone || !productName || !size) {
         return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
     }
+
+    btn.disabled = true;
+    btn.innerText = "Sending...";
 
     let text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
                `👤 *Client:* ${clientName}\n` +
@@ -1295,12 +1310,9 @@ function submitPrivateRequest() {
         const binaryStr = atob(basePart[1]);
         let n = binaryStr.length;
         const u8arr = new Uint8Array(n);
-        while(n--) {
-            u8arr[n] = binaryStr.charCodeAt(n);
-        }
+        while(n--) { u8arr[n] = binaryStr.charCodeAt(n); }
         const fileBlob = new Blob([u8arr], { type: mimeType });
         formData.append("photo", fileBlob, "upload.jpg");
-        
         postOptions = { method: "POST", body: formData };
     } else {
         postOptions = {
@@ -1310,10 +1322,11 @@ function submitPrivateRequest() {
         };
     }
 
-    fetch(apiUrl, postOptions).then(() => {
+    fetch(apiUrl, postOptions)
+    .then(response => {
+        if (!response.ok) throw new Error("Network error");
         document.getElementById("privateSourcingModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
-        
         document.getElementById('srcClientName').value = "";
         document.getElementById('srcClientPhone').value = "";
         document.getElementById('srcProductName').value = "";
@@ -1323,9 +1336,9 @@ function submitPrivateRequest() {
         document.getElementById('srcImagePreviewSlot').innerHTML = "";
         document.getElementById('srcHiddenImageUpload').value = "";
         srcAttachedImageBase64 = "";
-    }).catch(err => {
-        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
-    });
+    })
+    .catch(err => { alert("Transmission failed."); })
+    .finally(() => { btn.disabled = false; btn.innerText = "Send to Concierge Network"; });
 }
 </script> 
 
@@ -1335,3 +1348,4 @@ function submitPrivateRequest() {
 
 </body>
 </html>
+
