@@ -189,18 +189,20 @@
         .cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; }
         .profile-float { position: fixed !important; bottom: 20px !important; right: 20px !important; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
-        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
-        .modal { 
+        .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #
+       .modal { 
     display: none; 
     position: fixed; 
-    z-index: 2000; 
+    z-index: 9999; /* Higher z-index to stay on top */
     left: 0; 
     top: 0; 
     width: 100%; 
     height: 100%; 
-    background: #000; 
+    background: #000 !important; /* Solid black blocks the background completely */
     overflow-y: auto; 
+    -webkit-overflow-scrolling: touch;
 }
+
 
 		.btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
@@ -869,22 +871,20 @@ function syncProfileFieldsToForm() {
 }
 
 function openProfileHub() {
-    const userProfile = localStorage.getItem('oumran_user_profile');
+    const userProfile = localStorage.getItem('oumran_user');
     if (!userProfile) {
         checkProfileOnboarding('hub');
         return;
     }
-    scrollPos = window.pageYOffset;
-    syncProfileFieldsToForm();
     document.getElementById('profileHubModal').style.display = 'block';
-    document.documentElement.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeProfileHub() {
     document.getElementById('profileHubModal').style.display = 'none';
-    document.documentElement.classList.remove('modal-open');
-    window.scrollTo(0, scrollPos);
+    document.body.style.overflow = 'auto';
 }
+
 
 function switchCartView(view) {
     const bagView = document.getElementById('active-bag-view');
