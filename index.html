@@ -312,8 +312,8 @@
             <circle cx="12" cy="7" r="4"></circle>
         </svg>
     </div>
-    <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">User Profile</div>
-    <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">user@gmail.com</div>
+    <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">OUMER FETUDIN</div>
+    <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">feteoumer@gmail.com</div>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px;">
@@ -334,7 +334,8 @@
         </span>
     </div>
 
-    <button onclick="alert('Edit Mode Triggered')" style="background: #1a1a1a; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;" 
+    <button onclick="let newName = prompt('Enter your new name:', document.getElementById('hubProfileName').innerText); if(newName) { document.getElementById('hubProfileName').innerText = newName; }" 
+            style="background: #1a1a1a; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;" 
             onmouseover="this.style.background='#222'; this.style.borderColor='#555';" 
             onmouseout="this.style.background='#1a1a1a'; this.style.borderColor='#333';">
         Edit Profile
