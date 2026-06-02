@@ -28,22 +28,25 @@
             touch-action: none;
         }
 
-              html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            background-color: var(--bg);
-        }
-           .welcome-container {
-        height: 100vh !important;
-        overflow: hidden !important;
-        position: fixed !important;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
+    html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  overflow-x: hidden;
+}
+
+.welcome-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+        
 
         body { 
             font-family: 'Inter', -apple-system, sans-serif; 
