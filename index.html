@@ -186,7 +186,7 @@
         }
         
         .tg-float { position: fixed !important; bottom: 20px !important; right: 90px !important; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 99999 !important; }
-        .cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; }
+        .cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; }
         .profile-float { position: fixed !important; bottom: 20px !important; right: 20px !important; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); }
         .cart-count { position: absolute; top: 0; right: 0; background: var(--accent); color: white; font-size: 12px; padding: 4px 8px; border-radius: 50%; }
         
@@ -209,13 +209,7 @@
         }
     </style>
 </head>
-
 <body class="loading"> 
-<div class="cart-float" onclick="openCart()">🛒</div>
-
-<a class="tg-float" href="https://t.me/yourlink" target="_blank">✈️</a>
-
-<div class="profile-float" onclick="openProfile()">👤</div>	
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
@@ -318,20 +312,7 @@
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 5px;">
-    <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 0.5px;">
-        User Profile
-    </div>
-
-    <button onclick="editProfileName()" style="
-        background: none;
-        border: none;
-        color: #d4af37;
-        cursor: pointer;
-        font-size: 14px;
-        padding: 0;
-    ">✎</button>
-</div>
+            <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">User Profile</div>
             <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">user@gmail.com</div>
         </div>
 
@@ -582,7 +563,7 @@
 
 	<div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
-    <a href="https://t.me/OUMER_FETE" class="tg-float" target="_blank">📲</a>
+    <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
     <div id="pModal" class="modal">
         <div class="modal-content">
@@ -818,7 +799,62 @@ function checkProfileOnboarding(actionType) {
     return true;
 }
 
+function saveOnboardingProfile() {
+    const nameInput = document.getElementById('onboardName').value.trim();
+    const emailInput = document.getElementById('onboardEmail').value.trim();
+    
+    if (!nameInput || !emailInput) {
+        return alert("Please enter your Full Name and Gmail address to setup your Oumran Profile space.");
+    }
+    if (!emailInput.toLowerCase().endsWith('@gmail.com')) {
+        return alert("Please enter a valid official @gmail.com account.");
+    }
+    
+    const profileData = { name: nameInput, email: emailInput.toLowerCase() };
+    localStorage.setItem('oumran_user_profile', JSON.stringify(profileData));
+    
+    document.getElementById('profileOnboardingModal').style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    window.scrollTo(0, scrollPos);
+    syncProfileFieldsToForm();
 
+    if (pendingActionType === 'cart') {
+        document.getElementById("pModal").style.display = "block";
+        addToCart();
+    } else if (pendingActionType === 'sourcing') {
+        document.getElementById("privateSourcingModal").style.display = "block";
+        submitPrivateRequest();
+    }
+    pendingActionType = "";
+}
+
+function cancelOnboardingProfile() {
+    document.getElementById('profileOnboardingModal').style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    
+    if (pendingActionType === 'cart') {
+        document.getElementById("pModal").style.display = "block";
+        document.documentElement.classList.add('modal-open');
+    } else if (pendingActionType === 'sourcing') {
+        document.getElementById("privateSourcingModal").style.display = "block";
+        document.documentElement.classList.add('modal-open');
+    } else {
+        window.scrollTo(0, scrollPos);
+    }
+    pendingActionType = "";
+}
+
+function syncProfileFieldsToForm() {
+    const userProfileStr = localStorage.getItem('oumran_user_profile');
+    if (userProfileStr) {
+        const profile = JSON.parse(userProfileStr);
+        if (document.getElementById('custName')) document.getElementById('custName').value = profile.name;
+        if (document.getElementById('srcClientName')) document.getElementById('srcClientName').value = profile.name;
+        
+        if (document.getElementById('hubProfileName')) document.getElementById('hubProfileName').innerText = profile.name;
+        if (document.getElementById('hubProfileEmail')) document.getElementById('hubProfileEmail').innerText = profile.email;
+    }
+}
 
 function openProfileHub() {
     const userProfile = localStorage.getItem('oumran_user_profile');
@@ -1263,40 +1299,10 @@ function submitPrivateRequest() {
         document.getElementById('srcImagePreviewSlot').innerHTML = "";
         document.getElementById('srcHiddenImageUpload').value = "";
         srcAttachedImageBase64 = "";
-   }).catch(err => {
-    alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
-});
+    }).catch(err => {
+        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
+    });
 }
-
-function editProfileName() {
-    const profileStr = localStorage.getItem('oumran_user_profile');
-
-    if (!profileStr) return;
-
-    const profile = JSON.parse(profileStr);
-
-    const newName = prompt('Enter your new name:', profile.name);
-
-    if (newName && newName.trim() !== '') {
-        profile.name = newName.trim();
-
-        localStorage.setItem(
-            'oumran_user_profile',
-            JSON.stringify(profile)
-        );
-
-        document.getElementById('hubProfileName').innerText = profile.name;
-
-        if (document.getElementById('custName')) {
-            document.getElementById('custName').value = profile.name;
-        }
-
-        if (document.getElementById('srcClientName')) {
-            document.getElementById('srcClientName').value = profile.name;
-        }
-    }
-}
-
 </script> 
 
 <p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
