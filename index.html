@@ -382,33 +382,7 @@
 
       <button class="btn" style="background: #222; color: #fff; margin-bottom: 10px;" onclick="editProfileName()">Edit My Name</button>
 <button class="btn" style="background: #ffffff; color: #000000; ..." onclick="closeProfileHub()">Return to Platform</button>
-  <script>
-   // Profile Edit Function
-function editProfileName() {
-    const newName = prompt("Enter your new name:");
-    if (newName) {
-        localStorage.setItem("userName", newName);
-        document.getElementById("hubProfileName").innerText = newName;
-    }
-}
-
-// Legal Policy Loader
-function openLegal(type) {
-    const page = document.getElementById('legalPage');
-    const title = document.getElementById('legalTitle');
-    const text = document.getElementById('legalText');
-    page.style.display = 'block';
-    if(type === 'privacy') {
-        title.innerText = "Privacy Policy";
-        text.innerHTML = "<p>Your privacy is our priority. We collect only necessary data to fulfill your orders in Addis Ababa.</p>";
-    } else if(type === 'terms') {
-        title.innerText = "Terms of Service";
-        text.innerHTML = "<p>By using Oumran Store, you agree to our service standards and local delivery protocols.</p>";
-    } else {
-        title.innerText = "Refund Policy";
-        text.innerHTML = "<p>We offer returns on defective items within 48 hours of delivery.</p>";
-    }
-}
+  
 	</div>
 </div>
 <style>
@@ -1407,6 +1381,32 @@ function submitPrivateRequest() {
         <span class="legal-link" onclick="openLegal('terms')">Terms</span>
         <span class="legal-link" onclick="openLegal('refund')">Refunds</span>
     </div>
+<script>
+   // Profile Edit Function
+function editProfileName() {
+    const newName = prompt("Enter your new name:");
+    if (newName) {
+        localStorage.setItem("userName", newName);
+        document.getElementById("hubProfileName").innerText = newName;
+    }
+}
 
+// Legal Policy Loader
+function openLegal(type) {
+    const page = document.getElementById('legalPage');
+    const title = document.getElementById('legalTitle');
+    const text = document.getElementById('legalText');
+    page.style.display = 'block';
+    if(type === 'privacy') {
+        title.innerText = "Privacy Policy";
+        text.innerHTML = "<p>Your privacy is our priority. We collect only necessary data to fulfill your orders in Addis Ababa.</p>";
+    } else if(type === 'terms') {
+        title.innerText = "Terms of Service";
+        text.innerHTML = "<p>By using Oumran Store, you agree to our service standards and local delivery protocols.</p>";
+    } else {
+        title.innerText = "Refund Policy";
+        text.innerHTML = "<p>We offer returns on defective items within 48 hours of delivery.</p>";
+    }
+}
 </body>
 </html>
