@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OUMRAN STORE</title>
     <meta name="description" content="About OUMRAN STORE. Every piece in our signature collection is crafted with premium quality and meticulous design. Explore our exclusive luxury streetwear.">
-
-    <!-- FIX 1: Preload only once, removed duplicate preload that caused double-fetch -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
@@ -14,50 +12,29 @@
     <style>
         :root { --bg: #000; --card: #1a1a1a; --tg: #0088cc; --accent: #ff3b30; --gold: #FFD700; --beige: #d4c5b0; }
 
-        html.loading, body.loading {
-            overflow: hidden !important;
-            height: 100% !important;
-            touch-action: none;
-        }
+        html.loading, body.loading { overflow: hidden !important; height: 100% !important; touch-action: none; }
+        body.loading .site-wrapper, body.loading header, body.loading .promo-bar,
+        body.loading .trust-badges-container, body.loading .search-container,
+        body.loading footer, body.loading > p { visibility: hidden !important; opacity: 0 !important; }
 
-        /* Hide ALL page content while splash is showing — prevents the flash */
-        body.loading .site-wrapper,
-        body.loading header,
-        body.loading .promo-bar,
-        body.loading .trust-badges-container,
-        body.loading .search-container,
-        body.loading footer,
-        body.loading > p {
-            visibility: hidden !important;
-            opacity: 0 !important;
+        /* ── SCROLL LOCK for all overlay pages ── */
+        html.overlay-open, body.overlay-open {
+            overflow: hidden !important;
+            position: fixed;
+            width: 100%;
+            touch-action: none;
         }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             margin: 0; background: var(--bg); color: white;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
         }
-
-        .site-wrapper {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: block;
-        }
-
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
         .admin-only { display: none; }
-
-        html.modal-open, body.modal-open {
-            overflow: hidden !important;
-            touch-action: none;
-            height: 100% !important;
-        }
+        html.modal-open, body.modal-open { overflow: hidden !important; touch-action: none; height: 100% !important; }
 
         /* ── SPLASH ── */
         #splash-screen {
@@ -65,39 +42,21 @@
             background: #000; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 10000;
             transition: opacity 0.8s ease-out, visibility 0.8s;
-            /* FIX 2: promote splash to its own layer so it composites independently */
-            will-change: opacity;
-            contain: strict;
+            will-change: opacity; contain: strict;
         }
         .splash-content { text-align: center; }
-        .welcome-msg {
-            font-size: 12px; color: #888; letter-spacing: 6px;
-            text-transform: uppercase; margin-bottom: 15px;
-            opacity: 0; animation: fadeInSplash 0.8s ease forwards;
-        }
+        .welcome-msg { font-size: 12px; color: #888; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 15px; opacity: 0; animation: fadeInSplash 0.8s ease forwards; }
         .splash-logo {
             font-family: 'Playfair Display', serif; font-size: 38px;
             letter-spacing: 10px; font-weight: 700; font-style: italic;
             text-transform: uppercase; line-height: 1.1; margin-bottom: 20px;
             background: linear-gradient(90deg, #816604 0%, #FFD700 50%, #816604 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            /* FIX 3: shine runs only while splash is visible; stopped via JS after exit */
-            animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
-            animation-delay: 0.4s, 0s;
-            will-change: background-position, opacity;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            opacity: 0; animation: fadeInSplash 1.2s ease forwards, shine 3s linear infinite;
+            animation-delay: 0.4s, 0s; will-change: background-position, opacity;
         }
-        .splash-slogan {
-            font-size: 10px;
-            color: #fff;
-            letter-spacing: 3px;
-            font-weight: 900;
-            margin-top: 5px;
-        }
+        .splash-slogan { font-size: 10px; color: #fff; letter-spacing: 3px; font-weight: 900; margin-top: 5px; }
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
-
         @keyframes fadeInSplash { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes shine { to { background-position: 200% center; } }
 
@@ -109,59 +68,32 @@
         .about-content p { line-height: 1.8; color: #ccc; font-size: 15px; margin-bottom: 20px; }
 
         /* ── ZOOM ── */
-        #zoom-container {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
-            /* FIX 4: own compositing layer */
-            will-change: transform;
-            contain: layout style;
-        }
+        #zoom-container { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; flex-direction: column; justify-content: center; align-items: center; will-change: transform; contain: layout style; }
         .zoom-stage { position: relative; width: 100%; height: 70vh; display: flex; align-items: center; justify-content: center; }
         #zoom-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .zoom-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.1); color: var(--gold); border: none;
-            width: 50px; height: 50px; border-radius: 50%; font-size: 24px; font-weight: 900;
-            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
-        }
-        .arrow-left { left: 10px; }
-        .arrow-right { right: 10px; }
+        .zoom-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: var(--gold); border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; font-weight: 900; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .arrow-left { left: 10px; } .arrow-right { right: 10px; }
         .zoom-close { margin-top: 30px; background: white; color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: 900; cursor: pointer; }
 
         /* ── TOAST ── */
         #added-toast {
             position: fixed; top: 20px; right: -400px; visibility: hidden;
-            /* FIX 5: removed backdrop-filter blur — very expensive; replaced with opaque bg */
-            background: rgba(30, 30, 30, 0.97);
-            color: white; padding: 15px 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(30, 30, 30, 0.97); color: white; padding: 15px 25px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);
             z-index: 5000; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* FIX 6: animate with transform instead of `right` — avoids layout reflow every frame */
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.5s;
-            will-change: transform;
-            right: 20px;
-            transform: translateX(calc(100% + 40px));
+            will-change: transform; right: 20px; transform: translateX(calc(100% + 40px));
         }
         #added-toast.show { transform: translateX(0); visibility: visible; }
         .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
-        /* ── BACKGROUND ──
-           FIX 7: Replaced fixed background-image div with a pseudo-element on body.
-           pseudo-elements with background-attachment:fixed get their own GPU layer
-           and do NOT trigger scroll repaints. Also removed the repeated brightness
-           filter which forced a new stacking context and repaint on every scroll tick. */
+        /* ── BACKGROUND ── */
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
+            content: ''; position: fixed; inset: 0;
             background-image: url("IMG_8765.jpeg");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            opacity: 0.5;          /* merged brightness(0.6) × opacity(0.85) = ~0.5 */
-            z-index: -1;
-            will-change: transform; /* promotes to compositor layer */
-            pointer-events: none;
+            background-repeat: no-repeat; background-position: center; background-size: cover;
+            opacity: 0.5; z-index: -1; will-change: transform; pointer-events: none;
         }
 
         /* ── HEADER ── */
@@ -188,10 +120,7 @@
 
         /* ── PROMO / BADGES ── */
         .promo-bar { background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; padding: 12px; font-weight: 900; text-align: center; border-bottom: 1px solid #222; }
-        .trust-badges-container {
-            display: flex; justify-content: center; align-items: center; gap: 24px;
-            background-color: #080808; padding: 12px 15px; border-bottom: 1px solid #1c1c1c; flex-wrap: wrap;
-        }
+        .trust-badges-container { display: flex; justify-content: center; align-items: center; gap: 24px; background-color: #080808; padding: 12px 15px; border-bottom: 1px solid #1c1c1c; flex-wrap: wrap; }
         .badge-item { display: flex; align-items: center; gap: 6px; }
         .badge-icon { color: var(--gold); font-weight: 900; font-size: 12px; }
         .badge-text { color: #aaaaaa; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
@@ -205,11 +134,8 @@
         .category-title { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 20px; text-align: center; }
         .scroll-wrapper { display: flex; overflow-x: auto; gap: 15px; padding: 10px 20px 30px 20px; scrollbar-width: none; }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
-
-        /* FIX 8: contain:layout on cards prevents their internal layout from affecting parent */
         .product-card { flex: 0 0 180px; background: var(--card); border-radius: 15px; color: white; overflow: hidden; border: 1px solid #333; cursor: pointer; contain: layout; }
         .img-area { height: 220px; background: #000; overflow: hidden; }
-        /* FIX 9: lazy loading on all product images via CSS hint; actual loading="lazy" set in HTML */
         .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 10px 20px; }
         .info-area { padding: 12px; }
@@ -217,23 +143,8 @@
         .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 5px; }
 
         /* ── FLOATING BUTTONS ── */
-        .cart-float, .profile-float, .tg-float, .crisp-client, #tidio-chat {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important;
-        }
-        body.intro-complete .cart-float,
-        body.intro-complete .profile-float,
-        body.intro-complete .tg-float,
-        body.intro-complete .crisp-client,
-        body.intro-complete #tidio-chat {
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-        }
-
-        /* FIX 10: will-change on fixed floaters so they composite independently and never repaint on scroll */
+        .cart-float, .profile-float, .tg-float { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important; }
+        body.intro-complete .cart-float, body.intro-complete .profile-float, body.intro-complete .tg-float { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
         .tg-float { position: fixed !important; bottom: 20px !important; right: 90px !important; background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; text-decoration: none; z-index: 99999 !important; will-change: transform; }
         .cart-float { position: fixed !important; bottom: 20px !important; left: 20px !important; background: white; color: black; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; will-change: transform; }
         .profile-float { position: fixed !important; bottom: 20px !important; right: 20px !important; background: #FFD700; color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; z-index: 99999 !important; cursor: pointer; box-shadow: 0 4px 15px rgba(255,215,0,0.3); will-change: transform; }
@@ -241,7 +152,6 @@
 
         /* ── MODALS ── */
         .modal { display: none; position: fixed; z-index: 2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.96); overflow-y: auto; }
-        /* FIX 11: removed backdrop-filter:blur(10px) from all modals — extremely expensive, causes jank on open */
         .modal-content { background: #1a1a1a; color: white; margin: 20px auto; padding: 25px; width: 85%; max-width: 380px; border-radius: 25px; border: 1px solid #333; }
         .btn { width: 100%; padding: 18px; background: white; color: black; border: none; border-radius: 15px; font-weight: 900; margin-top: 15px; cursor: pointer; }
         .order-input, #size-box { width: 100%; padding: 12px; margin-top: 10px; border-radius: 10px; border: 1px solid #444; background: #000; color: white; box-sizing: border-box; font-size: 16px; }
@@ -249,19 +159,73 @@
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 14px; }
         .remove-btn { background:#ff3b30; color:white; padding: 6px 12px; border:none; border-radius: 8px; font-size: 10px; font-weight: 900; }
 
-        @media (min-width: 768px) {
-            .modal-content { max-width: 600px !important; width: 50% !important; }
-            .product-card { flex: 0 0 250px !important; }
-            .img-area { height: 300px !important; }
-        }
+        /* ── PROFILE EDIT BUTTON ── */
+        .profile-edit-btn { background: #1a1a1a; color: #fff; border: 1px solid #333; padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s, border-color 0.3s; width: 100%; }
+        .profile-edit-btn:hover { background: #222; border-color: #555; }
 
-        @media (max-width: 768px) {
-            .trust-badges-container { gap: 10px; padding: 12px; flex-direction: column; text-align: center; }
+        /* ── PRIVATE REQUEST BUTTON ── */
+        .private-request-btn { display: inline-block; padding: 16px 42px; background-color: transparent; color: #d4af37; border: 2px solid #d4af37; border-radius: 50px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease; margin-top: 20px; }
+        .private-request-btn:hover { background-color: #d4af37; color: #000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+
+        /* ── LEGAL PAGES (Privacy, Terms, Refund) ── */
+        .legal-page {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: #000; z-index: 9998; overflow-y: auto;
+            padding: 0; box-sizing: border-box;
         }
+        .legal-inner {
+            max-width: 680px; margin: 0 auto; padding: 40px 24px 80px;
+        }
+        .legal-header {
+            text-align: center; padding: 40px 0 30px; border-bottom: 1px solid #1c1c1c; margin-bottom: 35px;
+        }
+        .legal-header .legal-badge {
+            font-size: 10px; color: #888; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 12px;
+        }
+        .legal-header h1 {
+            font-family: 'Playfair Display', serif; font-size: 28px; color: var(--gold);
+            margin: 0 0 10px; font-style: italic;
+        }
+        .legal-header p { font-size: 12px; color: #555; margin: 0; }
+        .legal-section { margin-bottom: 32px; }
+        .legal-section h2 {
+            font-size: 13px; font-weight: 900; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+            padding-bottom: 8px; border-bottom: 1px solid #1c1c1c;
+        }
+        .legal-section p, .legal-section li {
+            font-size: 13px; color: #aaa; line-height: 1.85; margin-bottom: 8px;
+        }
+        .legal-section ul { padding-left: 20px; margin: 0; }
+        .legal-section li { margin-bottom: 6px; }
+        .legal-section strong { color: #ddd; }
+        .legal-back-btn {
+            display: flex; align-items: center; gap: 8px;
+            background: transparent; border: 1px solid #333;
+            color: #888; padding: 10px 20px; border-radius: 30px;
+            font-size: 11px; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; cursor: pointer; margin-bottom: 30px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .legal-back-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .legal-highlight-box {
+            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.15);
+            border-radius: 12px; padding: 16px 20px; margin-bottom: 16px;
+        }
+        .legal-highlight-box p { margin: 0; font-size: 13px; color: #bbb; line-height: 1.7; }
+
+        /* ── FOOTER LINKS ── */
+        .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; padding: 20px; border-top: 1px solid #1a1a1a; margin-top: 10px; }
+        .footer-legal a { color: #555; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
+        .footer-legal a:hover { color: var(--gold); }
+
+        @media (min-width: 768px) { .modal-content { max-width: 600px !important; width: 50% !important; } .product-card { flex: 0 0 250px !important; } .img-area { height: 300px !important; } }
+        @media (max-width: 768px) { .trust-badges-container { gap: 10px; padding: 12px; flex-direction: column; text-align: center; } }
     </style>
 </head>
 <body class="loading">
 
+<!-- ── ZOOM ── -->
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&lt;</button>
@@ -271,47 +235,248 @@
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
+<!-- ── ABOUT PAGE ── -->
 <div id="aboutPage">
     <div class="about-content">
-        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 5px;">About OUMRAN STORE</h2>
-        <h3 style="font-family: 'Playfair Display', serif; color: #aaa; margin-bottom: 30px; letter-spacing: 2px; font-size: 14px;">THE GOLD STANDARD OF FASHION</h3>
-
-        <div style="margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;">
-            <h3 style="color: var(--gold); font-size: 18px; font-weight: bold; margin-bottom: 15px; text-align: center;">The OUMRAN Standard</h3>
-            <p style="color: #ccc; line-height: 1.8; font-size: 14px;">
-               WELCOME TO OUMRAN STORE, Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before it is prepared for delivery in Addis Ababa. We guarantee premium fabrics and exact fits.
-            </p>
+        <h2>About OUMRAN STORE</h2>
+        <h3 style="font-family:'Playfair Display',serif;color:#aaa;margin-bottom:30px;letter-spacing:2px;font-size:14px;">THE GOLD STANDARD OF FASHION</h3>
+        <div style="margin-bottom:30px;border-bottom:1px solid #333;padding-bottom:20px;">
+            <h3 style="color:var(--gold);font-size:18px;font-weight:bold;margin-bottom:15px;text-align:center;">The OUMRAN Standard</h3>
+            <p>WELCOME TO OUMRAN STORE, Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before it is prepared for delivery in Addis Ababa. We guarantee premium fabrics and exact fits.</p>
         </div>
-
-        <div style="margin-bottom: 25px;">
-            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Curated Excellence</strong>
-            <p style="font-size: 14px; color: #eee; line-height: 1.6;">WE ARE Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p>
-        </div>
-
-        <div style="margin-bottom: 25px;">
-            <strong style="display: block; color: var(--gold); margin-bottom: 5px;">Global Trends, Local Access</strong>
-            <p style="font-size: 14px; color: #eee; line-height: 1.6;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service. We handle every logistical detail to ensure the highest quality reaches your doorstep in Addis Ababa.</p>
-        </div>
-
-        <strong><span style="display: block; color: var(--gold); margin-bottom: 5px;">• Instant Reservation:</span></strong>
-        <p style="font-size: 14px; color: #eee; line-height: 1.6; margin-bottom: 15px;">
-            Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.
-        </p>
-
-        <strong><span style="display: block; color: var(--gold); margin-bottom: 5px;">• Telegram Verification:</span></strong>
-        <p style="font-size: 14px; color: #eee; line-height: 1.6; margin-bottom: 15px;">
-            Our team will reach out via Telegram to verify your delivery address and finalize procurement details.
-        </p>
-
-        <strong><span style="display: block; color: var(--gold); margin-bottom: 5px;">• Delivery & Settlement:</span></strong>
-        <p style="font-size: 14px; color: #eee; line-height: 1.6;">
-            Receive your package seamlessly at your door in Addis Ababa and select you payment method in the check out and settle the total balance via telebirr/cash.
-        </p>
-
+        <div style="margin-bottom:25px;"><strong style="display:block;color:var(--gold);margin-bottom:5px;">Curated Excellence</strong><p style="font-size:14px;color:#eee;line-height:1.6;">WE ARE Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p></div>
+        <div style="margin-bottom:25px;"><strong style="display:block;color:var(--gold);margin-bottom:5px;">Global Trends, Local Access</strong><p style="font-size:14px;color:#eee;line-height:1.6;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service.</p></div>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:5px;">• Instant Reservation:</span></strong>
+        <p style="font-size:14px;color:#eee;line-height:1.6;margin-bottom:15px;">Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.</p>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:5px;">• Telegram Verification:</span></strong>
+        <p style="font-size:14px;color:#eee;line-height:1.6;margin-bottom:15px;">Our team will reach out via Telegram to verify your delivery address and finalize procurement details.</p>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:5px;">• Delivery & Settlement:</span></strong>
+        <p style="font-size:14px;color:#eee;line-height:1.6;">Receive your package at your door in Addis Ababa and settle the total balance via telebirr/cash.</p>
         <button class="btn" onclick="closeAbout()">Go Back to Shopping</button>
     </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     PRIVACY POLICY PAGE
+══════════════════════════════════════════════ -->
+<div id="privacyPage" class="legal-page">
+    <div class="legal-inner">
+        <button class="legal-back-btn" onclick="closeLegal('privacyPage')">← Back</button>
+        <div class="legal-header">
+            <div class="legal-badge">OUMRAN STORE • LEGAL</div>
+            <h1>Privacy Policy</h1>
+            <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all users in Addis Ababa, Ethiopia</p>
+        </div>
+
+        <div class="legal-highlight-box">
+            <p>We respect your privacy. This policy explains what personal information we collect, why we collect it, and how it is used. By using OUMRAN STORE, you agree to the terms below.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>1. Information We Collect</h2>
+            <ul>
+                <li><strong>Profile Information:</strong> When you create an OUMRAN profile, we collect your full name and Gmail address, stored locally on your device.</li>
+                <li><strong>Order Details:</strong> When you place an order, we collect your name, phone number, and delivery address to process your reservation.</li>
+                <li><strong>Device Data:</strong> We may collect browser type and session data solely to improve store performance. We do not track your precise location.</li>
+                <li><strong>Images:</strong> If you submit a private sourcing request with a reference image, that image is transmitted directly to our Telegram concierge and is not stored on any third-party server by us.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. How We Use Your Information</h2>
+            <ul>
+                <li>To process and confirm your orders via Telegram.</li>
+                <li>To contact you regarding your delivery status and payment confirmation.</li>
+                <li>To maintain your local order history on your own device.</li>
+                <li>We do <strong>not</strong> sell, rent, or share your personal data with any third party for marketing purposes.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Data Storage</h2>
+            <p>All profile and order history data is stored locally on your device using browser localStorage. We do not operate a central customer database. Your data remains on your device and under your control.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Telegram Communication</h2>
+            <p>Order details and private sourcing requests are transmitted via Telegram Bot API to our internal business channel. This communication is subject to Telegram's own Privacy Policy. We recommend reviewing it at <strong>telegram.org/privacy</strong>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Cookies</h2>
+            <p>OUMRAN STORE uses only essential browser storage (localStorage and sessionStorage) required for core functionality such as cart management and profile saving. We do not use advertising cookies or tracking pixels.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Your Rights</h2>
+            <ul>
+                <li>You may clear your profile and order history at any time by clearing your browser's local storage.</li>
+                <li>You may request deletion of any order data shared with us by contacting us on Telegram.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Contact</h2>
+            <p>For any privacy-related questions, reach us via Telegram: <strong>@OUMER_FETE</strong></p>
+        </div>
+
+        <button class="btn" onclick="closeLegal('privacyPage')">Return to Store</button>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TERMS & CONDITIONS PAGE
+══════════════════════════════════════════════ -->
+<div id="termsPage" class="legal-page">
+    <div class="legal-inner">
+        <button class="legal-back-btn" onclick="closeLegal('termsPage')">← Back</button>
+        <div class="legal-header">
+            <div class="legal-badge">OUMRAN STORE • LEGAL</div>
+            <h1>Terms & Conditions</h1>
+            <p>Last updated: January 2026 &nbsp;|&nbsp; Governing jurisdiction: Addis Ababa, Ethiopia</p>
+        </div>
+
+        <div class="legal-highlight-box">
+            <p>By browsing or placing an order through OUMRAN STORE, you agree to be bound by these Terms & Conditions. Please read them carefully before proceeding.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>1. About OUMRAN STORE</h2>
+            <p>OUMRAN STORE is an independent fashion retail operation based in Addis Ababa, Ethiopia. We source premium apparel and lifestyle goods directly from vetted suppliers in China and distribute exclusively within Addis Ababa.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Product Listings</h2>
+            <ul>
+                <li>All product images are representative. Slight color variations may occur due to screen calibration.</li>
+                <li>Prices are listed in Ethiopian Birr (ETB) and are subject to change based on supplier stock and currency fluctuations.</li>
+                <li>Final pricing for each order will be confirmed via Telegram before dispatch.</li>
+                <li>Stock availability is not guaranteed. In the event an item becomes unavailable after your order, we will notify you and offer an alternative or full cancellation.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Ordering Process</h2>
+            <ul>
+                <li>Placing an order on this website constitutes a <strong>reservation request</strong>, not a confirmed sale.</li>
+                <li>Your order is confirmed only after our team contacts you via Telegram and verifies your delivery details.</li>
+                <li>We reserve the right to decline or cancel any order at our discretion.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Payment</h2>
+            <ul>
+                <li><strong>Cash on Delivery (COD):</strong> Full payment is due upon receipt of goods at your door. No advance payment required.</li>
+                <li><strong>50% Secure Deposit:</strong> A 50% upfront payment via Telebirr is required to lock in your order; the remainder is due upon delivery.</li>
+                <li><strong>Full Upfront Payment:</strong> Full payment via Telebirr prior to dispatch. Eligible for priority processing.</li>
+                <li>Telebirr payment numbers: <strong>0939620004 | 0940028820</strong></li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Delivery</h2>
+            <ul>
+                <li>Delivery is currently available exclusively within <strong>Addis Ababa</strong>.</li>
+                <li>Estimated delivery time will be communicated via Telegram upon order confirmation.</li>
+                <li>OUMRAN STORE is not liable for delays caused by circumstances beyond our control.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Intellectual Property</h2>
+            <p>All content on this website, including text, design, layout, and product photography, is the property of OUMRAN STORE. Unauthorized reproduction or distribution is prohibited.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Limitation of Liability</h2>
+            <p>OUMRAN STORE shall not be liable for any indirect, incidental, or consequential damages arising from the use of this website or the purchase of products. Our total liability shall not exceed the amount paid for the specific order in question.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>8. Governing Law</h2>
+            <p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia. Any disputes shall be resolved in Addis Ababa under Ethiopian jurisdiction.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>9. Contact</h2>
+            <p>For any questions regarding these terms, contact us via Telegram: <strong>@OUMER_FETE</strong></p>
+        </div>
+
+        <button class="btn" onclick="closeLegal('termsPage')">Return to Store</button>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     REFUND & EXCHANGE POLICY PAGE
+══════════════════════════════════════════════ -->
+<div id="refundPage" class="legal-page">
+    <div class="legal-inner">
+        <button class="legal-back-btn" onclick="closeLegal('refundPage')">← Back</button>
+        <div class="legal-header">
+            <div class="legal-badge">OUMRAN STORE • LEGAL</div>
+            <h1>Refund & Exchange Policy</h1>
+            <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all orders in Addis Ababa</p>
+        </div>
+
+        <div class="legal-highlight-box">
+            <p>Your satisfaction is our priority. Please read this policy carefully before placing your order. All refund and exchange requests must be initiated within the timeframes specified below.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>1. Eligibility for Refund or Exchange</h2>
+            <p>You may be eligible for a refund or exchange if:</p>
+            <ul>
+                <li>The item received is significantly different from what was ordered (wrong color, wrong size, wrong product).</li>
+                <li>The item has a clear manufacturing defect or damage upon arrival.</li>
+                <li>Your request is submitted within <strong>48 hours</strong> of delivery.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Non-Eligible Items</h2>
+            <ul>
+                <li>Items that have been worn, washed, or altered after delivery.</li>
+                <li>Items where the issue is a minor color variation due to screen display differences.</li>
+                <li>Orders where the correct size was confirmed at checkout and delivered as specified.</li>
+                <li>Sale or discounted items (unless defective).</li>
+                <li>Custom or private sourcing orders — these are procured exclusively for you and are non-refundable once confirmed.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. How to Request a Refund or Exchange</h2>
+            <ul>
+                <li>Contact us via Telegram at <strong>@OUMER_FETE</strong> within 48 hours of delivery.</li>
+                <li>Provide your order ID (found in your Order History), a clear photo of the item, and a description of the issue.</li>
+                <li>Our team will review your request within <strong>1–2 business days</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Resolution Options</h2>
+            <ul>
+                <li><strong>Exchange:</strong> We will arrange delivery of the correct item at no additional cost.</li>
+                <li><strong>Store Credit:</strong> Applied toward your next order.</li>
+                <li><strong>Full Refund:</strong> Issued via Telebirr to your registered number if an exchange is not possible. Processed within 3–5 business days.</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Upfront Payment Refunds</h2>
+            <p>If you paid a 50% deposit or full upfront payment and your order cannot be fulfilled (due to stock issues), a full refund will be processed to your Telebirr account within <strong>3–5 business days</strong>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>6. Contact</h2>
+            <p>All refund and exchange communications should be directed to: <strong>@OUMER_FETE</strong> on Telegram.</p>
+        </div>
+
+        <button class="btn" onclick="closeLegal('refundPage')">Return to Store</button>
+    </div>
+</div>
+
+<!-- ── SPLASH ── -->
 <div id="splash-screen">
     <div class="splash-content">
         <div class="welcome-msg">WELCOME TO</div>
@@ -320,93 +485,54 @@
     </div>
 </div>
 
-<div id="profileOnboardingModal" class="modal" style="display: none; background: rgba(0,0,0,0.98);">
-    <div class="modal-content" style="border: 1px solid #222; text-align: center; margin-top: 10vh; max-width: 360px;">
+<!-- ── PROFILE ONBOARDING MODAL ── -->
+<div id="profileOnboardingModal" class="modal" style="display:none;background:rgba(0,0,0,0.98);">
+    <div class="modal-content" style="border:1px solid #222;text-align:center;margin-top:10vh;max-width:360px;">
         <div class="welcome-msg">WELCOME TO OUMRAN</div>
-        <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); font-size: 24px; margin-bottom: 10px;">Create Your Profile</h2>
-        <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;">OUMRAN LUXURY ACCESS</p>
-        <div style="text-align: left; margin-bottom: 15px;">
-            <label style="font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase;">Full Name</label>
-            <input type="text" id="onboardName" placeholder="Enter full name" class="order-input" style="background: #050505;">
-        </div>
-        <div style="text-align: left; margin-bottom: 25px;">
-            <label style="font-size: 11px; font-weight: bold; color: #aaa; text-transform: uppercase;">Gmail Address</label>
-            <input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input" style="background: #050505;">
-        </div>
-        <button class="btn" style="background: #fff; color: #000; font-weight: 900;" onclick="saveOnboardingProfile()">Generate Profile</button>
-        <button class="btn" style="background: #222; color: #fff; font-weight: 900; margin-top: 8px;" onclick="cancelOnboardingProfile()">Cancel</button>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:24px;margin-bottom:10px;">Create Your Profile</h2>
+        <p style="font-size:12px;color:#888;text-transform:uppercase;letter-spacing:2px;margin-bottom:25px;">OUMRAN LUXURY ACCESS</p>
+        <div style="text-align:left;margin-bottom:15px;"><label style="font-size:11px;font-weight:bold;color:#aaa;text-transform:uppercase;">Full Name</label><input type="text" id="onboardName" placeholder="Enter full name" class="order-input" style="background:#050505;"></div>
+        <div style="text-align:left;margin-bottom:25px;"><label style="font-size:11px;font-weight:bold;color:#aaa;text-transform:uppercase;">Gmail Address</label><input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input" style="background:#050505;"></div>
+        <button class="btn" style="background:#fff;color:#000;font-weight:900;" onclick="saveOnboardingProfile()">Generate Profile</button>
+        <button class="btn" style="background:#222;color:#fff;font-weight:900;margin-top:8px;" onclick="cancelOnboardingProfile()">Cancel</button>
     </div>
 </div>
 
+<!-- ── PROFILE HUB MODAL ── -->
 <div id="profileHubModal" class="modal">
-    <div class="modal-content" style="background: #050505; border: 1px solid rgba(214,175,55,0.25); max-width: 440px; padding: 30px 20px; border-radius: 30px;">
-        <div style="text-align: center; margin-bottom: 25px;">
-            <p style="color: var(--gold); font-size: 10px; letter-spacing: 4px; text-transform: uppercase; margin: 0 0 8px 0; font-weight: 900;">AUTHENTIC SPACE</p>
-            <h2 style="font-family: 'Playfair Display', serif; color: #fff; text-align: center; font-size: 26px; margin: 0; letter-spacing: 1px; font-style: italic;">Oumran Client Profile</h2>
+    <div class="modal-content" style="background:#050505;border:1px solid rgba(214,175,55,0.25);max-width:440px;padding:30px 20px;border-radius:30px;">
+        <div style="text-align:center;margin-bottom:25px;">
+            <p style="color:var(--gold);font-size:10px;letter-spacing:4px;text-transform:uppercase;margin:0 0 8px 0;font-weight:900;">AUTHENTIC SPACE</p>
+            <h2 style="font-family:'Playfair Display',serif;color:#fff;text-align:center;font-size:26px;margin:0;letter-spacing:1px;font-style:italic;">Oumran Client Profile</h2>
         </div>
-
-        <div style="background: #000; border: 1px solid #1c1c1c; border-radius: 20px; padding: 25px 15px; text-align: center; margin-bottom: 20px;">
-            <div style="background: #111; padding: 14px; display: inline-block; border-radius: 50%; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 25px rgba(0,0,0,0.8);">
+        <div style="background:#000;border:1px solid #1c1c1c;border-radius:20px;padding:25px 15px;text-align:center;margin-bottom:20px;">
+            <div style="background:#111;padding:14px;display:inline-block;border-radius:50%;margin-bottom:15px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 8px 25px rgba(0,0,0,0.8);">
                 <svg width="65" height="65" viewBox="0 0 24 24" fill="none" stroke="url(#goldGradient)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <defs>
-                        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#816604" />
-                            <stop offset="50%" stop-color="#FFD700" />
-                            <stop offset="100%" stop-color="#816604" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
+                    <defs><linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#816604"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#816604"/></linearGradient></defs>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div id="hubProfileName" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: 0.5px;">OUMER FETUDIN</div>
-            <div id="hubProfileEmail" style="font-size: 13px; color: #888; font-family: 'Inter', sans-serif; letter-spacing: 0.5px;">feteoumer@gmail.com</div>
+            <div id="hubProfileName" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:0.5px;">OUMER FETUDIN</div>
+            <div id="hubProfileEmail" style="font-size:13px;color:#888;font-family:'Inter',sans-serif;letter-spacing:0.5px;">feteoumer@gmail.com</div>
         </div>
-
-        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px;">
-            <div style="background: #0d0d0d; padding: 16px; border-radius: 14px; border: 1px solid #1a1a1a; display: flex; flex-direction: column; gap: 4px;">
-                <span style="color: #555; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px;">Membership Tier</span>
-                <span style="color: #FFD700; font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 5px;">✦ Client Portal</span>
-            </div>
-            <div style="background: #0d0d0d; padding: 16px; border-radius: 14px; border: 1px solid #1a1a1a; display: flex; flex-direction: column; gap: 4px;">
-                <span style="color: #555; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px;">Logistics Terminal</span>
-                <span style="color: #eee; font-size: 13px; font-weight: 600;">Addis Ababa Hub, Ethiopia</span>
-            </div>
-            <div style="background: #0d0d0d; padding: 16px; border-radius: 14px; border: 1px solid #1a1a1a; display: flex; flex-direction: column; gap: 4px;">
-                <span style="color: #555; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px;">Account Verification Status</span>
-                <span style="color: #00cc66; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px;">✓ Secure Handshake Verified</span>
-            </div>
-            <!-- FIX 12: replaced inline onmouseover/onmouseout with CSS class for hover — avoids JS style mutations that cause reflow -->
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:25px;">
+            <div style="background:#0d0d0d;padding:16px;border-radius:14px;border:1px solid #1a1a1a;display:flex;flex-direction:column;gap:4px;"><span style="color:#555;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;">Membership Tier</span><span style="color:#FFD700;font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:5px;">✦ Client Portal</span></div>
+            <div style="background:#0d0d0d;padding:16px;border-radius:14px;border:1px solid #1a1a1a;display:flex;flex-direction:column;gap:4px;"><span style="color:#555;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;">Logistics Terminal</span><span style="color:#eee;font-size:13px;font-weight:600;">Addis Ababa Hub, Ethiopia</span></div>
+            <div style="background:#0d0d0d;padding:16px;border-radius:14px;border:1px solid #1a1a1a;display:flex;flex-direction:column;gap:4px;"><span style="color:#555;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;">Account Verification Status</span><span style="color:#00cc66;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;">✓ Secure Handshake Verified</span></div>
             <button id="editProfileBtn" onclick="editProfileName()" class="profile-edit-btn">Edit Profile</button>
         </div>
-
-        <div style="background: rgba(212,175,55,0.03); border: 1px solid rgba(214,175,55,0.15); border-radius: 18px; padding: 20px; margin-bottom: 25px; text-align: center;">
-            <p style="color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin: 0 0 10px 0;">Why Oumran Is Unique</p>
-            <p style="color: #b3b3b3; font-size: 12px; line-height: 1.75; font-weight: 300; margin: 0; font-family: 'Inter', sans-serif; text-align: justify; text-justify: inter-word;">
-                Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge to ensure supreme fabric structure and inimitable configurations for the Addis Ababa citizenry. Sourced directly from premier luxury networks in China, we bypass mainstream metrics to establish localized sartorial supremacy.
-            </p>
+        <div style="background:rgba(212,175,55,0.03);border:1px solid rgba(214,175,55,0.15);border-radius:18px;padding:20px;margin-bottom:25px;text-align:center;">
+            <p style="color:var(--gold);font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin:0 0 10px 0;">Why Oumran Is Unique</p>
+            <p style="color:#b3b3b3;font-size:12px;line-height:1.75;font-weight:300;margin:0;font-family:'Inter',sans-serif;text-align:justify;text-justify:inter-word;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge to ensure supreme fabric structure and inimitable configurations for the Addis Ababa citizenry.</p>
         </div>
-
-        <button class="btn" style="background: #ffffff; color: #000000; margin-top: 0; border: none; font-weight: 900; letter-spacing: 1px; border-radius: 14px; padding: 16px;" onclick="closeProfileHub()">Return to Platform</button>
+        <button class="btn" style="background:#ffffff;color:#000000;margin-top:0;border:none;font-weight:900;letter-spacing:1px;border-radius:14px;padding:16px;" onclick="closeProfileHub()">Return to Platform</button>
     </div>
 </div>
-
-<!-- Inline style for the edit profile button hover — no JS reflow -->
-<style>
-.profile-edit-btn {
-    background: #1a1a1a; color: #fff; border: 1px solid #333;
-    padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 700;
-    cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
-    transition: background 0.3s, border-color 0.3s; width: 100%;
-}
-.profile-edit-btn:hover { background: #222; border-color: #555; }
-</style>
 
 <div class="site-wrapper">
     <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
 
     <header>
-        <!-- FIX 13: fetchpriority=high on the above-fold logo image -->
         <img src="IMG_8765.jpeg" alt="Logo" class="header-logo" fetchpriority="high">
         <span class="brand-name">OUMRAN STORE📲</span>
     </header>
@@ -424,18 +550,10 @@
     </div>
 
     <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search luxury essentials..." onkeyup="filterProducts()">
+        <input type="text" id="search-input" placeholder="Search luxury essentials...">
     </div>
 
     <main id="store-main">
-
-        <!-- ═══════════════════════════════════════════════ -->
-        <!--  FIX 14: loading="lazy" on ALL product images   -->
-        <!--  This is the single biggest perf win — the      -->
-        <!--  browser only fetches images as they scroll     -->
-        <!--  into view instead of all 50+ at page load.     -->
-        <!-- ═══════════════════════════════════════════════ -->
-
         <div class="category-section">
             <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper">
@@ -595,33 +713,31 @@
         </div>
     </main>
 
-    <div style="background-color: #000; padding: 100px 20px; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 50px; width: 100%; box-sizing: border-box;">
-        <p style="color: #d4af37; font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 20px; pointer-events: none;">OFF-MARKET</p>
-        <h2 style="color: #fff; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; font-weight: 400; margin-bottom: 25px; pointer-events: none;">PRIVATE REQUEST</h2>
-        <div style="max-width: 600px; margin: 0 auto; margin-bottom: 40px; pointer-events: none;">
-            <p style="color: #888; font-size: 13px; line-height: 2.2; font-weight: 300; letter-spacing: 1px;">
-                While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here in the website—regardless of the category—we invite you to engage our private sourcing service. We specialize in securing rare, high-end essentials tailored to your individual lifestyle.
-            </p>
+    <!-- PRIVATE REQUEST SECTION -->
+    <div style="background-color:#000;padding:100px 20px;text-align:center;border-top:1px solid #1a1a1a;margin-top:50px;width:100%;box-sizing:border-box;">
+        <p style="color:#d4af37;font-size:10px;letter-spacing:5px;text-transform:uppercase;margin-bottom:20px;pointer-events:none;">OFF-MARKET</p>
+        <h2 style="color:#fff;font-family:'Playfair Display',serif;font-size:26px;letter-spacing:2px;font-weight:400;margin-bottom:25px;pointer-events:none;">PRIVATE REQUEST</h2>
+        <div style="max-width:600px;margin:0 auto;margin-bottom:40px;pointer-events:none;">
+            <p style="color:#888;font-size:13px;line-height:2.2;font-weight:300;letter-spacing:1px;">While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here — regardless of category — we invite you to engage our private sourcing service.</p>
         </div>
-        <!-- FIX 12 continued: hover via CSS class, no inline JS style mutations -->
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
 
-    <style>
-    .private-request-btn {
-        display: inline-block; padding: 16px 42px; background-color: transparent;
-        color: #d4af37; border: 2px solid #d4af37; border-radius: 50px;
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600;
-        cursor: pointer; transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-        margin-top: 20px;
-    }
-    .private-request-btn:hover {
-        background-color: #d4af37; color: #000;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    }
-    </style>
+    <!-- ── FOOTER ── -->
+    <footer style="width:100%;background:#000;border-top:1px solid #111;padding:30px 20px 20px;box-sizing:border-box;">
+        <div class="footer-legal">
+            <a onclick="openLegal('privacyPage')">Privacy Policy</a>
+            <a onclick="openLegal('termsPage')">Terms & Conditions</a>
+            <a onclick="openLegal('refundPage')">Refund & Exchange</a>
+            <a onclick="openAbout()">About Us</a>
+            <a href="https://t.me/@OUMER_FETE" target="_blank">Contact</a>
+        </div>
+        <p style="text-align:center;color:#333;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:15px 0 0;margin:0;">
+            &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
+        </p>
+    </footer>
 
+    <!-- FLOATING BUTTONS -->
     <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
@@ -629,19 +745,19 @@
     <!-- PRODUCT MODAL -->
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%; border-radius:15px; margin-bottom:15px; cursor: zoom-in;">
-            <h2 id="m-name" style="margin-top:0; font-family: 'Playfair Display', serif;">Product</h2>
-            <span id="m-price" style="color:var(--gold); font-weight:900; font-size: 18px;">0 ETB</span>
+            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%;border-radius:15px;margin-bottom:15px;cursor:zoom-in;">
+            <h2 id="m-name" style="margin-top:0;font-family:'Playfair Display',serif;">Product</h2>
+            <span id="m-price" style="color:var(--gold);font-weight:900;font-size:18px;">0 ETB</span>
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color/Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
             <div id="pModalSizeWrapper">
-                <label style="font-size: 11px; font-weight: bold; color: #999;">SELECT SIZE</label>
+                <label style="font-size:11px;font-weight:bold;color:#999;">SELECT SIZE</label>
                 <select id="size-box" class="order-input"></select>
             </div>
             <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
-            <button class="btn" style="background:#333; color:white; margin-top:5px;" onclick="closeModal()">Cancel</button>
+            <button class="btn" style="background:#333;color:white;margin-top:5px;" onclick="closeModal()">Cancel</button>
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
         </div>
@@ -649,136 +765,124 @@
 
     <!-- PRIVATE SOURCING MODAL -->
     <div id="privateSourcingModal" class="modal">
-        <div class="modal-content" style="background: #1a1a1a; border: 1px solid #333;">
-            <h2 style="margin-top:0; font-family: 'Playfair Display', serif; color: #fff; letter-spacing: 1px;">Sourcing Intake 🌐</h2>
-            <p style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">Private Concierge Service</p>
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block; margin-bottom: 6px;">Item Classification</label>
-            <p style="font-size: 10px; font-weight: 500; color: #777; margin-bottom: 10px; line-height: 1.4; text-transform: uppercase; letter-spacing: 0.3px;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request. Specify your item below.</p>
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px;">Client Profile Name</label>
+        <div class="modal-content" style="background:#1a1a1a;border:1px solid #333;">
+            <h2 style="margin-top:0;font-family:'Playfair Display',serif;color:#fff;letter-spacing:1px;">Sourcing Intake 🌐</h2>
+            <p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;">Private Concierge Service</p>
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;margin-top:15px;display:block;margin-bottom:6px;">Item Classification</label>
+            <p style="font-size:10px;font-weight:500;color:#777;margin-bottom:10px;line-height:1.4;text-transform:uppercase;letter-spacing:0.3px;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request.</p>
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;">Client Profile Name</label>
             <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Contact Number</label>
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-top:15px;display:block;">Contact Number</label>
             <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; display: block; margin-top: 15px; margin-bottom: 8px;">Item Category</label>
-            <select id="srcCategory" class="order-input" style="background: #000; color: white;">
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;display:block;margin-top:15px;margin-bottom:8px;">Item Category</label>
+            <select id="srcCategory" class="order-input" style="background:#000;color:white;">
                 <option value="Clothes">Clothes</option>
                 <option value="Shoes">Shoes</option>
                 <option value="Watch">Watch / Jewelry's</option>
                 <option value="Bag">Bag / Other Accessories</option>
                 <option value="Other">Any Other Premium Goods</option>
             </select>
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Product Name & Details</label>
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-top:15px;display:block;">Product Name & Details</label>
             <input type="text" id="srcProductName" placeholder="Brand, Model, Release Year, etc." class="order-input">
             <div id="srcSizeWrapper">
-                <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Required Sizing</label>
+                <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-top:15px;display:block;">Required Sizing</label>
                 <input type="text" id="srcSize" placeholder="Your size (e.g., XL, 43, Standard)" class="order-input">
             </div>
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Preferred Allocation Budget</label>
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-top:15px;display:block;">Preferred Allocation Budget</label>
             <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
-            <label style="font-size: 11px; font-weight: bold; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; display: block;">Reference Link / Image Description</label>
-            <div id="srcReferenceWrapper" style="position: relative; border: 1px solid #444; border-radius: 10px; background-color: #000; margin-top: 10px; padding: 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px;">
-                <textarea id="srcReference" placeholder="Paste link to reference image, or details about the configuration/colorway" style="width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; min-height: 80px; resize: none; font-family: inherit; box-sizing: border-box; display: block; margin: 0;"></textarea>
-                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; padding-top: 8px;">
-                    <div id="srcImagePreviewSlot" style="display: flex; align-items: center;"></div>
-                    <label for="srcHiddenImageUpload" style="display: flex; align-items: center; gap: 6px; color: #a0a0a0; font-size: 13px; cursor: pointer; font-family: sans-serif;">
+            <label style="font-size:11px;font-weight:bold;color:#999;text-transform:uppercase;letter-spacing:0.5px;margin-top:15px;display:block;">Reference Link / Image Description</label>
+            <div id="srcReferenceWrapper" style="position:relative;border:1px solid #444;border-radius:10px;background-color:#000;margin-top:10px;padding:12px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;">
+                <textarea id="srcReference" placeholder="Paste link to reference image, or details about the configuration/colorway" style="width:100%;background:transparent;border:none;color:#fff;outline:none;font-size:16px;min-height:80px;resize:none;font-family:inherit;box-sizing:border-box;display:block;margin:0;"></textarea>
+                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #222;padding-top:8px;">
+                    <div id="srcImagePreviewSlot" style="display:flex;align-items:center;"></div>
+                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:6px;color:#a0a0a0;font-size:13px;cursor:pointer;font-family:sans-serif;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                         <span>Add Photo</span>
                     </label>
-                    <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display: none;">
+                    <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display:none;">
                 </div>
             </div>
-            <button class="btn" style="background: var(--gold); color: #000;" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
-            <button class="btn" style="background:#333; color:white; margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
+            <button class="btn" style="background:var(--gold);color:#000;" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
+            <button class="btn" style="background:#333;color:white;margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
         </div>
     </div>
 
     <!-- CART MODAL -->
     <div id="cartModal" class="modal">
         <div class="modal-content">
-            <div style="display: flex; background: #000; border-radius: 12px; padding: 4px; margin-bottom: 20px; border: 1px solid #333;">
-                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex: 1; padding: 10px; background: #1a1a1a; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Active Bag</button>
-                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex: 1; padding: 10px; background: transparent; color: #888; border: none; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s;">Order History</button>
+            <div style="display:flex;background:#000;border-radius:12px;padding:4px;margin-bottom:20px;border:1px solid #333;">
+                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex:1;padding:10px;background:#1a1a1a;color:#fff;border:none;border-radius:8px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Active Bag</button>
+                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex:1;padding:10px;background:transparent;color:#888;border:none;border-radius:8px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Order History</button>
             </div>
             <div id="active-bag-view">
-                <div id="cart-items-list" style="margin-bottom: 15px;"></div>
-                <div style="font-weight:900; color:var(--gold); border-top:1px solid #333; padding-top:15px; text-align:right; font-size: 18px; margin-bottom: 15px;">Total: <span id="cart-total">0</span> ETB</div>
+                <div id="cart-items-list" style="margin-bottom:15px;"></div>
+                <div style="font-weight:900;color:var(--gold);border-top:1px solid #333;padding-top:15px;text-align:right;font-size:18px;margin-bottom:15px;">Total: <span id="cart-total">0</span> ETB</div>
                 <input type="text" id="custName" placeholder="Full Name" class="order-input">
                 <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
                 <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-                <div style="margin-top: 15px;">
-                    <strong style="color: var(--gold);">Telebirr Payment Info:</strong><br>
-                    <span style="font-size: 18px; font-weight: bold; color: #fff;">0939620004 | 0940028820</span>
-                </div>
-                <div style="margin-top: 25px; padding: 15px 0; border-top: 1px solid #222;">
-                    <span style="display: block; color: var(--gold); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Select Payment Preference</span>
-                    <div style="display: flex; flex-direction: column; gap: 14px; font-family: 'Inter', sans-serif;">
-                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                            <input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Cash on Delivery (COD)</strong>
-                                <span style="color: #aaa; font-size: 12px;">No deposit needed. Settle total balance strictly upon delivery at your doorstep.</span>
-                            </div>
-                        </label>
-                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                            <input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">50% Secure Deposit</strong>
-                                <span style="color: #aaa; font-size: 12px;">Pay half upfront via Telebirr to lock in your order; settle the rest at your door.</span>
-                            </div>
-                        </label>
-                        <label style="display: flex; align-items: flex-start; gap: 12px; cursor: pointer;">
-                            <input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color: var(--gold); margin-top: 3px; transform: scale(1.1);">
-                            <div style="font-size: 13px; color: #eee; line-height: 1.5;">
-                                <strong style="color: var(--gold); display: block; margin-bottom: 2px;">Full Upfront Payment</strong>
-                                <span style="color: #aaa; font-size: 12px;">Settle the entire balance instantly via Telebirr for a completely seamless drop.</span>
-                            </div>
-                        </label>
+                <div style="margin-top:15px;"><strong style="color:var(--gold);">Telebirr Payment Info:</strong><br><span style="font-size:18px;font-weight:bold;color:#fff;">0939620004 | 0940028820</span></div>
+                <div style="margin-top:25px;padding:15px 0;border-top:1px solid #222;">
+                    <span style="display:block;color:var(--gold);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;">Select Payment Preference</span>
+                    <div style="display:flex;flex-direction:column;gap:14px;font-family:'Inter',sans-serif;">
+                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color:var(--gold);margin-top:3px;transform:scale(1.1);"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">Cash on Delivery (COD)</strong><span style="color:#aaa;font-size:12px;">No deposit needed. Settle total balance strictly upon delivery at your doorstep.</span></div></label>
+                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color:var(--gold);margin-top:3px;transform:scale(1.1);"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">50% Secure Deposit</strong><span style="color:#aaa;font-size:12px;">Pay half upfront via Telebirr to lock in your order; settle the rest at your door.</span></div></label>
+                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color:var(--gold);margin-top:3px;transform:scale(1.1);"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">Full Upfront Payment</strong><span style="color:#aaa;font-size:12px;">Settle the entire balance instantly via Telebirr for a completely seamless drop.</span></div></label>
                     </div>
                 </div>
-                <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 15px;">
-                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Prices may change slightly depending on the supplier stock.</p>
-                </div>
-                <div style="display: flex; align-items: flex-start; gap: 8px; margin-top: 8px;">
-                    <span style="color: var(--gold); font-size: 12px; margin-top: 2px;">•</span>
-                    <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.5;">Final pricing will be verified and confirmed during your Telegram order consultation.</p>
-                </div>
+                <div style="display:flex;align-items:flex-start;gap:8px;margin-top:15px;"><span style="color:var(--gold);font-size:12px;margin-top:2px;">•</span><p style="margin:0;font-size:12px;color:#888;line-height:1.5;">Prices may change slightly depending on the supplier stock.</p></div>
+                <div style="display:flex;align-items:flex-start;gap:8px;margin-top:8px;"><span style="color:var(--gold);font-size:12px;margin-top:2px;">•</span><p style="margin:0;font-size:12px;color:#888;line-height:1.5;">Final pricing will be verified and confirmed during your Telegram order consultation.</p></div>
                 <button class="btn" onclick="submitOrder()">Confirm Order</button>
-                <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
+                <button class="btn" onclick="closeCart()" style="background-color:#222;color:#fff;margin-top:10px;">Close</button>
             </div>
-            <div id="order-history-view" style="display: none;">
-                <div id="history-items-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px; padding-right: 5px;"></div>
-                <button class="btn" onclick="closeCart()" style="background-color: #222; color: #fff; margin-top: 10px;">Close</button>
+            <div id="order-history-view" style="display:none;">
+                <div id="history-items-list" style="max-height:300px;overflow-y:auto;margin-bottom:15px;padding-right:5px;"></div>
+                <button class="btn" onclick="closeCart()" style="background-color:#222;color:#fff;margin-top:10px;">Close</button>
             </div>
         </div>
     </div>
 
     <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal">
-        <div class="modal-content" style="background-color: #0b0b0b; color: #ffffff; padding: 40px 25px; border-radius: 15px; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border: 1px solid #222; max-width: 400px; margin: 20px auto;">
-            <h2 style="color: #d4af37; font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 25px; font-weight: 400;">ORDER RESERVED! 🕒</h2>
-            <p style="text-transform: uppercase; font-size: 11px; letter-spacing: 3px; color: #888; margin-bottom: 10px;">Thank you for shopping with OUMRAN STORE✨</p>
-            <p style="font-size: 16px; font-weight: 300; margin-bottom: 30px; line-height: 1.2;">We have your details.</p>
-            <div style="font-size: 13px; line-height: 1.8; color: #ccc; margin-bottom: 35px; padding: 0 10px;">
-                To lock in your items, please click below to send your Payment screenshot to our Telegram. Once we see the screenshot, we'll start the delivery process immediately.
-            </div>
-            <p style="font-size: 12px; letter-spacing: 2px; font-weight: 600; margin-bottom: 25px; text-transform: uppercase;">See you on Telegram!</p>
-            <button class="btn" onclick="window.location.href='https://t.me/@OUMER_FETE'" style="display: inline-block; background-color: #ffffff; color: #000000; padding: 15px 45px; border: none; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer;">Open Telegram</button>
+        <div class="modal-content" style="background-color:#0b0b0b;color:#ffffff;padding:40px 25px;border-radius:15px;text-align:center;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;border:1px solid #222;max-width:400px;margin:20px auto;">
+            <h2 style="color:#d4af37;font-family:'Playfair Display',serif;font-size:26px;letter-spacing:2px;margin-bottom:25px;font-weight:400;">ORDER RESERVED! 🕒</h2>
+            <p style="text-transform:uppercase;font-size:11px;letter-spacing:3px;color:#888;margin-bottom:10px;">Thank you for shopping with OUMRAN STORE✨</p>
+            <p style="font-size:16px;font-weight:300;margin-bottom:30px;line-height:1.2;">We have your details.</p>
+            <div style="font-size:13px;line-height:1.8;color:#ccc;margin-bottom:35px;padding:0 10px;">To lock in your items, please click below to send your Payment screenshot to our Telegram. Once we see the screenshot, we'll start the delivery process immediately.</div>
+            <p style="font-size:12px;letter-spacing:2px;font-weight:600;margin-bottom:25px;text-transform:uppercase;">See you on Telegram!</p>
+            <button class="btn" onclick="window.location.href='https://t.me/@OUMER_FETE'" style="display:inline-block;background-color:#ffffff;color:#000000;padding:15px 45px;border:none;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;">Open Telegram</button>
         </div>
     </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   OUMRAN STORE — Optimized JS
-   Key fixes:
-   FIX 15 — Debounced search (was firing on every keystroke causing layout thrash)
-   FIX 16 — Cached DOM refs for frequently-accessed elements
-   FIX 17 — Splash logo animation stopped after splash exits (saves GPU)
-   FIX 18 — Passive touch/scroll listeners
-   FIX 19 — RequestAnimationFrame for cart display update
-   ═══════════════════════════════════════════════════════════ */
+/* ── SCROLL LOCK SYSTEM ── */
+let _scrollY = 0;
 
-// FIX 16: Cache frequently-used DOM references once at startup
+function lockScroll() {
+    _scrollY = window.scrollY;
+    document.body.style.top = `-${_scrollY}px`;
+    document.documentElement.classList.add('overlay-open');
+    document.body.classList.add('overlay-open');
+}
+
+function unlockScroll() {
+    document.documentElement.classList.remove('overlay-open');
+    document.body.classList.remove('overlay-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _scrollY);
+}
+
+/* ── LEGAL PAGES ── */
+function openLegal(pageId) {
+    lockScroll();
+    document.getElementById(pageId).style.display = 'block';
+}
+function closeLegal(pageId) {
+    document.getElementById(pageId).style.display = 'none';
+    unlockScroll();
+}
+
+/* ── DOM CACHE & INIT ── */
 const DOM = {};
 
 let cart = [];
@@ -789,37 +893,32 @@ let srcAttachedImageBase64 = "";
 let pendingActionType = "";
 let currentProductType = "";
 
-// FIX 15: Debounce utility — prevents filterProducts from hammering the DOM on every keystroke
 function debounce(fn, delay) {
     let t;
-    return function(...args) {
-        clearTimeout(t);
-        t = setTimeout(() => fn.apply(this, args), delay);
-    };
+    return function(...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
 }
 
 window.addEventListener('load', () => {
-    // Cache DOM refs after load
-    DOM.splash       = document.getElementById('splash-screen');
-    DOM.splashLogo   = document.querySelector('.splash-logo');
-    DOM.cartBtn      = document.getElementById('cart-btn');
-    DOM.cartCount    = document.getElementById('cart-count');
-    DOM.cartTotal    = document.getElementById('cart-total');
-    DOM.cartList     = document.getElementById('cart-items-list');
-    DOM.toast        = document.getElementById('added-toast');
-    DOM.toastText    = document.getElementById('toast-text');
-    DOM.pModal       = document.getElementById('pModal');
-    DOM.modalImg     = document.getElementById('modal-img');
-    DOM.mName        = document.getElementById('m-name');
-    DOM.mPrice       = document.getElementById('m-price');
-    DOM.variantList  = document.getElementById('variant-list');
-    DOM.variantArea  = document.getElementById('variant-area');
-    DOM.recList      = document.getElementById('rec-list');
-    DOM.sizeBox      = document.getElementById('size-box');
-    DOM.sizeWrapper  = document.getElementById('pModalSizeWrapper');
-    DOM.zoomImg      = document.getElementById('zoom-img');
-    DOM.cartModal    = document.getElementById('cartModal');
-    DOM.searchInput  = document.getElementById('search-input');
+    DOM.splash      = document.getElementById('splash-screen');
+    DOM.splashLogo  = document.querySelector('.splash-logo');
+    DOM.cartBtn     = document.getElementById('cart-btn');
+    DOM.cartCount   = document.getElementById('cart-count');
+    DOM.cartTotal   = document.getElementById('cart-total');
+    DOM.cartList    = document.getElementById('cart-items-list');
+    DOM.toast       = document.getElementById('added-toast');
+    DOM.toastText   = document.getElementById('toast-text');
+    DOM.pModal      = document.getElementById('pModal');
+    DOM.modalImg    = document.getElementById('modal-img');
+    DOM.mName       = document.getElementById('m-name');
+    DOM.mPrice      = document.getElementById('m-price');
+    DOM.variantList = document.getElementById('variant-list');
+    DOM.variantArea = document.getElementById('variant-area');
+    DOM.recList     = document.getElementById('rec-list');
+    DOM.sizeBox     = document.getElementById('size-box');
+    DOM.sizeWrapper = document.getElementById('pModalSizeWrapper');
+    DOM.zoomImg     = document.getElementById('zoom-img');
+    DOM.cartModal   = document.getElementById('cartModal');
+    DOM.searchInput = document.getElementById('search-input');
 
     loadCart();
 
@@ -829,12 +928,7 @@ window.addEventListener('load', () => {
             DOM.splash.classList.add('splash-exit');
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
-
-            // FIX 17: Stop the shine animation once splash is gone — frees GPU
-            if (DOM.splashLogo) {
-                DOM.splashLogo.style.animation = 'none';
-            }
-
+            if (DOM.splashLogo) DOM.splashLogo.style.animation = 'none';
             syncProfileFieldsToForm();
             setTimeout(() => { document.body.classList.add('intro-complete'); }, 0);
         }, 2000);
@@ -848,16 +942,10 @@ window.addEventListener('load', () => {
     }
 
     initPrivateSourcingUploads();
-
-    // FIX 15: Wire up debounced search
-    if (DOM.searchInput) {
-        DOM.searchInput.addEventListener('input', debounce(filterProducts, 120));
-    }
-
-    // FIX 18: Passive scroll listener so browser never waits for JS before rendering frames
+    if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(filterProducts, 120));
     document.addEventListener('touchstart', () => {}, { passive: true });
-    document.addEventListener('touchmove',  () => {}, { passive: true });
-    document.addEventListener('wheel',      () => {}, { passive: true });
+    document.addEventListener('touchmove', () => {}, { passive: true });
+    document.addEventListener('wheel', () => {}, { passive: true });
 }, { once: true });
 
 /* ── PROFILE ── */
@@ -865,7 +953,7 @@ function checkProfileOnboarding(actionType) {
     const userProfile = localStorage.getItem('oumran_user_profile');
     if (!userProfile) {
         pendingActionType = actionType;
-        if (actionType === 'cart')     DOM.pModal.style.display = "none";
+        if (actionType === 'cart') DOM.pModal.style.display = "none";
         if (actionType === 'sourcing') document.getElementById("privateSourcingModal").style.display = "none";
         scrollPos = window.pageYOffset;
         document.getElementById('profileOnboardingModal').style.display = 'block';
@@ -876,7 +964,7 @@ function checkProfileOnboarding(actionType) {
 }
 
 function saveOnboardingProfile() {
-    const nameInput  = document.getElementById('onboardName').value.trim();
+    const nameInput = document.getElementById('onboardName').value.trim();
     const emailInput = document.getElementById('onboardEmail').value.trim();
     if (!nameInput || !emailInput) return alert("Please enter your Full Name and Gmail address to setup your Oumran Profile space.");
     if (!emailInput.toLowerCase().endsWith('@gmail.com')) return alert("Please enter a valid official @gmail.com account.");
@@ -903,32 +991,28 @@ function syncProfileFieldsToForm() {
     const userProfileStr = localStorage.getItem('oumran_user_profile');
     if (!userProfileStr) return;
     const profile = JSON.parse(userProfileStr);
-    const custName    = document.getElementById('custName');
-    const srcName     = document.getElementById('srcClientName');
-    const hubName     = document.getElementById('hubProfileName');
-    const hubEmail    = document.getElementById('hubProfileEmail');
-    if (custName)  custName.value         = profile.name;
-    if (srcName)   srcName.value          = profile.name;
-    if (hubName)   hubName.innerText      = profile.name;
-    if (hubEmail)  hubEmail.innerText     = profile.email;
+    const custName = document.getElementById('custName');
+    const srcName = document.getElementById('srcClientName');
+    const hubName = document.getElementById('hubProfileName');
+    const hubEmail = document.getElementById('hubProfileEmail');
+    if (custName) custName.value = profile.name;
+    if (srcName) srcName.value = profile.name;
+    if (hubName) hubName.innerText = profile.name;
+    if (hubEmail) hubEmail.innerText = profile.email;
 }
 
 function editProfileName() {
     const newName = prompt('Enter your new name:', document.getElementById('hubProfileName').innerText);
     if (newName) {
         const profileStr = localStorage.getItem('oumran_user_profile');
-        if (profileStr) {
-            const profile = JSON.parse(profileStr);
-            profile.name = newName;
-            localStorage.setItem('oumran_user_profile', JSON.stringify(profile));
-        }
+        if (profileStr) { const profile = JSON.parse(profileStr); profile.name = newName; localStorage.setItem('oumran_user_profile', JSON.stringify(profile)); }
         document.getElementById('hubProfileName').innerText = newName;
     }
 }
 
 function openProfileHub() {
     if (!localStorage.getItem('oumran_user_profile')) { checkProfileOnboarding('hub'); return; }
-    scrollPos = window.pageYOffset;
+    lockScroll();
     syncProfileFieldsToForm();
     document.getElementById('profileHubModal').style.display = 'block';
     document.documentElement.classList.add('modal-open');
@@ -936,47 +1020,40 @@ function openProfileHub() {
 function closeProfileHub() {
     document.getElementById('profileHubModal').style.display = 'none';
     document.documentElement.classList.remove('modal-open');
-    window.scrollTo(0, scrollPos);
+    unlockScroll();
 }
 
 /* ── CART VIEW TOGGLE ── */
 function switchCartView(view) {
-    const bagView     = document.getElementById('active-bag-view');
+    const bagView = document.getElementById('active-bag-view');
     const historyView = document.getElementById('order-history-view');
-    const btnBag      = document.getElementById('toggle-active-bag');
-    const btnHistory  = document.getElementById('toggle-order-history');
+    const btnBag = document.getElementById('toggle-active-bag');
+    const btnHistory = document.getElementById('toggle-order-history');
     const isBag = view === 'bag';
-    bagView.style.display     = isBag ? 'block' : 'none';
+    bagView.style.display = isBag ? 'block' : 'none';
     historyView.style.display = isBag ? 'none' : 'block';
-    btnBag.style.background     = isBag ? '#1a1a1a' : 'transparent';
-    btnBag.style.color          = isBag ? '#fff' : '#888';
+    btnBag.style.background = isBag ? '#1a1a1a' : 'transparent';
+    btnBag.style.color = isBag ? '#fff' : '#888';
     btnHistory.style.background = isBag ? 'transparent' : '#1a1a1a';
-    btnHistory.style.color      = isBag ? '#888' : '#fff';
+    btnHistory.style.color = isBag ? '#888' : '#fff';
     if (!isBag) renderOrderHistory();
 }
 
 function renderOrderHistory() {
     const historyContainer = document.getElementById('history-items-list');
     const history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    if (history.length === 0) {
-        historyContainer.innerHTML = `<p style="text-align:center; color:#555; font-family:'Inter',sans-serif; margin-top:40px; font-size:13px;">No orders found under this account.</p>`;
-        return;
-    }
+    if (history.length === 0) { historyContainer.innerHTML = `<p style="text-align:center;color:#555;font-family:'Inter',sans-serif;margin-top:40px;font-size:13px;">No orders found under this account.</p>`; return; }
     history.sort((a, b) => b.timestamp - a.timestamp);
-    // FIX 19: Build HTML string first, single innerHTML write — avoids multiple reflows
     historyContainer.innerHTML = history.map(order => `
-        <div style="background:#090909; border:1px solid #222; border-radius:12px; padding:15px; margin-bottom:12px; font-family:'Inter',sans-serif;">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1a1a1a; padding-bottom:8px; margin-bottom:8px;">
-                <span style="color:var(--gold); font-size:11px; font-weight:700; text-transform:uppercase;">ID: #${order.id}</span>
-                <span style="color:#555; font-size:11px;">${order.date}</span>
+        <div style="background:#090909;border:1px solid #222;border-radius:12px;padding:15px;margin-bottom:12px;font-family:'Inter',sans-serif;">
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a;padding-bottom:8px;margin-bottom:8px;">
+                <span style="color:var(--gold);font-size:11px;font-weight:700;text-transform:uppercase;">ID: #${order.id}</span>
+                <span style="color:#555;font-size:11px;">${order.date}</span>
             </div>
-            <div style="color:#ccc; font-size:13px; line-height:1.5; margin-bottom:8px;">${order.items.replace(/\n/g, '<br>')}</div>
-            <div style="font-size:12px; color:#aaa; background:#141414; padding:8px; border-radius:6px; margin-bottom:8px; border:1px solid #1d1d1d;">
-                <strong style="color:var(--gold); display:block; margin-bottom:2px; font-size:10px; text-transform:uppercase;">Payment Preference:</strong> ${order.method}
-            </div>
-            <div style="text-align:right; font-weight:900; color:#fff; font-size:14px;">Total: <span style="color:var(--gold);">${order.total}</span> ETB</div>
-        </div>
-    `).join('');
+            <div style="color:#ccc;font-size:13px;line-height:1.5;margin-bottom:8px;">${order.items.replace(/\n/g, '<br>')}</div>
+            <div style="font-size:12px;color:#aaa;background:#141414;padding:8px;border-radius:6px;margin-bottom:8px;border:1px solid #1d1d1d;"><strong style="color:var(--gold);display:block;margin-bottom:2px;font-size:10px;text-transform:uppercase;">Payment Preference:</strong> ${order.method}</div>
+            <div style="text-align:right;font-weight:900;color:#fff;font-size:14px;">Total: <span style="color:var(--gold);">${order.total}</span> ETB</div>
+        </div>`).join('');
 }
 
 /* ── ZOOM ── */
@@ -1001,52 +1078,41 @@ function closeZoom() { document.getElementById("zoom-container").style.display =
 
 /* ── ABOUT ── */
 function openAbout() {
-    scrollPos = window.pageYOffset;
+    lockScroll();
     document.getElementById('aboutPage').style.display = 'block';
     document.documentElement.classList.add('modal-open');
 }
 function closeAbout() {
     document.getElementById('aboutPage').style.display = 'none';
     document.documentElement.classList.remove('modal-open');
-    window.scrollTo(0, scrollPos);
+    unlockScroll();
 }
 
 /* ── PRODUCT MODAL ── */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
     currentP = n; currentPrice = price; currentProductType = t;
-    DOM.mName.innerText  = n;
+    DOM.mName.innerText = n;
     DOM.mPrice.innerText = price.toLocaleString() + " ETB";
     const clickedCard = event.currentTarget;
     DOM.modalImg.src = clickedCard.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
-
     DOM.variantList.innerHTML = "";
     const variantsData = clickedCard.getAttribute('data-variants');
     currentVariants = variantsData ? JSON.parse(variantsData) : [];
-
     if (currentVariants.length > 0) {
         DOM.variantArea.style.display = "block";
-        // FIX 19: Build fragment, single DOM insertion
         const frag = document.createDocumentFragment();
         currentVariants.forEach((v, idx) => {
             const item = document.createElement("div");
             item.className = `variant-item${idx === 0 ? ' active' : ''}`;
-            item.onclick = function() {
-                DOM.modalImg.src = v.img;
-                DOM.variantList.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active'));
-                this.classList.add('active');
-            };
+            item.onclick = function() { DOM.modalImg.src = v.img; DOM.variantList.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active')); this.classList.add('active'); };
             item.innerHTML = `<img src="${v.img}" loading="lazy">${v.name ? `<span>${v.name}</span>` : ''}`;
             frag.appendChild(item);
         });
         DOM.variantList.appendChild(frag);
-    } else {
-        DOM.variantArea.style.display = "none";
-    }
-
-    // Recommendations — fragment approach
+    } else { DOM.variantArea.style.display = "none"; }
     DOM.recList.innerHTML = "";
     const recFrag = document.createDocumentFragment();
     clickedCard.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
@@ -1059,45 +1125,29 @@ function openP(n, t, price) {
         }
     });
     DOM.recList.appendChild(recFrag);
-
     DOM.sizeBox.innerHTML = "";
     const sizeFrag = document.createDocumentFragment();
-    (sz[t] || sz.acc).forEach(s => {
-        const o = document.createElement("option");
-        o.text = s;
-        sizeFrag.appendChild(o);
-    });
+    (sz[t] || sz.acc).forEach(s => { const o = document.createElement("option"); o.text = s; sizeFrag.appendChild(o); });
     DOM.sizeBox.appendChild(sizeFrag);
-
     DOM.sizeWrapper.style.display = (t === 'clothe' || t === 'shoes') ? "block" : "none";
     DOM.pModal.style.display = "block";
 }
 
-function handleAddToCartClick() {
-    if (checkProfileOnboarding('cart')) addToCart();
-}
+function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
 
 function addToCart() {
     const activeVariantSpan = DOM.variantList.querySelector('.variant-item.active span');
-    const displayColor  = activeVariantSpan ? ` <span class="admin-only">[${activeVariantSpan.innerText}]</span>` : "";
+    const displayColor = activeVariantSpan ? ` <span class="admin-only">[${activeVariantSpan.innerText}]</span>` : "";
     const internalColor = activeVariantSpan ? ` [${activeVariantSpan.innerText}]` : "";
     const configuredSize = (currentProductType === 'clothe' || currentProductType === 'shoes') ? DOM.sizeBox.value : "Standard";
-
-    cart.push({
-        name: currentP + displayColor,
-        internalName: currentP + internalColor,
-        size: configuredSize,
-        price: currentPrice
-    });
+    cart.push({ name: currentP + displayColor, internalName: currentP + internalColor, size: configuredSize, price: currentPrice });
     updateCartDisplay();
     closeModal();
-
     DOM.toastText.innerHTML = `<strong>${currentP}</strong> Added`;
     DOM.toast.classList.add("show");
     setTimeout(() => DOM.toast.classList.remove("show"), 2800);
 }
 
-// FIX 19: Wrap DOM updates in rAF so they're batched with the next paint
 function updateCartDisplay() {
     requestAnimationFrame(() => {
         DOM.cartCount.innerText = cart.length;
@@ -1110,22 +1160,14 @@ function showCart() {
     scrollPos = window.pageYOffset;
     document.documentElement.classList.add('modal-open');
     let total = 0;
-    // FIX 19: Single string build → one innerHTML write
-    const html = cart.map((item, i) => {
-        total += item.price;
-        return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;
-    }).join("");
+    const html = cart.map((item, i) => { total += item.price; return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`; }).join("");
     DOM.cartList.innerHTML = html;
     DOM.cartTotal.innerText = total.toLocaleString();
     DOM.cartModal.style.display = "block";
     switchCartView('bag');
 }
 
-function removeItem(index) {
-    cart.splice(index, 1);
-    updateCartDisplay();
-    if (cart.length === 0) closeCart(); else showCart();
-}
+function removeItem(index) { cart.splice(index, 1); updateCartDisplay(); if (cart.length === 0) closeCart(); else showCart(); }
 
 function submitOrder() {
     const n = document.getElementById('custName').value;
@@ -1135,29 +1177,11 @@ function submitOrder() {
     const selectedMethod = document.querySelector('input[name="payment_method"]:checked').value;
     let itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
     let totalVal = DOM.cartTotal.innerText;
-
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    history.push({
-        id: Math.floor(1000 + Math.random() * 9000),
-        timestamp: Date.now(),
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-        items: itemsStr,
-        method: selectedMethod,
-        total: totalVal
-    });
+    history.push({ id: Math.floor(1000 + Math.random() * 9000), timestamp: Date.now(), date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }), items: itemsStr, method: selectedMethod, total: totalVal });
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
-
-    const text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n` +
-        `✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n` +
-        `📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n` +
-        `💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n` +
-        `💳 *SERVICE PREFERENCE*\n✨ [ ${selectedMethod} ]\n\n—\n`;
-
-    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: "5715582254", text, parse_mode: "Markdown" })
-    }).then(() => {
+    const text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${selectedMethod} ]\n\n—\n`;
+    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: "5715582254", text, parse_mode: "Markdown" }) }).then(() => {
         DOM.cartModal.style.display = "none";
         document.getElementById("successModal").style.display = "block";
         cart = [];
@@ -1181,16 +1205,11 @@ function loadCart() {
     if (s) { cart = JSON.parse(s); updateCartDisplay(); }
 }
 
-/* FIX 15: Search now debounced — no per-keystroke layout thrash */
 function filterProducts() {
     const input = DOM.searchInput ? DOM.searchInput.value.toLowerCase() : document.getElementById('search-input').value.toLowerCase();
     document.querySelectorAll('.category-section').forEach(sec => {
         let match = false;
-        sec.querySelectorAll('.product-card').forEach(card => {
-            const show = card.querySelector('h3').innerText.toLowerCase().includes(input);
-            card.style.display = show ? "block" : "none";
-            if (show) match = true;
-        });
+        sec.querySelectorAll('.product-card').forEach(card => { const show = card.querySelector('h3').innerText.toLowerCase().includes(input); card.style.display = show ? "block" : "none"; if (show) match = true; });
         sec.style.display = match ? "block" : "none";
     });
 }
@@ -1198,122 +1217,76 @@ function filterProducts() {
 /* ── PRIVATE SOURCING ── */
 function openPrivateSourcing() {
     scrollPos = window.pageYOffset;
+    lockScroll();
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
     document.getElementById("privateSourcingModal").style.display = "block";
     syncProfileFieldsToForm();
     const srcCategory = document.getElementById('srcCategory');
-    if (srcCategory) {
-        document.getElementById('srcSizeWrapper').style.display =
-            (srcCategory.value === 'Clothes' || srcCategory.value === 'Shoes') ? 'block' : 'none';
-    }
+    if (srcCategory) document.getElementById('srcSizeWrapper').style.display = (srcCategory.value === 'Clothes' || srcCategory.value === 'Shoes') ? 'block' : 'none';
 }
 function closePrivateSourcing() {
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
     document.getElementById("privateSourcingModal").style.display = "none";
-    window.scrollTo(0, scrollPos);
+    unlockScroll();
 }
-function submitPrivateSourcingWithOnboardingCheck() {
-    if (checkProfileOnboarding('sourcing')) submitPrivateRequest();
-}
+function submitPrivateSourcingWithOnboardingCheck() { if (checkProfileOnboarding('sourcing')) submitPrivateRequest(); }
 
 function initPrivateSourcingUploads() {
-    const fileInput   = document.getElementById('srcHiddenImageUpload');
+    const fileInput = document.getElementById('srcHiddenImageUpload');
     const previewSlot = document.getElementById('srcImagePreviewSlot');
-    const wrapper     = document.getElementById('srcReferenceWrapper');
+    const wrapper = document.getElementById('srcReferenceWrapper');
     const srcCategory = document.getElementById('srcCategory');
     const srcSizeWrapper = document.getElementById('srcSizeWrapper');
-    const srcSizeInput   = document.getElementById('srcSize');
-
+    const srcSizeInput = document.getElementById('srcSize');
     if (srcCategory) {
         srcCategory.addEventListener('change', function() {
             const show = this.value === 'Clothes' || this.value === 'Shoes';
             srcSizeWrapper.style.display = show ? 'block' : 'none';
-            if (!show) srcSizeInput.value = 'Standard';
-            else if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
+            if (!show) srcSizeInput.value = 'Standard'; else if (srcSizeInput.value === 'Standard') srcSizeInput.value = '';
         });
     }
-
     function processImageFile(file) {
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = function(e) {
                 srcAttachedImageBase64 = e.target.result;
-                previewSlot.innerHTML = `
-                    <div style="position: relative; display: inline-block; margin-right: 10px;">
-                        <img src="${e.target.result}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px; border: 1px solid #333;">
-                        <span id="srcRemovePreviewBtn" style="position: absolute; top: -6px; right: -6px; background: #ff4d4d; color: white; border-radius: 50%; width: 14px; height: 14px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; font-family: sans-serif;">×</span>
-                    </div>`;
-                document.getElementById('srcRemovePreviewBtn').addEventListener('click', function(ev) {
-                    ev.preventDefault();
-                    previewSlot.innerHTML = '';
-                    fileInput.value = '';
-                    srcAttachedImageBase64 = "";
-                });
+                previewSlot.innerHTML = `<div style="position:relative;display:inline-block;margin-right:10px;"><img src="${e.target.result}" style="width:32px;height:32px;object-fit:cover;border-radius:4px;border:1px solid #333;"><span id="srcRemovePreviewBtn" style="position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:white;border-radius:50%;width:14px;height:14px;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;font-family:sans-serif;">×</span></div>`;
+                document.getElementById('srcRemovePreviewBtn').addEventListener('click', function(ev) { ev.preventDefault(); previewSlot.innerHTML = ''; fileInput.value = ''; srcAttachedImageBase64 = ""; });
             };
             reader.readAsDataURL(file);
         }
     }
-
     if (fileInput) fileInput.addEventListener('change', () => processImageFile(fileInput.files[0]));
-
     if (wrapper) {
         wrapper.addEventListener('paste', function(e) {
             const items = (e.clipboardData || e.originalEvent.clipboardData).items;
-            for (let i in items) {
-                const item = items[i];
-                if (item.kind === 'file') {
-                    const blob = item.getAsFile();
-                    processImageFile(blob);
-                    const dt = new DataTransfer();
-                    dt.items.add(blob);
-                    fileInput.files = dt.files;
-                }
-            }
+            for (let i in items) { const item = items[i]; if (item.kind === 'file') { const blob = item.getAsFile(); processImageFile(blob); const dt = new DataTransfer(); dt.items.add(blob); fileInput.files = dt.files; } }
         });
     }
 }
 
 function submitPrivateRequest() {
-    const clientName  = document.getElementById('srcClientName').value;
+    const clientName = document.getElementById('srcClientName').value;
     const clientPhone = document.getElementById('srcClientPhone').value;
-    const category    = document.getElementById('srcCategory').value;
+    const category = document.getElementById('srcCategory').value;
     const productName = document.getElementById('srcProductName').value;
-    const size        = document.getElementById('srcSize').value;
-    const budget      = document.getElementById('srcBudget').value || "Not Specified";
-    const reference   = document.getElementById('srcReference').value || "None Provided";
-
-    if (!clientName || !clientPhone || !productName || !size)
-        return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
-
-    const text = `🌐 *PRIVATE SOURCING REQUEST*\n\n` +
-        `👤 *Client:* ${clientName}\n📞 *Contact:* ${clientPhone}\n\n` +
-        `📦 *Classification:* ${category}\n🏷️ *Product Name:* ${productName}\n` +
-        `📐 *Size Required:* ${size}\n💰 *Target Budget:* ${budget}\n\n` +
-        `🔗 *Reference/Notes:* ${reference}`;
-
+    const size = document.getElementById('srcSize').value;
+    const budget = document.getElementById('srcBudget').value || "Not Specified";
+    const reference = document.getElementById('srcReference').value || "None Provided";
+    if (!clientName || !clientPhone || !productName || !size) return alert("Please fulfill your profile name, contact number, requested item, and sizing configurations.");
+    const text = `🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${clientName}\n📞 *Contact:* ${clientPhone}\n\n📦 *Classification:* ${category}\n🏷️ *Product Name:* ${productName}\n📐 *Size Required:* ${size}\n💰 *Target Budget:* ${budget}\n\n🔗 *Reference/Notes:* ${reference}`;
     let apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
     let postOptions;
-
     if (srcAttachedImageBase64) {
         apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto`;
         const formData = new FormData();
-        formData.append("chat_id", "5715582254");
-        formData.append("caption", text);
-        formData.append("parse_mode", "Markdown");
-        const basePart  = srcAttachedImageBase64.split(',');
-        const mimeType  = basePart[0].match(/:(.*?);/)[1];
-        const binaryStr = atob(basePart[1]);
-        let n = binaryStr.length;
-        const u8arr = new Uint8Array(n);
-        while (n--) u8arr[n] = binaryStr.charCodeAt(n);
+        formData.append("chat_id", "5715582254"); formData.append("caption", text); formData.append("parse_mode", "Markdown");
+        const basePart = srcAttachedImageBase64.split(','); const mimeType = basePart[0].match(/:(.*?);/)[1]; const binaryStr = atob(basePart[1]); let n = binaryStr.length; const u8arr = new Uint8Array(n); while (n--) u8arr[n] = binaryStr.charCodeAt(n);
         formData.append("photo", new Blob([u8arr], { type: mimeType }), "upload.jpg");
         postOptions = { method: "POST", body: formData };
-    } else {
-        postOptions = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: "5715582254", text, parse_mode: "Markdown" }) };
-    }
-
+    } else { postOptions = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ chat_id: "5715582254", text, parse_mode: "Markdown" }) }; }
     fetch(apiUrl, postOptions).then(() => {
         document.getElementById("privateSourcingModal").style.display = "none";
         document.getElementById("successModal").style.display = "block";
@@ -1321,15 +1294,9 @@ function submitPrivateRequest() {
         document.getElementById('srcImagePreviewSlot').innerHTML = "";
         document.getElementById('srcHiddenImageUpload').value = "";
         srcAttachedImageBase64 = "";
-    }).catch(() => {
-        alert("An error occurred during secure transport transmission. Please attempt connection layout again.");
-    });
+        unlockScroll();
+    }).catch(() => { alert("An error occurred. Please try again."); });
 }
 </script>
-
-<p style="text-align: center; color: #8A94A6; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 20px 0;">
-    &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
-</p>
-
 </body>
 </html>
