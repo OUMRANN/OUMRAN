@@ -1,4 +1,4 @@
- 
+
 <!DOCTYPE html>
 <html lang="en" class="loading">
 <head>
@@ -15,21 +15,25 @@
            ROOT & RESET
         ══════════════════════════════════════════ */
         :root {
-            --bg: #000;
-            --card: rgba(15,15,15,0.75);
-            --card-border: rgba(255,255,255,0.08);
+            --bg: #050505;
+            --surface: rgba(12,12,12,0.82);
+            --surface-raised: rgba(18,18,18,0.90);
+            --card: rgba(14,14,14,0.78);
+            --card-border: rgba(255,255,255,0.07);
             --tg: #0088cc;
             --accent: #ff3b30;
             --gold: #FFD700;
             --gold-dim: #d4af37;
-            --gold-pale: rgba(255,215,0,0.08);
+            --gold-pale: rgba(255,215,0,0.06);
             --beige: #d4c5b0;
-            --glass-light: rgba(255,255,255,0.04);
-            --glass-strong: rgba(255,255,255,0.07);
-            --glass-blur: blur(18px);
-            --glass-blur-heavy: blur(40px);
-            --border-glass: rgba(255,255,255,0.12);
-            --border-gold: rgba(212,175,55,0.25);
+            --glass-blur: blur(24px);
+            --glass-blur-heavy: blur(48px);
+            --border-glass: rgba(255,255,255,0.09);
+            --border-gold: rgba(212,175,55,0.22);
+            --radius-card: 22px;
+            --radius-modal: 28px;
+            --radius-btn: 16px;
+            --spacing-section: 56px;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -54,7 +58,7 @@
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background: #000;
+            background: var(--bg);
             color: white;
             overflow-x: hidden;
             min-height: 100vh;
@@ -65,7 +69,7 @@
         }
 
         /* ══════════════════════════════════════════
-           VIDEO BACKGROUND
+           VIDEO BACKGROUND — visible at ~50%
         ══════════════════════════════════════════ */
         #bg-video {
             position: fixed;
@@ -74,85 +78,52 @@
             object-fit: cover;
             z-index: -2;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.50;
         }
 
-        /* Dark overlay on top of video */
+        /* Dark overlay — softer so video shows through */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background: linear-gradient(
                 180deg,
-                rgba(0,0,0,0.55) 0%,
-                rgba(0,0,0,0.3) 40%,
-                rgba(0,0,0,0.45) 100%
+                rgba(5,5,5,0.60) 0%,
+                rgba(5,5,5,0.38) 40%,
+                rgba(5,5,5,0.55) 100%
             );
             z-index: -1;
             pointer-events: none;
+        }
+
+        /* Subtle grain texture for depth */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
         }
 
         .admin-only { display: none; }
         .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
 
         /* ══════════════════════════════════════════
-           LIQUID GLASS UTILITIES
+           GLASS UTILITIES
         ══════════════════════════════════════════ */
         .glass {
-            background: var(--glass-light);
+            background: var(--surface);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--border-glass);
-            position: relative;
-            overflow: hidden;
-        }
-        .glass::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(
-                160deg,
-                rgba(255,255,255,0.22) 0%,
-                rgba(255,255,255,0.06) 30%,
-                transparent 60%,
-                rgba(255,255,255,0.06) 80%,
-                rgba(255,255,255,0.18) 100%
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
         }
         .glass-strong {
-            background: var(--glass-strong);
+            background: var(--surface-raised);
             backdrop-filter: var(--glass-blur-heavy);
             -webkit-backdrop-filter: var(--glass-blur-heavy);
-            border: 1px solid var(--border-glass);
-            position: relative;
-            overflow: hidden;
-        }
-        .glass-strong::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(
-                160deg,
-                rgba(255,255,255,0.3) 0%,
-                rgba(255,255,255,0.08) 25%,
-                transparent 50%,
-                rgba(255,255,255,0.06) 75%,
-                rgba(255,255,255,0.22) 100%
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            border: 1px solid rgba(255,255,255,0.10);
         }
 
         /* ══════════════════════════════════════════
@@ -169,16 +140,16 @@
         }
         .splash-content { text-align: center; }
         .welcome-msg {
-            font-size: 11px; color: rgba(255,255,255,0.4);
+            font-size: 11px; color: rgba(255,255,255,0.35);
             letter-spacing: 8px; text-transform: uppercase;
-            margin-bottom: 20px; font-weight: 300;
+            margin-bottom: 24px; font-weight: 300;
             opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s;
         }
         .splash-logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 52px; letter-spacing: 14px; font-weight: 300;
+            font-size: 56px; letter-spacing: 16px; font-weight: 300;
             font-style: italic; text-transform: uppercase;
-            line-height: 1.05; margin-bottom: 18px;
+            line-height: 1.05; margin-bottom: 22px;
             background: linear-gradient(90deg, #816604 0%, #FFD700 40%, #fff8dc 55%, #FFD700 70%, #816604 100%);
             background-size: 250% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
@@ -187,37 +158,37 @@
             will-change: background-position, opacity;
         }
         .splash-divider {
-            width: 60px; height: 1px;
+            width: 70px; height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 0 auto 18px;
+            margin: 0 auto 22px;
             opacity: 0; animation: fadeUp 0.8s ease forwards 1s;
         }
         .splash-slogan {
-            font-size: 9px; color: rgba(255,255,255,0.5);
-            letter-spacing: 5px; font-weight: 600; text-transform: uppercase;
+            font-size: 9px; color: rgba(255,255,255,0.4);
+            letter-spacing: 6px; font-weight: 600; text-transform: uppercase;
             opacity: 0; animation: fadeUp 0.8s ease forwards 1.1s;
         }
         .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
         @keyframes shine { to { background-position: 250% center; } }
 
         /* ══════════════════════════════════════════
            HEADER
         ══════════════════════════════════════════ */
         header {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 16px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: rgba(5,5,5,0.72);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            padding: 20px 32px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
             position: sticky; top: 0; z-index: 100;
             text-align: center; width: 100%;
-            display: flex; align-items: center; justify-content: center; gap: 12px;
+            display: flex; align-items: center; justify-content: center; gap: 14px;
         }
-        .header-logo { height: 32px; border-radius: 6px; vertical-align: middle; }
+        .header-logo { height: 34px; border-radius: 7px; vertical-align: middle; }
         .brand-name {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 18px; letter-spacing: 4px; font-weight: 600;
+            font-size: 20px; letter-spacing: 5px; font-weight: 600;
             font-style: italic; color: var(--gold);
         }
 
@@ -225,18 +196,18 @@
            PROMO BAR
         ══════════════════════════════════════════ */
         .promo-bar {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(12px);
-            color: rgba(255,255,255,0.75);
-            font-size: 11px; padding: 12px 20px;
+            background: rgba(5,5,5,0.55);
+            backdrop-filter: blur(14px);
+            color: rgba(255,255,255,0.65);
+            font-size: 11px; padding: 14px 24px;
             font-weight: 600; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 1.5px;
         }
         .about-link {
             color: var(--gold); font-size: 11px; font-weight: 900;
             text-decoration: none; cursor: pointer; display: inline-block;
-            margin-top: 4px; letter-spacing: 2px;
+            margin-top: 5px; letter-spacing: 2px;
             transition: opacity 0.2s;
         }
         .about-link:hover { opacity: 0.7; }
@@ -246,129 +217,176 @@
         ══════════════════════════════════════════ */
         .trust-badges-container {
             display: flex; justify-content: center; align-items: center;
-            gap: 30px; padding: 14px 20px;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            gap: 36px; padding: 18px 28px;
+            background: rgba(5,5,5,0.45);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
             flex-wrap: wrap;
         }
-        .badge-item { display: flex; align-items: center; gap: 8px; }
+        .badge-item { display: flex; align-items: center; gap: 10px; }
         .badge-icon { color: var(--gold); font-weight: 900; font-size: 13px; }
-        .badge-text { color: rgba(255,255,255,0.55); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+        .badge-text { color: rgba(255,255,255,0.45); font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; }
 
         /* ══════════════════════════════════════════
            SEARCH
         ══════════════════════════════════════════ */
         .search-container {
-            padding: 18px 20px;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(8px);
+            padding: 24px 28px;
+            background: rgba(5,5,5,0.30);
+            backdrop-filter: blur(10px);
         }
         #search-input {
-            width: 100%; padding: 13px 22px;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            color: white; font-size: 15px;
+            width: 100%; padding: 16px 28px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(12px);
+            color: white; font-size: 14px;
             text-align: center; outline: none;
             font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
             transition: border-color 0.3s, background 0.3s;
         }
-        #search-input::placeholder { color: rgba(255,255,255,0.3); }
+        #search-input::placeholder { color: rgba(255,255,255,0.25); }
         #search-input:focus {
-            border-color: rgba(255,215,0,0.35);
-            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,215,0,0.30);
+            background: rgba(255,255,255,0.06);
         }
 
         /* ══════════════════════════════════════════
-           PRODUCT GRID
+           PRODUCT GRID — spacious, luxurious
         ══════════════════════════════════════════ */
-        .category-section { padding: 40px 0 0; position: relative; z-index: 1; }
+        .category-section { padding: 52px 0 0; position: relative; z-index: 1; }
         .category-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 22px; font-style: italic; font-weight: 300;
-            color: var(--gold); margin-bottom: 20px;
-            text-align: center; letter-spacing: 2px;
+            font-size: 24px; font-style: italic; font-weight: 300;
+            color: var(--gold); margin-bottom: 24px;
+            text-align: center; letter-spacing: 3px;
         }
         .scroll-wrapper {
             display: flex; overflow-x: auto;
-            gap: 16px; padding: 8px 20px 28px;
+            gap: 20px; padding: 6px 28px 36px;
             scrollbar-width: none;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card {
-            flex: 0 0 185px;
-            background: rgba(10,10,10,0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.09);
+            flex: 0 0 200px;
+            background: rgba(10,10,10,0.70);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--radius-card);
+            border: 1px solid rgba(255,255,255,0.08);
             color: white;
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.3s ease, border-color 0.3s;
+            transition: transform 0.35s ease, border-color 0.35s, box-shadow 0.35s;
             position: relative;
         }
         .product-card::after {
             content: '';
             position: absolute; inset: 0;
-            border-radius: 18px;
-            background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+            border-radius: var(--radius-card);
+            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, transparent 50%);
             pointer-events: none;
         }
         .product-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,215,0,0.3);
+            transform: translateY(-7px);
+            border-color: rgba(255,215,0,0.28);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.08);
         }
-        .img-area { height: 225px; background: #000; overflow: hidden; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-        .product-card:hover .img-area img { transform: scale(1.04); }
-        .info-area { padding: 14px; }
-        .info-area h3 { font-size: 11px; color: var(--beige); height: 30px; overflow: hidden; font-weight: 400; letter-spacing: 0.5px; }
-        .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 6px; }
+        .img-area { height: 240px; background: #000; overflow: hidden; }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
+        .product-card:hover .img-area img { transform: scale(1.05); }
+        .info-area { padding: 18px 16px 16px; }
+        .info-area h3 {
+            font-size: 11px; color: var(--beige);
+            height: 32px; overflow: hidden;
+            font-weight: 400; letter-spacing: 0.6px;
+            line-height: 1.5;
+        }
+        .new-p {
+            font-weight: 900; font-size: 15px;
+            color: white; margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
 
         /* ══════════════════════════════════════════
            VARIANTS
         ══════════════════════════════════════════ */
-        .variant-section { margin-bottom: 15px; }
-        .variant-label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 2px; }
-        .variant-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .variant-section { margin-bottom: 20px; }
+        .variant-label {
+            font-size: 10px; font-weight: 700;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase; margin-bottom: 12px;
+            display: block; letter-spacing: 2.5px;
+        }
+        .variant-scroll {
+            display: flex; gap: 12px;
+            overflow-x: auto; padding-bottom: 6px; scrollbar-width: none;
+        }
         .variant-scroll::-webkit-scrollbar { display: none; }
-        .variant-item { flex: 0 0 65px; height: 65px; border-radius: 10px; border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: border-color 0.2s; }
+        .variant-item {
+            flex: 0 0 70px; height: 70px;
+            border-radius: 12px; border: 2px solid transparent;
+            cursor: pointer; overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .variant-item:hover { transform: scale(1.05); }
         .variant-item img { width: 100%; height: 100%; object-fit: cover; }
         .variant-item span { display: none !important; }
-        .variant-item.active { border-color: var(--gold); }
+        .variant-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.25); }
 
         /* ══════════════════════════════════════════
            RECOMMENDATIONS
         ══════════════════════════════════════════ */
-        .rec-title { font-size: 11px; font-weight: 900; color: var(--gold); margin: 25px 0 12px; border-top: 1px solid #222; padding-top: 20px; text-transform: uppercase; letter-spacing: 2px; }
-        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
-        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
-        .rec-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; border: 1px solid #333; transition: border-color 0.2s; }
-        .rec-item:hover img { border-color: var(--gold); }
-        .rec-item h4 { font-size: 9px; margin: 7px 0; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; }
+        .rec-title {
+            font-size: 10px; font-weight: 900;
+            color: var(--gold); margin: 32px 0 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 24px; text-transform: uppercase; letter-spacing: 3px;
+        }
+        .rec-scroll {
+            display: flex; gap: 14px;
+            overflow-x: auto; scrollbar-width: none; padding-bottom: 8px;
+        }
+        .rec-item { flex: 0 0 115px; cursor: pointer; text-align: center; }
+        .rec-item img {
+            width: 100%; height: 115px; object-fit: cover;
+            border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .rec-item:hover img { border-color: var(--gold); transform: scale(1.03); }
+        .rec-item h4 {
+            font-size: 9px; margin: 8px 0 0;
+            color: rgba(255,255,255,0.45);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            letter-spacing: 0.5px;
+        }
 
         /* ══════════════════════════════════════════
            TOAST
         ══════════════════════════════════════════ */
         #added-toast {
-            position: fixed; top: 20px; right: 20px; visibility: hidden;
-            background: rgba(15,15,15,0.92);
-            backdrop-filter: blur(20px);
-            color: white; padding: 14px 22px;
-            border-radius: 14px; border: 1px solid rgba(255,215,0,0.2);
+            position: fixed; top: 24px; right: 24px; visibility: hidden;
+            background: rgba(12,12,12,0.95);
+            backdrop-filter: blur(24px);
+            color: white; padding: 16px 24px;
+            border-radius: 16px; border: 1px solid rgba(255,215,0,0.18);
             z-index: 5000; font-weight: 600; font-size: 13px;
-            display: flex; align-items: center; gap: 10px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+            display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.7);
             transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275), visibility 0.5s;
             will-change: transform;
-            transform: translateX(calc(100% + 40px));
+            transform: translateX(calc(100% + 48px));
         }
         #added-toast.show { transform: translateX(0); visibility: visible; }
-        .toast-icon { background: var(--gold); color: black; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
+        .toast-icon {
+            background: var(--gold); color: black;
+            border-radius: 50%; width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 900;
+        }
 
         /* ══════════════════════════════════════════
            FLOATING BUTTONS
@@ -384,81 +402,158 @@
             opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
         }
         .tg-float {
-            position: fixed !important; bottom: 22px !important; right: 100px !important;
+            position: fixed !important; bottom: 24px !important; right: 104px !important;
             background: var(--tg); color: white;
-            width: 58px; height: 58px; border-radius: 50%;
+            width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; text-decoration: none; z-index: 99999 !important;
-            box-shadow: 0 6px 20px rgba(0,136,204,0.4);
+            font-size: 24px; text-decoration: none; z-index: 99999 !important;
+            box-shadow: 0 8px 24px rgba(0,136,204,0.4);
             transition: transform 0.2s !important;
         }
         .tg-float:hover { transform: scale(1.08) !important; }
         .cart-float {
-            position: fixed !important; bottom: 22px !important; left: 22px !important;
+            position: fixed !important; bottom: 24px !important; left: 24px !important;
             background: white; color: black;
-            width: 58px; height: 58px; border-radius: 50%;
+            width: 60px; height: 60px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            font-size: 22px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255,255,255,0.2);
+            font-size: 24px; z-index: 99999 !important; cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255,255,255,0.18);
         }
         .profile-float {
-            position: fixed !important; bottom: 22px !important; right: 22px !important;
+            position: fixed !important; bottom: 24px !important; right: 24px !important;
             background: linear-gradient(135deg, #d4af37, #FFD700);
-            color: black; width: 58px; height: 58px; border-radius: 50%;
+            color: black; width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 6px 22px rgba(255,215,0,0.35);
+            font-size: 24px; z-index: 99999 !important; cursor: pointer;
+            box-shadow: 0 8px 26px rgba(255,215,0,0.32);
             transition: transform 0.2s !important;
         }
         .profile-float:hover { transform: scale(1.08) !important; }
         .cart-count {
             position: absolute; top: -2px; right: -2px;
             background: var(--accent); color: white;
-            font-size: 11px; padding: 3px 7px; border-radius: 50%;
+            font-size: 10px; padding: 3px 7px; border-radius: 50%;
             font-weight: 900;
         }
 
         /* ══════════════════════════════════════════
-           MODALS
+           MODALS — roomy, luxurious
         ══════════════════════════════════════════ */
         .modal {
             display: none; position: fixed; z-index: 2000;
             left:0; top:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.88);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(10px);
             overflow-y: auto;
+            padding: 20px 16px;
         }
         .modal-content {
-            background: rgba(12,12,12,0.92);
-            backdrop-filter: blur(30px);
-            color: white; margin: 20px auto; padding: 25px;
-            width: 88%; max-width: 380px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(40px);
+            color: white;
+            margin: 0 auto;
+            padding: 36px 28px 40px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-modal);
+            border: 1px solid rgba(255,255,255,0.09);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,215,0,0.04);
         }
+
+        /* Product modal image — generous height */
+        #modal-img {
+            width: 100%;
+            border-radius: 18px;
+            margin-bottom: 24px;
+            cursor: zoom-in;
+            display: block;
+            min-height: 280px;
+            object-fit: cover;
+            background: #0a0a0a;
+        }
+
+        /* Modal headings */
+        #m-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 26px; font-style: italic; font-weight: 300;
+            letter-spacing: 1.5px; line-height: 1.2;
+            margin-bottom: 8px;
+        }
+        #m-price {
+            color: var(--gold); font-weight: 900;
+            font-size: 20px; display: block;
+            margin-bottom: 4px; letter-spacing: 0.5px;
+        }
+
+        /* Divider line in modal */
+        .modal-divider {
+            height: 1px; width: 100%;
+            background: rgba(255,255,255,0.06);
+            margin: 22px 0;
+        }
+
         .btn {
-            width: 100%; padding: 17px;
+            width: 100%; padding: 18px;
             background: white; color: black;
-            border: none; border-radius: 14px;
-            font-weight: 900; margin-top: 14px;
-            cursor: pointer; font-size: 13px; letter-spacing: 1px;
+            border: none; border-radius: var(--radius-btn);
+            font-weight: 900; margin-top: 16px;
+            cursor: pointer; font-size: 13px; letter-spacing: 1.5px;
+            text-transform: uppercase;
             transition: opacity 0.2s, transform 0.15s;
         }
-        .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-        .order-input, #size-box {
-            width: 100%; padding: 13px 15px; margin-top: 10px;
-            border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.04);
-            color: white; box-sizing: border-box; font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s;
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-ghost {
+            background: rgba(255,255,255,0.05) !important;
+            color: rgba(255,255,255,0.7) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
         }
-        .order-input:focus, #size-box:focus { outline: none; border-color: rgba(255,215,0,0.4); }
-        .order-input::placeholder { color: #555; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 14px; }
-        .remove-btn { background: var(--accent); color: white; padding: 6px 12px; border: none; border-radius: 8px; font-size: 10px; font-weight: 900; cursor: pointer; }
-        .payment-info { background: rgba(0,136,204,0.1); padding: 12px; border-radius: 12px; margin-top: 15px; font-size: 13px; border-left: 3px solid #0088cc; color: #ccc; display: none; }
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37, #FFD700) !important;
+            color: #000 !important;
+        }
+
+        .order-input, #size-box {
+            width: 100%; padding: 15px 18px; margin-top: 12px;
+            border-radius: 14px; border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.04);
+            color: white; box-sizing: border-box; font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .order-input:focus, #size-box:focus {
+            outline: none;
+            border-color: rgba(255,215,0,0.35);
+            background: rgba(255,255,255,0.06);
+        }
+        .order-input::placeholder { color: rgba(255,255,255,0.25); }
+
+        /* Size select — styled */
+        #size-box {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.6)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+        #size-box option { background: #111; }
+
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 14px; gap: 12px;
+        }
+        .cart-item:last-child { border-bottom: none; }
+        .remove-btn {
+            background: transparent;
+            color: var(--accent); padding: 6px 12px;
+            border: 1px solid rgba(255,59,48,0.3);
+            border-radius: 8px; font-size: 10px;
+            font-weight: 900; cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .remove-btn:hover { background: rgba(255,59,48,0.1); }
 
         /* ══════════════════════════════════════════
            ABOUT PAGE
@@ -466,44 +561,80 @@
         #aboutPage {
             display: none; position: fixed; top:0; left:0;
             width:100%; height:100%;
-            background: rgba(0,0,0,0.97);
-            backdrop-filter: blur(20px);
-            z-index: 9999; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;
+            background: rgba(0,0,0,0.96);
+            backdrop-filter: blur(24px);
+            z-index: 9999; overflow-y: auto;
+            padding: 48px 24px; box-sizing: border-box;
         }
         .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
-        .about-content h2 { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 32px; margin-bottom: 8px; font-style: italic; font-weight: 300; }
-        .about-content p { line-height: 1.85; color: #bbb; font-size: 14px; margin-bottom: 18px; }
+        .about-content h2 {
+            color: var(--gold); font-family: 'Cormorant Garamond', serif;
+            font-size: 36px; margin-bottom: 10px;
+            font-style: italic; font-weight: 300;
+        }
+        .about-content p { line-height: 1.9; color: #bbb; font-size: 14px; margin-bottom: 20px; }
 
         /* ══════════════════════════════════════════
            ZOOM
         ══════════════════════════════════════════ */
-        #zoom-container { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.97); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
-        .zoom-stage { position: relative; width: 100%; height: 70vh; display: flex; align-items: center; justify-content: center; }
-        #zoom-img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
-        .zoom-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.07); backdrop-filter: blur(10px); color: var(--gold); border: 1px solid rgba(255,255,255,0.1); width: 50px; height: 50px; border-radius: 50%; font-size: 22px; font-weight: 900; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-        .zoom-arrow:hover { background: rgba(255,255,255,0.12); }
-        .arrow-left { left: 12px; } .arrow-right { right: 12px; }
-        .zoom-close { margin-top: 28px; background: white; color: black; border: none; padding: 12px 40px; border-radius: 30px; font-weight: 900; cursor: pointer; letter-spacing: 1px; }
+        #zoom-container {
+            display: none; position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.97); z-index: 9999;
+            flex-direction: column; justify-content: center; align-items: center;
+        }
+        .zoom-stage {
+            position: relative; width: 100%; height: 72vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        #zoom-img { max-width: 92%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+        .zoom-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.06); backdrop-filter: blur(10px);
+            color: var(--gold); border: 1px solid rgba(255,255,255,0.1);
+            width: 52px; height: 52px; border-radius: 50%;
+            font-size: 24px; font-weight: 900; cursor: pointer; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .zoom-arrow:hover { background: rgba(255,255,255,0.10); }
+        .arrow-left { left: 16px; } .arrow-right { right: 16px; }
+        .zoom-close {
+            margin-top: 32px; background: white; color: black;
+            border: none; padding: 14px 48px; border-radius: 32px;
+            font-weight: 900; cursor: pointer; letter-spacing: 1.5px;
+            font-size: 12px; text-transform: uppercase;
+        }
 
         /* ══════════════════════════════════════════
            PROFILE EDIT BTN
         ══════════════════════════════════════════ */
-        .profile-edit-btn { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 14px; font-size: 12px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; transition: background 0.3s, border-color 0.3s; width: 100%; }
-        .profile-edit-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+        .profile-edit-btn {
+            background: rgba(255,255,255,0.04); color: #fff;
+            border: 1px solid rgba(255,255,255,0.09);
+            padding: 14px; border-radius: 14px;
+            font-size: 11px; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: background 0.3s, border-color 0.3s; width: 100%;
+        }
+        .profile-edit-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); }
 
         /* ══════════════════════════════════════════
            PRIVATE REQUEST BUTTON
         ══════════════════════════════════════════ */
         .private-request-btn {
-            display: inline-block; padding: 17px 48px;
+            display: inline-block; padding: 20px 56px;
             background-color: transparent;
             color: var(--gold-dim); border: 1px solid var(--gold-dim);
             border-radius: 60px; font-size: 11px; letter-spacing: 4px;
             text-transform: uppercase; font-weight: 600; cursor: pointer;
             transition: background-color 0.4s, color 0.4s, box-shadow 0.4s;
-            margin-top: 20px;
+            margin-top: 24px;
         }
-        .private-request-btn:hover { background-color: var(--gold-dim); color: #000; box-shadow: 0 0 30px rgba(212,175,55,0.35); }
+        .private-request-btn:hover {
+            background-color: var(--gold-dim); color: #000;
+            box-shadow: 0 0 36px rgba(212,175,55,0.30);
+        }
 
         /* ══════════════════════════════════════════
            LEGAL PAGES
@@ -512,70 +643,110 @@
             display: none; position: fixed; top:0; left:0;
             width:100%; height:100%;
             background: rgba(0,0,0,0.97);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(24px);
             z-index: 9998; overflow-y: auto;
             padding: 0; box-sizing: border-box;
         }
-        .legal-inner { max-width: 680px; margin: 0 auto; padding: 40px 24px 80px; }
-        .legal-header { text-align: center; padding: 40px 0 30px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 35px; }
-        .legal-header .legal-badge { font-size: 9px; color: #555; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 14px; }
-        .legal-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); margin: 0 0 10px; font-style: italic; font-weight: 300; letter-spacing: 2px; }
+        .legal-inner { max-width: 680px; margin: 0 auto; padding: 44px 28px 90px; }
+        .legal-header { text-align: center; padding: 44px 0 32px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 38px; }
+        .legal-header .legal-badge { font-size: 9px; color: #555; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
+        .legal-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--gold); margin: 0 0 12px; font-style: italic; font-weight: 300; letter-spacing: 2px; }
         .legal-header p { font-size: 12px; color: #444; margin: 0; }
-        .legal-section { margin-bottom: 32px; }
-        .legal-section h2 { font-size: 11px; font-weight: 900; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,215,0,0.1); }
+        .legal-section { margin-bottom: 34px; }
+        .legal-section h2 { font-size: 10px; font-weight: 900; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.08); }
         .legal-section p, .legal-section li { font-size: 13px; color: #999; line-height: 1.9; margin-bottom: 8px; }
         .legal-section ul { padding-left: 20px; margin: 0; }
         .legal-section li { margin-bottom: 6px; }
         .legal-section strong { color: #ddd; }
-        .legal-back-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #666; padding: 10px 20px; border-radius: 30px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-bottom: 30px; transition: border-color 0.2s, color 0.2s; }
+        .legal-back-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.09); color: #555; padding: 11px 22px; border-radius: 32px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-bottom: 32px; transition: border-color 0.2s, color 0.2s; }
         .legal-back-btn:hover { border-color: var(--gold); color: var(--gold); }
-        .legal-highlight-box { background: rgba(255,215,0,0.03); border: 1px solid rgba(255,215,0,0.12); border-radius: 14px; padding: 18px 22px; margin-bottom: 18px; }
+        .legal-highlight-box { background: rgba(255,215,0,0.03); border: 1px solid rgba(255,215,0,0.10); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
         .legal-highlight-box p { margin: 0; font-size: 13px; color: #bbb; line-height: 1.75; }
 
         /* ══════════════════════════════════════════
            FOOTER
         ══════════════════════════════════════════ */
-        .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 24px 20px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 10px; }
-        .footer-legal a { color: rgba(255,255,255,0.3); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
+        .footer-legal {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 24px; padding: 28px 24px;
+            border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px;
+        }
+        .footer-legal a {
+            color: rgba(255,255,255,0.25); font-size: 10px;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            cursor: pointer; text-decoration: none; transition: color 0.2s;
+        }
         .footer-legal a:hover { color: var(--gold); }
 
         /* ══════════════════════════════════════════
            PRIVATE SECTION
         ══════════════════════════════════════════ */
         .private-section {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(20px);
-            padding: 100px 20px;
+            background: rgba(5,5,5,0.55);
+            backdrop-filter: blur(24px);
+            padding: 110px 24px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            margin-top: 50px; width: 100%;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 60px; width: 100%;
+        }
+
+        /* ══════════════════════════════════════════
+           INPUT LABELS — unified style
+        ══════════════════════════════════════════ */
+        .field-label {
+            font-size: 10px; font-weight: 700;
+            color: rgba(255,255,255,0.30);
+            text-transform: uppercase; letter-spacing: 2.5px;
+            display: block; margin-top: 20px; margin-bottom: 4px;
+        }
+
+        /* Payment options */
+        .payment-option-label {
+            display: flex; align-items: flex-start;
+            gap: 14px; cursor: pointer;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(255,255,255,0.02);
+            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 10px;
+        }
+        .payment-option-label:has(input:checked) {
+            border-color: rgba(255,215,0,0.30);
+            background: rgba(255,215,0,0.04);
+        }
+
+        /* Cart total */
+        .cart-total-row {
+            font-weight: 900; color: var(--gold);
+            padding: 18px 0; text-align: right;
+            font-size: 19px; letter-spacing: 0.5px;
         }
 
         /* ══════════════════════════════════════════
            RESPONSIVE
         ══════════════════════════════════════════ */
         @media (min-width: 768px) {
-            .modal-content { max-width: 580px !important; width: 50% !important; }
-            .product-card { flex: 0 0 250px !important; }
-            .img-area { height: 300px !important; }
+            .modal-content { max-width: 560px !important; }
+            .product-card { flex: 0 0 260px !important; }
+            .img-area { height: 310px !important; }
+            #modal-img { min-height: 340px !important; }
         }
         @media (max-width: 768px) {
-            .trust-badges-container { gap: 10px; padding: 12px; flex-direction: column; text-align: center; }
+            .trust-badges-container { gap: 12px; padding: 14px; flex-direction: column; text-align: center; }
+            .modal { padding: 16px 12px; }
+            .modal-content { padding: 28px 20px 32px; }
         }
     </style>
 </head>
 <body class="loading">
 
-<!-- ══════════════════════════════════════════
-     VIDEO BACKGROUND
-══════════════════════════════════════════ -->
+<!-- VIDEO BACKGROUND -->
 <video id="bg-video" autoplay loop muted playsinline>
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4" type="video/mp4">
 </video>
 
-<!-- ══════════════════════════════════════════
-     ZOOM OVERLAY
-══════════════════════════════════════════ -->
+<!-- ZOOM OVERLAY -->
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&#8249;</button>
@@ -585,32 +756,28 @@
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
-<!-- ══════════════════════════════════════════
-     ABOUT PAGE
-══════════════════════════════════════════ -->
+<!-- ABOUT PAGE -->
 <div id="aboutPage">
     <div class="about-content">
         <h2>About OUMRAN STORE</h2>
-        <h3 style="font-family:'Cormorant Garamond',serif;color:rgba(255,255,255,0.35);margin-bottom:30px;letter-spacing:4px;font-size:12px;font-weight:300;text-transform:uppercase;">THE GOLD STANDARD OF FASHION</h3>
-        <div style="margin-bottom:30px;border-bottom:1px solid rgba(255,255,255,0.07);padding-bottom:24px;">
-            <h3 style="color:var(--gold);font-size:16px;font-weight:600;margin-bottom:14px;text-align:center;letter-spacing:2px;text-transform:uppercase;">The OUMRAN Standard</h3>
+        <h3 style="font-family:'Cormorant Garamond',serif;color:rgba(255,255,255,0.3);margin-bottom:36px;letter-spacing:5px;font-size:11px;font-weight:300;text-transform:uppercase;">THE GOLD STANDARD OF FASHION</h3>
+        <div style="margin-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:28px;">
+            <h3 style="color:var(--gold);font-size:15px;font-weight:600;margin-bottom:16px;text-align:center;letter-spacing:2px;text-transform:uppercase;">The OUMRAN Standard</h3>
             <p>Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before it is prepared for delivery in Addis Ababa. We guarantee premium fabrics and exact fits.</p>
         </div>
-        <div style="margin-bottom:22px;"><strong style="display:block;color:var(--gold);margin-bottom:6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Curated Excellence</strong><p style="font-size:14px;color:#ccc;line-height:1.7;">We are Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p></div>
-        <div style="margin-bottom:22px;"><strong style="display:block;color:var(--gold);margin-bottom:6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Global Trends, Local Access</strong><p style="font-size:14px;color:#ccc;line-height:1.7;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service.</p></div>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">• Instant Reservation</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.7;margin-bottom:16px;">Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.</p>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">• Telegram Verification</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.7;margin-bottom:16px;">Our team will reach out via Telegram to verify your delivery address and finalize procurement details.</p>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;">• Delivery & Settlement</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.7;">Receive your package at your door in Addis Ababa and settle the total balance via Telebirr or cash.</p>
-        <button class="btn" style="margin-top:30px;" onclick="closeAbout()">Return to Store</button>
+        <div style="margin-bottom:26px;"><strong style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Curated Excellence</strong><p style="font-size:14px;color:#ccc;line-height:1.8;">We are Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p></div>
+        <div style="margin-bottom:26px;"><strong style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Global Trends, Local Access</strong><p style="font-size:14px;color:#ccc;line-height:1.8;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service.</p></div>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Instant Reservation</span></strong>
+        <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.</p>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Telegram Verification</span></strong>
+        <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">Our team will reach out via Telegram to verify your delivery address and finalize procurement details.</p>
+        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Delivery & Settlement</span></strong>
+        <p style="font-size:14px;color:#ccc;line-height:1.8;">Receive your package at your door in Addis Ababa and settle the total balance via Telebirr or cash.</p>
+        <button class="btn" style="margin-top:36px;" onclick="closeAbout()">Return to Store</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     PRIVACY POLICY PAGE
-══════════════════════════════════════════ -->
+<!-- PRIVACY POLICY PAGE -->
 <div id="privacyPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('privacyPage')">← Back</button>
@@ -619,57 +786,19 @@
             <h1>Privacy Policy</h1>
             <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all users in Addis Ababa, Ethiopia</p>
         </div>
-        <div class="legal-highlight-box">
-            <p>We respect your privacy. This policy explains what personal information we collect, why we collect it, and how it is used. By using OUMRAN STORE, you agree to the terms below.</p>
-        </div>
-        <div class="legal-section">
-            <h2>1. Information We Collect</h2>
-            <ul>
-                <li><strong>Profile Information:</strong> When you create an OUMRAN profile, we collect your full name and Gmail address. This data is stored locally on your own device only.</li>
-                <li><strong>Order Details:</strong> When you place an order, we collect your name, phone number, and delivery address solely to process your reservation.</li>
-                <li><strong>Device Data:</strong> We may collect browser type and session data to improve store performance. We do not track your precise location.</li>
-                <li><strong>Images:</strong> If you submit a private sourcing request with a reference image, that image is transmitted directly to our Telegram concierge and is not stored on any third-party server by us.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>2. How We Use Your Information</h2>
-            <ul>
-                <li>To process and confirm your orders via Telegram.</li>
-                <li>To contact you regarding delivery status and payment confirmation.</li>
-                <li>To maintain your local order history on your own device.</li>
-                <li>We do <strong>not</strong> sell, rent, or share your personal data with any third party for marketing purposes.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>3. Data Storage</h2>
-            <p>All profile and order history data is stored locally on your device using browser localStorage. We do not operate a central customer database. Your data remains on your device and under your control.</p>
-        </div>
-        <div class="legal-section">
-            <h2>4. Telegram Communication</h2>
-            <p>Order details and private sourcing requests are transmitted via Telegram Bot API to our internal business channel. This communication is subject to Telegram's own Privacy Policy. We recommend reviewing it at <strong>telegram.org/privacy</strong>.</p>
-        </div>
-        <div class="legal-section">
-            <h2>5. Cookies</h2>
-            <p>OUMRAN STORE uses only essential browser storage (localStorage and sessionStorage) required for core functionality such as cart management and profile saving. We do not use advertising cookies or tracking pixels of any kind.</p>
-        </div>
-        <div class="legal-section">
-            <h2>6. Your Rights</h2>
-            <ul>
-                <li>You may clear your profile and order history at any time by clearing your browser's local storage.</li>
-                <li>You may request deletion of any order data shared with us by contacting us on Telegram.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>7. Contact</h2>
-            <p>For any privacy-related questions, reach us via Telegram: <strong>@OUMER_FETE</strong></p>
-        </div>
+        <div class="legal-highlight-box"><p>We respect your privacy. This policy explains what personal information we collect, why we collect it, and how it is used. By using OUMRAN STORE, you agree to the terms below.</p></div>
+        <div class="legal-section"><h2>1. Information We Collect</h2><ul><li><strong>Profile Information:</strong> When you create an OUMRAN profile, we collect your full name and Gmail address. This data is stored locally on your own device only.</li><li><strong>Order Details:</strong> When you place an order, we collect your name, phone number, and delivery address solely to process your reservation.</li><li><strong>Device Data:</strong> We may collect browser type and session data to improve store performance. We do not track your precise location.</li><li><strong>Images:</strong> If you submit a private sourcing request with a reference image, that image is transmitted directly to our Telegram concierge and is not stored on any third-party server by us.</li></ul></div>
+        <div class="legal-section"><h2>2. How We Use Your Information</h2><ul><li>To process and confirm your orders via Telegram.</li><li>To contact you regarding delivery status and payment confirmation.</li><li>To maintain your local order history on your own device.</li><li>We do <strong>not</strong> sell, rent, or share your personal data with any third party for marketing purposes.</li></ul></div>
+        <div class="legal-section"><h2>3. Data Storage</h2><p>All profile and order history data is stored locally on your device using browser localStorage. We do not operate a central customer database. Your data remains on your device and under your control.</p></div>
+        <div class="legal-section"><h2>4. Telegram Communication</h2><p>Order details and private sourcing requests are transmitted via Telegram Bot API to our internal business channel. This communication is subject to Telegram's own Privacy Policy. We recommend reviewing it at <strong>telegram.org/privacy</strong>.</p></div>
+        <div class="legal-section"><h2>5. Cookies</h2><p>OUMRAN STORE uses only essential browser storage (localStorage and sessionStorage) required for core functionality such as cart management and profile saving. We do not use advertising cookies or tracking pixels of any kind.</p></div>
+        <div class="legal-section"><h2>6. Your Rights</h2><ul><li>You may clear your profile and order history at any time by clearing your browser's local storage.</li><li>You may request deletion of any order data shared with us by contacting us on Telegram.</li></ul></div>
+        <div class="legal-section"><h2>7. Contact</h2><p>For any privacy-related questions, reach us via Telegram: <strong>@OUMER_FETE</strong></p></div>
         <button class="btn" onclick="closeLegal('privacyPage')">Return to Store</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     TERMS & CONDITIONS PAGE
-══════════════════════════════════════════ -->
+<!-- TERMS PAGE -->
 <div id="termsPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('termsPage')">← Back</button>
@@ -678,70 +807,21 @@
             <h1>Terms & Conditions</h1>
             <p>Last updated: January 2026 &nbsp;|&nbsp; Governing jurisdiction: Addis Ababa, Ethiopia</p>
         </div>
-        <div class="legal-highlight-box">
-            <p>By browsing or placing an order through OUMRAN STORE, you agree to be bound by these Terms & Conditions. Please read them carefully before proceeding.</p>
-        </div>
-        <div class="legal-section">
-            <h2>1. About OUMRAN STORE</h2>
-            <p>OUMRAN STORE is an independent fashion retail operation based in Addis Ababa, Ethiopia. We source premium apparel and lifestyle goods directly from vetted suppliers in China and distribute exclusively within Addis Ababa.</p>
-        </div>
-        <div class="legal-section">
-            <h2>2. Product Listings</h2>
-            <ul>
-                <li>All product images are representative. Slight color variations may occur due to screen calibration.</li>
-                <li>Prices are listed in Ethiopian Birr (ETB) and are subject to change based on supplier stock and currency fluctuations.</li>
-                <li>Final pricing for each order will be confirmed via Telegram before dispatch.</li>
-                <li>Stock availability is not guaranteed. In the event an item becomes unavailable after your order, we will notify you and offer an alternative or full cancellation.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>3. Ordering Process</h2>
-            <ul>
-                <li>Placing an order on this website constitutes a <strong>reservation request</strong>, not a confirmed sale.</li>
-                <li>Your order is confirmed only after our team contacts you via Telegram and verifies your delivery details.</li>
-                <li>We reserve the right to decline or cancel any order at our discretion.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>4. Payment</h2>
-            <ul>
-                <li><strong>Cash on Delivery (COD):</strong> Full payment is due upon receipt of goods at your door. No advance payment required.</li>
-                <li><strong>50% Secure Deposit:</strong> A 50% upfront payment via Telebirr locks in your order; the remainder is due upon delivery.</li>
-                <li><strong>Full Upfront Payment:</strong> Full payment via Telebirr prior to dispatch. Eligible for priority processing.</li>
-                <li>Telebirr payment numbers: <strong>0939620004 | 0940028820</strong></li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>5. Delivery</h2>
-            <ul>
-                <li>Delivery is currently available exclusively within <strong>Addis Ababa</strong>.</li>
-                <li>Estimated delivery time will be communicated via Telegram upon order confirmation.</li>
-                <li>OUMRAN STORE is not liable for delays caused by circumstances beyond our control.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>6. Intellectual Property</h2>
-            <p>All content on this website — including text, design, layout, and product photography — is the property of OUMRAN STORE. Unauthorized reproduction or distribution is prohibited.</p>
-        </div>
-        <div class="legal-section">
-            <h2>7. Limitation of Liability</h2>
-            <p>OUMRAN STORE shall not be liable for any indirect, incidental, or consequential damages arising from the use of this website or the purchase of products. Our total liability shall not exceed the amount paid for the specific order in question.</p>
-        </div>
-        <div class="legal-section">
-            <h2>8. Governing Law</h2>
-            <p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia. Any disputes shall be resolved in Addis Ababa under Ethiopian jurisdiction.</p>
-        </div>
-        <div class="legal-section">
-            <h2>9. Contact</h2>
-            <p>For any questions regarding these terms, contact us via Telegram: <strong>@OUMER_FETE</strong></p>
-        </div>
+        <div class="legal-highlight-box"><p>By browsing or placing an order through OUMRAN STORE, you agree to be bound by these Terms & Conditions. Please read them carefully before proceeding.</p></div>
+        <div class="legal-section"><h2>1. About OUMRAN STORE</h2><p>OUMRAN STORE is an independent fashion retail operation based in Addis Ababa, Ethiopia. We source premium apparel and lifestyle goods directly from vetted suppliers in China and distribute exclusively within Addis Ababa.</p></div>
+        <div class="legal-section"><h2>2. Product Listings</h2><ul><li>All product images are representative. Slight color variations may occur due to screen calibration.</li><li>Prices are listed in Ethiopian Birr (ETB) and are subject to change based on supplier stock and currency fluctuations.</li><li>Final pricing for each order will be confirmed via Telegram before dispatch.</li><li>Stock availability is not guaranteed. In the event an item becomes unavailable after your order, we will notify you and offer an alternative or full cancellation.</li></ul></div>
+        <div class="legal-section"><h2>3. Ordering Process</h2><ul><li>Placing an order on this website constitutes a <strong>reservation request</strong>, not a confirmed sale.</li><li>Your order is confirmed only after our team contacts you via Telegram and verifies your delivery details.</li><li>We reserve the right to decline or cancel any order at our discretion.</li></ul></div>
+        <div class="legal-section"><h2>4. Payment</h2><ul><li><strong>Cash on Delivery (COD):</strong> Full payment is due upon receipt of goods at your door. No advance payment required.</li><li><strong>50% Secure Deposit:</strong> A 50% upfront payment via Telebirr locks in your order; the remainder is due upon delivery.</li><li><strong>Full Upfront Payment:</strong> Full payment via Telebirr prior to dispatch. Eligible for priority processing.</li><li>Telebirr payment numbers: <strong>0939620004 | 0940028820</strong></li></ul></div>
+        <div class="legal-section"><h2>5. Delivery</h2><ul><li>Delivery is currently available exclusively within <strong>Addis Ababa</strong>.</li><li>Estimated delivery time will be communicated via Telegram upon order confirmation.</li><li>OUMRAN STORE is not liable for delays caused by circumstances beyond our control.</li></ul></div>
+        <div class="legal-section"><h2>6. Intellectual Property</h2><p>All content on this website — including text, design, layout, and product photography — is the property of OUMRAN STORE. Unauthorized reproduction or distribution is prohibited.</p></div>
+        <div class="legal-section"><h2>7. Limitation of Liability</h2><p>OUMRAN STORE shall not be liable for any indirect, incidental, or consequential damages arising from the use of this website or the purchase of products. Our total liability shall not exceed the amount paid for the specific order in question.</p></div>
+        <div class="legal-section"><h2>8. Governing Law</h2><p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia. Any disputes shall be resolved in Addis Ababa under Ethiopian jurisdiction.</p></div>
+        <div class="legal-section"><h2>9. Contact</h2><p>For any questions regarding these terms, contact us via Telegram: <strong>@OUMER_FETE</strong></p></div>
         <button class="btn" onclick="closeLegal('termsPage')">Return to Store</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     REFUND & EXCHANGE POLICY PAGE
-══════════════════════════════════════════ -->
+<!-- REFUND PAGE -->
 <div id="refundPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('refundPage')">← Back</button>
@@ -750,59 +830,18 @@
             <h1>Refund & Exchange Policy</h1>
             <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all orders in Addis Ababa</p>
         </div>
-        <div class="legal-highlight-box">
-            <p>Your satisfaction is our priority. Please read this policy carefully before placing your order. All refund and exchange requests must be initiated within the timeframes specified below.</p>
-        </div>
-        <div class="legal-section">
-            <h2>1. Eligibility for Refund or Exchange</h2>
-            <p>You may be eligible for a refund or exchange if:</p>
-            <ul>
-                <li>The item received is significantly different from what was ordered (wrong color, wrong size, wrong product).</li>
-                <li>The item has a clear manufacturing defect or damage upon arrival.</li>
-                <li>Your request is submitted within <strong>48 hours</strong> of delivery.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>2. Non-Eligible Items</h2>
-            <ul>
-                <li>Items that have been worn, washed, or altered after delivery.</li>
-                <li>Items where the issue is a minor color variation due to screen display differences.</li>
-                <li>Orders where the correct size was confirmed at checkout and delivered as specified.</li>
-                <li>Sale or discounted items (unless defective).</li>
-                <li>Custom or private sourcing orders — procured exclusively for you and non-refundable once confirmed.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>3. How to Request a Refund or Exchange</h2>
-            <ul>
-                <li>Contact us via Telegram at <strong>@OUMER_FETE</strong> within 48 hours of delivery.</li>
-                <li>Provide your order ID (found in Order History), a clear photo of the item, and a description of the issue.</li>
-                <li>Our team will review your request within <strong>1–2 business days</strong>.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>4. Resolution Options</h2>
-            <ul>
-                <li><strong>Exchange:</strong> We will arrange delivery of the correct item at no additional cost.</li>
-                <li><strong>Store Credit:</strong> Applied toward your next order.</li>
-                <li><strong>Full Refund:</strong> Issued via Telebirr to your registered number if an exchange is not possible. Processed within 3–5 business days.</li>
-            </ul>
-        </div>
-        <div class="legal-section">
-            <h2>5. Upfront Payment Refunds</h2>
-            <p>If you paid a 50% deposit or full upfront payment and your order cannot be fulfilled due to stock issues, a full refund will be processed to your Telebirr account within <strong>3–5 business days</strong>.</p>
-        </div>
-        <div class="legal-section">
-            <h2>6. Contact</h2>
-            <p>All refund and exchange communications should be directed to: <strong>@OUMER_FETE</strong> on Telegram.</p>
-        </div>
+        <div class="legal-highlight-box"><p>Your satisfaction is our priority. Please read this policy carefully before placing your order. All refund and exchange requests must be initiated within the timeframes specified below.</p></div>
+        <div class="legal-section"><h2>1. Eligibility for Refund or Exchange</h2><p>You may be eligible for a refund or exchange if:</p><ul><li>The item received is significantly different from what was ordered (wrong color, wrong size, wrong product).</li><li>The item has a clear manufacturing defect or damage upon arrival.</li><li>Your request is submitted within <strong>48 hours</strong> of delivery.</li></ul></div>
+        <div class="legal-section"><h2>2. Non-Eligible Items</h2><ul><li>Items that have been worn, washed, or altered after delivery.</li><li>Items where the issue is a minor color variation due to screen display differences.</li><li>Orders where the correct size was confirmed at checkout and delivered as specified.</li><li>Sale or discounted items (unless defective).</li><li>Custom or private sourcing orders — procured exclusively for you and non-refundable once confirmed.</li></ul></div>
+        <div class="legal-section"><h2>3. How to Request a Refund or Exchange</h2><ul><li>Contact us via Telegram at <strong>@OUMER_FETE</strong> within 48 hours of delivery.</li><li>Provide your order ID (found in Order History), a clear photo of the item, and a description of the issue.</li><li>Our team will review your request within <strong>1–2 business days</strong>.</li></ul></div>
+        <div class="legal-section"><h2>4. Resolution Options</h2><ul><li><strong>Exchange:</strong> We will arrange delivery of the correct item at no additional cost.</li><li><strong>Store Credit:</strong> Applied toward your next order.</li><li><strong>Full Refund:</strong> Issued via Telebirr to your registered number if an exchange is not possible. Processed within 3–5 business days.</li></ul></div>
+        <div class="legal-section"><h2>5. Upfront Payment Refunds</h2><p>If you paid a 50% deposit or full upfront payment and your order cannot be fulfilled due to stock issues, a full refund will be processed to your Telebirr account within <strong>3–5 business days</strong>.</p></div>
+        <div class="legal-section"><h2>6. Contact</h2><p>All refund and exchange communications should be directed to: <strong>@OUMER_FETE</strong> on Telegram.</p></div>
         <button class="btn" onclick="closeLegal('refundPage')">Return to Store</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     SPLASH SCREEN
-══════════════════════════════════════════ -->
+<!-- SPLASH SCREEN -->
 <div id="splash-screen">
     <div class="splash-content">
         <div class="welcome-msg">Welcome to</div>
@@ -812,64 +851,58 @@
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     PROFILE ONBOARDING MODAL
-══════════════════════════════════════════ -->
+<!-- PROFILE ONBOARDING MODAL -->
 <div id="profileOnboardingModal" class="modal" style="display:none;background:rgba(0,0,0,0.96);">
-    <div class="modal-content" style="border:1px solid rgba(255,255,255,0.08);text-align:center;margin-top:10vh;max-width:360px;">
-        <div style="font-size:10px;color:#555;letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;">OUMRAN STORE</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:26px;margin-bottom:8px;font-style:italic;font-weight:300;">Create Your Profile</h2>
-        <p style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:2px;margin-bottom:26px;">Oumran Luxury Access</p>
-        <div style="text-align:left;margin-bottom:12px;"><label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;">Full Name</label><input type="text" id="onboardName" placeholder="Enter full name" class="order-input"></div>
-        <div style="text-align:left;margin-bottom:24px;"><label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;">Gmail Address</label><input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input"></div>
-        <button class="btn" onclick="saveOnboardingProfile()">Generate Profile</button>
-        <button class="btn" style="background:rgba(255,255,255,0.06);color:#fff;margin-top:8px;" onclick="cancelOnboardingProfile()">Cancel</button>
+    <div class="modal-content" style="text-align:center;margin-top:8vh;max-width:360px;">
+        <div style="font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:20px;">OUMRAN STORE</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:28px;margin-bottom:10px;font-style:italic;font-weight:300;">Create Your Profile</h2>
+        <p style="font-size:10px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:32px;">Oumran Luxury Access</p>
+        <div style="text-align:left;"><label class="field-label" style="margin-top:0;">Full Name</label><input type="text" id="onboardName" placeholder="Enter full name" class="order-input"></div>
+        <div style="text-align:left;"><label class="field-label">Gmail Address</label><input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input"></div>
+        <button class="btn" style="margin-top:28px;" onclick="saveOnboardingProfile()">Generate Profile</button>
+        <button class="btn btn-ghost" onclick="cancelOnboardingProfile()">Cancel</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     PROFILE HUB MODAL
-══════════════════════════════════════════ -->
+<!-- PROFILE HUB MODAL -->
 <div id="profileHubModal" class="modal">
-    <div class="modal-content" style="background:rgba(5,5,5,0.95);border:1px solid rgba(214,175,55,0.2);max-width:440px;padding:30px 22px;border-radius:28px;">
-        <div style="text-align:center;margin-bottom:24px;">
-            <p style="color:var(--gold);font-size:9px;letter-spacing:5px;text-transform:uppercase;margin:0 0 8px;font-weight:900;">AUTHENTIC SPACE</p>
-            <h2 style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:26px;margin:0;letter-spacing:1px;font-style:italic;font-weight:300;">Oumran Client Profile</h2>
+    <div class="modal-content" style="border:1px solid rgba(214,175,55,0.18);max-width:440px;padding:36px 28px 40px;">
+        <div style="text-align:center;margin-bottom:28px;">
+            <p style="color:var(--gold);font-size:9px;letter-spacing:5px;text-transform:uppercase;margin:0 0 10px;font-weight:900;">AUTHENTIC SPACE</p>
+            <h2 style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:28px;margin:0;letter-spacing:1px;font-style:italic;font-weight:300;">Oumran Client Profile</h2>
         </div>
-        <div style="background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:24px 16px;text-align:center;margin-bottom:20px;">
-            <div style="background:rgba(255,255,255,0.04);padding:14px;display:inline-block;border-radius:50%;margin-bottom:14px;border:1px solid rgba(255,255,255,0.07);">
+        <div style="background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:28px 20px;text-align:center;margin-bottom:24px;">
+            <div style="background:rgba(255,255,255,0.04);padding:16px;display:inline-block;border-radius:50%;margin-bottom:16px;border:1px solid rgba(255,255,255,0.07);">
                 <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#816604"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#816604"/></linearGradient></defs>
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div id="hubProfileName" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:5px;letter-spacing:1px;">OUMER FETUDIN</div>
-            <div id="hubProfileEmail" style="font-size:12px;color:#555;letter-spacing:0.5px;">feteoumer@gmail.com</div>
+            <div id="hubProfileName" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:1px;">OUMER FETUDIN</div>
+            <div id="hubProfileEmail" style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;">feteoumer@gmail.com</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
-            <div style="background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:3px;"><span style="color:#444;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Membership Tier</span><span style="color:var(--gold);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">✦ Client Portal</span></div>
-            <div style="background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:3px;"><span style="color:#444;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Logistics Terminal</span><span style="color:#ccc;font-size:12px;font-weight:600;">Addis Ababa Hub, Ethiopia</span></div>
-            <div style="background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:3px;"><span style="color:#444;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Account Verification Status</span><span style="color:#00cc66;font-size:12px;font-weight:600;">✓ Secure Handshake Verified</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Membership Tier</span><span style="color:var(--gold);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">✦ Client Portal</span></div>
+            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Logistics Terminal</span><span style="color:#ccc;font-size:13px;font-weight:600;">Addis Ababa Hub, Ethiopia</span></div>
+            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Account Verification Status</span><span style="color:#00cc66;font-size:13px;font-weight:600;">✓ Secure Handshake Verified</span></div>
             <button id="editProfileBtn" onclick="editProfileName()" class="profile-edit-btn">Edit Profile</button>
         </div>
-        <div style="background:rgba(212,175,55,0.03);border:1px solid rgba(214,175,55,0.1);border-radius:16px;padding:18px;margin-bottom:22px;text-align:center;">
-            <p style="color:var(--gold);font-size:9px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin:0 0 10px;">Why Oumran Is Unique</p>
-            <p style="color:#888;font-size:12px;line-height:1.8;font-weight:300;margin:0;text-align:justify;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge to ensure supreme fabric structure and inimitable configurations for the Addis Ababa clientele.</p>
+        <div style="background:rgba(212,175,55,0.03);border:1px solid rgba(214,175,55,0.09);border-radius:16px;padding:20px;margin-bottom:24px;text-align:center;">
+            <p style="color:var(--gold);font-size:9px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin:0 0 12px;">Why Oumran Is Unique</p>
+            <p style="color:rgba(255,255,255,0.5);font-size:12px;line-height:1.85;font-weight:300;margin:0;text-align:center;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge to ensure supreme fabric structure and inimitable configurations for the Addis Ababa clientele.</p>
         </div>
-        <button class="btn" style="background:#fff;color:#000;border:none;font-weight:900;letter-spacing:1px;border-radius:14px;padding:16px;" onclick="closeProfileHub()">Return to Platform</button>
+        <button class="btn" onclick="closeProfileHub()">Return to Platform</button>
     </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     SITE WRAPPER
-══════════════════════════════════════════ -->
+<!-- SITE WRAPPER -->
 <div class="site-wrapper">
     <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
 
     <header>
         <img src="IMG_8765.jpeg" alt="OUMRAN STORE Logo" class="header-logo" fetchpriority="high">
         <span class="brand-name">OUMRAN STORE</span>
-        <span style="font-size:16px;">📲</span>
+        <span style="font-size:18px;">📲</span>
     </header>
 
     <div class="promo-bar">
@@ -1056,16 +1089,16 @@
 
     <!-- PRIVATE REQUEST SECTION -->
     <div class="private-section">
-        <p style="color:rgba(212,175,55,0.6);font-size:9px;letter-spacing:6px;text-transform:uppercase;margin-bottom:18px;">OFF-MARKET</p>
-        <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:3px;font-weight:300;margin-bottom:20px;font-style:italic;">Private Request</h2>
-        <div style="max-width:560px;margin:0 auto 40px;">
-            <p style="color:rgba(255,255,255,0.35);font-size:13px;line-height:2;font-weight:300;letter-spacing:1px;">While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here — regardless of category — we invite you to engage our private sourcing service.</p>
+        <p style="color:rgba(212,175,55,0.55);font-size:9px;letter-spacing:7px;text-transform:uppercase;margin-bottom:20px;">OFF-MARKET</p>
+        <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:34px;letter-spacing:3px;font-weight:300;margin-bottom:22px;font-style:italic;">Private Request</h2>
+        <div style="max-width:560px;margin:0 auto 44px;">
+            <p style="color:rgba(255,255,255,0.30);font-size:13px;line-height:2.1;font-weight:300;letter-spacing:0.8px;">While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here — regardless of category — we invite you to engage our private sourcing service.</p>
         </div>
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
 
     <!-- FOOTER -->
-    <footer style="width:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.05);padding:30px 20px 20px;box-sizing:border-box;">
+    <footer style="width:100%;background:rgba(5,5,5,0.75);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.05);padding:36px 24px 24px;box-sizing:border-box;">
         <div class="footer-legal">
             <a onclick="openLegal('privacyPage')">Privacy Policy</a>
             <a onclick="openLegal('termsPage')">Terms & Conditions</a>
@@ -1073,7 +1106,7 @@
             <a onclick="openAbout()">About Us</a>
             <a href="https://t.me/@OUMER_FETE" target="_blank">Contact</a>
         </div>
-        <p style="text-align:center;color:rgba(255,255,255,0.15);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:15px 0 0;margin:0;">
+        <p style="text-align:center;color:rgba(255,255,255,0.12);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:16px 0 0;margin:0;">
             &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
         </p>
     </footer>
@@ -1083,22 +1116,30 @@
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
-    <!-- PRODUCT MODAL -->
+    <!-- PRODUCT MODAL — spacious, luxurious -->
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" onclick="openZoom()" style="width:100%;border-radius:16px;margin-bottom:16px;cursor:zoom-in;display:block;">
-            <h2 id="m-name" style="margin-top:0;font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;font-weight:300;letter-spacing:1px;">Product</h2>
-            <span id="m-price" style="color:var(--gold);font-weight:900;font-size:18px;display:block;margin-top:4px;">0 ETB</span>
-            <div id="variant-area" class="variant-section" style="margin-top:14px;">
+            <img id="modal-img" alt="Product Image" onclick="openZoom()">
+            <h2 id="m-name">Product</h2>
+            <span id="m-price">0 ETB</span>
+
+            <div class="modal-divider"></div>
+
+            <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
+
             <div id="pModalSizeWrapper">
-                <label style="font-size:10px;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;">Select Size</label>
+                <label class="field-label" style="margin-top:0;">Select Size</label>
                 <select id="size-box" class="order-input"></select>
             </div>
+
+            <div class="modal-divider"></div>
+
             <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
-            <button class="btn" style="background:rgba(255,255,255,0.06);color:white;margin-top:6px;" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeModal()">Cancel</button>
+
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
         </div>
@@ -1106,16 +1147,21 @@
 
     <!-- PRIVATE SOURCING MODAL -->
     <div id="privateSourcingModal" class="modal">
-        <div class="modal-content" style="border:1px solid rgba(255,255,255,0.09);">
-            <h2 style="margin-top:0;font-family:'Cormorant Garamond',serif;color:#fff;letter-spacing:2px;font-size:24px;font-style:italic;font-weight:300;">Sourcing Intake 🌐</h2>
-            <p style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">Private Concierge Service</p>
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;margin-top:15px;display:block;margin-bottom:6px;letter-spacing:2px;">Item Classification</label>
-            <p style="font-size:11px;color:#555;margin-bottom:12px;line-height:1.5;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request.</p>
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;">Client Profile Name</label>
+        <div class="modal-content" style="max-width:480px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;">PRIVATE CONCIERGE</div>
+            <h2 style="margin-top:0;font-family:'Cormorant Garamond',serif;color:#fff;letter-spacing:2px;font-size:26px;font-style:italic;font-weight:300;margin-bottom:6px;">Sourcing Intake 🌐</h2>
+            <p style="font-size:10px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:28px;">Private Concierge Service</p>
+
+            <label class="field-label" style="margin-top:0;">Item Classification</label>
+            <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:16px;line-height:1.6;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request.</p>
+
+            <label class="field-label">Client Profile Name</label>
             <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;margin-top:15px;display:block;">Contact Number</label>
+
+            <label class="field-label">Contact Number</label>
             <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;display:block;margin-top:15px;margin-bottom:8px;letter-spacing:2px;">Item Category</label>
+
+            <label class="field-label">Item Category</label>
             <select id="srcCategory" class="order-input">
                 <option value="Clothes">Clothes</option>
                 <option value="Shoes">Shoes</option>
@@ -1123,77 +1169,102 @@
                 <option value="Bag">Bag / Other Accessories</option>
                 <option value="Other">Any Other Premium Goods</option>
             </select>
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;margin-top:15px;display:block;">Product Name & Details</label>
+
+            <label class="field-label">Product Name & Details</label>
             <input type="text" id="srcProductName" placeholder="Brand, Model, Release Year, etc." class="order-input">
+
             <div id="srcSizeWrapper">
-                <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;margin-top:15px;display:block;">Required Sizing</label>
+                <label class="field-label">Required Sizing</label>
                 <input type="text" id="srcSize" placeholder="Your size (e.g., XL, 43, Standard)" class="order-input">
             </div>
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;margin-top:15px;display:block;">Preferred Budget</label>
+
+            <label class="field-label">Preferred Budget</label>
             <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
-            <label style="font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:2px;margin-top:15px;display:block;">Reference Link / Image Description</label>
-            <div id="srcReferenceWrapper" style="position:relative;border:1px solid rgba(255,255,255,0.1);border-radius:10px;background-color:rgba(0,0,0,0.5);margin-top:10px;padding:12px;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;">
-                <textarea id="srcReference" placeholder="Paste link to reference image, or describe the colorway" style="width:100%;background:transparent;border:none;color:#fff;outline:none;font-size:15px;min-height:80px;resize:none;font-family:inherit;box-sizing:border-box;display:block;margin:0;"></textarea>
-                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.07);padding-top:8px;">
+
+            <label class="field-label">Reference Link / Image Description</label>
+            <div id="srcReferenceWrapper" style="position:relative;border:1px solid rgba(255,255,255,0.09);border-radius:14px;background:rgba(255,255,255,0.03);margin-top:10px;padding:16px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;">
+                <textarea id="srcReference" placeholder="Paste link to reference image, or describe the colorway" style="width:100%;background:transparent;border:none;color:#fff;outline:none;font-size:14px;min-height:90px;resize:none;font-family:inherit;box-sizing:border-box;display:block;margin:0;line-height:1.6;"></textarea>
+                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;">
                     <div id="srcImagePreviewSlot" style="display:flex;align-items:center;"></div>
-                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:6px;color:#666;font-size:12px;cursor:pointer;">
+                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.40);font-size:12px;cursor:pointer;letter-spacing:0.5px;">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                         <span>Add Photo</span>
                     </label>
                     <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display:none;">
                 </div>
             </div>
-            <button class="btn" style="background:var(--gold);color:#000;" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
-            <button class="btn" style="background:rgba(255,255,255,0.06);color:white;margin-top:8px;" onclick="closePrivateSourcing()">Cancel</button>
+
+            <div style="margin-top:28px;">
+                <button class="btn btn-gold" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
+                <button class="btn btn-ghost" style="margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
+            </div>
         </div>
     </div>
 
     <!-- CART MODAL -->
     <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <div style="display:flex;background:rgba(0,0,0,0.4);border-radius:12px;padding:4px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.07);">
-                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex:1;padding:10px;background:rgba(255,255,255,0.07);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Active Bag</button>
-                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex:1;padding:10px;background:transparent;color:#555;border:none;border-radius:8px;font-weight:700;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Order History</button>
+        <div class="modal-content" style="max-width:460px;">
+            <div style="display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:24px;border:1px solid rgba(255,255,255,0.07);">
+                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex:1;padding:12px;background:rgba(255,255,255,0.07);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Active Bag</button>
+                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,0.30);border:none;border-radius:10px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Order History</button>
             </div>
+
             <div id="active-bag-view">
-                <div id="cart-items-list" style="margin-bottom:15px;"></div>
-                <div style="font-weight:900;color:var(--gold);border-top:1px solid rgba(255,255,255,0.07);padding-top:15px;text-align:right;font-size:18px;margin-bottom:15px;">Total: <span id="cart-total">0</span> ETB</div>
-                <input type="text" id="custName" placeholder="Full Name" class="order-input">
-                <input type="tel" id="custPhone" placeholder="Phone Number" class="order-input">
-                <input type="text" id="custAddress" placeholder="Delivery Address" class="order-input">
-                <div style="margin-top:16px;padding:14px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.1);border-radius:12px;">
-                    <strong style="color:var(--gold);font-size:12px;letter-spacing:1px;text-transform:uppercase;">Telebirr Payment</strong><br>
-                    <span style="font-size:16px;font-weight:900;color:#fff;display:block;margin-top:6px;">0939620004 &nbsp;|&nbsp; 0940028820</span>
+                <div id="cart-items-list" style="margin-bottom:10px;"></div>
+
+                <div class="cart-total-row">Total: <span id="cart-total">0</span> ETB</div>
+
+                <div class="modal-divider"></div>
+
+                <label class="field-label" style="margin-top:0;">Full Name</label>
+                <input type="text" id="custName" placeholder="Your full name" class="order-input" style="margin-top:6px;">
+
+                <label class="field-label">Phone Number</label>
+                <input type="tel" id="custPhone" placeholder="Phone number" class="order-input" style="margin-top:6px;">
+
+                <label class="field-label">Delivery Address</label>
+                <input type="text" id="custAddress" placeholder="Delivery address in Addis Ababa" class="order-input" style="margin-top:6px;">
+
+                <div style="margin-top:20px;padding:18px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.10);border-radius:16px;">
+                    <strong style="color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;">Telebirr Payment</strong>
+                    <br><span style="font-size:17px;font-weight:900;color:#fff;display:block;margin-top:8px;letter-spacing:1px;">0939620004 &nbsp;|&nbsp; 0940028820</span>
                 </div>
-                <div style="margin-top:24px;padding:16px 0;border-top:1px solid rgba(255,255,255,0.06);">
-                    <span style="display:block;color:var(--gold);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;">Select Payment Preference</span>
-                    <div style="display:flex;flex-direction:column;gap:14px;">
-                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color:var(--gold);margin-top:3px;"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">Cash on Delivery (COD)</strong><span style="color:#666;font-size:12px;">No deposit needed. Settle total balance upon delivery.</span></div></label>
-                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color:var(--gold);margin-top:3px;"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">50% Secure Deposit</strong><span style="color:#666;font-size:12px;">Pay half upfront via Telebirr; settle rest at your door.</span></div></label>
-                        <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;"><input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color:var(--gold);margin-top:3px;"><div style="font-size:13px;color:#eee;line-height:1.5;"><strong style="color:var(--gold);display:block;margin-bottom:2px;">Full Upfront Payment</strong><span style="color:#666;font-size:12px;">Settle entire balance instantly via Telebirr for priority drop.</span></div></label>
-                    </div>
+
+                <div class="modal-divider"></div>
+
+                <span style="display:block;color:var(--gold);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:14px;">Select Payment Preference</span>
+                <div style="display:flex;flex-direction:column;gap:0;">
+                    <label class="payment-option-label"><input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">Cash on Delivery (COD)</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">No deposit needed. Settle total balance upon delivery.</span></div></label>
+                    <label class="payment-option-label"><input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">50% Secure Deposit</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">Pay half upfront via Telebirr; settle rest at your door.</span></div></label>
+                    <label class="payment-option-label"><input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">Full Upfront Payment</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">Settle entire balance instantly via Telebirr for priority drop.</span></div></label>
                 </div>
-                <div style="display:flex;gap:8px;margin-top:12px;"><span style="color:var(--gold);font-size:11px;margin-top:2px;">•</span><p style="margin:0;font-size:12px;color:#555;line-height:1.5;">Prices may change slightly depending on supplier stock. Final pricing confirmed via Telegram.</p></div>
-                <button class="btn" onclick="submitOrder()">Confirm Order</button>
-                <button class="btn" onclick="closeCart()" style="background:rgba(255,255,255,0.06);color:#fff;margin-top:8px;">Close</button>
+
+                <div style="display:flex;gap:10px;margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.05);">
+                    <span style="color:var(--gold);font-size:13px;flex-shrink:0;margin-top:1px;">•</span>
+                    <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">Prices may change slightly depending on supplier stock. Final pricing confirmed via Telegram.</p>
+                </div>
+
+                <button class="btn" style="margin-top:24px;" onclick="submitOrder()">Confirm Order</button>
+                <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeCart()">Close</button>
             </div>
+
             <div id="order-history-view" style="display:none;">
-                <div id="history-items-list" style="max-height:300px;overflow-y:auto;margin-bottom:15px;padding-right:5px;"></div>
-                <button class="btn" onclick="closeCart()" style="background:rgba(255,255,255,0.06);color:#fff;margin-top:8px;">Close</button>
+                <div id="history-items-list" style="max-height:340px;overflow-y:auto;margin-bottom:16px;padding-right:4px;"></div>
+                <button class="btn btn-ghost" onclick="closeCart()">Close</button>
             </div>
         </div>
     </div>
 
     <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align:center;max-width:400px;margin:20px auto;padding:40px 25px;">
-            <div style="font-size:9px;color:#555;letter-spacing:5px;text-transform:uppercase;margin-bottom:20px;">OUMRAN STORE</div>
-            <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:30px;letter-spacing:2px;margin-bottom:20px;font-weight:300;font-style:italic;">Order Reserved 🕒</h2>
-            <p style="text-transform:uppercase;font-size:10px;letter-spacing:3px;color:#555;margin-bottom:10px;">Thank you for shopping with OUMRAN STORE</p>
-            <p style="font-size:15px;font-weight:300;margin-bottom:25px;line-height:1.4;color:#bbb;">We have your details secured.</p>
-            <div style="font-size:13px;line-height:1.85;color:#888;margin-bottom:30px;padding:16px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.1);border-radius:12px;">To lock in your items, click below to send your payment screenshot to our Telegram. Once received, we'll begin the delivery process immediately.</div>
-            <p style="font-size:11px;letter-spacing:2px;font-weight:600;margin-bottom:22px;text-transform:uppercase;color:#666;">See you on Telegram</p>
-            <button class="btn" onclick="window.location.href='https://t.me/@OUMER_FETE'" style="background:#fff;color:#000;letter-spacing:2px;font-size:12px;">Open Telegram</button>
+        <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:48px 28px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:24px;">OUMRAN STORE</div>
+            <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:32px;letter-spacing:2px;margin-bottom:22px;font-weight:300;font-style:italic;">Order Reserved 🕒</h2>
+            <p style="text-transform:uppercase;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.30);margin-bottom:12px;">Thank you for shopping with OUMRAN STORE</p>
+            <p style="font-size:15px;font-weight:300;margin-bottom:28px;line-height:1.6;color:rgba(255,255,255,0.65);">We have your details secured.</p>
+            <div style="font-size:13px;line-height:1.9;color:rgba(255,255,255,0.50);margin-bottom:32px;padding:20px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.10);border-radius:16px;">To lock in your items, click below to send your payment screenshot to our Telegram. Once received, we'll begin the delivery process immediately.</div>
+            <p style="font-size:10px;letter-spacing:2.5px;font-weight:600;margin-bottom:24px;text-transform:uppercase;color:rgba(255,255,255,0.25);">See you on Telegram</p>
+            <button class="btn" onclick="window.location.href='https://t.me/@OUMER_FETE'" style="letter-spacing:2px;font-size:12px;">Open Telegram</button>
         </div>
     </div>
 
@@ -1217,15 +1288,9 @@ function unlockScroll() {
     window.scrollTo(0, _scrollY);
 }
 
-/* ══════════════════════════════════════════
-   LEGAL PAGES
-══════════════════════════════════════════ */
 function openLegal(pageId) { lockScroll(); document.getElementById(pageId).style.display = 'block'; }
 function closeLegal(pageId) { document.getElementById(pageId).style.display = 'none'; unlockScroll(); }
 
-/* ══════════════════════════════════════════
-   DOM CACHE & STATE
-══════════════════════════════════════════ */
 const DOM = {};
 let cart = [];
 const sz = { clothe: ["M","L","XL","XXL"], shoes: ["40","41","42","43","44","45"], acc: ["Standard"] };
@@ -1290,9 +1355,6 @@ window.addEventListener('load', () => {
     document.addEventListener('wheel', () => {}, { passive: true });
 }, { once: true });
 
-/* ══════════════════════════════════════════
-   PROFILE
-══════════════════════════════════════════ */
 function checkProfileOnboarding(actionType) {
     if (!localStorage.getItem('oumran_user_profile')) {
         pendingActionType = actionType;
@@ -1366,9 +1428,6 @@ function closeProfileHub() {
     unlockScroll();
 }
 
-/* ══════════════════════════════════════════
-   CART VIEW TOGGLE
-══════════════════════════════════════════ */
 function switchCartView(view) {
     const bagView = document.getElementById('active-bag-view');
     const historyView = document.getElementById('order-history-view');
@@ -1378,32 +1437,29 @@ function switchCartView(view) {
     bagView.style.display = isBag ? 'block' : 'none';
     historyView.style.display = isBag ? 'none' : 'block';
     btnBag.style.background = isBag ? 'rgba(255,255,255,0.07)' : 'transparent';
-    btnBag.style.color = isBag ? '#fff' : '#555';
+    btnBag.style.color = isBag ? '#fff' : 'rgba(255,255,255,0.30)';
     btnHistory.style.background = isBag ? 'transparent' : 'rgba(255,255,255,0.07)';
-    btnHistory.style.color = isBag ? '#555' : '#fff';
+    btnHistory.style.color = isBag ? 'rgba(255,255,255,0.30)' : '#fff';
     if (!isBag) renderOrderHistory();
 }
 
 function renderOrderHistory() {
     const c = document.getElementById('history-items-list');
     const history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    if (!history.length) { c.innerHTML = `<p style="text-align:center;color:#444;margin-top:40px;font-size:13px;">No orders found under this account.</p>`; return; }
+    if (!history.length) { c.innerHTML = `<p style="text-align:center;color:rgba(255,255,255,0.25);margin-top:48px;font-size:13px;">No orders found under this account.</p>`; return; }
     history.sort((a,b) => b.timestamp - a.timestamp);
     c.innerHTML = history.map(o => `
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:15px;margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:8px;margin-bottom:8px;">
-                <span style="color:var(--gold);font-size:11px;font-weight:700;">ID: #${o.id}</span>
-                <span style="color:#444;font-size:11px;">${o.date}</span>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px;margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:10px;margin-bottom:10px;">
+                <span style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;">ID: #${o.id}</span>
+                <span style="color:rgba(255,255,255,0.25);font-size:11px;">${o.date}</span>
             </div>
-            <div style="color:#aaa;font-size:13px;line-height:1.5;margin-bottom:8px;">${o.items.replace(/\n/g,'<br>')}</div>
-            <div style="font-size:11px;color:#666;background:rgba(0,0,0,0.3);padding:8px;border-radius:6px;margin-bottom:8px;"><strong style="color:var(--gold);display:block;margin-bottom:2px;font-size:9px;text-transform:uppercase;">Payment:</strong>${o.method}</div>
+            <div style="color:rgba(255,255,255,0.65);font-size:13px;line-height:1.6;margin-bottom:10px;">${o.items.replace(/\n/g,'<br>')}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.35);background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:8px;margin-bottom:10px;"><strong style="color:var(--gold);display:block;margin-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:1px;">Payment:</strong>${o.method}</div>
             <div style="text-align:right;font-weight:900;color:#fff;font-size:14px;">Total: <span style="color:var(--gold);">${o.total}</span> ETB</div>
         </div>`).join('');
 }
 
-/* ══════════════════════════════════════════
-   ZOOM
-══════════════════════════════════════════ */
 function openZoom() {
     zoomIdx = 0;
     const activeIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
@@ -1423,15 +1479,9 @@ function updateZoomImage() {
 }
 function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
 
-/* ══════════════════════════════════════════
-   ABOUT
-══════════════════════════════════════════ */
 function openAbout() { lockScroll(); document.getElementById('aboutPage').style.display = 'block'; }
 function closeAbout() { document.getElementById('aboutPage').style.display = 'none'; unlockScroll(); }
 
-/* ══════════════════════════════════════════
-   PRODUCT MODAL
-══════════════════════════════════════════ */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
     currentP = n; currentPrice = price; currentProductType = t;
@@ -1503,7 +1553,7 @@ function showCart() {
     scrollPos = window.pageYOffset;
     document.documentElement.classList.add('modal-open');
     let total = 0;
-    DOM.cartList.innerHTML = cart.map((item,i) => { total += item.price; return `<div class="cart-item"><span><strong>${item.name}</strong> (${item.size})<br>${item.price.toLocaleString()} ETB</span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`; }).join("");
+    DOM.cartList.innerHTML = cart.map((item,i) => { total += item.price; return `<div class="cart-item"><span style="flex:1;line-height:1.5;"><strong style="display:block;font-size:14px;margin-bottom:3px;">${item.name}</strong><span style="color:rgba(255,255,255,0.40);font-size:12px;">Size: ${item.size}</span><span style="display:block;color:var(--gold);font-weight:900;font-size:14px;margin-top:4px;">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`; }).join("");
     DOM.cartTotal.innerText = total.toLocaleString();
     DOM.cartModal.style.display = "block";
     switchCartView('bag');
@@ -1543,9 +1593,6 @@ function filterProducts() {
     });
 }
 
-/* ══════════════════════════════════════════
-   PRIVATE SOURCING
-══════════════════════════════════════════ */
 function openPrivateSourcing() {
     scrollPos = window.pageYOffset;
     lockScroll();
@@ -1577,7 +1624,7 @@ function initPrivateSourcingUploads() {
             const reader = new FileReader();
             reader.onload = e => {
                 srcAttachedImageBase64 = e.target.result;
-                previewSlot.innerHTML = `<div style="position:relative;display:inline-block;margin-right:10px;"><img src="${e.target.result}" style="width:32px;height:32px;object-fit:cover;border-radius:4px;border:1px solid #333;"><span id="srcRemovePreviewBtn" style="position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:white;border-radius:50%;width:14px;height:14px;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;">×</span></div>`;
+                previewSlot.innerHTML = `<div style="position:relative;display:inline-block;margin-right:10px;"><img src="${e.target.result}" style="width:34px;height:34px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.15);"><span id="srcRemovePreviewBtn" style="position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:white;border-radius:50%;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;">×</span></div>`;
                 document.getElementById('srcRemovePreviewBtn').addEventListener('click', ev => { ev.preventDefault(); previewSlot.innerHTML=''; fileInput.value=''; srcAttachedImageBase64=""; });
             };
             reader.readAsDataURL(file);
@@ -1620,5 +1667,6 @@ function submitPrivateRequest() {
 </script>
 </body>
 </html>
+
 
 
