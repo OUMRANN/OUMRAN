@@ -1,39 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en" class="loading">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OUMRAN STORE</title>
-    <meta name="description" content="OUMRAN STORE — Addis Ababa's premier destination for premium fashion. Sourced directly from China's finest suppliers.">
+    <meta name="description" content="OUMRAN STORE — Addis Ababa's premier destination for premium fashion.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
     <style>
-        /* ══════════════════════════════════════════
-           ROOT & RESET
-        ══════════════════════════════════════════ */
         :root {
-            --bg: #050505;
-            --surface: rgba(12,12,12,0.82);
-            --surface-raised: rgba(18,18,18,0.90);
-            --card: rgba(14,14,14,0.78);
-            --card-border: rgba(255,255,255,0.07);
-            --tg: #0088cc;
-            --accent: #ff3b30;
             --gold: #FFD700;
             --gold-dim: #d4af37;
             --gold-pale: rgba(255,215,0,0.06);
+            --tg: #0088cc;
+            --accent: #ff3b30;
             --beige: #d4c5b0;
-            --glass-blur: blur(24px);
-            --glass-blur-heavy: blur(48px);
-            --border-glass: rgba(255,255,255,0.09);
-            --border-gold: rgba(212,175,55,0.22);
-            --radius-card: 22px;
-            --radius-modal: 28px;
-            --radius-btn: 16px;
-            --spacing-section: 56px;
+            /* Glass: 30% transparent, background always visible */
+            --glass-bg: rgba(4,4,4,0.30);
+            --glass-border: rgba(255,215,0,0.10);
+            --glass-blur: blur(20px);
+            --radius-card: 20px;
+            --radius-modal: 26px;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,357 +32,330 @@
         body.loading .promo-bar,
         body.loading .trust-badges-container,
         body.loading .search-container,
-        body.loading footer,
-        body.loading > p { visibility: hidden !important; opacity: 0 !important; }
+        body.loading footer { visibility: hidden !important; opacity: 0 !important; }
 
         html.overlay-open, body.overlay-open {
-            overflow: hidden !important;
-            position: fixed;
-            width: 100%;
-            touch-action: none;
+            overflow: hidden !important; position: fixed; width: 100%; touch-action: none;
         }
-
         html.modal-open, body.modal-open { overflow: hidden !important; touch-action: none; height: 100% !important; }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
+            background: #050505;
             color: white;
             overflow-x: hidden;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ══════════════════════════════════════════
-           VIDEO BACKGROUND — visible at ~50%
-        ══════════════════════════════════════════ */
-        #bg-video {
-            position: fixed;
-            top: 0; left: 0;
+        /* ── BACKGROUND CANVASES ── */
+        #silk-canvas, #particle-canvas {
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -2;
             pointer-events: none;
-            opacity: 0.50;
+        }
+        #silk-canvas { z-index: 0; }
+        #particle-canvas { z-index: 1; }
+
+        /* Cinematic vignette */
+        #bg-overlay {
+            position: fixed; inset: 0; z-index: 2; pointer-events: none;
+            background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,0.55) 100%);
         }
 
-        /* Dark overlay — softer so video shows through */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(
-                180deg,
-                rgba(5,5,5,0.60) 0%,
-                rgba(5,5,5,0.38) 40%,
-                rgba(5,5,5,0.55) 100%
-            );
-            z-index: -1;
-            pointer-events: none;
+        /* Everything above canvases */
+        .site-wrapper, header, .promo-bar, .trust-badges-container,
+        .search-container, footer, #splash-screen,
+        .modal, .legal-page, #aboutPage, #zoom-container,
+        .cart-float, .profile-float, .tg-float, #added-toast {
+            position: relative; z-index: 10;
         }
-
-        /* Subtle grain texture for depth */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.5;
-        }
+        .modal, .legal-page, #aboutPage, #zoom-container { z-index: 200; }
+        #splash-screen { z-index: 9999; }
+        .cart-float, .profile-float, .tg-float { z-index: 500; }
+        #added-toast { z-index: 400; }
 
         .admin-only { display: none; }
-        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; display: block; }
+        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; }
 
-        /* ══════════════════════════════════════════
-           GLASS UTILITIES
-        ══════════════════════════════════════════ */
-        .glass {
-            background: var(--surface);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--border-glass);
-        }
-        .glass-strong {
-            background: var(--surface-raised);
-            backdrop-filter: var(--glass-blur-heavy);
-            -webkit-backdrop-filter: var(--glass-blur-heavy);
-            border: 1px solid rgba(255,255,255,0.10);
-        }
-
-        /* ══════════════════════════════════════════
-           SPLASH SCREEN
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           SPLASH
+        ═══════════════════════════════════ */
         #splash-screen {
-            position: fixed; top:0; left:0; width:100%; height:100%;
+            position: fixed; inset: 0;
             background: #000;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            z-index: 10000;
-            transition: opacity 1s ease-out, visibility 1s;
-            will-change: opacity;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 1.2s ease-out, visibility 1.2s;
         }
-        .splash-content { text-align: center; }
-        .welcome-msg {
-            font-size: 11px; color: rgba(255,255,255,0.35);
-            letter-spacing: 8px; text-transform: uppercase;
-            margin-bottom: 24px; font-weight: 300;
-            opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s;
-        }
+        #splash-silk { position: absolute; inset: 0; pointer-events: none; }
+        .splash-content { text-align: center; position: relative; z-index: 1; }
         .splash-logo {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 56px; letter-spacing: 16px; font-weight: 300;
-            font-style: italic; text-transform: uppercase;
-            line-height: 1.05; margin-bottom: 22px;
+            font-size: 58px; letter-spacing: 16px; font-weight: 300;
+            font-style: italic; line-height: 1.05; margin-bottom: 18px;
             background: linear-gradient(90deg, #816604 0%, #FFD700 40%, #fff8dc 55%, #FFD700 70%, #816604 100%);
             background-size: 250% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: fadeUp 1.2s ease forwards 0.5s, shine 4s linear infinite;
-            will-change: background-position, opacity;
+            opacity: 0; animation: fadeUp 1.2s ease forwards 0.5s, shine 4s linear infinite;
+            filter: drop-shadow(0 0 40px rgba(255,215,0,0.4));
         }
-        .splash-divider {
-            width: 70px; height: 1px;
+        .splash-welcome {
+            font-size: 10px; color: rgba(255,255,255,0.30);
+            letter-spacing: 8px; text-transform: uppercase; margin-bottom: 24px;
+            opacity: 0; animation: fadeUp 0.9s ease forwards 0.2s;
+        }
+        .splash-line {
+            width: 60px; height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 0 auto 22px;
+            margin: 0 auto 18px;
             opacity: 0; animation: fadeUp 0.8s ease forwards 1s;
         }
         .splash-slogan {
-            font-size: 9px; color: rgba(255,255,255,0.4);
-            letter-spacing: 6px; font-weight: 600; text-transform: uppercase;
+            font-size: 9px; color: rgba(255,255,255,0.35);
+            letter-spacing: 6px; text-transform: uppercase;
             opacity: 0; animation: fadeUp 0.8s ease forwards 1.1s;
         }
-        .splash-exit { opacity: 0; visibility: hidden; pointer-events: none; }
-        @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+        .splash-exit { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
         @keyframes shine { to { background-position: 250% center; } }
 
-        /* ══════════════════════════════════════════
-           HEADER
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           HERO
+        ═══════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 120px 24px 80px;
+        }
+        .hero-eyebrow {
+            font-size: 9px; color: rgba(255,215,0,0.5);
+            letter-spacing: 8px; text-transform: uppercase; margin-bottom: 28px;
+            opacity: 0; animation: fadeUp 1s ease forwards 0.4s;
+        }
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(72px, 17vw, 168px);
+            font-weight: 300; font-style: italic;
+            letter-spacing: 10px; line-height: 0.92; margin-bottom: 8px;
+            background: linear-gradient(180deg, #fff8dc 0%, #FFD700 45%, #d4af37 80%, #816604 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 60px rgba(255,215,0,0.30));
+            opacity: 0; animation: heroReveal 1.4s cubic-bezier(0.16,1,0.3,1) forwards 0.6s;
+        }
+        .hero-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(16px, 3vw, 24px);
+            letter-spacing: 14px; font-weight: 300; color: rgba(255,255,255,0.4);
+            text-transform: uppercase; margin-bottom: 52px;
+            opacity: 0; animation: fadeUp 1s ease forwards 1.1s;
+        }
+        .hero-cta {
+            padding: 18px 56px;
+            background: transparent;
+            border: 1px solid rgba(255,215,0,0.5);
+            color: var(--gold); font-size: 10px;
+            letter-spacing: 5px; text-transform: uppercase; font-weight: 700;
+            cursor: pointer; border-radius: 1px;
+            transition: all 0.4s ease;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 1.4s;
+        }
+        .hero-cta:hover {
+            background: rgba(255,215,0,0.07);
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(255,215,0,0.15);
+            transform: translateY(-2px);
+        }
+        .hero-scroll {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            opacity: 0; animation: fadeUp 0.8s ease forwards 1.8s;
+        }
+        .hero-scroll span { font-size: 8px; letter-spacing: 4px; color: rgba(255,255,255,0.20); text-transform: uppercase; }
+        .scroll-line { width: 1px; height: 38px; background: linear-gradient(180deg, rgba(255,215,0,0.5), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+        @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+        @keyframes heroReveal { from{opacity:0;transform:translateY(38px) skewY(1.5deg);} to{opacity:1;transform:translateY(0) skewY(0);} }
+
+        /* ═══════════════════════════════════
+           HEADER — glass
+        ═══════════════════════════════════ */
         header {
-            background: rgba(5,5,5,0.72);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            padding: 20px 32px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            padding: 18px 32px;
+            border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 100;
             text-align: center; width: 100%;
             display: flex; align-items: center; justify-content: center; gap: 14px;
         }
-        .header-logo { height: 34px; border-radius: 7px; vertical-align: middle; }
+        .header-logo { height: 32px; border-radius: 6px; }
         .brand-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 20px; letter-spacing: 5px; font-weight: 600;
             font-style: italic; color: var(--gold);
         }
 
-        /* ══════════════════════════════════════════
-           PROMO BAR
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           PROMO BAR — minimal glass
+        ═══════════════════════════════════ */
         .promo-bar {
-            background: rgba(5,5,5,0.55);
-            backdrop-filter: blur(14px);
-            color: rgba(255,255,255,0.65);
-            font-size: 11px; padding: 14px 24px;
-            font-weight: 600; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            letter-spacing: 1.5px;
+            background: rgba(0,0,0,0.20);
+            backdrop-filter: blur(10px);
+            color: rgba(255,255,255,0.45);
+            font-size: 11px; padding: 13px 24px;
+            border-bottom: 1px solid rgba(255,215,0,0.05);
+            letter-spacing: 1.5px; text-align: center; font-weight: 600;
         }
         .about-link {
             color: var(--gold); font-size: 11px; font-weight: 900;
             text-decoration: none; cursor: pointer; display: inline-block;
-            margin-top: 5px; letter-spacing: 2px;
-            transition: opacity 0.2s;
+            margin-top: 5px; letter-spacing: 2px; transition: opacity 0.2s;
         }
         .about-link:hover { opacity: 0.7; }
 
-        /* ══════════════════════════════════════════
-           TRUST BADGES
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           TRUST BADGES — no box, pure float
+        ═══════════════════════════════════ */
         .trust-badges-container {
             display: flex; justify-content: center; align-items: center;
-            gap: 36px; padding: 18px 28px;
-            background: rgba(5,5,5,0.45);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            gap: 36px; padding: 16px 28px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
             flex-wrap: wrap;
         }
         .badge-item { display: flex; align-items: center; gap: 10px; }
-        .badge-icon { color: var(--gold); font-weight: 900; font-size: 13px; }
-        .badge-text { color: rgba(255,255,255,0.45); font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; }
+        .badge-icon { color: var(--gold); font-size: 12px; }
+        .badge-text { color: rgba(255,255,255,0.35); font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; }
 
-        /* ══════════════════════════════════════════
-           SEARCH
-        ══════════════════════════════════════════ */
-        .search-container {
-            padding: 24px 28px;
-            background: rgba(5,5,5,0.30);
-            backdrop-filter: blur(10px);
-        }
+        /* ═══════════════════════════════════
+           SEARCH — floating
+        ═══════════════════════════════════ */
+        .search-container { padding: 24px 28px; background: transparent; }
         #search-input {
-            width: 100%; padding: 16px 28px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.10);
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(12px);
-            color: white; font-size: 14px;
-            text-align: center; outline: none;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0.5px;
-            transition: border-color 0.3s, background 0.3s;
+            width: 100%; padding: 15px 28px; border-radius: 50px;
+            border: 1px solid rgba(255,215,0,0.12);
+            background: rgba(0,0,0,0.20);
+            backdrop-filter: blur(16px); color: white;
+            font-size: 14px; text-align: center; outline: none;
+            font-family: 'Inter', sans-serif; letter-spacing: 0.5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        #search-input::placeholder { color: rgba(255,255,255,0.25); }
+        #search-input::placeholder { color: rgba(255,255,255,0.18); }
         #search-input:focus {
-            border-color: rgba(255,215,0,0.30);
-            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,215,0,0.35);
+            box-shadow: 0 0 28px rgba(255,215,0,0.07);
         }
 
-        /* ══════════════════════════════════════════
-           PRODUCT GRID — spacious, luxurious
-        ══════════════════════════════════════════ */
-        .category-section { padding: 52px 0 0; position: relative; z-index: 1; }
-        .category-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 24px; font-style: italic; font-weight: 300;
-            color: var(--gold); margin-bottom: 24px;
-            text-align: center; letter-spacing: 3px;
+        /* ═══════════════════════════════════
+           SECTION HEADINGS — free floating
+        ═══════════════════════════════════ */
+        .section-heading-wrap {
+            text-align: center; padding: 72px 24px 10px;
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
+        .section-heading-wrap.revealed { opacity: 1; transform: translateY(0); }
+        .section-eyebrow {
+            font-size: 8px; color: rgba(255,215,0,0.40);
+            letter-spacing: 7px; text-transform: uppercase; font-weight: 700;
+            margin-bottom: 12px; display: block;
+        }
+        .section-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 6vw, 52px);
+            font-style: italic; font-weight: 300; color: white;
+            letter-spacing: 3px; line-height: 1.1; margin-bottom: 10px;
+        }
+        .section-heading span { color: var(--gold); }
+        .section-rule {
+            width: 40px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 10px auto 0;
+        }
+
+        /* ═══════════════════════════════════
+           PRODUCTS — transparent, floating
+        ═══════════════════════════════════ */
+        .category-section { padding: 24px 0 0; }
         .scroll-wrapper {
             display: flex; overflow-x: auto;
-            gap: 20px; padding: 6px 28px 36px;
+            gap: 18px; padding: 8px 28px 44px;
             scrollbar-width: none;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .product-card {
-            flex: 0 0 200px;
-            background: rgba(10,10,10,0.70);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            flex: 0 0 196px;
+            background: rgba(0,0,0,0.28);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border-radius: var(--radius-card);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: white;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.35s ease, border-color 0.35s, box-shadow 0.35s;
-            position: relative;
+            border: 1px solid rgba(255,215,0,0.08);
+            color: white; overflow: hidden; cursor: pointer;
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                        transform 0.7s cubic-bezier(0.16,1,0.3,1),
+                        border-color 0.4s, box-shadow 0.4s;
+            will-change: transform;
         }
-        .product-card::after {
-            content: '';
-            position: absolute; inset: 0;
-            border-radius: var(--radius-card);
-            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
+        .product-card.revealed { opacity: 1; transform: translateY(0); }
         .product-card:hover {
-            transform: translateY(-7px);
+            transform: translateY(-10px) !important;
             border-color: rgba(255,215,0,0.28);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.08);
+            box-shadow: 0 22px 56px rgba(0,0,0,0.55), 0 0 36px rgba(255,215,0,0.07);
         }
-        .img-area { height: 240px; background: #000; overflow: hidden; }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease; }
-        .product-card:hover .img-area img { transform: scale(1.05); }
-        .info-area { padding: 18px 16px 16px; }
+        /* Top gold glow line on hover */
+        .product-card::after {
+            content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), transparent);
+            opacity: 0; transition: opacity 0.4s; pointer-events: none;
+        }
+        .product-card:hover::after { opacity: 1; }
+
+        .img-area { height: 235px; overflow: hidden; position: relative; background: rgba(0,0,0,0.2); }
+        .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .img-area::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 55px;
+            background: linear-gradient(0deg, rgba(0,0,0,0.45), transparent); pointer-events: none;
+        }
+        .product-card:hover .img-area img { transform: scale(1.07); }
+        .info-area { padding: 16px 15px 14px; }
         .info-area h3 {
-            font-size: 11px; color: var(--beige);
-            height: 32px; overflow: hidden;
-            font-weight: 400; letter-spacing: 0.6px;
-            line-height: 1.5;
+            font-size: 11px; color: rgba(212,197,176,0.80);
+            height: 30px; overflow: hidden; font-weight: 400; letter-spacing: 0.5px; line-height: 1.5;
         }
-        .new-p {
-            font-weight: 900; font-size: 15px;
-            color: white; margin-top: 8px;
-            letter-spacing: 0.5px;
-        }
+        .new-p { font-weight: 900; font-size: 15px; color: var(--gold); margin-top: 7px; }
 
-        /* ══════════════════════════════════════════
-           VARIANTS
-        ══════════════════════════════════════════ */
-        .variant-section { margin-bottom: 20px; }
-        .variant-label {
-            font-size: 10px; font-weight: 700;
-            color: rgba(255,255,255,0.35);
-            text-transform: uppercase; margin-bottom: 12px;
-            display: block; letter-spacing: 2.5px;
-        }
-        .variant-scroll {
-            display: flex; gap: 12px;
-            overflow-x: auto; padding-bottom: 6px; scrollbar-width: none;
-        }
-        .variant-scroll::-webkit-scrollbar { display: none; }
-        .variant-item {
-            flex: 0 0 70px; height: 70px;
-            border-radius: 12px; border: 2px solid transparent;
-            cursor: pointer; overflow: hidden;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        .variant-item:hover { transform: scale(1.05); }
-        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
-        .variant-item span { display: none !important; }
-        .variant-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.25); }
-
-        /* ══════════════════════════════════════════
-           RECOMMENDATIONS
-        ══════════════════════════════════════════ */
-        .rec-title {
-            font-size: 10px; font-weight: 900;
-            color: var(--gold); margin: 32px 0 16px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 24px; text-transform: uppercase; letter-spacing: 3px;
-        }
-        .rec-scroll {
-            display: flex; gap: 14px;
-            overflow-x: auto; scrollbar-width: none; padding-bottom: 8px;
-        }
-        .rec-item { flex: 0 0 115px; cursor: pointer; text-align: center; }
-        .rec-item img {
-            width: 100%; height: 115px; object-fit: cover;
-            border-radius: 14px; border: 1px solid rgba(255,255,255,0.08);
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        .rec-item:hover img { border-color: var(--gold); transform: scale(1.03); }
-        .rec-item h4 {
-            font-size: 9px; margin: 8px 0 0;
-            color: rgba(255,255,255,0.45);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            letter-spacing: 0.5px;
-        }
-
-        /* ══════════════════════════════════════════
+        /* ═══════════════════════════════════
            TOAST
-        ══════════════════════════════════════════ */
+        ═══════════════════════════════════ */
         #added-toast {
             position: fixed; top: 24px; right: 24px; visibility: hidden;
-            background: rgba(12,12,12,0.95);
-            backdrop-filter: blur(24px);
-            color: white; padding: 16px 24px;
-            border-radius: 16px; border: 1px solid rgba(255,215,0,0.18);
+            background: rgba(4,4,4,0.80);
+            backdrop-filter: blur(28px);
+            color: white; padding: 15px 22px;
+            border-radius: 14px; border: 1px solid rgba(255,215,0,0.18);
             z-index: 5000; font-weight: 600; font-size: 13px;
             display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.7);
             transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275), visibility 0.5s;
-            will-change: transform;
             transform: translateX(calc(100% + 48px));
         }
         #added-toast.show { transform: translateX(0); visibility: visible; }
         .toast-icon {
             background: var(--gold); color: black;
-            border-radius: 50%; width: 24px; height: 24px;
+            border-radius: 50%; width: 22px; height: 22px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 900;
+            font-size: 10px; font-weight: 900;
         }
 
-        /* ══════════════════════════════════════════
+        /* ═══════════════════════════════════
            FLOATING BUTTONS
-        ══════════════════════════════════════════ */
+        ═══════════════════════════════════ */
         .cart-float, .profile-float, .tg-float {
-            opacity: 0 !important; visibility: hidden !important;
-            pointer-events: none !important;
-            transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), visibility 0.6s !important;
+            opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
+            transition: opacity 0.6s ease, visibility 0.6s !important;
         }
         body.intro-complete .cart-float,
         body.intro-complete .profile-float,
@@ -403,108 +364,93 @@
         }
         .tg-float {
             position: fixed !important; bottom: 24px !important; right: 104px !important;
-            background: var(--tg); color: white;
-            width: 60px; height: 60px; border-radius: 50%;
+            background: var(--tg); color: white; width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; text-decoration: none; z-index: 99999 !important;
-            box-shadow: 0 8px 24px rgba(0,136,204,0.4);
-            transition: transform 0.2s !important;
+            font-size: 24px; text-decoration: none; z-index: 500 !important;
+            box-shadow: 0 8px 24px rgba(0,136,204,0.4); transition: transform 0.2s !important;
         }
         .tg-float:hover { transform: scale(1.08) !important; }
         .cart-float {
             position: fixed !important; bottom: 24px !important; left: 24px !important;
-            background: white; color: black;
-            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(255,255,255,0.90); color: black; width: 60px; height: 60px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            font-size: 24px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 8px 24px rgba(255,255,255,0.18);
+            font-size: 24px; z-index: 500 !important; cursor: pointer;
+            box-shadow: 0 8px 24px rgba(255,255,255,0.15);
         }
         .profile-float {
             position: fixed !important; bottom: 24px !important; right: 24px !important;
             background: linear-gradient(135deg, #d4af37, #FFD700);
             color: black; width: 60px; height: 60px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 8px 26px rgba(255,215,0,0.32);
-            transition: transform 0.2s !important;
+            font-size: 24px; z-index: 500 !important; cursor: pointer;
+            box-shadow: 0 8px 26px rgba(255,215,0,0.32); transition: transform 0.2s !important;
         }
         .profile-float:hover { transform: scale(1.08) !important; }
         .cart-count {
             position: absolute; top: -2px; right: -2px;
             background: var(--accent); color: white;
-            font-size: 10px; padding: 3px 7px; border-radius: 50%;
-            font-weight: 900;
+            font-size: 10px; padding: 3px 7px; border-radius: 50%; font-weight: 900;
         }
 
-        /* ══════════════════════════════════════════
-           MODALS — roomy, luxurious
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           MODALS — 30% glass, totally open
+           NO solid boxes anywhere
+        ═══════════════════════════════════ */
         .modal {
-            display: none; position: fixed; z-index: 2000;
+            display: none; position: fixed; z-index: 200;
             left:0; top:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.82);
-            backdrop-filter: blur(10px);
-            overflow-y: auto;
-            padding: 20px 16px;
+            background: rgba(0,0,0,0.50);
+            backdrop-filter: blur(4px);
+            overflow-y: auto; padding: 20px 16px;
         }
+        /* The "content" area is just light glass — background always shows */
         .modal-content {
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(40px);
+            background: rgba(4,4,4,0.30);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             color: white;
             margin: 0 auto;
-            padding: 36px 28px 40px;
-            width: 100%;
-            max-width: 420px;
+            padding: 40px 28px 44px;
+            width: 100%; max-width: 440px;
             border-radius: var(--radius-modal);
-            border: 1px solid rgba(255,255,255,0.09);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,215,0,0.04);
+            border: 1px solid rgba(255,215,0,0.12);
+            box-shadow: 0 0 0 1px rgba(255,215,0,0.04), inset 0 1px 0 rgba(255,255,255,0.04);
         }
-
-        /* Product modal image — generous height */
+        /* Gold top accent line */
+        .modal-content::before {
+            content: ''; display: block; width: 44px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto 28px;
+        }
         #modal-img {
-            width: 100%;
-            border-radius: 18px;
-            margin-bottom: 24px;
-            cursor: zoom-in;
-            display: block;
-            min-height: 280px;
-            object-fit: cover;
-            background: #0a0a0a;
+            width: 100%; border-radius: 16px; margin-bottom: 22px;
+            cursor: zoom-in; display: block; min-height: 270px; object-fit: cover;
+            background: rgba(0,0,0,0.2); border: 1px solid rgba(255,215,0,0.07);
         }
-
-        /* Modal headings */
         #m-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 26px; font-style: italic; font-weight: 300;
-            letter-spacing: 1.5px; line-height: 1.2;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px; line-height: 1.2; margin-bottom: 8px;
         }
         #m-price {
-            color: var(--gold); font-weight: 900;
-            font-size: 20px; display: block;
-            margin-bottom: 4px; letter-spacing: 0.5px;
+            color: var(--gold); font-weight: 900; font-size: 20px;
+            display: block; margin-bottom: 4px;
         }
+        .modal-divider { height: 1px; background: rgba(255,215,0,0.07); margin: 20px 0; }
 
-        /* Divider line in modal */
-        .modal-divider {
-            height: 1px; width: 100%;
-            background: rgba(255,255,255,0.06);
-            margin: 22px 0;
-        }
-
+        /* Buttons — free, open */
         .btn {
-            width: 100%; padding: 18px;
-            background: white; color: black;
-            border: none; border-radius: var(--radius-btn);
-            font-weight: 900; margin-top: 16px;
-            cursor: pointer; font-size: 13px; letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: opacity 0.2s, transform 0.15s;
+            width: 100%; padding: 17px;
+            background: rgba(255,255,255,0.90); color: black;
+            border: none; border-radius: 14px;
+            font-weight: 900; margin-top: 14px;
+            cursor: pointer; font-size: 12px; letter-spacing: 1.5px;
+            text-transform: uppercase; transition: opacity 0.2s, transform 0.15s;
         }
         .btn:hover { opacity: 0.9; transform: translateY(-2px); }
         .btn-ghost {
-            background: rgba(255,255,255,0.05) !important;
-            color: rgba(255,255,255,0.7) !important;
+            background: rgba(255,255,255,0.04) !important;
+            color: rgba(255,255,255,0.55) !important;
             border: 1px solid rgba(255,255,255,0.08) !important;
         }
         .btn-gold {
@@ -512,288 +458,346 @@
             color: #000 !important;
         }
 
+        /* Inputs — glass */
         .order-input, #size-box {
-            width: 100%; padding: 15px 18px; margin-top: 12px;
-            border-radius: 14px; border: 1px solid rgba(255,255,255,0.09);
+            width: 100%; padding: 14px 18px; margin-top: 10px;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
             background: rgba(255,255,255,0.04);
-            color: white; box-sizing: border-box; font-size: 15px;
-            font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s, background 0.2s;
+            backdrop-filter: blur(10px);
+            color: white; font-size: 15px; font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
         }
         .order-input:focus, #size-box:focus {
-            outline: none;
-            border-color: rgba(255,215,0,0.35);
-            background: rgba(255,255,255,0.06);
+            outline: none; border-color: rgba(255,215,0,0.35);
         }
-        .order-input::placeholder { color: rgba(255,255,255,0.25); }
-
-        /* Size select — styled */
+        .order-input::placeholder { color: rgba(255,255,255,0.20); }
         #size-box {
-            appearance: none;
-            -webkit-appearance: none;
+            appearance: none; -webkit-appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.6)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            padding-right: 40px;
+            background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
         }
         #size-box option { background: #111; }
 
+        .field-label {
+            font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.28);
+            text-transform: uppercase; letter-spacing: 2.5px;
+            display: block; margin-top: 18px; margin-bottom: 2px;
+        }
+
+        /* Variant picker */
+        .variant-section { margin-bottom: 18px; }
+        .variant-label {
+            font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.30);
+            text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 2.5px;
+        }
+        .variant-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .variant-scroll::-webkit-scrollbar { display: none; }
+        .variant-item {
+            flex: 0 0 68px; height: 68px; border-radius: 10px;
+            border: 2px solid transparent; cursor: pointer; overflow: hidden;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .variant-item:hover { transform: scale(1.04); }
+        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-item span { display: none !important; }
+        .variant-item.active { border-color: var(--gold); box-shadow: 0 0 16px rgba(255,215,0,0.20); }
+
+        /* Recs */
+        .rec-title {
+            font-size: 10px; font-weight: 900; color: var(--gold);
+            margin: 28px 0 14px; border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 22px; text-transform: uppercase; letter-spacing: 3px;
+        }
+        .rec-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
+        .rec-item img {
+            width: 100%; height: 110px; object-fit: cover;
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.07);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .rec-item:hover img { border-color: var(--gold); transform: scale(1.03); }
+        .rec-item h4 {
+            font-size: 9px; margin: 6px 0 0; color: rgba(255,255,255,0.40);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        /* Cart items */
         .cart-item {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 14px; gap: 12px;
         }
         .cart-item:last-child { border-bottom: none; }
         .remove-btn {
-            background: transparent;
-            color: var(--accent); padding: 6px 12px;
-            border: 1px solid rgba(255,59,48,0.3);
-            border-radius: 8px; font-size: 10px;
-            font-weight: 900; cursor: pointer;
+            background: transparent; color: var(--accent);
+            padding: 6px 12px; border: 1px solid rgba(255,59,48,0.3);
+            border-radius: 8px; font-size: 10px; font-weight: 900;
+            cursor: pointer; white-space: nowrap; flex-shrink: 0;
             transition: background 0.2s;
-            white-space: nowrap; flex-shrink: 0;
         }
-        .remove-btn:hover { background: rgba(255,59,48,0.1); }
+        .remove-btn:hover { background: rgba(255,59,48,0.10); }
+        .cart-total-row {
+            font-weight: 900; color: var(--gold);
+            padding: 16px 0; text-align: right; font-size: 18px;
+        }
 
-        /* ══════════════════════════════════════════
-           ABOUT PAGE
-        ══════════════════════════════════════════ */
-        #aboutPage {
-            display: none; position: fixed; top:0; left:0;
-            width:100%; height:100%;
-            background: rgba(0,0,0,0.96);
-            backdrop-filter: blur(24px);
-            z-index: 9999; overflow-y: auto;
-            padding: 48px 24px; box-sizing: border-box;
+        /* Payment options */
+        .payment-option-label {
+            display: flex; align-items: flex-start; gap: 13px; cursor: pointer;
+            padding: 13px 14px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.02);
+            transition: border-color 0.2s, background 0.2s; margin-bottom: 9px;
         }
-        .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
+        .payment-option-label:has(input:checked) {
+            border-color: rgba(255,215,0,0.28); background: rgba(255,215,0,0.04);
+        }
+
+        /* ═══════════════════════════════════
+           PROFILE HUB — open glass, no boxes
+        ═══════════════════════════════════ */
+        .profile-hub-inner { max-width: 420px; margin: 0 auto; padding: 8px 0 20px; }
+        .profile-avatar-zone {
+            text-align: center; padding: 32px 0 24px; margin-bottom: 0;
+        }
+        .profile-avatar-svg { margin-bottom: 14px; }
+        .profile-name-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px; font-weight: 600; color: #fff; letter-spacing: 1px; margin-bottom: 4px;
+        }
+        .profile-email-text { font-size: 12px; color: rgba(255,255,255,0.30); }
+
+        /* Profile rows — borderless, floating text */
+        .profile-row {
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        .profile-row:last-of-type { border-bottom: none; }
+        .profile-row-label { color: rgba(255,255,255,0.22); font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+        .profile-row-value { color: #ccc; font-size: 13px; font-weight: 500; }
+        .profile-row-value.gold { color: var(--gold); font-weight: 900; letter-spacing: 0.5px; }
+        .profile-row-value.green { color: #00cc66; }
+
+        /* ═══════════════════════════════════
+           ABOUT PAGE — glass overlay, open
+        ═══════════════════════════════════ */
+        #aboutPage {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.70);
+            backdrop-filter: blur(18px);
+            z-index: 9999; overflow-y: auto;
+            padding: 48px 24px;
+        }
+        .about-content { max-width: 580px; margin: 0 auto; text-align: center; }
         .about-content h2 {
             color: var(--gold); font-family: 'Cormorant Garamond', serif;
-            font-size: 36px; margin-bottom: 10px;
-            font-style: italic; font-weight: 300;
+            font-size: 38px; margin-bottom: 8px; font-style: italic; font-weight: 300;
         }
-        .about-content p { line-height: 1.9; color: #bbb; font-size: 14px; margin-bottom: 20px; }
+        .about-content p { line-height: 1.9; color: rgba(255,255,255,0.65); font-size: 14px; margin-bottom: 18px; }
+        .about-section-title {
+            color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 8px; display: block; font-weight: 700;
+        }
 
-        /* ══════════════════════════════════════════
+        /* ═══════════════════════════════════
            ZOOM
-        ══════════════════════════════════════════ */
+        ═══════════════════════════════════ */
         #zoom-container {
-            display: none; position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.97); z-index: 9999;
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.96); z-index: 9999;
             flex-direction: column; justify-content: center; align-items: center;
         }
         .zoom-stage {
             position: relative; width: 100%; height: 72vh;
             display: flex; align-items: center; justify-content: center;
         }
-        #zoom-img { max-width: 92%; max-height: 100%; object-fit: contain; border-radius: 12px; }
+        #zoom-img { max-width: 92%; max-height: 100%; object-fit: contain; border-radius: 10px; }
         .zoom-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.06); backdrop-filter: blur(10px);
-            color: var(--gold); border: 1px solid rgba(255,255,255,0.1);
-            width: 52px; height: 52px; border-radius: 50%;
-            font-size: 24px; font-weight: 900; cursor: pointer; z-index: 10;
+            background: rgba(255,255,255,0.05); color: var(--gold);
+            border: 1px solid rgba(255,215,0,0.15); width: 50px; height: 50px;
+            border-radius: 50%; font-size: 24px; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: background 0.2s;
         }
         .zoom-arrow:hover { background: rgba(255,255,255,0.10); }
         .arrow-left { left: 16px; } .arrow-right { right: 16px; }
         .zoom-close {
-            margin-top: 32px; background: white; color: black;
-            border: none; padding: 14px 48px; border-radius: 32px;
-            font-weight: 900; cursor: pointer; letter-spacing: 1.5px;
-            font-size: 12px; text-transform: uppercase;
+            margin-top: 28px; background: white; color: black;
+            border: none; padding: 13px 44px; border-radius: 30px;
+            font-weight: 900; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
         }
 
-        /* ══════════════════════════════════════════
-           PROFILE EDIT BTN
-        ══════════════════════════════════════════ */
-        .profile-edit-btn {
-            background: rgba(255,255,255,0.04); color: #fff;
-            border: 1px solid rgba(255,255,255,0.09);
-            padding: 14px; border-radius: 14px;
-            font-size: 11px; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 2px;
-            transition: background 0.3s, border-color 0.3s; width: 100%;
+        /* ═══════════════════════════════════
+           LEGAL PAGES — open glass
+        ═══════════════════════════════════ */
+        .legal-page {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.80);
+            backdrop-filter: blur(20px);
+            z-index: 9998; overflow-y: auto; padding: 0;
         }
-        .profile-edit-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); }
+        .legal-inner { max-width: 660px; margin: 0 auto; padding: 44px 28px 90px; }
+        .legal-header { text-align: center; padding: 40px 0 28px; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 36px; }
+        .legal-badge { font-size: 9px; color: rgba(255,255,255,0.25); letter-spacing: 6px; text-transform: uppercase; margin-bottom: 14px; }
+        .legal-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); margin: 0 0 10px; font-style: italic; font-weight: 300; }
+        .legal-header p { font-size: 12px; color: rgba(255,255,255,0.25); }
+        .legal-section { margin-bottom: 32px; }
+        .legal-section h2 { font-size: 10px; font-weight: 900; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,215,0,0.07); }
+        .legal-section p, .legal-section li { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.9; margin-bottom: 8px; }
+        .legal-section ul { padding-left: 18px; }
+        .legal-section li { margin-bottom: 5px; }
+        .legal-section strong { color: rgba(255,255,255,0.80); }
+        .legal-back-btn {
+            display: flex; align-items: center; gap: 8px; background: transparent;
+            border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.30);
+            padding: 10px 20px; border-radius: 30px; font-size: 11px; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer;
+            margin-bottom: 28px; transition: border-color 0.2s, color 0.2s;
+        }
+        .legal-back-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .legal-highlight-box {
+            border: 1px solid rgba(255,215,0,0.08); border-radius: 14px;
+            padding: 18px 20px; margin-bottom: 18px;
+        }
+        .legal-highlight-box p { margin: 0; font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.75; }
 
-        /* ══════════════════════════════════════════
-           PRIVATE REQUEST BUTTON
-        ══════════════════════════════════════════ */
+        /* ═══════════════════════════════════
+           PRIVATE SECTION — open, breathing
+        ═══════════════════════════════════ */
+        .private-section {
+            padding: 110px 24px; text-align: center;
+            border-top: 1px solid rgba(255,215,0,0.05);
+            margin-top: 60px; width: 100%; background: transparent;
+            position: relative;
+        }
+        .private-section::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.025) 0%, transparent 70%);
+            pointer-events: none;
+        }
         .private-request-btn {
-            display: inline-block; padding: 20px 56px;
-            background-color: transparent;
-            color: var(--gold-dim); border: 1px solid var(--gold-dim);
-            border-radius: 60px; font-size: 11px; letter-spacing: 4px;
-            text-transform: uppercase; font-weight: 600; cursor: pointer;
-            transition: background-color 0.4s, color 0.4s, box-shadow 0.4s;
-            margin-top: 24px;
+            display: inline-block; padding: 19px 52px;
+            background: transparent; color: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.40); border-radius: 1px;
+            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            font-weight: 600; cursor: pointer; transition: all 0.4s ease;
+            margin-top: 22px; position: relative; overflow: hidden;
         }
         .private-request-btn:hover {
-            background-color: var(--gold-dim); color: #000;
-            box-shadow: 0 0 36px rgba(212,175,55,0.30);
+            border-color: var(--gold); color: var(--gold);
+            box-shadow: 0 0 40px rgba(255,215,0,0.15);
+            transform: translateY(-2px);
         }
 
-        /* ══════════════════════════════════════════
-           LEGAL PAGES
-        ══════════════════════════════════════════ */
-        .legal-page {
-            display: none; position: fixed; top:0; left:0;
-            width:100%; height:100%;
-            background: rgba(0,0,0,0.97);
-            backdrop-filter: blur(24px);
-            z-index: 9998; overflow-y: auto;
-            padding: 0; box-sizing: border-box;
-        }
-        .legal-inner { max-width: 680px; margin: 0 auto; padding: 44px 28px 90px; }
-        .legal-header { text-align: center; padding: 44px 0 32px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 38px; }
-        .legal-header .legal-badge { font-size: 9px; color: #555; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
-        .legal-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--gold); margin: 0 0 12px; font-style: italic; font-weight: 300; letter-spacing: 2px; }
-        .legal-header p { font-size: 12px; color: #444; margin: 0; }
-        .legal-section { margin-bottom: 34px; }
-        .legal-section h2 { font-size: 10px; font-weight: 900; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.08); }
-        .legal-section p, .legal-section li { font-size: 13px; color: #999; line-height: 1.9; margin-bottom: 8px; }
-        .legal-section ul { padding-left: 20px; margin: 0; }
-        .legal-section li { margin-bottom: 6px; }
-        .legal-section strong { color: #ddd; }
-        .legal-back-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.09); color: #555; padding: 11px 22px; border-radius: 32px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-bottom: 32px; transition: border-color 0.2s, color 0.2s; }
-        .legal-back-btn:hover { border-color: var(--gold); color: var(--gold); }
-        .legal-highlight-box { background: rgba(255,215,0,0.03); border: 1px solid rgba(255,215,0,0.10); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
-        .legal-highlight-box p { margin: 0; font-size: 13px; color: #bbb; line-height: 1.75; }
+        /* ═══════════════════════════════════
+           ONBOARDING
+        ═══════════════════════════════════ */
+        #profileOnboardingModal { background: rgba(0,0,0,0.75) !important; }
 
-        /* ══════════════════════════════════════════
+        /* ═══════════════════════════════════
            FOOTER
-        ══════════════════════════════════════════ */
+        ═══════════════════════════════════ */
+        footer {
+            width: 100%; background: rgba(0,0,0,0.25);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,215,0,0.05);
+            padding: 32px 24px 20px;
+        }
         .footer-legal {
             display: flex; flex-wrap: wrap; justify-content: center;
-            gap: 24px; padding: 28px 24px;
-            border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px;
+            gap: 22px; padding: 0 0 20px;
         }
         .footer-legal a {
-            color: rgba(255,255,255,0.25); font-size: 10px;
+            color: rgba(255,255,255,0.18); font-size: 10px;
             letter-spacing: 2.5px; text-transform: uppercase;
             cursor: pointer; text-decoration: none; transition: color 0.2s;
         }
         .footer-legal a:hover { color: var(--gold); }
 
-        /* ══════════════════════════════════════════
-           PRIVATE SECTION
-        ══════════════════════════════════════════ */
-        .private-section {
-            background: rgba(5,5,5,0.55);
-            backdrop-filter: blur(24px);
-            padding: 110px 24px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 60px; width: 100%;
-        }
+        /* ═══════════════════════════════════
+           PRIVATE SOURCING MODAL — open glass
+           No lag: removed heavy dropdowns & effects
+        ═══════════════════════════════════ */
+        #privateSourcingModal .modal-content { max-width: 480px; }
 
-        /* ══════════════════════════════════════════
-           INPUT LABELS — unified style
-        ══════════════════════════════════════════ */
-        .field-label {
-            font-size: 10px; font-weight: 700;
-            color: rgba(255,255,255,0.30);
-            text-transform: uppercase; letter-spacing: 2.5px;
-            display: block; margin-top: 20px; margin-bottom: 4px;
+        /* Profile edit btn */
+        .profile-edit-btn {
+            background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 13px; border-radius: 12px;
+            font-size: 11px; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: background 0.3s; width: 100%; margin-top: 16px;
         }
+        .profile-edit-btn:hover { background: rgba(255,255,255,0.06); }
 
-        /* Payment options */
-        .payment-option-label {
-            display: flex; align-items: flex-start;
-            gap: 14px; cursor: pointer;
-            padding: 14px 16px;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.07);
-            background: rgba(255,255,255,0.02);
-            transition: border-color 0.2s, background 0.2s;
-            margin-bottom: 10px;
-        }
-        .payment-option-label:has(input:checked) {
-            border-color: rgba(255,215,0,0.30);
-            background: rgba(255,215,0,0.04);
-        }
-
-        /* Cart total */
-        .cart-total-row {
-            font-weight: 900; color: var(--gold);
-            padding: 18px 0; text-align: right;
-            font-size: 19px; letter-spacing: 0.5px;
-        }
-
-        /* ══════════════════════════════════════════
-           RESPONSIVE
-        ══════════════════════════════════════════ */
         @media (min-width: 768px) {
-            .modal-content { max-width: 560px !important; }
-            .product-card { flex: 0 0 260px !important; }
-            .img-area { height: 310px !important; }
-            #modal-img { min-height: 340px !important; }
+            .modal-content { max-width: 540px !important; }
+            .product-card { flex: 0 0 255px !important; }
+            .img-area { height: 300px !important; }
+            #modal-img { min-height: 330px !important; }
         }
         @media (max-width: 768px) {
-            .trust-badges-container { gap: 12px; padding: 14px; flex-direction: column; text-align: center; }
-            .modal { padding: 16px 12px; }
-            .modal-content { padding: 28px 20px 32px; }
+            .trust-badges-container { gap: 10px; flex-direction: column; text-align: center; }
+            .modal { padding: 14px 10px; }
+            .modal-content { padding: 28px 18px 32px; }
         }
     </style>
 </head>
 <body class="loading">
 
-<!-- VIDEO BACKGROUND -->
-<video id="bg-video" autoplay loop muted playsinline>
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4" type="video/mp4">
-</video>
+<!-- BACKGROUND CANVASES -->
+<canvas id="silk-canvas"></canvas>
+<canvas id="particle-canvas"></canvas>
+<div id="bg-overlay"></div>
 
-<!-- ZOOM OVERLAY -->
+<!-- ZOOM -->
 <div id="zoom-container">
     <div class="zoom-stage">
         <button class="zoom-arrow arrow-left" onclick="changeZoom(-1)">&#8249;</button>
-        <img id="zoom-img" src="" alt="Zoomed Product">
+        <img id="zoom-img" src="" alt="">
         <button class="zoom-arrow arrow-right" onclick="changeZoom(1)">&#8250;</button>
     </div>
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
-<!-- ABOUT PAGE -->
+<!-- ABOUT -->
 <div id="aboutPage">
     <div class="about-content">
         <h2>About OUMRAN STORE</h2>
-        <h3 style="font-family:'Cormorant Garamond',serif;color:rgba(255,255,255,0.3);margin-bottom:36px;letter-spacing:5px;font-size:11px;font-weight:300;text-transform:uppercase;">THE GOLD STANDARD OF FASHION</h3>
-        <div style="margin-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:28px;">
-            <h3 style="color:var(--gold);font-size:15px;font-weight:600;margin-bottom:16px;text-align:center;letter-spacing:2px;text-transform:uppercase;">The OUMRAN Standard</h3>
-            <p>Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before it is prepared for delivery in Addis Ababa. We guarantee premium fabrics and exact fits.</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;color:rgba(255,255,255,0.25);margin-bottom:36px;letter-spacing:5px;font-size:11px;font-weight:300;text-transform:uppercase;">The Gold Standard of Fashion</h3>
+        <div style="margin-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:24px;">
+            <p>Every piece in our signature series is strictly vetted, inspected, and quality-controlled by our team before delivery in Addis Ababa.</p>
         </div>
-        <div style="margin-bottom:26px;"><strong style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Curated Excellence</strong><p style="font-size:14px;color:#ccc;line-height:1.8;">We are Addis Ababa's premier destination for high-quality fashion. We operate as professional vendors, sourcing premium apparel and luxury goods directly from the most prestigious suppliers in China.</p></div>
-        <div style="margin-bottom:26px;"><strong style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">Global Trends, Local Access</strong><p style="font-size:14px;color:#ccc;line-height:1.8;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service.</p></div>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Instant Reservation</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.</p>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Telegram Verification</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.8;margin-bottom:20px;">Our team will reach out via Telegram to verify your delivery address and finalize procurement details.</p>
-        <strong><span style="display:block;color:var(--gold);margin-bottom:8px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;">• Delivery & Settlement</span></strong>
-        <p style="font-size:14px;color:#ccc;line-height:1.8;">Receive your package at your door in Addis Ababa and settle the total balance via Telebirr or cash.</p>
-        <button class="btn" style="margin-top:36px;" onclick="closeAbout()">Return to Store</button>
+        <span class="about-section-title">Curated Excellence</span>
+        <p>We are Addis Ababa's premier destination for high-quality fashion, sourcing premium apparel directly from the most prestigious suppliers in China.</p>
+        <span class="about-section-title">Global Trends, Local Access</span>
+        <p>Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional customer service.</p>
+        <span class="about-section-title">• Instant Reservation</span>
+        <p>Place your order instantly online without any advance fees to reserve your pieces from our exclusive selection.</p>
+        <span class="about-section-title">• Telegram Verification</span>
+        <p>Our team will reach out via Telegram to verify your delivery address and finalize procurement details.</p>
+        <span class="about-section-title">• Delivery & Settlement</span>
+        <p>Receive your package at your door in Addis Ababa and settle the total balance via Telebirr or cash.</p>
+        <button class="btn" style="margin-top:32px;max-width:300px;" onclick="closeAbout()">Return to Store</button>
     </div>
 </div>
 
-<!-- PRIVACY POLICY PAGE -->
+<!-- PRIVACY PAGE -->
 <div id="privacyPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('privacyPage')">← Back</button>
-        <div class="legal-header">
-            <div class="legal-badge">OUMRAN STORE &nbsp;•&nbsp; LEGAL</div>
-            <h1>Privacy Policy</h1>
-            <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all users in Addis Ababa, Ethiopia</p>
-        </div>
-        <div class="legal-highlight-box"><p>We respect your privacy. This policy explains what personal information we collect, why we collect it, and how it is used. By using OUMRAN STORE, you agree to the terms below.</p></div>
-        <div class="legal-section"><h2>1. Information We Collect</h2><ul><li><strong>Profile Information:</strong> When you create an OUMRAN profile, we collect your full name and Gmail address. This data is stored locally on your own device only.</li><li><strong>Order Details:</strong> When you place an order, we collect your name, phone number, and delivery address solely to process your reservation.</li><li><strong>Device Data:</strong> We may collect browser type and session data to improve store performance. We do not track your precise location.</li><li><strong>Images:</strong> If you submit a private sourcing request with a reference image, that image is transmitted directly to our Telegram concierge and is not stored on any third-party server by us.</li></ul></div>
-        <div class="legal-section"><h2>2. How We Use Your Information</h2><ul><li>To process and confirm your orders via Telegram.</li><li>To contact you regarding delivery status and payment confirmation.</li><li>To maintain your local order history on your own device.</li><li>We do <strong>not</strong> sell, rent, or share your personal data with any third party for marketing purposes.</li></ul></div>
-        <div class="legal-section"><h2>3. Data Storage</h2><p>All profile and order history data is stored locally on your device using browser localStorage. We do not operate a central customer database. Your data remains on your device and under your control.</p></div>
-        <div class="legal-section"><h2>4. Telegram Communication</h2><p>Order details and private sourcing requests are transmitted via Telegram Bot API to our internal business channel. This communication is subject to Telegram's own Privacy Policy. We recommend reviewing it at <strong>telegram.org/privacy</strong>.</p></div>
-        <div class="legal-section"><h2>5. Cookies</h2><p>OUMRAN STORE uses only essential browser storage (localStorage and sessionStorage) required for core functionality such as cart management and profile saving. We do not use advertising cookies or tracking pixels of any kind.</p></div>
-        <div class="legal-section"><h2>6. Your Rights</h2><ul><li>You may clear your profile and order history at any time by clearing your browser's local storage.</li><li>You may request deletion of any order data shared with us by contacting us on Telegram.</li></ul></div>
-        <div class="legal-section"><h2>7. Contact</h2><p>For any privacy-related questions, reach us via Telegram: <strong>@OUMER_FETE</strong></p></div>
+        <div class="legal-header"><div class="legal-badge">OUMRAN STORE • LEGAL</div><h1>Privacy Policy</h1><p>Last updated: January 2026 | Applies to all users in Addis Ababa, Ethiopia</p></div>
+        <div class="legal-highlight-box"><p>We respect your privacy. This policy explains what personal information we collect, why we collect it, and how it is used.</p></div>
+        <div class="legal-section"><h2>1. Information We Collect</h2><ul><li><strong>Profile Information:</strong> Full name and Gmail address, stored locally on your device only.</li><li><strong>Order Details:</strong> Name, phone number, and delivery address to process your reservation.</li><li><strong>Device Data:</strong> Browser type and session data to improve performance. We do not track your precise location.</li><li><strong>Images:</strong> Reference images sent via private request are transmitted directly to our Telegram concierge.</li></ul></div>
+        <div class="legal-section"><h2>2. How We Use Your Information</h2><ul><li>To process and confirm your orders via Telegram.</li><li>To contact you regarding delivery status and payment confirmation.</li><li>To maintain your local order history on your own device.</li><li>We do <strong>not</strong> sell, rent, or share your personal data.</li></ul></div>
+        <div class="legal-section"><h2>3. Data Storage</h2><p>All data is stored locally on your device using browser localStorage. We do not operate a central customer database.</p></div>
+        <div class="legal-section"><h2>4. Telegram Communication</h2><p>Order details are transmitted via Telegram Bot API. This is subject to Telegram's own Privacy Policy at <strong>telegram.org/privacy</strong>.</p></div>
+        <div class="legal-section"><h2>5. Cookies</h2><p>OUMRAN STORE uses only essential browser storage (localStorage and sessionStorage). We do not use advertising cookies.</p></div>
+        <div class="legal-section"><h2>6. Your Rights</h2><ul><li>Clear your profile by clearing your browser's local storage.</li><li>Request deletion of order data by contacting us on Telegram.</li></ul></div>
+        <div class="legal-section"><h2>7. Contact</h2><p>For privacy-related questions: <strong>@OUMER_FETE</strong></p></div>
         <button class="btn" onclick="closeLegal('privacyPage')">Return to Store</button>
     </div>
 </div>
@@ -802,21 +806,16 @@
 <div id="termsPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('termsPage')">← Back</button>
-        <div class="legal-header">
-            <div class="legal-badge">OUMRAN STORE &nbsp;•&nbsp; LEGAL</div>
-            <h1>Terms & Conditions</h1>
-            <p>Last updated: January 2026 &nbsp;|&nbsp; Governing jurisdiction: Addis Ababa, Ethiopia</p>
-        </div>
-        <div class="legal-highlight-box"><p>By browsing or placing an order through OUMRAN STORE, you agree to be bound by these Terms & Conditions. Please read them carefully before proceeding.</p></div>
-        <div class="legal-section"><h2>1. About OUMRAN STORE</h2><p>OUMRAN STORE is an independent fashion retail operation based in Addis Ababa, Ethiopia. We source premium apparel and lifestyle goods directly from vetted suppliers in China and distribute exclusively within Addis Ababa.</p></div>
-        <div class="legal-section"><h2>2. Product Listings</h2><ul><li>All product images are representative. Slight color variations may occur due to screen calibration.</li><li>Prices are listed in Ethiopian Birr (ETB) and are subject to change based on supplier stock and currency fluctuations.</li><li>Final pricing for each order will be confirmed via Telegram before dispatch.</li><li>Stock availability is not guaranteed. In the event an item becomes unavailable after your order, we will notify you and offer an alternative or full cancellation.</li></ul></div>
-        <div class="legal-section"><h2>3. Ordering Process</h2><ul><li>Placing an order on this website constitutes a <strong>reservation request</strong>, not a confirmed sale.</li><li>Your order is confirmed only after our team contacts you via Telegram and verifies your delivery details.</li><li>We reserve the right to decline or cancel any order at our discretion.</li></ul></div>
-        <div class="legal-section"><h2>4. Payment</h2><ul><li><strong>Cash on Delivery (COD):</strong> Full payment is due upon receipt of goods at your door. No advance payment required.</li><li><strong>50% Secure Deposit:</strong> A 50% upfront payment via Telebirr locks in your order; the remainder is due upon delivery.</li><li><strong>Full Upfront Payment:</strong> Full payment via Telebirr prior to dispatch. Eligible for priority processing.</li><li>Telebirr payment numbers: <strong>0939620004 | 0940028820</strong></li></ul></div>
-        <div class="legal-section"><h2>5. Delivery</h2><ul><li>Delivery is currently available exclusively within <strong>Addis Ababa</strong>.</li><li>Estimated delivery time will be communicated via Telegram upon order confirmation.</li><li>OUMRAN STORE is not liable for delays caused by circumstances beyond our control.</li></ul></div>
-        <div class="legal-section"><h2>6. Intellectual Property</h2><p>All content on this website — including text, design, layout, and product photography — is the property of OUMRAN STORE. Unauthorized reproduction or distribution is prohibited.</p></div>
-        <div class="legal-section"><h2>7. Limitation of Liability</h2><p>OUMRAN STORE shall not be liable for any indirect, incidental, or consequential damages arising from the use of this website or the purchase of products. Our total liability shall not exceed the amount paid for the specific order in question.</p></div>
-        <div class="legal-section"><h2>8. Governing Law</h2><p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia. Any disputes shall be resolved in Addis Ababa under Ethiopian jurisdiction.</p></div>
-        <div class="legal-section"><h2>9. Contact</h2><p>For any questions regarding these terms, contact us via Telegram: <strong>@OUMER_FETE</strong></p></div>
+        <div class="legal-header"><div class="legal-badge">OUMRAN STORE • LEGAL</div><h1>Terms & Conditions</h1><p>Last updated: January 2026 | Governing jurisdiction: Addis Ababa, Ethiopia</p></div>
+        <div class="legal-highlight-box"><p>By browsing or placing an order through OUMRAN STORE, you agree to be bound by these Terms & Conditions.</p></div>
+        <div class="legal-section"><h2>1. About OUMRAN STORE</h2><p>OUMRAN STORE is an independent fashion retail operation based in Addis Ababa, Ethiopia, distributing exclusively within Addis Ababa.</p></div>
+        <div class="legal-section"><h2>2. Product Listings</h2><ul><li>All product images are representative. Slight color variations may occur.</li><li>Prices are listed in Ethiopian Birr (ETB) and subject to change.</li><li>Final pricing confirmed via Telegram before dispatch.</li></ul></div>
+        <div class="legal-section"><h2>3. Ordering Process</h2><ul><li>Placing an order constitutes a <strong>reservation request</strong>, not a confirmed sale.</li><li>Your order is confirmed only after our team contacts you via Telegram.</li></ul></div>
+        <div class="legal-section"><h2>4. Payment</h2><ul><li><strong>Cash on Delivery (COD):</strong> Full payment at door. No advance required.</li><li><strong>50% Secure Deposit:</strong> Half upfront via Telebirr; rest at delivery.</li><li><strong>Full Upfront Payment:</strong> Full payment via Telebirr for priority processing.</li><li>Telebirr: <strong>0939620004 | 0940028820</strong></li></ul></div>
+        <div class="legal-section"><h2>5. Delivery</h2><p>Delivery available exclusively within <strong>Addis Ababa</strong>. Estimated delivery time communicated via Telegram.</p></div>
+        <div class="legal-section"><h2>6. Intellectual Property</h2><p>All content on this website is the property of OUMRAN STORE. Unauthorized reproduction is prohibited.</p></div>
+        <div class="legal-section"><h2>7. Governing Law</h2><p>Governed by the laws of the Federal Democratic Republic of Ethiopia.</p></div>
+        <div class="legal-section"><h2>8. Contact</h2><p>Contact us via Telegram: <strong>@OUMER_FETE</strong></p></div>
         <button class="btn" onclick="closeLegal('termsPage')">Return to Store</button>
     </div>
 </div>
@@ -825,71 +824,84 @@
 <div id="refundPage" class="legal-page">
     <div class="legal-inner">
         <button class="legal-back-btn" onclick="closeLegal('refundPage')">← Back</button>
-        <div class="legal-header">
-            <div class="legal-badge">OUMRAN STORE &nbsp;•&nbsp; LEGAL</div>
-            <h1>Refund & Exchange Policy</h1>
-            <p>Last updated: January 2026 &nbsp;|&nbsp; Applies to all orders in Addis Ababa</p>
-        </div>
-        <div class="legal-highlight-box"><p>Your satisfaction is our priority. Please read this policy carefully before placing your order. All refund and exchange requests must be initiated within the timeframes specified below.</p></div>
-        <div class="legal-section"><h2>1. Eligibility for Refund or Exchange</h2><p>You may be eligible for a refund or exchange if:</p><ul><li>The item received is significantly different from what was ordered (wrong color, wrong size, wrong product).</li><li>The item has a clear manufacturing defect or damage upon arrival.</li><li>Your request is submitted within <strong>48 hours</strong> of delivery.</li></ul></div>
-        <div class="legal-section"><h2>2. Non-Eligible Items</h2><ul><li>Items that have been worn, washed, or altered after delivery.</li><li>Items where the issue is a minor color variation due to screen display differences.</li><li>Orders where the correct size was confirmed at checkout and delivered as specified.</li><li>Sale or discounted items (unless defective).</li><li>Custom or private sourcing orders — procured exclusively for you and non-refundable once confirmed.</li></ul></div>
-        <div class="legal-section"><h2>3. How to Request a Refund or Exchange</h2><ul><li>Contact us via Telegram at <strong>@OUMER_FETE</strong> within 48 hours of delivery.</li><li>Provide your order ID (found in Order History), a clear photo of the item, and a description of the issue.</li><li>Our team will review your request within <strong>1–2 business days</strong>.</li></ul></div>
-        <div class="legal-section"><h2>4. Resolution Options</h2><ul><li><strong>Exchange:</strong> We will arrange delivery of the correct item at no additional cost.</li><li><strong>Store Credit:</strong> Applied toward your next order.</li><li><strong>Full Refund:</strong> Issued via Telebirr to your registered number if an exchange is not possible. Processed within 3–5 business days.</li></ul></div>
-        <div class="legal-section"><h2>5. Upfront Payment Refunds</h2><p>If you paid a 50% deposit or full upfront payment and your order cannot be fulfilled due to stock issues, a full refund will be processed to your Telebirr account within <strong>3–5 business days</strong>.</p></div>
-        <div class="legal-section"><h2>6. Contact</h2><p>All refund and exchange communications should be directed to: <strong>@OUMER_FETE</strong> on Telegram.</p></div>
+        <div class="legal-header"><div class="legal-badge">OUMRAN STORE • LEGAL</div><h1>Refund & Exchange Policy</h1><p>Last updated: January 2026 | Applies to all orders in Addis Ababa</p></div>
+        <div class="legal-highlight-box"><p>Your satisfaction is our priority. All refund and exchange requests must be initiated within the timeframes specified below.</p></div>
+        <div class="legal-section"><h2>1. Eligibility</h2><ul><li>Item received is significantly different from what was ordered.</li><li>Item has a clear manufacturing defect or damage upon arrival.</li><li>Request submitted within <strong>48 hours</strong> of delivery.</li></ul></div>
+        <div class="legal-section"><h2>2. Non-Eligible Items</h2><ul><li>Items worn, washed, or altered after delivery.</li><li>Minor color variations due to screen differences.</li><li>Sale or discounted items (unless defective).</li><li>Custom private sourcing orders — non-refundable once confirmed.</li></ul></div>
+        <div class="legal-section"><h2>3. How to Request</h2><ul><li>Contact <strong>@OUMER_FETE</strong> within 48 hours of delivery.</li><li>Provide your order ID, a clear photo of the item, and a description.</li><li>Our team reviews within <strong>1–2 business days</strong>.</li></ul></div>
+        <div class="legal-section"><h2>4. Resolution Options</h2><ul><li><strong>Exchange:</strong> Delivery of the correct item at no additional cost.</li><li><strong>Store Credit:</strong> Applied toward your next order.</li><li><strong>Full Refund:</strong> Issued via Telebirr within 3–5 business days.</li></ul></div>
+        <div class="legal-section"><h2>5. Contact</h2><p><strong>@OUMER_FETE</strong> on Telegram.</p></div>
         <button class="btn" onclick="closeLegal('refundPage')">Return to Store</button>
     </div>
 </div>
 
-<!-- SPLASH SCREEN -->
+<!-- SPLASH -->
 <div id="splash-screen">
+    <canvas id="splash-silk" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
     <div class="splash-content">
-        <div class="welcome-msg">Welcome to</div>
+        <div class="splash-welcome">Welcome to</div>
         <div class="splash-logo">OUMRAN<br>STORE</div>
-        <div class="splash-divider"></div>
+        <div class="splash-line"></div>
         <div class="splash-slogan">Defining Addis Ababa Luxury</div>
     </div>
 </div>
 
-<!-- PROFILE ONBOARDING MODAL -->
-<div id="profileOnboardingModal" class="modal" style="display:none;background:rgba(0,0,0,0.96);">
+<!-- PROFILE ONBOARDING -->
+<div id="profileOnboardingModal" class="modal" style="display:none;">
     <div class="modal-content" style="text-align:center;margin-top:8vh;max-width:360px;">
-        <div style="font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:20px;">OUMRAN STORE</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:28px;margin-bottom:10px;font-style:italic;font-weight:300;">Create Your Profile</h2>
-        <p style="font-size:10px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:32px;">Oumran Luxury Access</p>
-        <div style="text-align:left;"><label class="field-label" style="margin-top:0;">Full Name</label><input type="text" id="onboardName" placeholder="Enter full name" class="order-input"></div>
-        <div style="text-align:left;"><label class="field-label">Gmail Address</label><input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input"></div>
-        <button class="btn" style="margin-top:28px;" onclick="saveOnboardingProfile()">Generate Profile</button>
+        <div style="font-size:10px;color:rgba(255,255,255,0.20);letter-spacing:5px;text-transform:uppercase;margin-bottom:18px;">OUMRAN STORE</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:28px;margin-bottom:8px;font-style:italic;font-weight:300;">Create Your Profile</h2>
+        <p style="font-size:10px;color:rgba(255,255,255,0.22);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:28px;">Oumran Luxury Access</p>
+        <div style="text-align:left;">
+            <label class="field-label" style="margin-top:0;">Full Name</label>
+            <input type="text" id="onboardName" placeholder="Enter full name" class="order-input">
+        </div>
+        <div style="text-align:left;">
+            <label class="field-label">Gmail Address</label>
+            <input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input">
+        </div>
+        <button class="btn" style="margin-top:24px;" onclick="saveOnboardingProfile()">Generate Profile</button>
         <button class="btn btn-ghost" onclick="cancelOnboardingProfile()">Cancel</button>
     </div>
 </div>
 
-<!-- PROFILE HUB MODAL -->
+<!-- PROFILE HUB -->
 <div id="profileHubModal" class="modal">
-    <div class="modal-content" style="border:1px solid rgba(214,175,55,0.18);max-width:440px;padding:36px 28px 40px;">
-        <div style="text-align:center;margin-bottom:28px;">
-            <p style="color:var(--gold);font-size:9px;letter-spacing:5px;text-transform:uppercase;margin:0 0 10px;font-weight:900;">AUTHENTIC SPACE</p>
+    <div class="modal-content" style="max-width:420px;">
+        <div style="text-align:center;margin-bottom:8px;">
+            <p style="color:var(--gold);font-size:9px;letter-spacing:5px;text-transform:uppercase;margin:0 0 8px;font-weight:900;">AUTHENTIC SPACE</p>
             <h2 style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:28px;margin:0;letter-spacing:1px;font-style:italic;font-weight:300;">Oumran Client Profile</h2>
         </div>
-        <div style="background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:28px 20px;text-align:center;margin-bottom:24px;">
-            <div style="background:rgba(255,255,255,0.04);padding:16px;display:inline-block;border-radius:50%;margin-bottom:16px;border:1px solid rgba(255,255,255,0.07);">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#816604"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#816604"/></linearGradient></defs>
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
-                </svg>
+        <div class="profile-hub-inner">
+            <div class="profile-avatar-zone">
+                <div class="profile-avatar-svg">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="url(#gG)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <defs><linearGradient id="gG" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#816604"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#816604"/></linearGradient></defs>
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="profile-name-text" id="hubProfileName">OUMER FETUDIN</div>
+                <div class="profile-email-text" id="hubProfileEmail">feteoumer@gmail.com</div>
             </div>
-            <div id="hubProfileName" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:1px;">OUMER FETUDIN</div>
-            <div id="hubProfileEmail" style="font-size:12px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;">feteoumer@gmail.com</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
-            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Membership Tier</span><span style="color:var(--gold);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;">✦ Client Portal</span></div>
-            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Logistics Terminal</span><span style="color:#ccc;font-size:13px;font-weight:600;">Addis Ababa Hub, Ethiopia</span></div>
-            <div style="background:rgba(255,255,255,0.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;gap:4px;"><span style="color:rgba(255,255,255,0.25);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:2px;">Account Verification Status</span><span style="color:#00cc66;font-size:13px;font-weight:600;">✓ Secure Handshake Verified</span></div>
+
+            <div class="modal-divider" style="margin:0 0 4px;"></div>
+
+            <div class="profile-row">
+                <span class="profile-row-label">Membership Tier</span>
+                <span class="profile-row-value gold">✦ Client Portal</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-row-label">Logistics Terminal</span>
+                <span class="profile-row-value">Addis Ababa Hub, Ethiopia</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-row-label">Account Verification Status</span>
+                <span class="profile-row-value green">✓ Secure Handshake Verified</span>
+            </div>
+
             <button id="editProfileBtn" onclick="editProfileName()" class="profile-edit-btn">Edit Profile</button>
-        </div>
-        <div style="background:rgba(212,175,55,0.03);border:1px solid rgba(214,175,55,0.09);border-radius:16px;padding:20px;margin-bottom:24px;text-align:center;">
-            <p style="color:var(--gold);font-size:9px;font-weight:900;letter-spacing:3px;text-transform:uppercase;margin:0 0 12px;">Why Oumran Is Unique</p>
-            <p style="color:rgba(255,255,255,0.5);font-size:12px;line-height:1.85;font-weight:300;margin:0;text-align:center;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge to ensure supreme fabric structure and inimitable configurations for the Addis Ababa clientele.</p>
+
+            <p style="font-size:11px;color:rgba(255,255,255,0.30);line-height:1.8;text-align:center;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.04);">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge for the Addis Ababa clientele.</p>
         </div>
         <button class="btn" onclick="closeProfileHub()">Return to Platform</button>
     </div>
@@ -899,8 +911,20 @@
 <div class="site-wrapper">
     <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
 
+    <!-- HERO -->
+    <section class="hero" style="position:relative;">
+        <div class="hero-eyebrow">Addis Ababa's Premier Luxury Destination</div>
+        <h1 class="hero-title">OUMRAN</h1>
+        <div class="hero-sub">Store</div>
+        <button class="hero-cta" onclick="document.getElementById('store-main').scrollIntoView({behavior:'smooth'})">Discover the Collection</button>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
     <header>
-        <img src="IMG_8765.jpeg" alt="OUMRAN STORE Logo" class="header-logo" fetchpriority="high">
+        <img src="IMG_8765.jpeg" alt="OUMRAN" class="header-logo" fetchpriority="high">
         <span class="brand-name">OUMRAN STORE</span>
         <span style="font-size:18px;">📲</span>
     </header>
@@ -922,183 +946,102 @@
 
     <main id="store-main">
 
-        <!-- GRAPHIC T-SHIRTS -->
+        <div class="section-heading-wrap">
+            <span class="section-eyebrow">The Collection</span>
+            <h2 class="section-heading">Graphic <span>T-Shirts</span> 👕</h2>
+            <div class="section-rule"></div>
+        </div>
         <div class="category-section">
-            <div class="category-title">Graphic T-Shirts 👕</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
-                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'>
-                    <div class="img-area"><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
-                    <div class="info-area"><h3>Vintage Polo</h3><div class="new-p">1,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'>
-                    <div class="img-area"><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
-                    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="new-p">1,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
-                    <div class="img-area"><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
-                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
-                    <div class="img-area"><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
-                    <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="new-p">1,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
-                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
-                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
-                    <div class="img-area"><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
-                    <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
+                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'><div class="img-area"><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div><div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'><div class="img-area"><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div><div class="info-area"><h3>Vintage Polo</h3><div class="new-p">1,800 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'><div class="img-area"><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div><div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="new-p">1,800 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'><div class="img-area"><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div><div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'><div class="img-area"><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div><div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="new-p">1,800 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'><div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div><div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'><div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div><div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'><div class="img-area"><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div><div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="new-p">2,850 ETB</div></div></div>
             </div>
         </div>
 
-        <!-- HOODIES & SWEATERS -->
+        <div class="section-heading-wrap">
+            <span class="section-eyebrow">Knitwear</span>
+            <h2 class="section-heading">Hoodies &amp; <span>Sweaters</span> 🧶</h2>
+            <div class="section-rule"></div>
+        </div>
         <div class="category-section">
-            <div class="category-title">Hoodies & Sweaters 🧶</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Polo Knit Sweater','clothe',2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
-                    <div class="img-area"><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div>
-                    <div class="info-area"><h3>Polo Knit Sweater</h3><div class="new-p">2,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
-                    <div class="img-area"><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div>
-                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
-                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
-                    <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
-                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
-                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
-                    <div class="img-area"><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
-                    <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
-                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Official Casual Half Zip Sweater"></div>
-                    <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
+                <div class="product-card" onclick="openP('Polo Knit Sweater','clothe',2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'><div class="img-area"><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div><div class="info-area"><h3>Polo Knit Sweater</h3><div class="new-p">2,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'><div class="img-area"><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div><div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'><div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div><div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="new-p">3,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'><div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div><div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'><div class="img-area"><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div><div class="info-area"><h3>Denim Tears Hoodie</h3><div class="new-p">3,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'><div class="img-area"><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Half Zip Sweater"></div><div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="new-p">3,000 ETB</div></div></div>
             </div>
         </div>
 
-        <!-- JACKETS -->
+        <div class="section-heading-wrap">
+            <span class="section-eyebrow">Outerwear</span>
+            <h2 class="section-heading"><span>Jackets</span> 🧥</h2>
+            <div class="section-rule"></div>
+        </div>
         <div class="category-section">
-            <div class="category-title">Jackets 🧥</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
-                    <div class="img-area"><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div>
-                    <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">2,800 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
-                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div>
-                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div>
-                </div>
+                <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'><div class="img-area"><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div><div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">2,800 ETB</div></div></div>
+                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'><div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div><div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'><div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div><div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div></div>
             </div>
         </div>
 
-        <!-- JEANS & PANTS -->
+        <div class="section-heading-wrap">
+            <span class="section-eyebrow">Bottoms</span>
+            <h2 class="section-heading">Jeans &amp; <span>Pants</span> 👖</h2>
+            <div class="section-rule"></div>
+        </div>
         <div class="category-section">
-            <div class="category-title">Jeans & Pants 👖</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
-                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
-                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div>
-                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
-                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div>
-                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
-                    <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div>
-                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
-                    <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div>
-                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
-                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
-                    <div class="img-area"><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div>
-                    <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
-                    <div class="img-area"><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div>
-                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
-                    <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div>
-                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
-                </div>
+                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'><div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div><div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'><div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div><div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'><div class="img-area"><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div><div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'><div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div><div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'><div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div><div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'><div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div><div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'><div class="img-area"><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div><div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="new-p">2,850 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'><div class="img-area"><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div><div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'><div class="img-area"><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div><div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div></div>
             </div>
         </div>
 
-        <!-- FULL OUTFITS -->
+        <div class="section-heading-wrap">
+            <span class="section-eyebrow">Complete Looks</span>
+            <h2 class="section-heading">Full <span>Outfits</span> 👔</h2>
+            <div class="section-rule"></div>
+        </div>
         <div class="category-section">
-            <div class="category-title">Full Outfits 👔</div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
-                    <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
-                    <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
-                    <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
-                    <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
-                    <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
-                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
-                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
-                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
-                </div>
+                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'><div class="img-area"><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div><div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'><div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Tracksuit"></div><div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'><div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div><div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'><div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Tracksuit"></div><div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'><div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div><div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
+                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'><div class="img-area"><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div><div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div></div>
             </div>
         </div>
 
     </main>
 
-    <!-- PRIVATE REQUEST SECTION -->
+    <!-- PRIVATE SECTION -->
     <div class="private-section">
-        <p style="color:rgba(212,175,55,0.55);font-size:9px;letter-spacing:7px;text-transform:uppercase;margin-bottom:20px;">OFF-MARKET</p>
-        <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:34px;letter-spacing:3px;font-weight:300;margin-bottom:22px;font-style:italic;">Private Request</h2>
-        <div style="max-width:560px;margin:0 auto 44px;">
-            <p style="color:rgba(255,255,255,0.30);font-size:13px;line-height:2.1;font-weight:300;letter-spacing:0.8px;">While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you are seeking a specific piece not displayed here — regardless of category — we invite you to engage our private sourcing service.</p>
+        <p style="color:rgba(212,175,55,0.40);font-size:9px;letter-spacing:7px;text-transform:uppercase;margin-bottom:18px;">OFF-MARKET</p>
+        <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,46px);letter-spacing:3px;font-weight:300;margin-bottom:20px;font-style:italic;text-shadow:0 0 40px rgba(255,215,0,0.20);">Private Request</h2>
+        <div style="max-width:520px;margin:0 auto 40px;">
+            <p style="color:rgba(255,255,255,0.26);font-size:13px;line-height:2.1;font-weight:300;letter-spacing:0.8px;">While our digital gallery showcases our current apparel collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. We invite you to engage our private sourcing service.</p>
         </div>
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
 
     <!-- FOOTER -->
-    <footer style="width:100%;background:rgba(5,5,5,0.75);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.05);padding:36px 24px 24px;box-sizing:border-box;">
+    <footer>
         <div class="footer-legal">
             <a onclick="openLegal('privacyPage')">Privacy Policy</a>
             <a onclick="openLegal('termsPage')">Terms & Conditions</a>
@@ -1106,8 +1049,8 @@
             <a onclick="openAbout()">About Us</a>
             <a href="https://t.me/@OUMER_FETE" target="_blank">Contact</a>
         </div>
-        <p style="text-align:center;color:rgba(255,255,255,0.12);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:16px 0 0;margin:0;">
-            &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
+        <p style="text-align:center;color:rgba(255,255,255,0.10);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:14px 0 0;margin:0;">
+            © 2026 OUMRAN STORE. ALL RIGHTS RESERVED.
         </p>
     </footer>
 
@@ -1116,30 +1059,24 @@
     <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
     <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
 
-    <!-- PRODUCT MODAL — spacious, luxurious -->
+    <!-- PRODUCT MODAL -->
     <div id="pModal" class="modal">
         <div class="modal-content">
-            <img id="modal-img" alt="Product Image" onclick="openZoom()">
-            <h2 id="m-name">Product</h2>
-            <span id="m-price">0 ETB</span>
-
+            <img id="modal-img" alt="" onclick="openZoom()">
+            <h2 id="m-name"></h2>
+            <span id="m-price"></span>
             <div class="modal-divider"></div>
-
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
-
             <div id="pModalSizeWrapper">
                 <label class="field-label" style="margin-top:0;">Select Size</label>
                 <select id="size-box" class="order-input"></select>
             </div>
-
             <div class="modal-divider"></div>
-
             <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
-            <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeModal()">Cancel</button>
-
+            <button class="btn btn-ghost" style="margin-top:8px;" onclick="closeModal()">Cancel</button>
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
         </div>
@@ -1148,21 +1085,20 @@
     <!-- PRIVATE SOURCING MODAL -->
     <div id="privateSourcingModal" class="modal">
         <div class="modal-content" style="max-width:480px;">
-            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;">PRIVATE CONCIERGE</div>
-            <h2 style="margin-top:0;font-family:'Cormorant Garamond',serif;color:#fff;letter-spacing:2px;font-size:26px;font-style:italic;font-weight:300;margin-bottom:6px;">Sourcing Intake 🌐</h2>
-            <p style="font-size:10px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:28px;">Private Concierge Service</p>
+            <div style="font-size:9px;color:rgba(255,255,255,0.22);letter-spacing:5px;text-transform:uppercase;margin-bottom:14px;">PRIVATE CONCIERGE</div>
+            <h2 style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:26px;font-style:italic;font-weight:300;margin-bottom:4px;">Sourcing Intake 🌐</h2>
+            <p style="font-size:10px;color:rgba(255,255,255,0.22);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:24px;">Private Concierge Service</p>
 
-            <label class="field-label" style="margin-top:0;">Item Classification</label>
-            <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:16px;line-height:1.6;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request.</p>
+            <p style="font-size:12px;color:rgba(255,255,255,0.32);margin-bottom:14px;line-height:1.6;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are exclusively available via private request.</p>
 
-            <label class="field-label">Client Profile Name</label>
+            <label class="field-label" style="margin-top:0;">Client Profile Name</label>
             <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
 
             <label class="field-label">Contact Number</label>
             <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
 
             <label class="field-label">Item Category</label>
-            <select id="srcCategory" class="order-input">
+            <select id="srcCategory" class="order-input" onchange="toggleSrcSize()">
                 <option value="Clothes">Clothes</option>
                 <option value="Shoes">Shoes</option>
                 <option value="Watch">Watch / Jewelry</option>
@@ -1181,22 +1117,22 @@
             <label class="field-label">Preferred Budget</label>
             <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
 
-            <label class="field-label">Reference Link / Image Description</label>
-            <div id="srcReferenceWrapper" style="position:relative;border:1px solid rgba(255,255,255,0.09);border-radius:14px;background:rgba(255,255,255,0.03);margin-top:10px;padding:16px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;">
-                <textarea id="srcReference" placeholder="Paste link to reference image, or describe the colorway" style="width:100%;background:transparent;border:none;color:#fff;outline:none;font-size:14px;min-height:90px;resize:none;font-family:inherit;box-sizing:border-box;display:block;margin:0;line-height:1.6;"></textarea>
-                <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;">
-                    <div id="srcImagePreviewSlot" style="display:flex;align-items:center;"></div>
-                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.40);font-size:12px;cursor:pointer;letter-spacing:0.5px;">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                        <span>Add Photo</span>
-                    </label>
-                    <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display:none;">
-                </div>
+            <label class="field-label">Reference / Description</label>
+            <textarea id="srcReference" placeholder="Paste a link or describe the colorway" class="order-input" style="min-height:80px;resize:none;padding-top:12px;"></textarea>
+
+            <label class="field-label">Attach Reference Photo</label>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+                <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:7px;color:rgba(255,255,255,0.45);font-size:12px;cursor:pointer;padding:10px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;transition:border-color 0.2s;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    Add Photo
+                </label>
+                <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display:none;">
+                <div id="srcImagePreviewSlot"></div>
             </div>
 
-            <div style="margin-top:28px;">
+            <div style="margin-top:24px;">
                 <button class="btn btn-gold" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
-                <button class="btn btn-ghost" style="margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
+                <button class="btn btn-ghost" style="margin-top:8px;" onclick="closePrivateSourcing()">Cancel</button>
             </div>
         </div>
     </div>
@@ -1204,16 +1140,14 @@
     <!-- CART MODAL -->
     <div id="cartModal" class="modal">
         <div class="modal-content" style="max-width:460px;">
-            <div style="display:flex;background:rgba(0,0,0,0.5);border-radius:14px;padding:4px;margin-bottom:24px;border:1px solid rgba(255,255,255,0.07);">
-                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex:1;padding:12px;background:rgba(255,255,255,0.07);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Active Bag</button>
-                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex:1;padding:12px;background:transparent;color:rgba(255,255,255,0.30);border:none;border-radius:10px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Order History</button>
+            <div style="display:flex;background:rgba(255,255,255,0.04);border-radius:12px;padding:3px;margin-bottom:22px;border:1px solid rgba(255,255,255,0.06);">
+                <button id="toggle-active-bag" onclick="switchCartView('bag')" style="flex:1;padding:11px;background:rgba(255,255,255,0.07);color:#fff;border:none;border-radius:9px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Active Bag</button>
+                <button id="toggle-order-history" onclick="switchCartView('history')" style="flex:1;padding:11px;background:transparent;color:rgba(255,255,255,0.28);border:none;border-radius:9px;font-weight:700;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:0.2s;">Order History</button>
             </div>
 
             <div id="active-bag-view">
-                <div id="cart-items-list" style="margin-bottom:10px;"></div>
-
+                <div id="cart-items-list" style="margin-bottom:8px;"></div>
                 <div class="cart-total-row">Total: <span id="cart-total">0</span> ETB</div>
-
                 <div class="modal-divider"></div>
 
                 <label class="field-label" style="margin-top:0;">Full Name</label>
@@ -1225,31 +1159,26 @@
                 <label class="field-label">Delivery Address</label>
                 <input type="text" id="custAddress" placeholder="Delivery address in Addis Ababa" class="order-input" style="margin-top:6px;">
 
-                <div style="margin-top:20px;padding:18px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.10);border-radius:16px;">
+                <div style="margin-top:18px;padding:16px;border:1px solid rgba(255,215,0,0.10);border-radius:12px;">
                     <strong style="color:var(--gold);font-size:10px;letter-spacing:2px;text-transform:uppercase;">Telebirr Payment</strong>
-                    <br><span style="font-size:17px;font-weight:900;color:#fff;display:block;margin-top:8px;letter-spacing:1px;">0939620004 &nbsp;|&nbsp; 0940028820</span>
+                    <span style="font-size:16px;font-weight:900;color:#fff;display:block;margin-top:6px;letter-spacing:0.8px;">0939620004 &nbsp;|&nbsp; 0940028820</span>
                 </div>
 
                 <div class="modal-divider"></div>
+                <span style="display:block;color:var(--gold);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:12px;">Select Payment Preference</span>
 
-                <span style="display:block;color:var(--gold);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:14px;">Select Payment Preference</span>
-                <div style="display:flex;flex-direction:column;gap:0;">
-                    <label class="payment-option-label"><input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">Cash on Delivery (COD)</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">No deposit needed. Settle total balance upon delivery.</span></div></label>
-                    <label class="payment-option-label"><input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">50% Secure Deposit</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">Pay half upfront via Telebirr; settle rest at your door.</span></div></label>
-                    <label class="payment-option-label"><input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:4px;">Full Upfront Payment</strong><span style="color:rgba(255,255,255,0.35);font-size:12px;line-height:1.5;display:block;">Settle entire balance instantly via Telebirr for priority drop.</span></div></label>
-                </div>
+                <label class="payment-option-label"><input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:3px;">Cash on Delivery (COD)</strong><span style="color:rgba(255,255,255,0.32);font-size:12px;line-height:1.5;display:block;">No deposit needed. Settle total balance upon delivery.</span></div></label>
+                <label class="payment-option-label"><input type="radio" name="payment_method" value="50% Secure Deposit" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:3px;">50% Secure Deposit</strong><span style="color:rgba(255,255,255,0.32);font-size:12px;line-height:1.5;display:block;">Pay half upfront via Telebirr; settle rest at your door.</span></div></label>
+                <label class="payment-option-label"><input type="radio" name="payment_method" value="Full Upfront Payment" style="accent-color:var(--gold);margin-top:2px;flex-shrink:0;"><div><strong style="color:var(--gold);display:block;font-size:13px;margin-bottom:3px;">Full Upfront Payment</strong><span style="color:rgba(255,255,255,0.32);font-size:12px;line-height:1.5;display:block;">Settle entire balance instantly via Telebirr for priority drop.</span></div></label>
 
-                <div style="display:flex;gap:10px;margin-top:16px;padding:14px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.05);">
-                    <span style="color:var(--gold);font-size:13px;flex-shrink:0;margin-top:1px;">•</span>
-                    <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">Prices may change slightly depending on supplier stock. Final pricing confirmed via Telegram.</p>
-                </div>
+                <p style="margin:14px 0 0;font-size:11px;color:rgba(255,255,255,0.28);line-height:1.6;">• Prices may change slightly depending on supplier stock. Final pricing confirmed via Telegram.</p>
 
-                <button class="btn" style="margin-top:24px;" onclick="submitOrder()">Confirm Order</button>
-                <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeCart()">Close</button>
+                <button class="btn" style="margin-top:22px;" onclick="submitOrder()">Confirm Order</button>
+                <button class="btn btn-ghost" style="margin-top:8px;" onclick="closeCart()">Close</button>
             </div>
 
             <div id="order-history-view" style="display:none;">
-                <div id="history-items-list" style="max-height:340px;overflow-y:auto;margin-bottom:16px;padding-right:4px;"></div>
+                <div id="history-items-list" style="max-height:340px;overflow-y:auto;margin-bottom:14px;padding-right:4px;"></div>
                 <button class="btn btn-ghost" onclick="closeCart()">Close</button>
             </div>
         </div>
@@ -1257,13 +1186,12 @@
 
     <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal">
-        <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:48px 28px;">
-            <div style="font-size:9px;color:rgba(255,255,255,0.25);letter-spacing:5px;text-transform:uppercase;margin-bottom:24px;">OUMRAN STORE</div>
-            <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:32px;letter-spacing:2px;margin-bottom:22px;font-weight:300;font-style:italic;">Order Reserved 🕒</h2>
-            <p style="text-transform:uppercase;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.30);margin-bottom:12px;">Thank you for shopping with OUMRAN STORE</p>
-            <p style="font-size:15px;font-weight:300;margin-bottom:28px;line-height:1.6;color:rgba(255,255,255,0.65);">We have your details secured.</p>
-            <div style="font-size:13px;line-height:1.9;color:rgba(255,255,255,0.50);margin-bottom:32px;padding:20px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.10);border-radius:16px;">To lock in your items, click below to send your payment screenshot to our Telegram. Once received, we'll begin the delivery process immediately.</div>
-            <p style="font-size:10px;letter-spacing:2.5px;font-weight:600;margin-bottom:24px;text-transform:uppercase;color:rgba(255,255,255,0.25);">See you on Telegram</p>
+        <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:48px 26px;">
+            <div style="font-size:9px;color:rgba(255,255,255,0.22);letter-spacing:5px;text-transform:uppercase;margin-bottom:20px;">OUMRAN STORE</div>
+            <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:32px;letter-spacing:2px;margin-bottom:18px;font-weight:300;font-style:italic;">Order Reserved 🕒</h2>
+            <p style="text-transform:uppercase;font-size:10px;letter-spacing:3px;color:rgba(255,255,255,0.28);margin-bottom:10px;">Thank you for shopping with OUMRAN STORE</p>
+            <p style="font-size:14px;font-weight:300;margin-bottom:24px;line-height:1.6;color:rgba(255,255,255,0.60);">We have your details secured.</p>
+            <div style="font-size:13px;line-height:1.9;color:rgba(255,255,255,0.45);margin-bottom:28px;padding:18px;border:1px solid rgba(255,215,0,0.10);border-radius:12px;">To lock in your items, send your payment screenshot to our Telegram. Once received, we'll begin the delivery process immediately.</div>
             <button class="btn" onclick="window.location.href='https://t.me/@OUMER_FETE'" style="letter-spacing:2px;font-size:12px;">Open Telegram</button>
         </div>
     </div>
@@ -1271,9 +1199,141 @@
 </div><!-- END .site-wrapper -->
 
 <script>
-/* ══════════════════════════════════════════
+/* ══════════════════════════════════
+   SILK BACKGROUND — optimised
+   Uses fewer nodes on mobile for performance
+══════════════════════════════════ */
+(function initSilk() {
+    const canvas = document.getElementById('silk-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, t = 0;
+    const isMobile = window.innerWidth < 768;
+    const COLS = isMobile ? 10 : 14, ROWS = isMobile ? 8 : 10;
+
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    let resizeTimer;
+    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 200); });
+
+    function getPoint(c, r, time) {
+        const bx = (c / (COLS-1)) * W, by = (r / (ROWS-1)) * H;
+        return {
+            x: bx + Math.sin(time*0.38 + r*0.8 + c*0.3)*36 + Math.cos(time*0.58 + r*0.6)*12,
+            y: by + Math.sin(time*0.33 + c*0.7 + r*0.2)*26 + Math.cos(time*0.43 + r*0.85)*14
+        };
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const pts = Array.from({length: ROWS}, (_, r) =>
+            Array.from({length: COLS}, (_, c) => getPoint(c, r, t))
+        );
+        for (let r = 0; r < ROWS-1; r++) {
+            for (let c = 0; c < COLS-1; c++) {
+                const p00=pts[r][c], p10=pts[r][c+1], p01=pts[r+1][c], p11=pts[r+1][c+1];
+                const ex=p10.x-p00.x, ey=p10.y-p00.y, fx=p01.x-p00.x, fy=p01.y-p00.y;
+                const nz = Math.max(0, (ex*fy - ey*fx) / (Math.sqrt(ex*ex+ey*ey+1)*Math.sqrt(fx*fx+fy*fy+1)+0.001));
+                const base = 4 + nz*16, sh = Math.pow(nz,2.1)*34, gd = Math.pow(nz,3)*12;
+                ctx.beginPath();
+                ctx.moveTo(p00.x,p00.y); ctx.lineTo(p10.x,p10.y);
+                ctx.lineTo(p11.x,p11.y); ctx.lineTo(p01.x,p01.y);
+                ctx.closePath();
+                ctx.fillStyle = `rgb(${Math.round(base+sh*0.9+gd)},${Math.round(base+sh*0.78+gd*0.8)},${Math.round(base+sh*0.65)})`;
+                ctx.fill();
+            }
+        }
+        // Subtle gold streaks
+        for (let s = 0; s < 2; s++) {
+            const sx=(Math.sin(t*0.28+s*2.1)*0.5+0.5)*W, sy=(Math.cos(t*0.20+s*1.7)*0.5+0.5)*H;
+            const grd=ctx.createRadialGradient(sx,sy,0,sx,sy,100+s*50);
+            grd.addColorStop(0,'rgba(255,215,0,0.035)'); grd.addColorStop(1,'rgba(255,215,0,0)');
+            ctx.beginPath(); ctx.arc(sx,sy,150,0,Math.PI*2); ctx.fillStyle=grd; ctx.fill();
+        }
+        t += 0.0055;
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Splash silk
+    const sc = document.getElementById('splash-silk');
+    if (sc) {
+        const sctx = sc.getContext('2d');
+        let st = 0;
+        sc.width = window.innerWidth; sc.height = window.innerHeight;
+        function drawSplash() {
+            const SW=sc.width, SH=sc.height;
+            sctx.clearRect(0,0,SW,SH);
+            const spts = Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>{
+                const bx=(c/(COLS-1))*SW, by=(r/(ROWS-1))*SH;
+                return {x:bx+Math.sin(st*0.38+r*0.8+c*0.3)*34+Math.cos(st*0.56+r*0.6)*12,
+                        y:by+Math.sin(st*0.33+c*0.7+r*0.2)*24+Math.cos(st*0.43+r*0.85)*13};
+            }));
+            for(let r=0;r<ROWS-1;r++) for(let c=0;c<COLS-1;c++){
+                const p00=spts[r][c],p10=spts[r][c+1],p01=spts[r+1][c],p11=spts[r+1][c+1];
+                const ex=p10.x-p00.x,ey=p10.y-p00.y,fx=p01.x-p00.x,fy=p01.y-p00.y;
+                const nz=Math.max(0,(ex*fy-ey*fx)/(Math.sqrt(ex*ex+ey*ey+1)*Math.sqrt(fx*fx+fy*fy+1)+0.001));
+                const b=3+nz*15,sh=Math.pow(nz,2.1)*30,gd=Math.pow(nz,3)*10;
+                sctx.beginPath();sctx.moveTo(p00.x,p00.y);sctx.lineTo(p10.x,p10.y);sctx.lineTo(p11.x,p11.y);sctx.lineTo(p01.x,p01.y);sctx.closePath();
+                sctx.fillStyle=`rgb(${Math.round(b+sh*0.9+gd)},${Math.round(b+sh*0.78+gd*0.8)},${Math.round(b+sh*0.65)})`;
+                sctx.fill();
+            }
+            st+=0.006;
+            requestAnimationFrame(drawSplash);
+        }
+        drawSplash();
+    }
+})();
+
+/* ══════════════════════════════════
+   GOLD PARTICLES — lightweight
+══════════════════════════════════ */
+(function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    const COUNT = window.innerWidth < 768 ? 50 : 80;
+    const particles = [];
+
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < COUNT; i++) {
+        particles.push({
+            x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
+            size: 0.5+Math.random()*2, speedY: 0.3+Math.random()*0.8,
+            speedX: (Math.random()-0.5)*0.25, opacity: 0.1+Math.random()*0.6,
+            opDir: 1, opSpeed: 0.002+Math.random()*0.003,
+            shimmer: Math.random()*Math.PI*2, shimSpeed: 0.02+Math.random()*0.04,
+            hue: 38+Math.random()*16
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0,0,W,H);
+        for (const p of particles) {
+            p.y += p.speedY; p.x += p.speedX + Math.sin(p.shimmer)*0.12;
+            p.shimmer += p.shimSpeed;
+            p.opacity += p.opSpeed*p.opDir;
+            if (p.opacity > 0.75 || p.opacity < 0.05) p.opDir *= -1;
+            if (p.y > H+10) { p.y = -8; p.x = Math.random()*W; }
+
+            const grd = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size*3);
+            grd.addColorStop(0,`hsla(${p.hue},85%,65%,${p.opacity})`);
+            grd.addColorStop(1,`hsla(${p.hue},85%,65%,0)`);
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.size*3,0,Math.PI*2);
+            ctx.fillStyle=grd; ctx.fill();
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.size*0.45,0,Math.PI*2);
+            ctx.fillStyle=`hsla(${p.hue},90%,88%,${p.opacity*1.1})`; ctx.fill();
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+
+/* ══════════════════════════════════
    SCROLL LOCK
-══════════════════════════════════════════ */
+══════════════════════════════════ */
 let _scrollY = 0;
 function lockScroll() {
     _scrollY = window.scrollY;
@@ -1288,26 +1348,22 @@ function unlockScroll() {
     window.scrollTo(0, _scrollY);
 }
 
-function openLegal(pageId) { lockScroll(); document.getElementById(pageId).style.display = 'block'; }
-function closeLegal(pageId) { document.getElementById(pageId).style.display = 'none'; unlockScroll(); }
+function openLegal(id) { lockScroll(); document.getElementById(id).style.display='block'; }
+function closeLegal(id) { document.getElementById(id).style.display='none'; unlockScroll(); }
 
+/* ══════════════════════════════════
+   STATE
+══════════════════════════════════ */
 const DOM = {};
 let cart = [];
-const sz = { clothe: ["M","L","XL","XXL"], shoes: ["40","41","42","43","44","45"], acc: ["Standard"] };
-let currentP = "", currentPrice = 0, currentVariants = [], zoomIdx = 0;
-let scrollPos = 0;
-let srcAttachedImageBase64 = "";
-let pendingActionType = "";
-let currentProductType = "";
+const sz = { clothe:["M","L","XL","XXL"], shoes:["40","41","42","43","44","45"], acc:["Standard"] };
+let currentP="", currentPrice=0, currentVariants=[], zoomIdx=0;
+let scrollPos=0, srcImageB64="", pendingAction="", currentType="";
 
-function debounce(fn, delay) {
-    let t;
-    return function(...args) { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), delay); };
-}
+function debounce(fn,d){let t;return function(...a){clearTimeout(t);t=setTimeout(()=>fn.apply(this,a),d);};}
 
 window.addEventListener('load', () => {
     DOM.splash      = document.getElementById('splash-screen');
-    DOM.splashLogo  = document.querySelector('.splash-logo');
     DOM.cartBtn     = document.getElementById('cart-btn');
     DOM.cartCount   = document.getElementById('cart-count');
     DOM.cartTotal   = document.getElementById('cart-total');
@@ -1328,345 +1384,316 @@ window.addEventListener('load', () => {
     DOM.searchInput = document.getElementById('search-input');
 
     loadCart();
+    initScrollReveal();
+    initSourceUploads();
+    if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(filterProducts, 120));
 
-    if (!sessionStorage.getItem('oumran_splash_shown')) {
-        sessionStorage.setItem('oumran_splash_shown', 'true');
+    if (!sessionStorage.getItem('oumran_splash')) {
+        sessionStorage.setItem('oumran_splash','1');
         setTimeout(() => {
             DOM.splash.classList.add('splash-exit');
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
-            if (DOM.splashLogo) DOM.splashLogo.style.animation = 'none';
-            syncProfileFieldsToForm();
-            setTimeout(() => { document.body.classList.add('intro-complete'); }, 0);
-        }, 2600);
+            syncProfile();
+            setTimeout(() => document.body.classList.add('intro-complete'), 0);
+        }, 2800);
     } else {
-        DOM.splash.style.display = 'none';
+        DOM.splash.style.display='none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
-        if (DOM.splashLogo) DOM.splashLogo.style.animation = 'none';
-        syncProfileFieldsToForm();
+        syncProfile();
         document.body.classList.add('intro-complete');
     }
+}, {once:true});
 
-    initPrivateSourcingUploads();
-    if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(filterProducts, 120));
-    document.addEventListener('touchstart', () => {}, { passive: true });
-    document.addEventListener('touchmove', () => {}, { passive: true });
-    document.addEventListener('wheel', () => {}, { passive: true });
-}, { once: true });
+/* SCROLL REVEAL */
+function initScrollReveal() {
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const siblings = el.parentElement ? [...el.parentElement.children] : [el];
+            const idx = siblings.indexOf(el);
+            setTimeout(() => el.classList.add('revealed'), idx * 55);
+            obs.unobserve(el);
+        });
+    }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+    document.querySelectorAll('.product-card, .section-heading-wrap').forEach(el => obs.observe(el));
+}
 
-function checkProfileOnboarding(actionType) {
+/* PROFILE */
+function syncProfile() {
+    const s = localStorage.getItem('oumran_user_profile');
+    if (!s) return;
+    const p = JSON.parse(s);
+    ['custName'].forEach(id => { const el=document.getElementById(id); if(el) el.value=p.name; });
+    const sn=document.getElementById('srcClientName'); if(sn) sn.value=p.name;
+    const hn=document.getElementById('hubProfileName'); if(hn) hn.innerText=p.name;
+    const he=document.getElementById('hubProfileEmail'); if(he) he.innerText=p.email;
+}
+function checkProfile(action) {
     if (!localStorage.getItem('oumran_user_profile')) {
-        pendingActionType = actionType;
-        if (actionType === 'cart') DOM.pModal.style.display = "none";
-        if (actionType === 'sourcing') document.getElementById("privateSourcingModal").style.display = "none";
-        scrollPos = window.pageYOffset;
-        document.getElementById('profileOnboardingModal').style.display = 'block';
+        pendingAction=action;
+        if(action==='cart') DOM.pModal.style.display='none';
+        if(action==='sourcing') document.getElementById('privateSourcingModal').style.display='none';
+        scrollPos=window.pageYOffset;
+        document.getElementById('profileOnboardingModal').style.display='block';
         document.documentElement.classList.add('modal-open');
         return false;
     }
     return true;
 }
-
 function saveOnboardingProfile() {
-    const nameInput = document.getElementById('onboardName').value.trim();
-    const emailInput = document.getElementById('onboardEmail').value.trim();
-    if (!nameInput || !emailInput) return alert("Please enter your Full Name and Gmail address.");
-    if (!emailInput.toLowerCase().endsWith('@gmail.com')) return alert("Please enter a valid @gmail.com address.");
-    localStorage.setItem('oumran_user_profile', JSON.stringify({ name: nameInput, email: emailInput.toLowerCase() }));
-    document.getElementById('profileOnboardingModal').style.display = 'none';
+    const n=document.getElementById('onboardName').value.trim();
+    const e=document.getElementById('onboardEmail').value.trim();
+    if(!n||!e) return alert("Please enter name and Gmail address.");
+    if(!e.toLowerCase().endsWith('@gmail.com')) return alert("Please enter a valid @gmail.com address.");
+    localStorage.setItem('oumran_user_profile', JSON.stringify({name:n,email:e.toLowerCase()}));
+    document.getElementById('profileOnboardingModal').style.display='none';
     document.documentElement.classList.remove('modal-open');
-    window.scrollTo(0, scrollPos);
-    syncProfileFieldsToForm();
-    if (pendingActionType === 'cart') { DOM.pModal.style.display = "block"; addToCart(); }
-    else if (pendingActionType === 'sourcing') { document.getElementById("privateSourcingModal").style.display = "block"; submitPrivateRequest(); }
-    pendingActionType = "";
+    window.scrollTo(0,scrollPos);
+    syncProfile();
+    if(pendingAction==='cart'){DOM.pModal.style.display='block';addToCart();}
+    else if(pendingAction==='sourcing'){document.getElementById('privateSourcingModal').style.display='block';submitPrivateRequest();}
+    pendingAction='';
 }
-
 function cancelOnboardingProfile() {
-    document.getElementById('profileOnboardingModal').style.display = 'none';
+    document.getElementById('profileOnboardingModal').style.display='none';
     document.documentElement.classList.remove('modal-open');
-    if (pendingActionType === 'cart') { DOM.pModal.style.display = "block"; document.documentElement.classList.add('modal-open'); }
-    else if (pendingActionType === 'sourcing') { document.getElementById("privateSourcingModal").style.display = "block"; document.documentElement.classList.add('modal-open'); }
-    else { window.scrollTo(0, scrollPos); }
-    pendingActionType = "";
+    if(pendingAction==='cart'){DOM.pModal.style.display='block';document.documentElement.classList.add('modal-open');}
+    else if(pendingAction==='sourcing'){document.getElementById('privateSourcingModal').style.display='block';document.documentElement.classList.add('modal-open');}
+    else window.scrollTo(0,scrollPos);
+    pendingAction='';
 }
-
-function syncProfileFieldsToForm() {
-    const s = localStorage.getItem('oumran_user_profile');
-    if (!s) return;
-    const p = JSON.parse(s);
-    const custName = document.getElementById('custName');
-    const srcName = document.getElementById('srcClientName');
-    const hubName = document.getElementById('hubProfileName');
-    const hubEmail = document.getElementById('hubProfileEmail');
-    if (custName) custName.value = p.name;
-    if (srcName) srcName.value = p.name;
-    if (hubName) hubName.innerText = p.name;
-    if (hubEmail) hubEmail.innerText = p.email;
-}
-
 function editProfileName() {
-    const newName = prompt('Enter your new name:', document.getElementById('hubProfileName').innerText);
-    if (newName) {
-        const s = localStorage.getItem('oumran_user_profile');
-        if (s) { const p = JSON.parse(s); p.name = newName; localStorage.setItem('oumran_user_profile', JSON.stringify(p)); }
-        document.getElementById('hubProfileName').innerText = newName;
-    }
+    const n=prompt('Enter your new name:',document.getElementById('hubProfileName').innerText);
+    if(n){const s=localStorage.getItem('oumran_user_profile');if(s){const p=JSON.parse(s);p.name=n;localStorage.setItem('oumran_user_profile',JSON.stringify(p));}document.getElementById('hubProfileName').innerText=n;}
 }
-
 function openProfileHub() {
-    if (!localStorage.getItem('oumran_user_profile')) { checkProfileOnboarding('hub'); return; }
-    lockScroll();
-    syncProfileFieldsToForm();
-    document.getElementById('profileHubModal').style.display = 'block';
+    if(!localStorage.getItem('oumran_user_profile')){checkProfile('hub');return;}
+    lockScroll(); syncProfile();
+    document.getElementById('profileHubModal').style.display='block';
     document.documentElement.classList.add('modal-open');
 }
 function closeProfileHub() {
-    document.getElementById('profileHubModal').style.display = 'none';
+    document.getElementById('profileHubModal').style.display='none';
     document.documentElement.classList.remove('modal-open');
     unlockScroll();
 }
 
+/* CART VIEWS */
 function switchCartView(view) {
-    const bagView = document.getElementById('active-bag-view');
-    const historyView = document.getElementById('order-history-view');
-    const btnBag = document.getElementById('toggle-active-bag');
-    const btnHistory = document.getElementById('toggle-order-history');
-    const isBag = view === 'bag';
-    bagView.style.display = isBag ? 'block' : 'none';
-    historyView.style.display = isBag ? 'none' : 'block';
-    btnBag.style.background = isBag ? 'rgba(255,255,255,0.07)' : 'transparent';
-    btnBag.style.color = isBag ? '#fff' : 'rgba(255,255,255,0.30)';
-    btnHistory.style.background = isBag ? 'transparent' : 'rgba(255,255,255,0.07)';
-    btnHistory.style.color = isBag ? 'rgba(255,255,255,0.30)' : '#fff';
-    if (!isBag) renderOrderHistory();
+    const isBag=view==='bag';
+    document.getElementById('active-bag-view').style.display=isBag?'block':'none';
+    document.getElementById('order-history-view').style.display=isBag?'none':'block';
+    const bb=document.getElementById('toggle-active-bag'), bh=document.getElementById('toggle-order-history');
+    bb.style.background=isBag?'rgba(255,255,255,0.07)':'transparent';bb.style.color=isBag?'#fff':'rgba(255,255,255,0.28)';
+    bh.style.background=isBag?'transparent':'rgba(255,255,255,0.07)';bh.style.color=isBag?'rgba(255,255,255,0.28)':'#fff';
+    if(!isBag) renderOrderHistory();
 }
-
 function renderOrderHistory() {
-    const c = document.getElementById('history-items-list');
-    const history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    if (!history.length) { c.innerHTML = `<p style="text-align:center;color:rgba(255,255,255,0.25);margin-top:48px;font-size:13px;">No orders found under this account.</p>`; return; }
-    history.sort((a,b) => b.timestamp - a.timestamp);
-    c.innerHTML = history.map(o => `
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px;margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:10px;margin-bottom:10px;">
-                <span style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;">ID: #${o.id}</span>
-                <span style="color:rgba(255,255,255,0.25);font-size:11px;">${o.date}</span>
-            </div>
-            <div style="color:rgba(255,255,255,0.65);font-size:13px;line-height:1.6;margin-bottom:10px;">${o.items.replace(/\n/g,'<br>')}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.35);background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:8px;margin-bottom:10px;"><strong style="color:var(--gold);display:block;margin-bottom:3px;font-size:9px;text-transform:uppercase;letter-spacing:1px;">Payment:</strong>${o.method}</div>
-            <div style="text-align:right;font-weight:900;color:#fff;font-size:14px;">Total: <span style="color:var(--gold);">${o.total}</span> ETB</div>
-        </div>`).join('');
+    const c=document.getElementById('history-items-list');
+    const h=JSON.parse(localStorage.getItem('oumran_order_history'))||[];
+    if(!h.length){c.innerHTML='<p style="text-align:center;color:rgba(255,255,255,0.22);margin-top:44px;font-size:13px;">No orders found.</p>';return;}
+    h.sort((a,b)=>b.timestamp-a.timestamp);
+    c.innerHTML=h.map(o=>`<div style="border-bottom:1px solid rgba(255,255,255,0.05);padding:16px 0;"><div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color:var(--gold);font-size:11px;font-weight:700;">ID: #${o.id}</span><span style="color:rgba(255,255,255,0.22);font-size:11px;">${o.date}</span></div><div style="color:rgba(255,255,255,0.60);font-size:13px;line-height:1.6;margin-bottom:8px;">${o.items.replace(/\n/g,'<br>')}</div><div style="font-size:11px;color:rgba(255,255,255,0.30);margin-bottom:6px;">${o.method}</div><div style="text-align:right;font-weight:900;color:var(--gold);font-size:14px;">${o.total} ETB</div></div>`).join('');
 }
 
+/* ZOOM */
 function openZoom() {
-    zoomIdx = 0;
-    const activeIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
-    if (activeIdx !== -1) zoomIdx = activeIdx;
-    updateZoomImage();
-    document.getElementById("zoom-container").style.display = "flex";
+    zoomIdx=0;
+    const ai=[...document.querySelectorAll('.variant-item')].findIndex(e=>e.classList.contains('active'));
+    if(ai!==-1) zoomIdx=ai;
+    updateZoomImg();
+    document.getElementById('zoom-container').style.display='flex';
     document.documentElement.classList.add('modal-open');
 }
-function changeZoom(dir) {
-    if (!currentVariants.length) return;
-    zoomIdx = (zoomIdx + dir + currentVariants.length) % currentVariants.length;
-    updateZoomImage();
-}
-function updateZoomImage() {
-    if (currentVariants.length > 0) { DOM.zoomImg.src = currentVariants[zoomIdx].img; }
-    else { DOM.zoomImg.src = DOM.modalImg.src; document.querySelectorAll('.zoom-arrow').forEach(a => a.style.display='none'); }
-}
-function closeZoom() { document.getElementById("zoom-container").style.display = "none"; }
+function changeZoom(d){if(!currentVariants.length)return;zoomIdx=(zoomIdx+d+currentVariants.length)%currentVariants.length;updateZoomImg();}
+function updateZoomImg(){DOM.zoomImg.src=currentVariants.length?currentVariants[zoomIdx].img:DOM.modalImg.src;}
+function closeZoom(){document.getElementById('zoom-container').style.display='none';}
 
-function openAbout() { lockScroll(); document.getElementById('aboutPage').style.display = 'block'; }
-function closeAbout() { document.getElementById('aboutPage').style.display = 'none'; unlockScroll(); }
+/* ABOUT */
+function openAbout(){lockScroll();document.getElementById('aboutPage').style.display='block';}
+function closeAbout(){document.getElementById('aboutPage').style.display='none';unlockScroll();}
 
-function openP(n, t, price) {
-    scrollPos = window.pageYOffset;
-    currentP = n; currentPrice = price; currentProductType = t;
-    DOM.mName.innerText = n;
-    DOM.mPrice.innerText = price.toLocaleString() + " ETB";
-    const card = event.currentTarget;
-    DOM.modalImg.src = card.querySelector('img').src;
+/* PRODUCT OPEN */
+function openP(n,t,price) {
+    scrollPos=window.pageYOffset;
+    currentP=n;currentPrice=price;currentType=t;
+    DOM.mName.innerText=n;DOM.mPrice.innerText=price.toLocaleString()+' ETB';
+    const card=event.currentTarget;
+    DOM.modalImg.src=card.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
-    DOM.variantList.innerHTML = "";
-    const varData = card.getAttribute('data-variants');
-    currentVariants = varData ? JSON.parse(varData) : [];
-    if (currentVariants.length > 0) {
-        DOM.variantArea.style.display = "block";
-        const frag = document.createDocumentFragment();
-        currentVariants.forEach((v, idx) => {
-            const item = document.createElement("div");
-            item.className = `variant-item${idx===0?' active':''}`;
-            item.onclick = function() { DOM.modalImg.src = v.img; DOM.variantList.querySelectorAll('.variant-item').forEach(el => el.classList.remove('active')); this.classList.add('active'); };
-            item.innerHTML = `<img src="${v.img}" loading="lazy">${v.name?`<span>${v.name}</span>`:''}`;
-            frag.appendChild(item);
-        });
-        DOM.variantList.appendChild(frag);
-    } else { DOM.variantArea.style.display = "none"; }
-    DOM.recList.innerHTML = "";
-    const recFrag = document.createDocumentFragment();
-    card.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
-        if (prod !== card) {
-            const item = document.createElement('div');
-            item.className = 'rec-item';
-            item.innerHTML = `<img src="${prod.querySelector('img').src}" loading="lazy"><h4>${prod.querySelector('h3').innerText}</h4>`;
-            item.onclick = () => { closeModal(); setTimeout(() => prod.click(), 50); };
-            recFrag.appendChild(item);
-        }
-    });
-    DOM.recList.appendChild(recFrag);
-    DOM.sizeBox.innerHTML = "";
-    const sizeFrag = document.createDocumentFragment();
-    (sz[t] || sz.acc).forEach(s => { const o = document.createElement("option"); o.text = s; sizeFrag.appendChild(o); });
-    DOM.sizeBox.appendChild(sizeFrag);
-    DOM.sizeWrapper.style.display = (t==='clothe'||t==='shoes') ? "block" : "none";
-    DOM.pModal.style.display = "block";
+    DOM.variantList.innerHTML='';
+    const varData=card.getAttribute('data-variants');
+    currentVariants=varData?JSON.parse(varData):[];
+    if(currentVariants.length){
+        DOM.variantArea.style.display='block';
+        const frag=document.createDocumentFragment();
+        currentVariants.forEach((v,i)=>{
+            const el=document.createElement('div');el.className='variant-item'+(i===0?' active':'');
+            el.onclick=function(){DOM.modalImg.src=v.img;DOM.variantList.querySelectorAll('.variant-item').forEach(x=>x.classList.remove('active'));this.classList.add('active');};
+            el.innerHTML=`<img src="${v.img}" loading="lazy">`;frag.appendChild(el);
+        });DOM.variantList.appendChild(frag);
+    } else DOM.variantArea.style.display='none';
+
+    DOM.recList.innerHTML='';
+    const rf=document.createDocumentFragment();
+    card.closest('.category-section').querySelectorAll('.product-card').forEach(p=>{
+        if(p===card)return;
+        const ri=document.createElement('div');ri.className='rec-item';
+        ri.innerHTML=`<img src="${p.querySelector('img').src}" loading="lazy"><h4>${p.querySelector('h3').innerText}</h4>`;
+        ri.onclick=()=>{closeModal();setTimeout(()=>p.click(),50)};
+        rf.appendChild(ri);
+    });DOM.recList.appendChild(rf);
+
+    DOM.sizeBox.innerHTML='';
+    const sf=document.createDocumentFragment();
+    (sz[t]||sz.acc).forEach(s=>{const o=document.createElement('option');o.text=s;sf.appendChild(o);});
+    DOM.sizeBox.appendChild(sf);
+    DOM.sizeWrapper.style.display=(t==='clothe'||t==='shoes')?'block':'none';
+    DOM.pModal.style.display='block';
 }
 
-function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
-
-function addToCart() {
-    const activeSpan = DOM.variantList.querySelector('.variant-item.active span');
-    const displayColor = activeSpan ? ` <span class="admin-only">[${activeSpan.innerText}]</span>` : "";
-    const internalColor = activeSpan ? ` [${activeSpan.innerText}]` : "";
-    const configSize = (currentProductType==='clothe'||currentProductType==='shoes') ? DOM.sizeBox.value : "Standard";
-    cart.push({ name: currentP+displayColor, internalName: currentP+internalColor, size: configSize, price: currentPrice });
-    updateCartDisplay();
-    closeModal();
-    DOM.toastText.innerHTML = `<strong>${currentP}</strong> Added`;
-    DOM.toast.classList.add("show");
-    setTimeout(() => DOM.toast.classList.remove("show"), 2800);
+function handleAddToCartClick(){if(checkProfile('cart'))addToCart();}
+function addToCart(){
+    const activeSpan=DOM.variantList.querySelector('.variant-item.active span');
+    const ic=activeSpan?` [${activeSpan.innerText}]`:'';
+    const size=(currentType==='clothe'||currentType==='shoes')?DOM.sizeBox.value:'Standard';
+    cart.push({name:currentP,internalName:currentP+ic,size,price:currentPrice});
+    updateCartDisplay();closeModal();
+    DOM.toastText.innerHTML=`<strong>${currentP}</strong> Added`;
+    DOM.toast.classList.add('show');
+    setTimeout(()=>DOM.toast.classList.remove('show'),2800);
 }
-
-function updateCartDisplay() {
-    requestAnimationFrame(() => {
-        DOM.cartCount.innerText = cart.length;
-        if (DOM.cartBtn) DOM.cartBtn.style.display = cart.length > 0 ? "flex" : "none";
-        localStorage.setItem('oumer_cart', JSON.stringify(cart));
+function updateCartDisplay(){
+    requestAnimationFrame(()=>{
+        DOM.cartCount.innerText=cart.length;
+        if(DOM.cartBtn)DOM.cartBtn.style.display=cart.length>0?'flex':'none';
+        localStorage.setItem('oumer_cart',JSON.stringify(cart));
     });
 }
-
-function showCart() {
-    scrollPos = window.pageYOffset;
+function showCart(){
+    scrollPos=window.pageYOffset;
     document.documentElement.classList.add('modal-open');
-    let total = 0;
-    DOM.cartList.innerHTML = cart.map((item,i) => { total += item.price; return `<div class="cart-item"><span style="flex:1;line-height:1.5;"><strong style="display:block;font-size:14px;margin-bottom:3px;">${item.name}</strong><span style="color:rgba(255,255,255,0.40);font-size:12px;">Size: ${item.size}</span><span style="display:block;color:var(--gold);font-weight:900;font-size:14px;margin-top:4px;">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`; }).join("");
-    DOM.cartTotal.innerText = total.toLocaleString();
-    DOM.cartModal.style.display = "block";
+    let total=0;
+    DOM.cartList.innerHTML=cart.map((item,i)=>{total+=item.price;return`<div class="cart-item"><span style="flex:1;line-height:1.5;"><strong style="display:block;font-size:14px;margin-bottom:2px;">${item.name}</strong><span style="color:rgba(255,255,255,0.38);font-size:12px;">Size: ${item.size}</span><span style="display:block;color:var(--gold);font-weight:900;font-size:14px;margin-top:3px;">${item.price.toLocaleString()} ETB</span></span><button class="remove-btn" onclick="removeItem(${i})">REMOVE</button></div>`;}).join('');
+    DOM.cartTotal.innerText=total.toLocaleString();
+    DOM.cartModal.style.display='block';
     switchCartView('bag');
 }
+function removeItem(i){cart.splice(i,1);updateCartDisplay();if(!cart.length)closeCart();else showCart();}
+function submitOrder(){
+    const n=document.getElementById('custName').value;
+    const p=document.getElementById('custPhone').value;
+    const a=document.getElementById('custAddress').value;
+    if(!n||!p||!a)return alert("Fill all delivery details first.");
+    const method=document.querySelector('input[name="payment_method"]:checked').value;
+    const itemsStr=cart.map(i=>`▫️ ${i.internalName} (${i.size})`).join('\n');
+    const total=DOM.cartTotal.innerText;
+    let h=JSON.parse(localStorage.getItem('oumran_order_history'))||[];
+    h.push({id:Math.floor(1000+Math.random()*9000),timestamp:Date.now(),date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),items:itemsStr,method,total});
+    localStorage.setItem('oumran_order_history',JSON.stringify(h));
+    const text=`🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *TOTAL:* ${total} ETB\n\n💳 *PAYMENT:* [ ${method} ]`;
+    fetch('https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5715582254',text,parse_mode:'Markdown'})})
+    .then(()=>{DOM.cartModal.style.display='none';document.getElementById('successModal').style.display='block';cart=[];updateCartDisplay();});
+}
+function closeModal(){document.documentElement.classList.remove('modal-open');document.body.classList.remove('modal-open');DOM.pModal.style.display='none';window.scrollTo(0,scrollPos);}
+function closeCart(){document.documentElement.classList.remove('modal-open');DOM.cartModal.style.display='none';window.scrollTo(0,scrollPos);}
+function loadCart(){const s=localStorage.getItem('oumer_cart');if(s){cart=JSON.parse(s);updateCartDisplay();}}
 
-function removeItem(i) { cart.splice(i,1); updateCartDisplay(); if (!cart.length) closeCart(); else showCart(); }
-
-function submitOrder() {
-    const n = document.getElementById('custName').value;
-    const p = document.getElementById('custPhone').value;
-    const a = document.getElementById('custAddress').value;
-    if (!n||!p||!a) return alert("Fill all delivery details first.");
-    const method = document.querySelector('input[name="payment_method"]:checked').value;
-    const itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join("\n");
-    const totalVal = DOM.cartTotal.innerText;
-    let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    history.push({ id: Math.floor(1000+Math.random()*9000), timestamp: Date.now(), date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}), items: itemsStr, method, total: totalVal });
-    localStorage.setItem('oumran_order_history', JSON.stringify(history));
-    const text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${method} ]\n\n—\n`;
-    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ chat_id:"5715582254", text, parse_mode:"Markdown" }) }).then(() => {
-        DOM.cartModal.style.display = "none";
-        document.getElementById("successModal").style.display = "block";
-        cart = []; updateCartDisplay();
+/* SEARCH */
+function filterProducts(){
+    const q=(DOM.searchInput?DOM.searchInput.value:'').toLowerCase();
+    document.querySelectorAll('.category-section').forEach((sec,i)=>{
+        let match=false;
+        sec.querySelectorAll('.product-card').forEach(c=>{const show=c.querySelector('h3').innerText.toLowerCase().includes(q);c.style.display=show?'block':'none';if(show)match=true;});
+        sec.style.display=match?'block':'none';
+        const hw=document.querySelectorAll('.section-heading-wrap')[i];
+        if(hw)hw.style.display=match?'block':'none';
     });
 }
 
-function closeModal() { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display = "none"; window.scrollTo(0,scrollPos); }
-function closeCart() { document.documentElement.classList.remove('modal-open'); DOM.cartModal.style.display = "none"; window.scrollTo(0,scrollPos); }
-function loadCart() { const s = localStorage.getItem('oumer_cart'); if (s) { cart = JSON.parse(s); updateCartDisplay(); } }
-
-function filterProducts() {
-    const q = (DOM.searchInput ? DOM.searchInput.value : document.getElementById('search-input').value).toLowerCase();
-    document.querySelectorAll('.category-section').forEach(sec => {
-        let match = false;
-        sec.querySelectorAll('.product-card').forEach(card => { const show = card.querySelector('h3').innerText.toLowerCase().includes(q); card.style.display = show?"block":"none"; if(show) match=true; });
-        sec.style.display = match?"block":"none";
-    });
+/* SIZE TOGGLE */
+function toggleSrcSize(){
+    const v=document.getElementById('srcCategory').value;
+    document.getElementById('srcSizeWrapper').style.display=(v==='Clothes'||v==='Shoes')?'block':'none';
+    const si=document.getElementById('srcSize');
+    if(v!=='Clothes'&&v!=='Shoes'&&si)si.value='Standard';
 }
 
-function openPrivateSourcing() {
-    scrollPos = window.pageYOffset;
-    lockScroll();
+/* PRIVATE SOURCING */
+function openPrivateSourcing(){
+    scrollPos=window.pageYOffset;lockScroll();
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
-    document.getElementById("privateSourcingModal").style.display = "block";
-    syncProfileFieldsToForm();
-    const cat = document.getElementById('srcCategory');
-    if (cat) document.getElementById('srcSizeWrapper').style.display = (cat.value==='Clothes'||cat.value==='Shoes')?'block':'none';
+    document.getElementById('privateSourcingModal').style.display='block';
+    syncProfile();
+    toggleSrcSize();
 }
-function closePrivateSourcing() {
+function closePrivateSourcing(){
     document.documentElement.classList.remove('modal-open');
     document.body.classList.remove('modal-open');
-    document.getElementById("privateSourcingModal").style.display = "none";
+    document.getElementById('privateSourcingModal').style.display='none';
     unlockScroll();
 }
-function submitPrivateSourcingWithOnboardingCheck() { if (checkProfileOnboarding('sourcing')) submitPrivateRequest(); }
+function submitPrivateSourcingWithOnboardingCheck(){if(checkProfile('sourcing'))submitPrivateRequest();}
 
-function initPrivateSourcingUploads() {
-    const fileInput = document.getElementById('srcHiddenImageUpload');
-    const previewSlot = document.getElementById('srcImagePreviewSlot');
-    const wrapper = document.getElementById('srcReferenceWrapper');
-    const cat = document.getElementById('srcCategory');
-    const sizeW = document.getElementById('srcSizeWrapper');
-    const sizeI = document.getElementById('srcSize');
-    if (cat) cat.addEventListener('change', function() { const show = this.value==='Clothes'||this.value==='Shoes'; sizeW.style.display=show?'block':'none'; if(!show) sizeI.value='Standard'; else if(sizeI.value==='Standard') sizeI.value=''; });
-    function processImageFile(file) {
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = e => {
-                srcAttachedImageBase64 = e.target.result;
-                previewSlot.innerHTML = `<div style="position:relative;display:inline-block;margin-right:10px;"><img src="${e.target.result}" style="width:34px;height:34px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.15);"><span id="srcRemovePreviewBtn" style="position:absolute;top:-6px;right:-6px;background:#ff4d4d;color:white;border-radius:50%;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;">×</span></div>`;
-                document.getElementById('srcRemovePreviewBtn').addEventListener('click', ev => { ev.preventDefault(); previewSlot.innerHTML=''; fileInput.value=''; srcAttachedImageBase64=""; });
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-    if (fileInput) fileInput.addEventListener('change', () => processImageFile(fileInput.files[0]));
-    if (wrapper) wrapper.addEventListener('paste', e => { const items=(e.clipboardData||e.originalEvent.clipboardData).items; for(let i in items){ const item=items[i]; if(item.kind==='file'){ const blob=item.getAsFile(); processImageFile(blob); const dt=new DataTransfer(); dt.items.add(blob); fileInput.files=dt.files; } } });
+function initSourceUploads(){
+    const fi=document.getElementById('srcHiddenImageUpload');
+    const ps=document.getElementById('srcImagePreviewSlot');
+    if(!fi)return;
+    fi.addEventListener('change',()=>{
+        const f=fi.files[0];
+        if(!f||!f.type.startsWith('image/'))return;
+        const r=new FileReader();
+        r.onload=e=>{
+            srcImageB64=e.target.result;
+            ps.innerHTML=`<div style="position:relative;display:inline-block;"><img src="${e.target.result}" style="width:36px;height:36px;object-fit:cover;border-radius:7px;border:1px solid rgba(255,215,0,0.2);"><span onclick="this.parentElement.remove();document.getElementById('srcHiddenImageUpload').value='';srcImageB64='';" style="position:absolute;top:-5px;right:-5px;background:#ff4d4d;color:white;border-radius:50%;width:15px;height:15px;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;">×</span></div>`;
+        };
+        r.readAsDataURL(f);
+    });
 }
 
-function submitPrivateRequest() {
-    const name = document.getElementById('srcClientName').value;
-    const phone = document.getElementById('srcClientPhone').value;
-    const category = document.getElementById('srcCategory').value;
-    const product = document.getElementById('srcProductName').value;
-    const size = document.getElementById('srcSize').value;
-    const budget = document.getElementById('srcBudget').value || "Not Specified";
-    const ref = document.getElementById('srcReference').value || "None Provided";
-    if (!name||!phone||!product||!size) return alert("Please fill in your name, contact, requested item, and sizing.");
-    const text = `🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${name}\n📞 *Contact:* ${phone}\n\n📦 *Classification:* ${category}\n🏷️ *Product:* ${product}\n📐 *Size:* ${size}\n💰 *Budget:* ${budget}\n\n🔗 *Reference:* ${ref}`;
-    let apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
-    let opts;
-    if (srcAttachedImageBase64) {
-        apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto`;
-        const fd = new FormData();
-        fd.append("chat_id","5715582254"); fd.append("caption",text); fd.append("parse_mode","Markdown");
-        const base=srcAttachedImageBase64.split(','); const mime=base[0].match(/:(.*?);/)[1]; const bin=atob(base[1]); let n=bin.length; const arr=new Uint8Array(n); while(n--) arr[n]=bin.charCodeAt(n);
-        fd.append("photo",new Blob([arr],{type:mime}),"upload.jpg");
-        opts={method:"POST",body:fd};
-    } else { opts={method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:"5715582254",text,parse_mode:"Markdown"})}; }
-    fetch(apiUrl,opts).then(()=>{
-        document.getElementById("privateSourcingModal").style.display="none";
-        document.getElementById("successModal").style.display="block";
-        ['srcClientName','srcClientPhone','srcProductName','srcSize','srcBudget','srcReference'].forEach(id=>document.getElementById(id).value="");
-        document.getElementById('srcImagePreviewSlot').innerHTML="";
-        document.getElementById('srcHiddenImageUpload').value="";
-        srcAttachedImageBase64="";
-        unlockScroll();
-    }).catch(()=>alert("An error occurred. Please try again."));
+function submitPrivateRequest(){
+    const name=document.getElementById('srcClientName').value;
+    const phone=document.getElementById('srcClientPhone').value;
+    const cat=document.getElementById('srcCategory').value;
+    const prod=document.getElementById('srcProductName').value;
+    const size=document.getElementById('srcSize').value;
+    const budget=document.getElementById('srcBudget').value||'Not Specified';
+    const ref=document.getElementById('srcReference').value||'None';
+    if(!name||!phone||!prod||!size)return alert("Please fill in all required fields.");
+    const text=`🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${name}\n📞 *Contact:* ${phone}\n\n📦 *Category:* ${cat}\n🏷️ *Product:* ${prod}\n📐 *Size:* ${size}\n💰 *Budget:* ${budget}\n\n🔗 *Reference:* ${ref}`;
+    const btnEl=document.querySelector('#privateSourcingModal .btn-gold');
+    if(btnEl){btnEl.disabled=true;btnEl.innerText='Sending...';}
+
+    let url='https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage', opts;
+    if(srcImageB64){
+        url='https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto';
+        const fd=new FormData();
+        fd.append('chat_id','5715582254');fd.append('caption',text);fd.append('parse_mode','Markdown');
+        const b=srcImageB64.split(','),mime=b[0].match(/:(.*?);/)[1],bin=atob(b[1]);
+        let n=bin.length;const arr=new Uint8Array(n);while(n--)arr[n]=bin.charCodeAt(n);
+        fd.append('photo',new Blob([arr],{type:mime}),'upload.jpg');
+        opts={method:'POST',body:fd};
+    } else {
+        opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5715582254',text,parse_mode:'Markdown'})};
+    }
+    fetch(url,opts).then(()=>{
+        document.getElementById('privateSourcingModal').style.display='none';
+        document.getElementById('successModal').style.display='block';
+        ['srcClientName','srcClientPhone','srcProductName','srcSize','srcBudget','srcReference'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+        document.getElementById('srcImagePreviewSlot').innerHTML='';
+        document.getElementById('srcHiddenImageUpload').value='';
+        srcImageB64='';unlockScroll();
+    }).catch(()=>{
+        alert("An error occurred. Please try again.");
+        if(btnEl){btnEl.disabled=false;btnEl.innerText='Send to Concierge Network';}
+    });
 }
 </script>
 </body>
 </html>
-
-
 
