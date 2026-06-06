@@ -7,14 +7,22 @@
     <meta name="description" content="OUMRAN STORE — Addis Ababa's premier destination for premium fashion.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050505;
             --gold: #FFD700;
-            --gold-dim: #d4af37;
+            --gold-dim: #c9a227;
+            --gold-pale: rgba(255,215,0,0.12);
             --tg: #0088cc;
             --accent: #ff3b30;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.07);
+            --glass-strong: rgba(255,255,255,0.06);
+            --radius-card: 24px;
+            --radius-modal: 36px;
+            --radius-btn: 60px;
+            --transition: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,7 +39,7 @@
         html.modal-open, body.modal-open { overflow: hidden !important; height: 100% !important; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'DM Sans', -apple-system, sans-serif;
             background: var(--bg);
             color: white;
             overflow-x: hidden;
@@ -40,37 +48,54 @@
         }
 
         /* ══════════════════════════════
-           LIVING BACKGROUND
+           LIVING BACKGROUND — no controls
         ══════════════════════════════ */
         #bg-video {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: cover;
             z-index: -3;
-            opacity: 0.52;
-            pointer-events: none;
+            opacity: 0.45;
+            pointer-events: none !important;
+            user-select: none;
         }
-        #bg-video::-webkit-media-controls { display: none !important; }
-        #bg-video::-webkit-media-controls-enclosure { display: none !important; }
-        #bg-video::-webkit-media-controls-panel { display: none !important; }
+        /* Aggressively hide all native video controls */
+        #bg-video::-webkit-media-controls,
+        #bg-video::-webkit-media-controls-enclosure,
+        #bg-video::-webkit-media-controls-panel,
+        #bg-video::-webkit-media-controls-play-button,
+        #bg-video::-webkit-media-controls-start-playback-button,
+        #bg-video::-webkit-media-controls-overlay-play-button { 
+            display: none !important; 
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+        video::-webkit-media-controls { display: none !important; }
+
+        /* Full-cover overlay to intercept any clicks on video */
+        #video-shield {
+            position: fixed; inset: 0; z-index: -2;
+            pointer-events: none;
+            background: transparent;
+        }
 
         #bg-veil {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
-            animation: veilBreathe 14s ease-in-out infinite alternate;
+            animation: veilBreathe 18s ease-in-out infinite alternate;
         }
         @keyframes veilBreathe {
-            0%   { background: radial-gradient(ellipse 130% 80% at 25% 15%, rgba(5,5,5,0.28) 0%, rgba(5,5,5,0.65) 100%); }
-            33%  { background: radial-gradient(ellipse 100% 110% at 75% 40%, rgba(5,5,5,0.22) 0%, rgba(5,5,5,0.62) 100%); }
-            66%  { background: radial-gradient(ellipse 150% 70% at 50% 80%, rgba(5,5,5,0.32) 0%, rgba(5,5,5,0.68) 100%); }
-            100% { background: radial-gradient(ellipse 110% 100% at 20% 60%, rgba(5,5,5,0.25) 0%, rgba(5,5,5,0.60) 100%); }
+            0%   { background: radial-gradient(ellipse 130% 80% at 25% 15%, rgba(5,5,5,0.30) 0%, rgba(5,5,5,0.72) 100%); }
+            33%  { background: radial-gradient(ellipse 100% 110% at 75% 40%, rgba(5,5,5,0.24) 0%, rgba(5,5,5,0.68) 100%); }
+            66%  { background: radial-gradient(ellipse 150% 70% at 50% 80%, rgba(5,5,5,0.34) 0%, rgba(5,5,5,0.74) 100%); }
+            100% { background: radial-gradient(ellipse 110% 100% at 20% 60%, rgba(5,5,5,0.26) 0%, rgba(5,5,5,0.66) 100%); }
         }
 
         #bg-aurora {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             background:
-                radial-gradient(ellipse 60% 30% at 80% 20%, rgba(255,215,0,0.04) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,215,0,0.03) 0%, transparent 70%);
-            animation: auroraDrift 20s ease-in-out infinite alternate;
+                radial-gradient(ellipse 60% 30% at 80% 20%, rgba(255,215,0,0.05) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,215,0,0.04) 0%, transparent 70%);
+            animation: auroraDrift 24s ease-in-out infinite alternate;
         }
         @keyframes auroraDrift {
             0%   { transform: translate(0, 0) scale(1); }
@@ -81,219 +106,338 @@
         #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
         .particle {
             position: absolute; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,215,0,0.7), transparent 70%);
+            background: radial-gradient(circle, rgba(255,215,0,0.65), transparent 70%);
             animation: floatUp linear infinite;
             will-change: transform, opacity;
         }
         @keyframes floatUp {
             0%   { transform: translateY(110vh) translateX(0) scale(0.2); opacity: 0; }
-            8%   { opacity: 0.9; }
-            85%  { opacity: 0.35; }
+            8%   { opacity: 0.85; }
+            85%  { opacity: 0.3; }
             100% { transform: translateY(-15vh) translateX(var(--px-drift)) scale(1.4); opacity: 0; }
         }
 
         body::after {
             content: '';
             position: fixed; inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
             z-index: -1; pointer-events: none;
         }
 
         .admin-only { display: none; }
-        .site-wrapper { width: 100%; max-width: 1400px; margin: 0 auto; }
+        .site-wrapper { width: 100%; max-width: 1440px; margin: 0 auto; }
 
         /* ══════════════════════════════
            SPLASH
         ══════════════════════════════ */
         #splash-screen {
-            position: fixed; inset: 0; background: #000;
+            position: fixed; inset: 0;
+            background: linear-gradient(135deg, #000 0%, #0a0802 50%, #000 100%);
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             z-index: 10000;
-            transition: opacity 1.2s ease-out, visibility 1.2s;
+            transition: opacity 1.4s ease-out, visibility 1.4s;
         }
-        .splash-content { text-align: center; }
+        #splash-screen::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,215,0,0.06) 0%, transparent 70%);
+            animation: splashPulse 3s ease-in-out infinite alternate;
+        }
+        @keyframes splashPulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+        .splash-content { text-align: center; position: relative; z-index: 1; }
         .welcome-msg {
-            font-size: 10px; color: rgba(255,255,255,0.28);
-            letter-spacing: 9px; text-transform: uppercase;
-            margin-bottom: 28px; font-weight: 300;
+            font-size: 9px; color: rgba(255,255,255,0.22);
+            letter-spacing: 11px; text-transform: uppercase;
+            margin-bottom: 32px; font-weight: 400;
             opacity: 0; animation: riseUp 1s ease forwards 0.3s;
+            font-family: 'DM Sans', sans-serif;
         }
         .splash-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 56px; letter-spacing: 16px; font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: 60px; letter-spacing: 18px; font-weight: 400;
             font-style: italic; text-transform: uppercase;
-            line-height: 1.05; margin-bottom: 24px;
-            background: linear-gradient(90deg, #6b5200 0%, #FFD700 35%, #fffacd 50%, #FFD700 65%, #6b5200 100%);
+            line-height: 1.05; margin-bottom: 28px;
+            background: linear-gradient(90deg, #5a4000 0%, #FFD700 30%, #fffde0 50%, #FFD700 70%, #5a4000 100%);
             background-size: 300% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             opacity: 0;
             animation: riseUp 1.4s ease forwards 0.6s, goldShine 5s linear infinite 1.5s;
         }
-        .splash-line {
-            width: 80px; height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 0 auto 22px;
+        .splash-ornament {
+            display: flex; align-items: center; gap: 20px; justify-content: center;
+            margin-bottom: 22px;
             opacity: 0; animation: riseUp 0.8s ease forwards 1.2s;
         }
-        .splash-sub {
-            font-size: 8px; color: rgba(255,255,255,0.32);
-            letter-spacing: 7px; font-weight: 600; text-transform: uppercase;
-            opacity: 0; animation: riseUp 0.8s ease forwards 1.4s;
+        .splash-line {
+            width: 60px; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5));
         }
-        .splash-exit { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transition: opacity 1.2s, visibility 1.2s; }
-        @keyframes riseUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+        .splash-line.right {
+            background: linear-gradient(90deg, rgba(255,215,0,0.5), transparent);
+        }
+        .splash-diamond { color: var(--gold); font-size: 10px; opacity: 0.7; }
+        .splash-sub {
+            font-size: 8px; color: rgba(255,255,255,0.28);
+            letter-spacing: 8px; font-weight: 500; text-transform: uppercase;
+            opacity: 0; animation: riseUp 0.8s ease forwards 1.4s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .splash-exit { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; transition: opacity 1.4s, visibility 1.4s; }
+        @keyframes riseUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         @keyframes goldShine { to { background-position: 300% center; } }
 
         /* ══════════════════════════════
-           HEADER — fully transparent
+           HEADER — premium sticky
         ══════════════════════════════ */
         header {
             position: sticky; top: 0; z-index: 100;
-            padding: 26px 40px;
-            display: flex; align-items: center; justify-content: center; gap: 16px;
-            background: transparent;
-            border-bottom: none;
+            padding: 0 48px;
+            height: 76px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(5,5,5,0.45);
+            backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+            border-bottom: 1px solid rgba(255,215,0,0.06);
+            transition: background 0.4s ease;
         }
-        .header-logo { height: 32px; border-radius: 6px; }
+        header.scrolled {
+            background: rgba(5,5,5,0.75);
+        }
+        .header-left { display: flex; align-items: center; gap: 14px; }
+        .header-logo { height: 30px; border-radius: 6px; opacity: 0.9; }
         .brand-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 19px; letter-spacing: 6px; font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            font-size: 17px; letter-spacing: 7px; font-weight: 400;
             font-style: italic; color: var(--gold);
         }
+        .header-right { display: flex; align-items: center; gap: 6px; }
+        .header-icon-btn {
+            width: 42px; height: 42px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent; border: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer; font-size: 16px; transition: all 0.3s var(--transition);
+            text-decoration: none; color: white;
+        }
+        .header-icon-btn:hover { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.2); transform: translateY(-1px); }
+
+        /* NAV INDICATOR */
+        .nav-strip {
+            display: flex; justify-content: center; gap: 32px;
+            padding: 0 48px 0;
+            overflow-x: auto; scrollbar-width: none;
+            position: sticky; top: 76px; z-index: 99;
+            background: rgba(5,5,5,0.3);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .nav-strip::-webkit-scrollbar { display: none; }
+        .nav-item {
+            flex-shrink: 0;
+            font-size: 8px; font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; color: rgba(255,255,255,0.28);
+            padding: 14px 0; cursor: pointer;
+            border-bottom: 1.5px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+        }
+        .nav-item:hover, .nav-item.active { color: var(--gold); border-bottom-color: rgba(255,215,0,0.5); }
 
         /* ══════════════════════════════
-           PROMO BAR — transparent
+           PROMO BAR
         ══════════════════════════════ */
         .promo-bar {
             background: transparent;
-            color: rgba(255,255,255,0.38);
-            font-size: 10px; padding: 16px 24px;
-            font-weight: 600; text-align: center;
-            border-bottom: none;
-            letter-spacing: 2px;
+            color: rgba(255,255,255,0.32);
+            font-size: 9.5px; padding: 20px 24px;
+            font-weight: 500; text-align: center;
+            letter-spacing: 2.5px;
         }
         .about-link {
-            color: var(--gold); font-size: 10px; font-weight: 900;
+            color: var(--gold); font-size: 9.5px; font-weight: 700;
             text-decoration: none; cursor: pointer; display: inline-block;
-            margin-top: 5px; letter-spacing: 2.5px; transition: opacity 0.2s;
+            margin-top: 6px; letter-spacing: 3px; transition: opacity 0.2s;
         }
         .about-link:hover { opacity: 0.6; }
 
         /* ══════════════════════════════
-           TRUST BAR — transparent
+           TRUST BAR
         ══════════════════════════════ */
         .trust-bar {
             display: flex; justify-content: center; align-items: center;
-            gap: 48px; padding: 20px 28px;
+            gap: 56px; padding: 24px 32px;
             background: transparent;
-            border-bottom: none;
             flex-wrap: wrap;
         }
-        .badge { display: flex; align-items: center; gap: 10px; }
-        .badge-icon { color: var(--gold); font-size: 10px; }
-        .badge-text { color: rgba(255,255,255,0.22); font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+        .badge { display: flex; align-items: center; gap: 12px; }
+        .badge-icon { color: var(--gold); font-size: 11px; }
+        .badge-text { color: rgba(255,255,255,0.20); font-size: 8.5px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; }
 
         /* ══════════════════════════════
-           SEARCH — transparent
+           HERO HEADLINE (new)
         ══════════════════════════════ */
-        .search-wrap { padding: 36px 40px 16px; }
-        #search-input {
-            width: 100%; padding: 16px 32px;
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: transparent;
-            color: white; font-size: 13px;
-            text-align: center; outline: none;
-            font-family: 'Inter', sans-serif; letter-spacing: 1px;
-            transition: border-color 0.4s, box-shadow 0.4s;
+        .hero-headline {
+            text-align: center;
+            padding: 56px 24px 16px;
         }
-        #search-input::placeholder { color: rgba(255,255,255,0.16); }
-        #search-input:focus {
-            border-color: rgba(255,215,0,0.22);
-            box-shadow: 0 0 40px rgba(255,215,0,0.04);
+        .hero-headline h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(38px, 6vw, 72px);
+            font-weight: 400; font-style: italic;
+            letter-spacing: 4px; line-height: 1.1;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.85) 50%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 18px;
+        }
+        .hero-sub {
+            font-size: 9px; color: rgba(255,255,255,0.20);
+            letter-spacing: 6px; text-transform: uppercase; font-weight: 500;
         }
 
         /* ══════════════════════════════
-           PRODUCT GRID — open, no containers
+           SEARCH
+        ══════════════════════════════ */
+        .search-wrap { padding: 44px 48px 20px; }
+        #search-input {
+            width: 100%; padding: 18px 36px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            color: white; font-size: 12.5px;
+            text-align: center; outline: none;
+            font-family: 'DM Sans', sans-serif; letter-spacing: 1.5px;
+            transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
+        }
+        #search-input::placeholder { color: rgba(255,255,255,0.14); }
+        #search-input:focus {
+            border-color: rgba(255,215,0,0.25);
+            box-shadow: 0 0 50px rgba(255,215,0,0.05);
+            background: rgba(255,255,255,0.04);
+        }
+
+        /* ══════════════════════════════
+           CATEGORY SECTIONS
         ══════════════════════════════ */
         .category-section {
-            padding: 80px 0 0;
+            padding: 96px 0 0;
             position: relative; z-index: 1;
-            background: transparent;
+        }
+        .category-header {
+            display: flex; align-items: center; gap: 22px;
+            padding: 0 48px; margin-bottom: 44px;
         }
         .category-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 22px; font-style: italic; font-weight: 300;
-            color: var(--gold); margin-bottom: 40px;
-            text-align: center; letter-spacing: 4px; opacity: 0.85;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px; font-style: italic; font-weight: 400;
+            color: rgba(255,255,255,0.85); letter-spacing: 2px;
+            white-space: nowrap;
         }
+        .category-line {
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, rgba(255,215,0,0.18), transparent);
+        }
+        .category-count {
+            font-size: 8px; color: rgba(255,215,0,0.4);
+            letter-spacing: 3px; font-weight: 700;
+            text-transform: uppercase;
+        }
+
         .scroll-wrapper {
             display: flex; overflow-x: auto;
-            gap: 40px; padding: 6px 48px 72px;
+            gap: 28px; padding: 8px 48px 88px;
             scrollbar-width: none;
-            background: transparent;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-        /* PRODUCT CARD — pure floating image, no box */
+        /* ══════════════════════════════
+           PRODUCT CARD — premium glass
+        ══════════════════════════════ */
         .product-card {
-            flex: 0 0 195px;
-            background: transparent;
-            border: none;
-            color: white; overflow: visible; cursor: pointer;
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            flex: 0 0 205px;
+            background: rgba(255,255,255,0.025);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-card);
+            color: white; overflow: hidden; cursor: pointer;
+            transition: transform 0.55s var(--transition), box-shadow 0.55s var(--transition), border-color 0.4s, background 0.4s;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
         }
-        .product-card:hover { transform: translateY(-14px) scale(1.03); }
+        .product-card:hover {
+            transform: translateY(-18px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.15), 0 0 60px rgba(255,215,0,0.06);
+            border-color: rgba(255,215,0,0.14);
+            background: rgba(255,255,255,0.04);
+        }
 
         .img-area {
-            height: 245px; border-radius: 20px; overflow: hidden;
+            height: 268px; overflow: hidden;
             position: relative;
-            box-shadow: 0 28px 70px rgba(0,0,0,0.55);
-            transition: box-shadow 0.5s ease;
-            background: transparent;
         }
-        .product-card:hover .img-area {
-            box-shadow: 0 40px 90px rgba(0,0,0,0.72), 0 0 0 1px rgba(255,215,0,0.12), 0 0 60px rgba(255,215,0,0.06);
+        .img-area img { 
+            width: 100%; height: 100%; object-fit: cover; display: block; 
+            transition: transform 0.75s var(--transition);
         }
-        .img-area img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
-        .product-card:hover .img-area img { transform: scale(1.07); }
+        .product-card:hover .img-area img { transform: scale(1.1); }
         .img-area::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(160deg, rgba(255,215,0,0.08) 0%, transparent 55%);
-            opacity: 0; transition: opacity 0.5s; border-radius: 20px;
+            background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,0.55) 100%);
         }
-        .product-card:hover .img-area::after { opacity: 1; }
+        .img-overlay-badge {
+            position: absolute; top: 14px; right: 14px; z-index: 2;
+            background: rgba(255,215,0,0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,215,0,0.2);
+            color: var(--gold); font-size: 7px; font-weight: 700;
+            padding: 5px 10px; border-radius: 20px; letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0; transform: translateY(-6px);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        .product-card:hover .img-overlay-badge { opacity: 1; transform: translateY(0); }
 
-        .info-area { padding: 18px 4px 0; background: transparent; }
+        .info-area { padding: 20px 18px 22px; }
         .info-area h3 {
-            font-size: 11px; color: rgba(255,255,255,0.45);
-            height: 30px; overflow: hidden;
-            font-weight: 400; letter-spacing: 0.5px; line-height: 1.5;
+            font-size: 11.5px; color: rgba(255,255,255,0.5);
+            overflow: hidden; font-weight: 400; letter-spacing: 0.4px; 
+            line-height: 1.55; margin-bottom: 10px;
+            font-family: 'DM Sans', sans-serif;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
         }
-        .new-p { font-weight: 900; font-size: 14px; color: white; margin-top: 6px; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .new-p { font-weight: 700; font-size: 15px; color: white; }
+        .card-add-icon {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; transition: all 0.3s;
+            opacity: 0; transform: scale(0.7);
+        }
+        .product-card:hover .card-add-icon { opacity: 1; transform: scale(1); }
 
         /* ══════════════════════════════
            TOAST
         ══════════════════════════════ */
         #added-toast {
-            position: fixed; top: 28px; right: 28px; visibility: hidden;
-            background: rgba(6,6,6,0.70);
-            backdrop-filter: blur(36px);
-            color: white; padding: 18px 28px;
-            border-radius: 18px; border: 1px solid rgba(255,215,0,0.10);
-            z-index: 5000; font-weight: 600; font-size: 13px;
+            position: fixed; top: 92px; right: 24px; visibility: hidden;
+            background: rgba(8,8,8,0.80);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            color: white; padding: 16px 24px;
+            border-radius: 20px; border: 1px solid rgba(255,215,0,0.12);
+            z-index: 5000; font-weight: 600; font-size: 12px;
             display: flex; align-items: center; gap: 14px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.75);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.65);
             transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275), visibility 0.5s;
             transform: translateX(calc(100% + 60px));
         }
         #added-toast.show { transform: translateX(0); visibility: visible; }
         .toast-icon {
-            background: var(--gold); color: black;
-            border-radius: 50%; width: 26px; height: 26px;
+            background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+            color: black; border-radius: 50%; width: 26px; height: 26px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 900;
+            font-size: 11px; font-weight: 900; flex-shrink: 0;
         }
 
         /* ══════════════════════════════
@@ -311,37 +455,37 @@
         .tg-float {
             position: fixed !important; bottom: 28px !important; right: 108px !important;
             background: var(--tg); color: white;
-            width: 58px; height: 58px; border-radius: 50%;
+            width: 56px; height: 56px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; text-decoration: none; z-index: 99999 !important;
-            box-shadow: 0 10px 30px rgba(0,136,204,0.35);
-            transition: transform 0.3s cubic-bezier(0.23,1,0.32,1) !important;
+            font-size: 20px; text-decoration: none; z-index: 99999 !important;
+            box-shadow: 0 10px 30px rgba(0,136,204,0.3);
+            transition: transform 0.3s var(--transition) !important;
         }
         .tg-float:hover { transform: scale(1.1) translateY(-3px) !important; }
         .cart-float {
             position: fixed !important; bottom: 28px !important; left: 28px !important;
-            background: rgba(255,255,255,0.90); color: black;
-            width: 58px; height: 58px; border-radius: 50%;
+            background: rgba(255,255,255,0.88); color: black;
+            width: 56px; height: 56px; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            font-size: 22px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.10);
-            transition: transform 0.3s cubic-bezier(0.23,1,0.32,1) !important;
+            font-size: 20px; z-index: 99999 !important; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.08);
+            transition: transform 0.3s var(--transition) !important;
         }
         .cart-float:hover { transform: scale(1.1) translateY(-3px) !important; }
         .profile-float {
             position: fixed !important; bottom: 28px !important; right: 28px !important;
-            background: linear-gradient(135deg, #c9a227, #FFD700, #c9a227);
-            color: black; width: 58px; height: 58px; border-radius: 50%;
+            background: linear-gradient(135deg, #a07c10, #FFD700, #a07c10);
+            color: black; width: 56px; height: 56px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.28);
-            transition: transform 0.3s cubic-bezier(0.23,1,0.32,1) !important;
+            font-size: 20px; z-index: 99999 !important; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.24);
+            transition: transform 0.3s var(--transition) !important;
             animation: goldPulse 4s ease-in-out infinite;
         }
         .profile-float:hover { transform: scale(1.1) translateY(-3px) !important; }
         @keyframes goldPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(255,215,0,0.28); }
-            50%       { box-shadow: 0 14px 44px rgba(255,215,0,0.48); }
+            0%, 100% { box-shadow: 0 10px 30px rgba(255,215,0,0.24); }
+            50%       { box-shadow: 0 14px 44px rgba(255,215,0,0.42); }
         }
         .cart-count {
             position: absolute; top: -2px; right: -2px;
@@ -350,199 +494,261 @@
         }
 
         /* ══════════════════════════════
-           VARIANTS
-        ══════════════════════════════ */
-        .variant-section { margin-bottom: 24px; }
-        .variant-label {
-            font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.28);
-            text-transform: uppercase; margin-bottom: 14px;
-            display: block; letter-spacing: 3px;
-        }
-        .variant-scroll { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
-        .variant-scroll::-webkit-scrollbar { display: none; }
-        .variant-item {
-            flex: 0 0 72px; height: 72px; border-radius: 14px;
-            border: 2px solid transparent; cursor: pointer; overflow: hidden;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.45);
-        }
-        .variant-item:hover { transform: scale(1.06) translateY(-2px); }
-        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
-        .variant-item span { display: none !important; }
-        .variant-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.28), 0 12px 30px rgba(255,215,0,0.14); }
-
-        /* ══════════════════════════════
-           RECS
-        ══════════════════════════════ */
-        .rec-title {
-            font-size: 9px; font-weight: 900;
-            color: rgba(255,215,0,0.5); margin: 36px 0 18px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            padding-top: 28px; text-transform: uppercase; letter-spacing: 4px;
-        }
-        .rec-scroll { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
-        .rec-item { flex: 0 0 110px; cursor: pointer; text-align: center; }
-        .rec-item img {
-            width: 100%; height: 110px; object-fit: cover;
-            border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s;
-        }
-        .rec-item:hover img { transform: scale(1.04) translateY(-3px); box-shadow: 0 14px 32px rgba(0,0,0,0.7); }
-        .rec-item h4 { font-size: 9px; margin: 8px 0 0; color: rgba(255,255,255,0.32); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        /* ══════════════════════════════
            MODAL BACKDROP
         ══════════════════════════════ */
         .modal {
             display: none; position: fixed; z-index: 2000;
             left:0; top:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(28px);
+            background: rgba(0,0,0,0.60);
+            backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
             overflow-y: auto; padding: 24px 16px;
         }
         .modal-content {
-            background: rgba(255,255,255,0.018);
+            background: rgba(12,10,5,0.78);
             backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
-            color: white;
-            margin: 0 auto;
-            padding: 42px 32px 48px;
-            width: 100%; max-width: 420px;
-            border-radius: 32px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 50px 120px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+            color: white; margin: 0 auto;
+            padding: 44px 32px 52px;
+            width: 100%; max-width: 430px;
+            border-radius: var(--radius-modal);
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 60px 120px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         #modal-img {
             width: 100%; border-radius: 20px;
-            margin-bottom: 26px; cursor: zoom-in;
-            display: block; min-height: 290px; object-fit: cover;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            margin-bottom: 28px; cursor: zoom-in;
+            display: block; min-height: 310px; object-fit: cover;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.65);
         }
         #m-name {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 28px; font-style: italic; font-weight: 300;
-            letter-spacing: 1.5px; line-height: 1.2; margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 26px; font-style: italic; font-weight: 400;
+            letter-spacing: 1px; line-height: 1.25; margin-bottom: 8px;
         }
-        #m-price { color: var(--gold); font-weight: 900; font-size: 21px; display: block; margin-bottom: 4px; }
+        #m-price { 
+            color: var(--gold); font-weight: 700; font-size: 20px; 
+            display: block; margin-bottom: 6px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .m-model-note {
+            font-size: 10px; color: rgba(255,255,255,0.22);
+            letter-spacing: 1.5px; margin-bottom: 4px;
+        }
 
-        .m-divider { height: 1px; width: 100%; background: rgba(255,255,255,0.05); margin: 24px 0; }
+        .m-divider { height: 1px; width: 100%; background: rgba(255,255,255,0.06); margin: 26px 0; }
+
+        /* ══════════════════════════════
+           VARIANTS
+        ══════════════════════════════ */
+        .variant-section { margin-bottom: 24px; }
+        .variant-label {
+            font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.25);
+            text-transform: uppercase; margin-bottom: 16px;
+            display: block; letter-spacing: 3.5px;
+        }
+        .variant-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+        .variant-scroll::-webkit-scrollbar { display: none; }
+        .variant-item {
+            flex: 0 0 68px; height: 68px; border-radius: 14px;
+            border: 2px solid transparent; cursor: pointer; overflow: hidden;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+        }
+        .variant-item:hover { transform: scale(1.08) translateY(-2px); }
+        .variant-item img { width: 100%; height: 100%; object-fit: cover; }
+        .variant-item span { display: none !important; }
+        .variant-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.3), 0 10px 28px rgba(255,215,0,0.12); }
+
+        /* SIZE GUIDE */
+        .size-guide-trigger {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 9px; color: rgba(255,215,0,0.55); font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+            border-bottom: 1px solid rgba(255,215,0,0.2); padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s; margin-top: 4px;
+        }
+        .size-guide-trigger:hover { color: var(--gold); border-color: rgba(255,215,0,0.5); }
+
+        /* SIZE GUIDE MODAL */
+        #sizeGuideModal { z-index: 3000; }
+        #sizeGuideModal .modal-content { max-width: 520px; padding: 40px 28px 48px; }
+        .sg-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px; font-style: italic; color: var(--gold);
+            margin-bottom: 6px; letter-spacing: 1px;
+        }
+        .sg-subtitle { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
+        .sg-table-wrap { overflow-x: auto; margin-bottom: 36px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
+        .sg-table { width: 100%; border-collapse: collapse; min-width: 400px; }
+        .sg-table th {
+            background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.7);
+            font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+            padding: 14px 12px; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .sg-table th:first-child { text-align: left; padding-left: 18px; }
+        .sg-table td {
+            font-size: 12px; color: rgba(255,255,255,0.65);
+            padding: 13px 12px; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.2s;
+        }
+        .sg-table td:first-child { color: white; font-weight: 600; text-align: left; padding-left: 18px; }
+        .sg-table tr:last-child td { border-bottom: none; }
+        .sg-table tr:hover td { background: rgba(255,215,0,0.03); }
+
+        .sg-section-title {
+            font-size: 9px; font-weight: 700; color: rgba(255,215,0,0.5);
+            letter-spacing: 3px; text-transform: uppercase;
+            margin-bottom: 18px; padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .sg-measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+        .sg-measure-item {
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 14px; padding: 16px;
+        }
+        .sg-measure-icon { font-size: 20px; margin-bottom: 8px; }
+        .sg-measure-name { font-size: 10px; font-weight: 700; color: white; margin-bottom: 5px; letter-spacing: 0.5px; }
+        .sg-measure-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.65; }
+        .sg-model-note {
+            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.1);
+            border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;
+            font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: center;
+            line-height: 1.6;
+        }
+        .sg-model-note strong { color: var(--gold); }
+
+        /* ══════════════════════════════
+           RECS
+        ══════════════════════════════ */
+        .rec-title {
+            font-size: 8.5px; font-weight: 700;
+            color: rgba(255,215,0,0.45); margin: 36px 0 18px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 28px; text-transform: uppercase; letter-spacing: 4px;
+        }
+        .rec-scroll { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+        .rec-item { flex: 0 0 105px; cursor: pointer; text-align: center; }
+        .rec-item img {
+            width: 100%; height: 105px; object-fit: cover;
+            border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            transition: transform 0.35s ease, box-shadow 0.35s;
+        }
+        .rec-item:hover img { transform: scale(1.05) translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.7); }
+        .rec-item h4 { font-size: 9px; margin: 8px 0 0; color: rgba(255,255,255,0.28); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* ══════════════════════════════
            BUTTONS
         ══════════════════════════════ */
         .btn {
-            width: 100%; padding: 19px;
-            background: rgba(255,255,255,0.92); color: black;
-            border: none; border-radius: 18px;
-            font-weight: 900; margin-top: 16px;
-            cursor: pointer; font-size: 12px; letter-spacing: 2px;
+            width: 100%; padding: 18px;
+            background: rgba(255,255,255,0.90); color: black;
+            border: none; border-radius: var(--radius-btn);
+            font-weight: 700; margin-top: 16px;
+            cursor: pointer; font-size: 11px; letter-spacing: 2.5px;
             text-transform: uppercase;
-            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.06);
+            transition: opacity 0.2s, transform 0.25s var(--transition), box-shadow 0.25s;
+            box-shadow: 0 8px 28px rgba(255,255,255,0.05);
+            font-family: 'DM Sans', sans-serif;
         }
-        .btn:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(255,255,255,0.12); }
+        .btn:hover { opacity: 0.93; transform: translateY(-2px); box-shadow: 0 14px 38px rgba(255,255,255,0.1); }
         .btn:active { transform: translateY(0); }
         .btn-ghost {
-            background: transparent !important;
-            color: rgba(255,255,255,0.35) !important;
-            border: 1px solid rgba(255,255,255,0.07) !important;
-            box-shadow: none !important;
+            background: transparent !important; color: rgba(255,255,255,0.30) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important; box-shadow: none !important;
         }
-        .btn-ghost:hover { background: rgba(255,255,255,0.04) !important; color: rgba(255,255,255,0.55) !important; }
+        .btn-ghost:hover { background: rgba(255,255,255,0.04) !important; color: rgba(255,255,255,0.5) !important; }
         .btn-gold {
-            background: linear-gradient(135deg, #c9a227, #FFD700, #e8c84a) !important;
+            background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37) !important;
             color: #000 !important;
-            box-shadow: 0 10px 36px rgba(255,215,0,0.22) !important;
+            box-shadow: 0 10px 36px rgba(255,215,0,0.18) !important;
         }
-        .btn-gold:hover { box-shadow: 0 16px 50px rgba(255,215,0,0.38) !important; }
+        .btn-gold:hover { box-shadow: 0 16px 50px rgba(255,215,0,0.34) !important; }
 
         /* ══════════════════════════════
-           INPUTS — open, borderless
+           INPUTS
         ══════════════════════════════ */
         .order-input, #size-box {
             width: 100%; padding: 15px 0; margin-top: 10px;
-            border-radius: 0;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.10);
-            background: transparent;
-            color: white; font-size: 14px;
-            font-family: 'Inter', sans-serif;
+            border-radius: 0; border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.09);
+            background: transparent; color: white; font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
             transition: border-color 0.3s;
         }
         .order-input:focus, #size-box:focus {
-            outline: none;
-            border-bottom-color: rgba(255,215,0,0.45);
+            outline: none; border-bottom-color: rgba(255,215,0,0.4);
         }
-        .order-input::placeholder { color: rgba(255,255,255,0.20); }
+        .order-input::placeholder { color: rgba(255,255,255,0.18); }
         #size-box {
             appearance: none; -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.5)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.45)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
             background-repeat: no-repeat; background-position: right 4px center;
             padding-right: 28px; cursor: pointer;
         }
-        #size-box option { background: #111; }
+        #size-box option { background: #0f0d08; }
 
         .field-label {
-            font-size: 9px; font-weight: 700;
-            color: rgba(255,255,255,0.20);
-            text-transform: uppercase; letter-spacing: 3px;
-            display: block; margin-top: 28px; margin-bottom: 0;
+            font-size: 8.5px; font-weight: 700;
+            color: rgba(255,255,255,0.18); text-transform: uppercase; 
+            letter-spacing: 3.5px; display: block; 
+            margin-top: 28px; margin-bottom: 0;
+            font-family: 'DM Sans', sans-serif;
         }
 
         /* ══════════════════════════════
-           CART — open, no boxes
+           CART
         ══════════════════════════════ */
         .cart-tab-bar {
-            display: flex; gap: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 32px;
+            display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 36px;
         }
         .cart-tab {
             flex: 1; padding: 14px 0;
             background: transparent; color: rgba(255,255,255,0.22);
             border: none; border-bottom: 2px solid transparent;
-            font-weight: 700; font-size: 9px;
-            letter-spacing: 2.5px; text-transform: uppercase;
-            cursor: pointer; transition: all 0.3s ease;
-            margin-bottom: -1px;
+            font-weight: 700; font-size: 8.5px; letter-spacing: 2.5px;
+            text-transform: uppercase; cursor: pointer; transition: all 0.3s ease;
+            margin-bottom: -1px; font-family: 'DM Sans', sans-serif;
         }
         .cart-tab.active { color: white; border-bottom-color: var(--gold); }
 
         .cart-item {
             display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-            gap: 14px;
+            padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 14px;
         }
         .cart-item:last-child { border-bottom: none; }
-        .cart-item-name { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.3; }
-        .cart-item-size { color: rgba(255,255,255,0.3); font-size: 11px; margin-bottom: 6px; }
-        .cart-item-price { color: var(--gold); font-weight: 900; font-size: 15px; }
+        .cart-item-name { font-size: 13.5px; font-weight: 600; margin-bottom: 5px; line-height: 1.35; }
+        .cart-item-size { color: rgba(255,255,255,0.28); font-size: 10.5px; margin-bottom: 7px; }
+        .cart-item-price { color: var(--gold); font-weight: 700; font-size: 14px; }
         .remove-btn {
-            background: transparent; color: rgba(255,59,48,0.50);
-            padding: 0; border: none;
-            font-size: 9px; font-weight: 900; cursor: pointer;
-            letter-spacing: 1px; text-transform: uppercase;
-            transition: color 0.2s; white-space: nowrap; flex-shrink: 0;
-            text-decoration: underline; text-decoration-color: rgba(255,59,48,0.2);
+            background: transparent; color: rgba(255,59,48,0.45); padding: 0; border: none;
+            font-size: 9px; font-weight: 700; cursor: pointer; letter-spacing: 1px;
+            text-transform: uppercase; transition: color 0.2s; white-space: nowrap;
+            flex-shrink: 0; text-decoration: underline;
+            text-decoration-color: rgba(255,59,48,0.2);
+            font-family: 'DM Sans', sans-serif;
         }
         .remove-btn:hover { color: var(--accent); }
 
-        .cart-total-row { padding: 28px 0 12px; text-align: right; }
-        .cart-total-label { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 6px; }
+        .cart-total-row { padding: 30px 0 14px; text-align: right; }
+        .cart-total-label { font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 8px; }
         .cart-total-amount {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 42px; font-weight: 600; font-style: italic;
+            font-family: 'Playfair Display', serif;
+            font-size: 44px; font-weight: 400; font-style: italic;
             color: var(--gold); letter-spacing: 1px;
-            text-shadow: 0 0 60px rgba(255,215,0,0.18);
+            text-shadow: 0 0 60px rgba(255,215,0,0.15);
         }
 
-        .telebirr-block { margin: 28px 0; padding: 0; }
-        .telebirr-label { font-size: 9px; font-weight: 900; color: rgba(255,215,0,0.7); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
-        .telebirr-numbers { font-size: 18px; font-weight: 900; color: white; letter-spacing: 1px; line-height: 1.65; }
+        .telebirr-block { margin: 28px 0; }
+        .telebirr-label { font-size: 8.5px; font-weight: 900; color: rgba(255,215,0,0.65); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
+        .telebirr-numbers { font-size: 18px; font-weight: 700; color: white; letter-spacing: 1.5px; line-height: 1.7; }
 
         .pay-opt {
             display: flex; align-items: flex-start; gap: 18px;
-            padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+            padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
             cursor: pointer; transition: opacity 0.2s;
         }
         .pay-opt:last-child { border-bottom: none; }
@@ -550,10 +756,8 @@
         .pay-opt input[type="radio"] { display: none; }
         .pay-radio {
             width: 18px; height: 18px; border-radius: 50%;
-            border: 1.5px solid rgba(255,255,255,0.18);
-            flex-shrink: 0; margin-top: 3px;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.3s;
+            border: 1.5px solid rgba(255,255,255,0.16); flex-shrink: 0; margin-top: 3px;
+            display: flex; align-items: center; justify-content: center; transition: border-color 0.3s;
         }
         .pay-opt.selected .pay-radio { border-color: var(--gold); }
         .pay-radio-dot {
@@ -562,21 +766,21 @@
             transition: opacity 0.3s, transform 0.3s;
         }
         .pay-opt.selected .pay-radio-dot { opacity: 1; transform: scale(1); }
-        .pay-title { color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-        .pay-desc { color: rgba(255,255,255,0.28); font-size: 11px; line-height: 1.55; }
+        .pay-title { color: rgba(255,255,255,0.82); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+        .pay-desc { color: rgba(255,255,255,0.26); font-size: 10.5px; line-height: 1.6; }
 
-        .cart-note { display: flex; gap: 14px; padding: 18px 0 8px; }
-        .cart-note-dot { color: rgba(255,215,0,0.5); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
-        .cart-note-text { font-size: 11px; color: rgba(255,255,255,0.20); line-height: 1.65; }
+        .cart-note { display: flex; gap: 14px; padding: 16px 0 8px; }
+        .cart-note-dot { color: rgba(255,215,0,0.45); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+        .cart-note-text { font-size: 11px; color: rgba(255,255,255,0.18); line-height: 1.7; }
 
         .order-card { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .order-card:last-child { border-bottom: none; }
         .order-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
         .order-id { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 1px; }
         .order-date { color: rgba(255,255,255,0.2); font-size: 11px; }
-        .order-items { color: rgba(255,255,255,0.5); font-size: 12px; line-height: 1.75; margin-bottom: 10px; }
-        .order-method { font-size: 10px; color: rgba(255,255,255,0.28); margin-bottom: 10px; }
-        .order-total { text-align: right; font-weight: 900; font-size: 14px; }
+        .order-items { color: rgba(255,255,255,0.48); font-size: 12px; line-height: 1.8; margin-bottom: 10px; }
+        .order-method { font-size: 10px; color: rgba(255,255,255,0.26); margin-bottom: 10px; }
+        .order-total { text-align: right; font-weight: 700; font-size: 14px; }
         .order-total span { color: var(--gold); }
 
         /* ══════════════════════════════
@@ -584,17 +788,16 @@
         ══════════════════════════════ */
         .profile-stat { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .profile-stat:last-of-type { border-bottom: none; }
-        .profile-stat-label { color: rgba(255,255,255,0.18); font-size: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 6px; }
-        .profile-stat-value { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600; }
+        .profile-stat-label { color: rgba(255,255,255,0.16); font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 6px; }
+        .profile-stat-value { color: rgba(255,255,255,0.78); font-size: 14px; font-weight: 600; }
         .profile-stat-value.gold { color: var(--gold); }
         .profile-stat-value.green { color: #00cc77; }
-
         .profile-edit-btn {
-            background: transparent; color: rgba(255,255,255,0.38);
-            border: none; border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 16px 0; font-size: 10px; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 2.5px;
-            transition: color 0.3s, border-color 0.3s; width: 100%; text-align: left;
+            background: transparent; color: rgba(255,255,255,0.32); border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 0;
+            font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2.5px; transition: color 0.3s, border-color 0.3s;
+            width: 100%; text-align: left; font-family: 'DM Sans', sans-serif;
         }
         .profile-edit-btn:hover { color: var(--gold); border-bottom-color: rgba(255,215,0,0.3); }
 
@@ -603,14 +806,14 @@
         ══════════════════════════════ */
         #aboutPage {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.72);
-            backdrop-filter: blur(40px);
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(44px); -webkit-backdrop-filter: blur(44px);
             z-index: 9999; overflow-y: auto; padding: 52px 24px;
         }
         .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
         .about-content h2 {
-            color: var(--gold); font-family: 'Cormorant Garamond', serif;
-            font-size: 38px; margin-bottom: 12px; font-style: italic; font-weight: 300;
+            color: var(--gold); font-family: 'Playfair Display', serif;
+            font-size: 40px; margin-bottom: 14px; font-style: italic; font-weight: 400;
         }
 
         /* ══════════════════════════════
@@ -618,51 +821,51 @@
         ══════════════════════════════ */
         #zoom-container {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.92); z-index: 9999;
+            background: rgba(0,0,0,0.94); z-index: 9999;
             flex-direction: column; justify-content: center; align-items: center;
         }
         .zoom-stage { position: relative; width: 100%; height: 72vh; display: flex; align-items: center; justify-content: center; }
         #zoom-img { max-width: 92%; max-height: 100%; object-fit: contain; border-radius: 16px; }
         .zoom-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: transparent; color: var(--gold);
-            border: 1px solid rgba(255,255,255,0.06);
-            width: 52px; height: 52px; border-radius: 50%;
+            background: rgba(255,255,255,0.04); color: var(--gold);
+            border: 1px solid rgba(255,255,255,0.08); width: 52px; height: 52px; border-radius: 50%;
             font-size: 26px; font-weight: 900; cursor: pointer; z-index: 10;
-            display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center; transition: background 0.2s;
         }
-        .zoom-arrow:hover { background: rgba(255,255,255,0.05); }
+        .zoom-arrow:hover { background: rgba(255,215,0,0.08); }
         .arrow-left { left: 18px; } .arrow-right { right: 18px; }
         .zoom-close {
-            margin-top: 34px; background: white; color: black;
-            border: none; padding: 14px 52px; border-radius: 36px;
-            font-weight: 900; cursor: pointer; letter-spacing: 2px;
-            font-size: 11px; text-transform: uppercase;
+            margin-top: 36px; background: white; color: black;
+            border: none; padding: 14px 52px; border-radius: 40px;
+            font-weight: 700; cursor: pointer; letter-spacing: 2.5px;
+            font-size: 10.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif;
         }
 
         /* ══════════════════════════════
-           PRIVATE SECTION — fully open
+           PRIVATE SECTION
         ══════════════════════════════ */
         .private-section {
-            padding: 140px 24px 120px;
-            text-align: center;
-            border-top: none;
-            margin-top: 60px; width: 100%;
-            background: transparent;
+            padding: 140px 24px 130px; text-align: center; margin-top: 60px;
+            position: relative;
+        }
+        .private-section::before {
+            content: '';
+            position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent);
         }
         .private-request-btn {
-            display: inline-block; padding: 20px 60px;
+            display: inline-block; padding: 20px 64px;
             background: transparent;
-            color: rgba(212,175,55,0.65); border: 1px solid rgba(212,175,55,0.22);
-            border-radius: 70px; font-size: 10px; letter-spacing: 5px;
+            color: rgba(212,175,55,0.6); border: 1px solid rgba(212,175,55,0.18);
+            border-radius: 70px; font-size: 9.5px; letter-spacing: 5px;
             text-transform: uppercase; font-weight: 600; cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            margin-top: 28px;
+            transition: all 0.5s var(--transition); margin-top: 32px;
+            font-family: 'DM Sans', sans-serif;
         }
         .private-request-btn:hover {
-            background: var(--gold-dim); color: #000;
-            box-shadow: 0 0 60px rgba(212,175,55,0.22), 0 20px 50px rgba(0,0,0,0.35);
+            background: rgba(212,175,55,0.9); color: #000;
+            box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 20px 50px rgba(0,0,0,0.35);
             transform: translateY(-3px);
         }
 
@@ -671,15 +874,13 @@
         ══════════════════════════════ */
         #privateSourcingModal .modal-content { max-width: 480px; }
         #srcReferenceWrapper {
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding-bottom: 14px; margin-top: 10px;
-            display: flex; flex-direction: column; gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;
+            margin-top: 10px; display: flex; flex-direction: column; gap: 12px;
         }
         #srcReference {
-            width: 100%; background: transparent; border: none;
-            color: white; outline: none; font-size: 13px;
-            min-height: 80px; resize: none;
-            font-family: 'Inter', sans-serif; line-height: 1.6;
+            width: 100%; background: transparent; border: none; color: white; outline: none;
+            font-size: 13px; min-height: 80px; resize: none;
+            font-family: 'DM Sans', sans-serif; line-height: 1.6;
         }
         #srcReference::placeholder { color: rgba(255,255,255,0.16); }
 
@@ -688,23 +889,23 @@
         ══════════════════════════════ */
         .legal-page {
             display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.82); backdrop-filter: blur(36px);
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(40px);
             z-index: 9998; overflow-y: auto;
         }
         .legal-inner { max-width: 680px; margin: 0 auto; padding: 44px 28px 90px; }
         .legal-header { text-align: center; padding: 44px 0 32px; border-bottom: 1px solid rgba(255,255,255,0.04); margin-bottom: 38px; }
-        .legal-header .legal-badge { font-size: 8px; color: #444; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
-        .legal-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--gold); margin: 0 0 12px; font-style: italic; font-weight: 300; letter-spacing: 2px; }
-        .legal-header p { font-size: 11px; color: #444; margin: 0; }
+        .legal-header .legal-badge { font-size: 8px; color: #333; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
+        .legal-header h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); margin: 0 0 12px; font-style: italic; font-weight: 400; letter-spacing: 2px; }
+        .legal-header p { font-size: 11px; color: #333; margin: 0; }
         .legal-section { margin-bottom: 34px; }
-        .legal-section h2 { font-size: 9px; font-weight: 900; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.06); }
-        .legal-section p, .legal-section li { font-size: 13px; color: #777; line-height: 1.9; margin-bottom: 8px; }
+        .legal-section h2 { font-size: 8.5px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,215,0,0.06); }
+        .legal-section p, .legal-section li { font-size: 13px; color: #666; line-height: 1.9; margin-bottom: 8px; }
         .legal-section ul { padding-left: 20px; margin: 0; }
-        .legal-section strong { color: #bbb; }
-        .legal-back-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.07); color: #444; padding: 11px 22px; border-radius: 36px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-bottom: 32px; transition: border-color 0.2s, color 0.2s; }
+        .legal-section strong { color: #aaa; }
+        .legal-back-btn { display: flex; align-items: center; gap: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.07); color: #444; padding: 11px 22px; border-radius: 36px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; margin-bottom: 32px; transition: border-color 0.2s, color 0.2s; font-family: 'DM Sans', sans-serif; }
         .legal-back-btn:hover { border-color: var(--gold); color: var(--gold); }
-        .legal-highlight-box { border: 1px solid rgba(255,215,0,0.06); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; background: transparent; }
-        .legal-highlight-box p { margin: 0; font-size: 13px; color: #888; line-height: 1.75; }
+        .legal-highlight-box { border: 1px solid rgba(255,215,0,0.06); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
+        .legal-highlight-box p { margin: 0; font-size: 13px; color: #777; line-height: 1.75; }
 
         /* ══════════════════════════════
            SUCCESS MODAL
@@ -712,44 +913,63 @@
         #successModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
         /* ══════════════════════════════
-           FOOTER — transparent
+           FOOTER
         ══════════════════════════════ */
         footer {
             width: 100%; background: transparent;
-            border-top: none;
-            padding: 48px 24px 36px;
+            padding: 56px 24px 44px;
+            position: relative;
         }
-        .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; padding-bottom: 20px; }
-        .footer-legal a { color: rgba(255,255,255,0.14); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
+        footer::before {
+            content: '';
+            position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        }
+        .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding-bottom: 22px; }
+        .footer-legal a { color: rgba(255,255,255,0.12); font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
         .footer-legal a:hover { color: var(--gold); }
+
+        /* ══════════════════════════════
+           ONBOARDING
+        ══════════════════════════════ */
+        #profileOnboardingModal .modal-content { max-width: 380px; margin-top: 8vh; text-align: center; }
+        #profileHubModal .modal-content { max-width: 440px; }
 
         /* ══════════════════════════════
            RESPONSIVE
         ══════════════════════════════ */
         @media (min-width: 768px) {
             .modal-content { max-width: 560px !important; }
-            .product-card { flex: 0 0 265px !important; }
-            .img-area { height: 320px !important; }
-            #modal-img { min-height: 350px !important; }
+            .product-card { flex: 0 0 272px !important; }
+            .img-area { height: 338px !important; }
+            #modal-img { min-height: 360px !important; }
         }
         @media (max-width: 768px) {
-            .trust-bar { gap: 14px; padding: 12px; flex-direction: column; text-align: center; }
-            .modal { padding: 14px 12px; }
-            .modal-content { padding: 32px 22px 38px; }
-            .scroll-wrapper { gap: 28px; padding: 6px 24px 60px; }
-            .search-wrap { padding: 28px 24px 12px; }
+            header { padding: 0 22px; height: 64px; }
+            .nav-strip { gap: 22px; padding: 0 22px; top: 64px; }
+            .trust-bar { gap: 16px; padding: 14px; flex-direction: column; text-align: center; }
+            .modal { padding: 14px 10px; }
+            .modal-content { padding: 30px 20px 38px; }
+            .scroll-wrapper { gap: 20px; padding: 8px 22px 72px; }
+            .search-wrap { padding: 32px 22px 14px; }
+            .category-header { padding: 0 22px; }
+            .hero-headline { padding: 40px 22px 12px; }
+            .sg-measure-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body class="loading">
 
-<!-- LIVING VIDEO BG -->
-<video id="bg-video" autoplay loop muted playsinline disablepictureinpicture
-    style="-webkit-media-controls:none; pointer-events:none;"
+<!-- LIVING VIDEO BG — fully non-interactive -->
+<video id="bg-video" autoplay loop muted playsinline
+    disablepictureinpicture
+    disableremoteplayback
+    x-webkit-airplay="deny"
+    controlslist="nodownload nofullscreen noremoteplayback"
     oncontextmenu="return false;">
     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4" type="video/mp4">
 </video>
-
+<div id="video-shield"></div>
 <div id="bg-veil"></div>
 <div id="bg-aurora"></div>
 <div id="particles"></div>
@@ -764,24 +984,90 @@
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
+<!-- SIZE GUIDE MODAL -->
+<div id="sizeGuideModal" class="modal">
+    <div class="modal-content" style="max-width:520px;">
+        <div class="sg-title">Size Guide</div>
+        <p class="sg-subtitle">Trousers · Measurements in Centimeters</p>
+
+        <div class="sg-model-note">
+            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size 32</strong>
+        </div>
+
+        <div class="sg-section-title">Size Chart</div>
+        <div class="sg-table-wrap">
+            <table class="sg-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Waist</th>
+                        <th>Hip</th>
+                        <th>Thigh</th>
+                        <th>Length</th>
+                        <th>Inseam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>28</td><td>71</td><td>89</td><td>51</td><td>100</td><td>76</td></tr>
+                    <tr><td>30</td><td>76</td><td>94</td><td>54</td><td>101</td><td>77</td></tr>
+                    <tr><td>32</td><td>81</td><td>99</td><td>57</td><td>102</td><td>78</td></tr>
+                    <tr><td>34</td><td>86</td><td>104</td><td>60</td><td>103</td><td>79</td></tr>
+                    <tr><td>36</td><td>91</td><td>109</td><td>63</td><td>104</td><td>80</td></tr>
+                    <tr><td>38</td><td>97</td><td>114</td><td>66</td><td>105</td><td>81</td></tr>
+                    <tr><td>40</td><td>102</td><td>119</td><td>69</td><td>106</td><td>82</td></tr>
+                    <tr><td>42</td><td>107</td><td>124</td><td>72</td><td>107</td><td>83</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sg-section-title">How to Measure</div>
+        <div class="sg-measure-grid">
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📏</div>
+                <div class="sg-measure-name">Waist</div>
+                <div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose. Exhale normally.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">🔵</div>
+                <div class="sg-measure-name">Hips</div>
+                <div class="sg-measure-desc">Measure around the fullest part of your hips and seat, keeping the tape parallel to the floor.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📐</div>
+                <div class="sg-measure-name">Inseam</div>
+                <div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone while standing.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📏</div>
+                <div class="sg-measure-name">Length</div>
+                <div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length at the ankle.</div>
+            </div>
+        </div>
+
+        <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
+
+        <button class="btn btn-ghost" onclick="closeSizeGuide()">Close Guide</button>
+    </div>
+</div>
+
 <!-- ABOUT -->
 <div id="aboutPage">
     <div class="about-content">
         <h2>About OUMRAN STORE</h2>
-        <h3 style="font-family:'Cormorant Garamond',serif;color:rgba(255,255,255,0.2);margin-bottom:40px;letter-spacing:6px;font-size:10px;font-weight:300;text-transform:uppercase;">The Gold Standard of Fashion</h3>
-        <div style="margin-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:32px;">
-            <h3 style="color:var(--gold);font-size:13px;font-weight:700;margin-bottom:16px;letter-spacing:2.5px;text-transform:uppercase;">The OUMRAN Standard</h3>
-            <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:2.1;">Every piece is strictly vetted, inspected, and quality-controlled by our team before delivery in Addis Ababa. We guarantee premium fabrics and exact fits.</p>
+        <h3 style="font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.18);margin-bottom:44px;letter-spacing:7px;font-size:9px;font-weight:400;text-transform:uppercase;">The Gold Standard of Fashion</h3>
+        <div style="margin-bottom:44px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:36px;">
+            <h3 style="color:var(--gold);font-size:12px;font-weight:700;margin-bottom:16px;letter-spacing:2.5px;text-transform:uppercase;">The OUMRAN Standard</h3>
+            <p style="font-size:14px;color:rgba(255,255,255,0.50);line-height:2.1;">Every piece is strictly vetted, inspected, and quality-controlled by our team before delivery in Addis Ababa. We guarantee premium fabrics and exact fits.</p>
         </div>
-        <div style="margin-bottom:32px;"><strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;">Curated Excellence</strong><p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.95;">We are Addis Ababa's premier fashion destination, sourcing premium apparel and luxury goods directly from China's most prestigious suppliers.</p></div>
-        <div style="margin-bottom:32px;"><strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;">Global Trends, Local Access</strong><p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.95;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional service.</p></div>
-        <div style="padding:24px 0;border-top:1px solid rgba(255,255,255,0.05);">
-            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;">• Instant Reservation</strong>
-            <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.95;margin-bottom:22px;">Reserve your pieces with no advance fees required.</p>
-            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;">• Telegram Verification</strong>
-            <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.95;margin-bottom:22px;">Our team contacts you via Telegram to verify delivery details.</p>
-            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;">• Delivery & Settlement</strong>
-            <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.95;">Receive your package at your door in Addis Ababa. Pay via Telebirr or cash.</p>
+        <div style="margin-bottom:32px;"><strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">Curated Excellence</strong><p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;">We are Addis Ababa's premier fashion destination, sourcing premium apparel and luxury goods directly from China's most prestigious suppliers.</p></div>
+        <div style="margin-bottom:32px;"><strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">Global Trends, Local Access</strong><p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;">Our mission is to introduce global sartorial trends to Ethiopia with a focus on exclusivity and exceptional service.</p></div>
+        <div style="padding:28px 0;border-top:1px solid rgba(255,255,255,0.05);">
+            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">• Instant Reservation</strong>
+            <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;margin-bottom:22px;">Reserve your pieces with no advance fees required.</p>
+            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">• Telegram Verification</strong>
+            <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;margin-bottom:22px;">Our team contacts you via Telegram to verify delivery details.</p>
+            <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">• Delivery & Settlement</strong>
+            <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;">Receive your package at your door in Addis Ababa. Pay via Telebirr or cash.</p>
         </div>
         <button class="btn" style="margin-top:36px;" onclick="closeAbout()">Return to Store</button>
     </div>
@@ -827,20 +1113,24 @@
     <div class="splash-content">
         <div class="welcome-msg">Welcome to</div>
         <div class="splash-logo">OUMRAN<br>STORE</div>
-        <div class="splash-line"></div>
+        <div class="splash-ornament">
+            <div class="splash-line"></div>
+            <div class="splash-diamond">✦</div>
+            <div class="splash-line right"></div>
+        </div>
         <div class="splash-sub">Defining Addis Ababa Luxury</div>
     </div>
 </div>
 
 <!-- PROFILE ONBOARDING -->
-<div id="profileOnboardingModal" class="modal" style="display:none;background:rgba(0,0,0,0.85);">
-    <div class="modal-content" style="text-align:center;margin-top:8vh;max-width:360px;">
-        <div style="font-size:9px;color:rgba(255,255,255,0.18);letter-spacing:6px;text-transform:uppercase;margin-bottom:24px;">OUMRAN STORE</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:32px;margin-bottom:10px;font-style:italic;font-weight:300;">Create Your Profile</h2>
-        <p style="font-size:9px;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:3px;margin-bottom:40px;">Oumran Luxury Access</p>
+<div id="profileOnboardingModal" class="modal" style="display:none;background:rgba(0,0,0,0.88);">
+    <div class="modal-content" style="text-align:center;margin-top:8vh;max-width:370px;">
+        <div style="font-size:8.5px;color:rgba(255,255,255,0.16);letter-spacing:6px;text-transform:uppercase;margin-bottom:26px;">OUMRAN STORE</div>
+        <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:30px;margin-bottom:10px;font-style:italic;font-weight:400;">Create Your Profile</h2>
+        <p style="font-size:8.5px;color:rgba(255,255,255,0.16);text-transform:uppercase;letter-spacing:3px;margin-bottom:44px;">Oumran Luxury Access</p>
         <div style="text-align:left;"><label class="field-label" style="margin-top:0;">Full Name</label><input type="text" id="onboardName" placeholder="Enter full name" class="order-input"></div>
         <div style="text-align:left;"><label class="field-label">Gmail Address</label><input type="email" id="onboardEmail" placeholder="example@gmail.com" class="order-input"></div>
-        <button class="btn" style="margin-top:36px;" onclick="saveOnboardingProfile()">Generate Profile</button>
+        <button class="btn" style="margin-top:38px;" onclick="saveOnboardingProfile()">Generate Profile</button>
         <button class="btn btn-ghost" onclick="cancelOnboardingProfile()">Cancel</button>
     </div>
 </div>
@@ -849,24 +1139,24 @@
 <div id="profileHubModal" class="modal">
     <div class="modal-content" style="max-width:440px;">
         <div style="text-align:center;margin-bottom:36px;">
-            <p style="color:rgba(255,215,0,0.5);font-size:8px;letter-spacing:6px;text-transform:uppercase;margin:0 0 14px;font-weight:900;">AUTHENTIC SPACE</p>
-            <h2 style="font-family:'Cormorant Garamond',serif;color:#fff;font-size:32px;margin:0 0 28px;letter-spacing:1.5px;font-style:italic;font-weight:300;">Oumran Client Profile</h2>
+            <p style="color:rgba(255,215,0,0.45);font-size:8px;letter-spacing:6px;text-transform:uppercase;margin:0 0 14px;font-weight:700;">AUTHENTIC SPACE</p>
+            <h2 style="font-family:'Playfair Display',serif;color:#fff;font-size:30px;margin:0 0 28px;letter-spacing:1.5px;font-style:italic;font-weight:400;">Oumran Client Profile</h2>
             <div style="display:inline-flex;padding:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);margin-bottom:18px;">
                 <svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <defs><linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#816604"/><stop offset="50%" stop-color="#FFD700"/><stop offset="100%" stop-color="#816604"/></linearGradient></defs>
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
                 </svg>
             </div>
-            <div id="hubProfileName" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:6px;letter-spacing:1px;">OUMER FETUDIN</div>
-            <div id="hubProfileEmail" style="font-size:12px;color:rgba(255,255,255,0.28);">feteoumer@gmail.com</div>
+            <div id="hubProfileName" style="font-family:'Playfair Display',serif;font-size:24px;font-weight:400;color:#fff;margin-bottom:6px;letter-spacing:1px;">OUMER FETUDIN</div>
+            <div id="hubProfileEmail" style="font-size:12px;color:rgba(255,255,255,0.25);">feteoumer@gmail.com</div>
         </div>
         <div class="profile-stat"><div class="profile-stat-label">Membership Tier</div><div class="profile-stat-value gold">✦ Client Portal</div></div>
         <div class="profile-stat"><div class="profile-stat-label">Logistics Terminal</div><div class="profile-stat-value">Addis Ababa Hub, Ethiopia</div></div>
         <div class="profile-stat"><div class="profile-stat-label">Account Verification Status</div><div class="profile-stat-value green">✓ Secure Handshake Verified</div></div>
         <button onclick="editProfileName()" class="profile-edit-btn" style="margin-top:24px;">Edit Profile →</button>
         <div style="margin-top:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,0.04);text-align:center;">
-            <p style="color:rgba(255,215,0,0.4);font-size:8px;font-weight:900;letter-spacing:4px;text-transform:uppercase;margin:0 0 14px;">Why Oumran Is Unique</p>
-            <p style="color:rgba(255,255,255,0.28);font-size:12px;line-height:2;font-weight:300;margin:0;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge for the Addis Ababa clientele.</p>
+            <p style="color:rgba(255,215,0,0.35);font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin:0 0 14px;">Why Oumran Is Unique</p>
+            <p style="color:rgba(255,255,255,0.25);font-size:12px;line-height:2.1;font-weight:300;margin:0;">Every selection is individually vetted, hand-inspected, and archived by the Oumran Concierge for the Addis Ababa clientele.</p>
         </div>
         <button class="btn" onclick="closeProfileHub()">Return to Platform</button>
     </div>
@@ -876,11 +1166,27 @@
 <div class="site-wrapper">
     <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
 
-    <header>
-        <img src="IMG_8765.jpeg" alt="OUMRAN STORE Logo" class="header-logo" fetchpriority="high">
-        <span class="brand-name">OUMRAN STORE</span>
-        <span style="font-size:15px;opacity:0.45;">📲</span>
+    <header id="site-header">
+        <div class="header-left">
+            <img src="IMG_8765.jpeg" alt="OUMRAN STORE Logo" class="header-logo" fetchpriority="high">
+            <span class="brand-name">OUMRAN STORE</span>
+        </div>
+        <div class="header-right">
+            <a href="https://t.me/@OUMER_FETE" class="header-icon-btn" target="_blank" title="Telegram">📲</a>
+            <div class="header-icon-btn" onclick="openProfileHub()" title="Profile">👤</div>
+            <div class="header-icon-btn" id="header-cart-btn" onclick="showCart()" title="Cart" style="display:none;position:relative;">🛒<span id="header-cart-count" class="cart-count" style="font-size:8px;padding:2px 5px;">0</span></div>
+        </div>
     </header>
+
+    <!-- NAV STRIP -->
+    <nav class="nav-strip" id="nav-strip">
+        <div class="nav-item" onclick="scrollToSection('cat-tshirts')">T-Shirts</div>
+        <div class="nav-item" onclick="scrollToSection('cat-hoodies')">Hoodies</div>
+        <div class="nav-item" onclick="scrollToSection('cat-jackets')">Jackets</div>
+        <div class="nav-item" onclick="scrollToSection('cat-pants')">Pants</div>
+        <div class="nav-item" onclick="scrollToSection('cat-outfits')">Outfits</div>
+        <div class="nav-item" onclick="scrollToSection('cat-private')">Private</div>
+    </nav>
 
     <div class="promo-bar">
         VENDOR FROM CHINA 🇨🇳 ✈️ &nbsp;·&nbsp; PREMIUM QUALITY &nbsp;·&nbsp; EXCLUSIVELY SERVING ADDIS ABABA<br>
@@ -893,181 +1199,206 @@
         <div class="badge"><span class="badge-icon">✦</span><span class="badge-text">Telegram Support 24/7</span></div>
     </div>
 
+    <div class="hero-headline">
+        <h1>Curated Luxury<br>for Addis Ababa</h1>
+        <p class="hero-sub">Premium Fashion · Direct Sourcing · Delivered to Your Door</p>
+    </div>
+
     <div class="search-wrap">
         <input type="text" id="search-input" placeholder="Search luxury essentials...">
     </div>
 
     <main id="store-main">
         <!-- GRAPHIC T-SHIRTS -->
-        <div class="category-section">
-            <div class="category-title">Graphic T-Shirts 👕</div>
+        <div class="category-section" id="cat-tshirts">
+            <div class="category-header">
+                <div class="category-title">Graphic T-Shirts 👕</div>
+                <div class="category-line"></div>
+                <div class="category-count">8 Pieces</div>
+            </div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
-                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="new-p">1,600 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
+                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'>
-                    <div class="img-area"><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
-                    <div class="info-area"><h3>Vintage Polo</h3><div class="new-p">1,800 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
+                    <div class="info-area"><h3>Vintage Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'>
-                    <div class="img-area"><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
-                    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="new-p">1,800 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
+                    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
-                    <div class="img-area"><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
-                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="new-p">1,800 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
+                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
-                    <div class="img-area"><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
-                    <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="new-p">1,800 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
+                    <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
-                    <div class="img-area"><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
-                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="new-p">1,600 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
+                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
-                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="new-p">1,600 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
+                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
-                    <div class="img-area"><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
-                    <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="new-p">2,850 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
+                    <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
             </div>
         </div>
 
         <!-- HOODIES & SWEATERS -->
-        <div class="category-section">
-            <div class="category-title">Hoodies & Sweaters 🧶</div>
+        <div class="category-section" id="cat-hoodies">
+            <div class="category-header">
+                <div class="category-title">Hoodies & Sweaters 🧶</div>
+                <div class="category-line"></div>
+                <div class="category-count">6 Pieces</div>
+            </div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Polo Knit Sweater','clothe',2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
-                    <div class="img-area"><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div>
-                    <div class="info-area"><h3>Polo Knit Sweater</h3><div class="new-p">2,500 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div>
+                    <div class="info-area"><h3>Polo Knit Sweater</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
-                    <div class="img-area"><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div>
-                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="new-p">2,400 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div>
+                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="card-footer"><div class="new-p">2,400 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
-                    <div class="img-area"><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
-                    <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
+                    <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
-                    <div class="img-area"><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
-                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="new-p">3,500 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
+                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
-                    <div class="img-area"><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
-                    <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="new-p">3,500 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
+                    <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
-                    <div class="img-area"><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Official Casual Half Zip Sweater"></div>
-                    <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Official Casual Half Zip Sweater"></div>
+                    <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
             </div>
         </div>
 
         <!-- JACKETS -->
-        <div class="category-section">
-            <div class="category-title">Jackets 🧥</div>
+        <div class="category-section" id="cat-jackets">
+            <div class="category-header">
+                <div class="category-title">Jackets 🧥</div>
+                <div class="category-line"></div>
+                <div class="category-count">3 Pieces</div>
+            </div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
-                    <div class="img-area"><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div>
-                    <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="new-p">2,800 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div>
+                    <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="card-footer"><div class="new-p">2,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
-                    <div class="img-area"><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div>
-                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="new-p">3,250 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div>
+                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="card-footer"><div class="new-p">3,250 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
-                    <div class="img-area"><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="new-p">3,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div>
+                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
             </div>
         </div>
 
         <!-- JEANS & PANTS -->
-        <div class="category-section">
-            <div class="category-title">Jeans & Pants 👖</div>
+        <div class="category-section" id="cat-pants">
+            <div class="category-header">
+                <div class="category-title">Jeans & Pants 👖</div>
+                <div class="category-line"></div>
+                <div class="category-count">9 Pieces</div>
+            </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
-                    <div class="img-area"><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="new-p">2,500 ETB</div></div>
+                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-trouser="true" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div>
+                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
-                    <div class="img-area"><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div>
-                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div>
+                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
-                    <div class="img-area"><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div>
-                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div>
+                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
-                    <div class="img-area"><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div>
-                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div>
+                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
-                    <div class="img-area"><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div>
-                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div>
+                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
-                    <div class="img-area"><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="new-p">3,500 ETB</div></div>
+                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div>
+                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
-                    <div class="img-area"><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div>
-                    <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div>
+                    <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
-                    <div class="img-area"><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div>
-                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div>
+                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
-                    <div class="img-area"><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div>
-                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="new-p">2,850 ETB</div></div>
+                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div>
+                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
             </div>
         </div>
 
         <!-- FULL OUTFITS -->
-        <div class="category-section">
-            <div class="category-title">Full Outfits 👔</div>
+        <div class="category-section" id="cat-outfits">
+            <div class="category-header">
+                <div class="category-title">Full Outfits 👔</div>
+                <div class="category-line"></div>
+                <div class="category-count">6 Pieces</div>
+            </div>
             <div class="scroll-wrapper">
                 <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
-                    <div class="img-area"><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
+                    <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
-                    <div class="img-area"><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
-                    <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
+                    <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
-                    <div class="img-area"><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
+                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
-                    <div class="img-area"><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
+                    <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
-                    <div class="img-area"><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
+                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
                 <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
-                    <div class="img-area"><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="new-p">7,000 ETB</div></div>
+                    <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
+                    <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- PRIVATE REQUEST -->
-    <div class="private-section">
-        <p style="color:rgba(212,175,55,0.35);font-size:8px;letter-spacing:8px;text-transform:uppercase;margin-bottom:22px;">OFF-MARKET</p>
-        <h2 style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:36px;letter-spacing:3px;font-weight:300;margin-bottom:22px;font-style:italic;">Private Request</h2>
-        <div style="max-width:560px;margin:0 auto 48px;">
-            <p style="color:rgba(255,255,255,0.20);font-size:13px;line-height:2.3;font-weight:300;letter-spacing:0.6px;">While our gallery showcases our current collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you're seeking a specific piece not shown here, engage our private sourcing service.</p>
+    <div class="private-section" id="cat-private">
+        <p style="color:rgba(212,175,55,0.30);font-size:8px;letter-spacing:9px;text-transform:uppercase;margin-bottom:22px;">OFF-MARKET</p>
+        <h2 style="color:#fff;font-family:'Playfair Display',serif;font-size:38px;letter-spacing:3px;font-weight:400;margin-bottom:22px;font-style:italic;">Private Request</h2>
+        <div style="max-width:540px;margin:0 auto 52px;">
+            <p style="color:rgba(255,255,255,0.18);font-size:13.5px;line-height:2.4;font-weight:300;letter-spacing:0.5px;">While our gallery showcases our current collection, our sourcing capabilities extend to the most exclusive luxury goods worldwide. If you're seeking a specific piece not shown here, engage our private sourcing service.</p>
         </div>
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
@@ -1081,7 +1412,7 @@
             <a onclick="openAbout()">About Us</a>
             <a href="https://t.me/@OUMER_FETE" target="_blank">Contact</a>
         </div>
-        <p style="text-align:center;color:rgba(255,255,255,0.08);font-size:9px;letter-spacing:3.5px;text-transform:uppercase;padding:14px 0 0;margin:0;">
+        <p style="text-align:center;color:rgba(255,255,255,0.07);font-size:8.5px;letter-spacing:3.5px;text-transform:uppercase;padding:16px 0 0;margin:0;">
             &copy; 2026 OUMRAN STORE. ALL RIGHTS RESERVED. EXCLUSIVE ADDIS ABABA SUPPLY TERMINAL.
         </p>
     </footer>
@@ -1097,17 +1428,21 @@
             <img id="modal-img" alt="Product Image" onclick="openZoom()">
             <h2 id="m-name">Product</h2>
             <span id="m-price">0 ETB</span>
+            <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size 32</p>
             <div class="m-divider"></div>
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
             <div id="pModalSizeWrapper">
-                <label class="field-label" style="margin-top:0;">Select Size</label>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:0;">
+                    <label class="field-label" style="margin-top:0;margin-bottom:0;">Select Size</label>
+                    <span id="size-guide-btn" class="size-guide-trigger" onclick="openSizeGuide()" style="display:none;">📐 Size Guide</span>
+                </div>
                 <select id="size-box" class="order-input"></select>
             </div>
             <div class="m-divider"></div>
-            <button class="btn" onclick="handleAddToCartClick()">Add to Bag</button>
+            <button class="btn btn-gold" onclick="handleAddToCartClick()">Add to Bag</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeModal()">Cancel</button>
             <div class="rec-title">You May Also Like</div>
             <div id="rec-list" class="rec-scroll"></div>
@@ -1117,12 +1452,12 @@
     <!-- PRIVATE SOURCING MODAL -->
     <div id="privateSourcingModal" class="modal">
         <div class="modal-content" style="max-width:480px;">
-            <div style="font-size:8px;color:rgba(255,255,255,0.18);letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;">PRIVATE CONCIERGE</div>
-            <h2 style="margin-top:0;font-family:'Cormorant Garamond',serif;color:#fff;letter-spacing:2px;font-size:30px;font-style:italic;font-weight:300;margin-bottom:6px;">Sourcing Intake 🌐</h2>
-            <p style="font-size:9px;color:rgba(255,255,255,0.18);text-transform:uppercase;letter-spacing:3px;margin-bottom:36px;">Private Concierge Service</p>
+            <div style="font-size:8px;color:rgba(255,255,255,0.15);letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;">PRIVATE CONCIERGE</div>
+            <h2 style="margin-top:0;font-family:'Playfair Display',serif;color:#fff;letter-spacing:2px;font-size:28px;font-style:italic;font-weight:400;margin-bottom:6px;">Sourcing Intake 🌐</h2>
+            <p style="font-size:8.5px;color:rgba(255,255,255,0.16);text-transform:uppercase;letter-spacing:3px;margin-bottom:36px;">Private Concierge Service</p>
 
             <label class="field-label" style="margin-top:0;">Item Classification</label>
-            <p style="font-size:12px;color:rgba(255,255,255,0.28);margin-bottom:0;line-height:1.75;margin-top:10px;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are available via private request.</p>
+            <p style="font-size:12px;color:rgba(255,255,255,0.26);margin-bottom:0;line-height:1.8;margin-top:10px;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are available via private request.</p>
 
             <label class="field-label">Client Profile Name</label>
             <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
@@ -1155,7 +1490,7 @@
                 <textarea id="srcReference" placeholder="Paste link or describe the colorway..."></textarea>
                 <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;">
                     <div id="srcImagePreviewSlot" style="display:flex;align-items:center;"></div>
-                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.28);font-size:11px;cursor:pointer;letter-spacing:1px;">
+                    <label for="srcHiddenImageUpload" style="display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.26);font-size:11px;cursor:pointer;letter-spacing:1px;">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                         Add Photo
                     </label>
@@ -1163,7 +1498,7 @@
                 </div>
             </div>
 
-            <div style="margin-top:36px;">
+            <div style="margin-top:40px;">
                 <button class="btn btn-gold" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
             </div>
@@ -1188,7 +1523,7 @@
 
                 <div class="m-divider"></div>
 
-                <p style="font-size:9px;color:rgba(255,255,255,0.20);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;margin-top:4px;">Delivery Details</p>
+                <p style="font-size:8.5px;color:rgba(255,255,255,0.18);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;margin-top:4px;">Delivery Details</p>
 
                 <label class="field-label" style="margin-top:14px;">Full Name</label>
                 <input type="text" id="custName" placeholder="Your full name" class="order-input">
@@ -1206,7 +1541,7 @@
 
                 <div class="m-divider"></div>
 
-                <p style="font-size:9px;color:rgba(255,255,255,0.20);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">Payment Preference</p>
+                <p style="font-size:8.5px;color:rgba(255,255,255,0.18);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">Payment Preference</p>
 
                 <div id="paymentOptions">
                     <div class="pay-opt selected" data-value="Cash on Delivery (COD)" onclick="selectPayment(this)">
@@ -1240,7 +1575,7 @@
                     <span class="cart-note-text">Prices may vary slightly based on supplier stock. Final pricing confirmed via Telegram before dispatch.</span>
                 </div>
 
-                <button class="btn btn-gold" style="margin-top:20px;" onclick="submitOrder()">Confirm Order</button>
+                <button class="btn btn-gold" style="margin-top:22px;" onclick="submitOrder()">Confirm Order</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeCart()">Close</button>
             </div>
 
@@ -1254,13 +1589,13 @@
     <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal">
         <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:52px 32px;">
-            <div style="font-size:8px;color:rgba(255,255,255,0.18);letter-spacing:6px;text-transform:uppercase;margin-bottom:28px;">OUMRAN STORE</div>
-            <div style="margin-bottom:24px;">
-                <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#c9a227,#FFD700);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:26px;color:black;font-weight:900;box-shadow:0 12px 40px rgba(255,215,0,0.25);">✓</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.15);letter-spacing:6px;text-transform:uppercase;margin-bottom:28px;">OUMRAN STORE</div>
+            <div style="margin-bottom:26px;">
+                <div style="width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#b8901e,#FFD700);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:26px;color:black;font-weight:900;box-shadow:0 12px 40px rgba(255,215,0,0.22);">✓</div>
             </div>
-            <h2 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:34px;letter-spacing:2px;margin-bottom:16px;font-weight:300;font-style:italic;">Order Reserved</h2>
-            <p style="text-transform:uppercase;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.22);margin-bottom:14px;">Thank you for shopping with OUMRAN STORE</p>
-            <p style="font-size:13px;font-weight:300;margin-bottom:32px;line-height:1.9;color:rgba(255,255,255,0.45);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
+            <h2 style="color:var(--gold);font-family:'Playfair Display',serif;font-size:32px;letter-spacing:2px;margin-bottom:16px;font-weight:400;font-style:italic;">Order Reserved</h2>
+            <p style="text-transform:uppercase;font-size:8.5px;letter-spacing:3px;color:rgba(255,255,255,0.20);margin-bottom:14px;">Thank you for shopping with OUMRAN STORE</p>
+            <p style="font-size:13px;font-weight:300;margin-bottom:36px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
             <button class="btn btn-gold" onclick="window.location.href='https://t.me/@OUMER_FETE'">Open Telegram →</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="document.getElementById('successModal').style.display='none'">Return to Store</button>
         </div>
@@ -1268,48 +1603,76 @@
 </div>
 
 <script>
-/* PARTICLES */
+/* ══════ PARTICLES ══════ */
 (function() {
     const c = document.getElementById('particles');
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 18; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        const size = Math.random() * 3.5 + 1.2;
-        const drift = (Math.random() - 0.5) * 240;
-        p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--px-drift:${drift}px;animation-duration:${Math.random()*22+12}s;animation-delay:${Math.random()*20}s;opacity:0;`;
+        const size = Math.random() * 3.2 + 1;
+        const drift = (Math.random() - 0.5) * 220;
+        p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--px-drift:${drift}px;animation-duration:${Math.random()*22+14}s;animation-delay:${Math.random()*22}s;opacity:0;`;
         c.appendChild(p);
     }
 })();
 
-/* FORCE VIDEO PLAY */
+/* ══════ VIDEO — force play, never stop, no controls ══════ */
 (function() {
     const v = document.getElementById('bg-video');
     if (!v) return;
-    v.setAttribute('playsinline', '');
-    v.setAttribute('webkit-playsinline', '');
+    // Remove controls attributes entirely
+    v.controls = false;
+    v.removeAttribute('controls');
     function tryPlay() {
         const p = v.play();
-        if (p !== undefined) p.catch(() => {});
+        if (p !== undefined) p.catch(() => { setTimeout(tryPlay, 500); });
     }
-    v.addEventListener('pause', tryPlay);
-    v.addEventListener('ended', tryPlay);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+    // Keep playing always
+    v.addEventListener('pause', function() { setTimeout(tryPlay, 50); });
+    v.addEventListener('ended', function() { v.currentTime = 0; tryPlay(); });
+    v.addEventListener('stalled', function() { setTimeout(tryPlay, 500); });
+    v.addEventListener('suspend', function() { setTimeout(tryPlay, 500); });
+    document.addEventListener('visibilitychange', function() { if (!document.hidden) tryPlay(); });
+    window.addEventListener('focus', tryPlay);
     tryPlay();
+    // Periodic keep-alive check
+    setInterval(function() { if (v.paused) tryPlay(); }, 2000);
 })();
 
-/* SCROLL LOCK */
+/* ══════ HEADER SCROLL ══════ */
+window.addEventListener('scroll', function() {
+    const h = document.getElementById('site-header');
+    if (h) h.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ══════ NAV ACTIVE ══════ */
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ══════ SCROLL LOCK ══════ */
 let _scrollY = 0;
 function lockScroll() { _scrollY = window.scrollY; document.body.style.top = `-${_scrollY}px`; document.documentElement.classList.add('overlay-open'); document.body.classList.add('overlay-open'); }
 function unlockScroll() { document.documentElement.classList.remove('overlay-open'); document.body.classList.remove('overlay-open'); document.body.style.top = ''; window.scrollTo(0, _scrollY); }
 function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
-/* STATE */
+/* ══════ SIZE GUIDE ══════ */
+function openSizeGuide() {
+    document.getElementById('sizeGuideModal').style.display = 'block';
+}
+function closeSizeGuide() {
+    document.getElementById('sizeGuideModal').style.display = 'none';
+}
+
+/* ══════ STATE ══════ */
 const DOM = {};
 let cart = [], currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
-let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '';
+let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '', isTrouserProduct = false;
 let privateModalReady = false;
 const sz = { clothe: ['M','L','XL','XXL'], shoes: ['40','41','42','43','44','45'], acc: ['Standard'] };
+const trouserSizes = ['28','30','32','34','36','38','40','42'];
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 
 function selectPayment(el) {
@@ -1347,7 +1710,7 @@ window.addEventListener('load', () => {
             document.body.classList.remove('loading');
             syncProfile();
             setTimeout(() => document.body.classList.add('intro-complete'), 60);
-        }, 2800);
+        }, 2900);
     } else {
         DOM.splash.style.display = 'none';
         document.documentElement.classList.remove('loading');
@@ -1436,7 +1799,7 @@ function switchCartView(view) {
 function renderOrderHistory() {
     const c = document.getElementById('history-items-list');
     const h = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    if (!h.length) { c.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.18);margin-top:52px;font-size:13px;">No orders found.</p>'; return; }
+    if (!h.length) { c.innerHTML = '<p style="text-align:center;color:rgba(255,255,255,0.16);margin-top:52px;font-size:13px;">No orders found.</p>'; return; }
     h.sort((a,b) => b.timestamp - a.timestamp);
     c.innerHTML = h.map(o => `<div class="order-card"><div class="order-header"><span class="order-id">#${o.id}</span><span class="order-date">${o.date}</span></div><div class="order-items">${o.items.replace(/\n/g,'<br>')}</div><div class="order-method">${o.method}</div><div class="order-total">Total: <span>${o.total} ETB</span></div></div>`).join('');
 }
@@ -1466,6 +1829,19 @@ function openP(n, t, price) {
     DOM.modalImg.src = card.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
+
+    // Check if trouser product
+    isTrouserProduct = card.getAttribute('data-trouser') === 'true';
+    const modelNote = document.getElementById('m-model-note');
+    const sizeGuideBtn = document.getElementById('size-guide-btn');
+    if (isTrouserProduct) {
+        modelNote.style.display = 'block';
+        if (sizeGuideBtn) sizeGuideBtn.style.display = 'flex';
+    } else {
+        modelNote.style.display = 'none';
+        if (sizeGuideBtn) sizeGuideBtn.style.display = 'none';
+    }
+
     const varData = card.getAttribute('data-variants');
     currentVariants = varData ? JSON.parse(varData) : [];
     DOM.variantList.innerHTML = '';
@@ -1481,6 +1857,7 @@ function openP(n, t, price) {
         });
         DOM.variantList.appendChild(frag);
     } else { DOM.variantArea.style.display = 'none'; }
+
     DOM.recList.innerHTML = '';
     const recFrag = document.createDocumentFragment();
     card.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
@@ -1492,9 +1869,11 @@ function openP(n, t, price) {
         }
     });
     DOM.recList.appendChild(recFrag);
+
     DOM.sizeBox.innerHTML = '';
     const sizeFrag = document.createDocumentFragment();
-    (sz[t] || sz.acc).forEach(s => { const o = document.createElement('option'); o.text = s; sizeFrag.appendChild(o); });
+    const sizes = isTrouserProduct ? trouserSizes : (sz[t] || sz.acc);
+    sizes.forEach(s => { const o = document.createElement('option'); o.text = s; sizeFrag.appendChild(o); });
     DOM.sizeBox.appendChild(sizeFrag);
     DOM.sizeWrapper.style.display = (t==='clothe'||t==='shoes') ? 'block' : 'none';
     DOM.pModal.style.display = 'block';
@@ -1516,7 +1895,11 @@ function addToCart() {
 function updateCartDisplay() {
     requestAnimationFrame(() => {
         DOM.cartCount.innerText = cart.length;
+        const hCart = document.getElementById('header-cart-count');
+        if (hCart) hCart.innerText = cart.length;
+        const hCartBtn = document.getElementById('header-cart-btn');
         if (DOM.cartBtn) DOM.cartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
+        if (hCartBtn) hCartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
         localStorage.setItem('oumer_cart', JSON.stringify(cart));
     });
 }
@@ -1578,7 +1961,6 @@ function submitPrivateSourcingWithOnboardingCheck() { if (checkProfileOnboarding
 function initPrivateSourcingUploads() {
     const fileInput = document.getElementById('srcHiddenImageUpload');
     const previewSlot = document.getElementById('srcImagePreviewSlot');
-    const wrapper = document.getElementById('srcReferenceWrapper');
     const cat = document.getElementById('srcCategory');
     const sizeW = document.getElementById('srcSizeWrapper');
     const sizeI = document.getElementById('srcSize');
@@ -1594,6 +1976,7 @@ function initPrivateSourcingUploads() {
         reader.readAsDataURL(file);
     }
     if (fileInput) fileInput.addEventListener('change', () => processImageFile(fileInput.files[0]));
+    const wrapper = document.getElementById('srcReferenceWrapper');
     if (wrapper) wrapper.addEventListener('paste', e => { const items=(e.clipboardData||e.originalEvent.clipboardData).items; for (let i in items) { const it=items[i]; if (it.kind==='file') { const b=it.getAsFile(); processImageFile(b); const dt=new DataTransfer(); dt.items.add(b); fileInput.files=dt.files; } } });
 }
 function submitPrivateRequest() {
@@ -1629,3 +2012,5 @@ function submitPrivateRequest() {
 </script>
 </body>
 </html>
+
+
