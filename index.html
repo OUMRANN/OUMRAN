@@ -47,9 +47,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ══════════════════════════════
-           LIVING BACKGROUND — no controls
-        ══════════════════════════════ */
         #bg-video {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -59,7 +56,6 @@
             pointer-events: none !important;
             user-select: none;
         }
-        /* Aggressively hide all native video controls */
         #bg-video::-webkit-media-controls,
         #bg-video::-webkit-media-controls-enclosure,
         #bg-video::-webkit-media-controls-panel,
@@ -72,7 +68,6 @@
         }
         video::-webkit-media-controls { display: none !important; }
 
-        /* Full-cover overlay to intercept any clicks on video */
         #video-shield {
             position: fixed; inset: 0; z-index: -2;
             pointer-events: none;
@@ -127,9 +122,7 @@
         .admin-only { display: none; }
         .site-wrapper { width: 100%; max-width: 1440px; margin: 0 auto; }
 
-        /* ══════════════════════════════
-           SPLASH
-        ══════════════════════════════ */
+        /* SPLASH */
         #splash-screen {
             position: fixed; inset: 0;
             background: linear-gradient(135deg, #000 0%, #0a0802 50%, #000 100%);
@@ -190,9 +183,7 @@
         @keyframes riseUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
         @keyframes goldShine { to { background-position: 300% center; } }
 
-        /* ══════════════════════════════
-           HEADER — premium sticky
-        ══════════════════════════════ */
+        /* HEADER */
         header {
             position: sticky; top: 0; z-index: 100;
             padding: 0 48px;
@@ -223,7 +214,7 @@
         }
         .header-icon-btn:hover { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.2); transform: translateY(-1px); }
 
-        /* NAV INDICATOR */
+        /* NAV STRIP */
         .nav-strip {
             display: flex; justify-content: center; gap: 32px;
             padding: 0 48px 0;
@@ -245,9 +236,7 @@
         }
         .nav-item:hover, .nav-item.active { color: var(--gold); border-bottom-color: rgba(255,215,0,0.5); }
 
-        /* ══════════════════════════════
-           PROMO BAR
-        ══════════════════════════════ */
+        /* PROMO BAR */
         .promo-bar {
             background: transparent;
             color: rgba(255,255,255,0.32);
@@ -262,9 +251,7 @@
         }
         .about-link:hover { opacity: 0.6; }
 
-        /* ══════════════════════════════
-           TRUST BAR
-        ══════════════════════════════ */
+        /* TRUST BAR */
         .trust-bar {
             display: flex; justify-content: center; align-items: center;
             gap: 56px; padding: 24px 32px;
@@ -275,9 +262,7 @@
         .badge-icon { color: var(--gold); font-size: 11px; }
         .badge-text { color: rgba(255,255,255,0.20); font-size: 8.5px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; }
 
-        /* ══════════════════════════════
-           HERO HEADLINE (new)
-        ══════════════════════════════ */
+        /* HERO HEADLINE */
         .hero-headline {
             text-align: center;
             padding: 56px 24px 16px;
@@ -296,9 +281,7 @@
             letter-spacing: 6px; text-transform: uppercase; font-weight: 500;
         }
 
-        /* ══════════════════════════════
-           SEARCH
-        ══════════════════════════════ */
+        /* SEARCH */
         .search-wrap { padding: 44px 48px 20px; }
         #search-input {
             width: 100%; padding: 18px 36px;
@@ -318,9 +301,7 @@
             background: rgba(255,255,255,0.04);
         }
 
-        /* ══════════════════════════════
-           CATEGORY SECTIONS
-        ══════════════════════════════ */
+        /* CATEGORY SECTIONS */
         .category-section {
             padding: 96px 0 0;
             position: relative; z-index: 1;
@@ -352,9 +333,7 @@
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
-        /* ══════════════════════════════
-           PRODUCT CARD — premium glass
-        ══════════════════════════════ */
+        /* PRODUCT CARD */
         .product-card {
             flex: 0 0 205px;
             background: rgba(255,255,255,0.025);
@@ -417,9 +396,7 @@
         }
         .product-card:hover .card-add-icon { opacity: 1; transform: scale(1); }
 
-        /* ══════════════════════════════
-           TOAST
-        ══════════════════════════════ */
+        /* TOAST */
         #added-toast {
             position: fixed; top: 92px; right: 24px; visibility: hidden;
             background: rgba(8,8,8,0.80);
@@ -440,62 +417,7 @@
             font-size: 11px; font-weight: 900; flex-shrink: 0;
         }
 
-        /* ══════════════════════════════
-           FLOATING BUTTONS
-        ══════════════════════════════ */
-        .cart-float, .profile-float, .tg-float {
-            opacity: 0 !important; visibility: hidden !important; pointer-events: none !important;
-            transition: opacity 0.8s ease, visibility 0.8s !important;
-        }
-        body.intro-complete .cart-float,
-        body.intro-complete .profile-float,
-        body.intro-complete .tg-float {
-            opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
-        }
-        .tg-float {
-            position: fixed !important; bottom: 28px !important; right: 108px !important;
-            background: var(--tg); color: white;
-            width: 56px; height: 56px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; text-decoration: none; z-index: 99999 !important;
-            box-shadow: 0 10px 30px rgba(0,136,204,0.3);
-            transition: transform 0.3s var(--transition) !important;
-        }
-        .tg-float:hover { transform: scale(1.1) translateY(-3px) !important; }
-        .cart-float {
-            position: fixed !important; bottom: 28px !important; left: 28px !important;
-            background: rgba(255,255,255,0.88); color: black;
-            width: 56px; height: 56px; border-radius: 50%;
-            display: none; align-items: center; justify-content: center;
-            font-size: 20px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.08);
-            transition: transform 0.3s var(--transition) !important;
-        }
-        .cart-float:hover { transform: scale(1.1) translateY(-3px) !important; }
-        .profile-float {
-            position: fixed !important; bottom: 28px !important; right: 28px !important;
-            background: linear-gradient(135deg, #a07c10, #FFD700, #a07c10);
-            color: black; width: 56px; height: 56px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; z-index: 99999 !important; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.24);
-            transition: transform 0.3s var(--transition) !important;
-            animation: goldPulse 4s ease-in-out infinite;
-        }
-        .profile-float:hover { transform: scale(1.1) translateY(-3px) !important; }
-        @keyframes goldPulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(255,215,0,0.24); }
-            50%       { box-shadow: 0 14px 44px rgba(255,215,0,0.42); }
-        }
-        .cart-count {
-            position: absolute; top: -2px; right: -2px;
-            background: var(--accent); color: white;
-            font-size: 9px; padding: 3px 6px; border-radius: 50%; font-weight: 900;
-        }
-
-        /* ══════════════════════════════
-           MODAL BACKDROP
-        ══════════════════════════════ */
+        /* MODAL BACKDROP */
         .modal {
             display: none; position: fixed; z-index: 2000;
             left:0; top:0; width:100%; height:100%;
@@ -537,9 +459,7 @@
 
         .m-divider { height: 1px; width: 100%; background: rgba(255,255,255,0.06); margin: 26px 0; }
 
-        /* ══════════════════════════════
-           VARIANTS
-        ══════════════════════════════ */
+        /* VARIANTS */
         .variant-section { margin-bottom: 24px; }
         .variant-label {
             font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.25);
@@ -559,27 +479,61 @@
         .variant-item span { display: none !important; }
         .variant-item.active { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.3), 0 10px 28px rgba(255,215,0,0.12); }
 
-        /* SIZE GUIDE */
+        /* SIZE SELECTOR */
+        .size-selector-wrap { margin-top: 20px; }
+        .size-selector-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .size-selector-label {
+            font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.25);
+            text-transform: uppercase; letter-spacing: 3.5px;
+        }
         .size-guide-trigger {
-            display: inline-flex; align-items: center; gap: 6px;
-            font-size: 9px; color: rgba(255,215,0,0.55); font-weight: 700;
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 8.5px; color: rgba(255,215,0,0.55); font-weight: 700;
             letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
             border-bottom: 1px solid rgba(255,215,0,0.2); padding-bottom: 2px;
-            transition: color 0.2s, border-color 0.2s; margin-top: 4px;
+            transition: color 0.2s, border-color 0.2s;
         }
         .size-guide-trigger:hover { color: var(--gold); border-color: rgba(255,215,0,0.5); }
+        .size-buttons {
+            display: flex; gap: 10px; flex-wrap: wrap;
+        }
+        .size-btn {
+            min-width: 54px; padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.55);
+            font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: all 0.25s var(--transition);
+            font-family: 'DM Sans', sans-serif;
+            text-align: center; letter-spacing: 0.5px;
+        }
+        .size-btn:hover {
+            border-color: rgba(255,215,0,0.35);
+            color: white;
+            background: rgba(255,215,0,0.06);
+        }
+        .size-btn.active {
+            border-color: var(--gold);
+            background: rgba(255,215,0,0.10);
+            color: var(--gold);
+            box-shadow: 0 0 0 1px rgba(255,215,0,0.15);
+        }
 
-        /* SIZE GUIDE MODAL */
-        #sizeGuideModal { z-index: 3000; }
-        #sizeGuideModal .modal-content { max-width: 520px; padding: 40px 28px 48px; }
+        /* SIZE GUIDE MODALS */
+        #clothingSizeGuideModal, #trouserSizeGuideModal { z-index: 3000; }
+        #clothingSizeGuideModal .modal-content, #trouserSizeGuideModal .modal-content { max-width: 520px; padding: 40px 28px 48px; }
         .sg-title {
             font-family: 'Playfair Display', serif;
             font-size: 22px; font-style: italic; color: var(--gold);
             margin-bottom: 6px; letter-spacing: 1px;
         }
         .sg-subtitle { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
-        .sg-table-wrap { overflow-x: auto; margin-bottom: 36px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
-        .sg-table { width: 100%; border-collapse: collapse; min-width: 400px; }
+        .sg-table-wrap { overflow-x: auto; margin-bottom: 28px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
+        .sg-table { width: 100%; border-collapse: collapse; min-width: 360px; }
         .sg-table th {
             background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.7);
             font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
@@ -596,7 +550,6 @@
         .sg-table td:first-child { color: white; font-weight: 600; text-align: left; padding-left: 18px; }
         .sg-table tr:last-child td { border-bottom: none; }
         .sg-table tr:hover td { background: rgba(255,215,0,0.03); }
-
         .sg-section-title {
             font-size: 9px; font-weight: 700; color: rgba(255,215,0,0.5);
             letter-spacing: 3px; text-transform: uppercase;
@@ -620,9 +573,7 @@
         }
         .sg-model-note strong { color: var(--gold); }
 
-        /* ══════════════════════════════
-           RECS
-        ══════════════════════════════ */
+        /* RECS */
         .rec-title {
             font-size: 8.5px; font-weight: 700;
             color: rgba(255,215,0,0.45); margin: 36px 0 18px;
@@ -639,9 +590,7 @@
         .rec-item:hover img { transform: scale(1.05) translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.7); }
         .rec-item h4 { font-size: 9px; margin: 8px 0 0; color: rgba(255,255,255,0.28); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* ══════════════════════════════
-           BUTTONS
-        ══════════════════════════════ */
+        /* BUTTONS */
         .btn {
             width: 100%; padding: 18px;
             background: rgba(255,255,255,0.90); color: black;
@@ -667,9 +616,7 @@
         }
         .btn-gold:hover { box-shadow: 0 16px 50px rgba(255,215,0,0.34) !important; }
 
-        /* ══════════════════════════════
-           INPUTS
-        ══════════════════════════════ */
+        /* INPUTS */
         .order-input, #size-box {
             width: 100%; padding: 15px 0; margin-top: 10px;
             border-radius: 0; border: none;
@@ -698,9 +645,7 @@
             font-family: 'DM Sans', sans-serif;
         }
 
-        /* ══════════════════════════════
-           CART
-        ══════════════════════════════ */
+        /* CART */
         .cart-tab-bar {
             display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06);
             margin-bottom: 36px;
@@ -783,9 +728,7 @@
         .order-total { text-align: right; font-weight: 700; font-size: 14px; }
         .order-total span { color: var(--gold); }
 
-        /* ══════════════════════════════
-           PROFILE
-        ══════════════════════════════ */
+        /* PROFILE */
         .profile-stat { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .profile-stat:last-of-type { border-bottom: none; }
         .profile-stat-label { color: rgba(255,255,255,0.16); font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 6px; }
@@ -801,9 +744,7 @@
         }
         .profile-edit-btn:hover { color: var(--gold); border-bottom-color: rgba(255,215,0,0.3); }
 
-        /* ══════════════════════════════
-           ABOUT PAGE
-        ══════════════════════════════ */
+        /* ABOUT PAGE */
         #aboutPage {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.75);
@@ -816,9 +757,7 @@
             font-size: 40px; margin-bottom: 14px; font-style: italic; font-weight: 400;
         }
 
-        /* ══════════════════════════════
-           ZOOM
-        ══════════════════════════════ */
+        /* ZOOM */
         #zoom-container {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.94); z-index: 9999;
@@ -842,9 +781,7 @@
             font-size: 10.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif;
         }
 
-        /* ══════════════════════════════
-           PRIVATE SECTION
-        ══════════════════════════════ */
+        /* PRIVATE SECTION */
         .private-section {
             padding: 140px 24px 130px; text-align: center; margin-top: 60px;
             position: relative;
@@ -869,9 +806,7 @@
             transform: translateY(-3px);
         }
 
-        /* ══════════════════════════════
-           PRIVATE SOURCING MODAL
-        ══════════════════════════════ */
+        /* PRIVATE SOURCING MODAL */
         #privateSourcingModal .modal-content { max-width: 480px; }
         #srcReferenceWrapper {
             border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;
@@ -884,9 +819,7 @@
         }
         #srcReference::placeholder { color: rgba(255,255,255,0.16); }
 
-        /* ══════════════════════════════
-           LEGAL PAGES
-        ══════════════════════════════ */
+        /* LEGAL PAGES */
         .legal-page {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(40px);
@@ -907,14 +840,10 @@
         .legal-highlight-box { border: 1px solid rgba(255,215,0,0.06); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
         .legal-highlight-box p { margin: 0; font-size: 13px; color: #777; line-height: 1.75; }
 
-        /* ══════════════════════════════
-           SUCCESS MODAL
-        ══════════════════════════════ */
+        /* SUCCESS MODAL */
         #successModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
-        /* ══════════════════════════════
-           FOOTER
-        ══════════════════════════════ */
+        /* FOOTER */
         footer {
             width: 100%; background: transparent;
             padding: 56px 24px 44px;
@@ -929,15 +858,11 @@
         .footer-legal a { color: rgba(255,255,255,0.12); font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
         .footer-legal a:hover { color: var(--gold); }
 
-        /* ══════════════════════════════
-           ONBOARDING
-        ══════════════════════════════ */
+        /* ONBOARDING */
         #profileOnboardingModal .modal-content { max-width: 380px; margin-top: 8vh; text-align: center; }
         #profileHubModal .modal-content { max-width: 440px; }
 
-        /* ══════════════════════════════
-           RESPONSIVE
-        ══════════════════════════════ */
+        /* RESPONSIVE */
         @media (min-width: 768px) {
             .modal-content { max-width: 560px !important; }
             .product-card { flex: 0 0 272px !important; }
@@ -960,7 +885,7 @@
 </head>
 <body class="loading">
 
-<!-- LIVING VIDEO BG — fully non-interactive -->
+<!-- LIVING VIDEO BG -->
 <video id="bg-video" autoplay loop muted playsinline
     disablepictureinpicture
     disableremoteplayback
@@ -984,14 +909,77 @@
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
 </div>
 
-<!-- SIZE GUIDE MODAL -->
-<div id="sizeGuideModal" class="modal">
+<!-- CLOTHING SIZE GUIDE MODAL -->
+<div id="clothingSizeGuideModal" class="modal">
     <div class="modal-content" style="max-width:520px;">
         <div class="sg-title">Size Guide</div>
-        <p class="sg-subtitle">Trousers · Measurements in Centimeters</p>
+        <p class="sg-subtitle">Tops & Outerwear · Measurements in Centimeters</p>
 
         <div class="sg-model-note">
-            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size 32</strong>
+            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong>
+        </div>
+
+        <div class="sg-section-title">Size Chart</div>
+        <div class="sg-table-wrap">
+            <table class="sg-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Chest</th>
+                        <th>Shoulder</th>
+                        <th>Waist</th>
+                        <th>Length</th>
+                        <th>Sleeve</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>S</td><td>96</td><td>43</td><td>88</td><td>68</td><td>62</td></tr>
+                    <tr><td>M</td><td>100</td><td>45</td><td>92</td><td>70</td><td>63</td></tr>
+                    <tr><td>L</td><td>104</td><td>47</td><td>96</td><td>72</td><td>64</td></tr>
+                    <tr><td>XL</td><td>108</td><td>49</td><td>100</td><td>74</td><td>65</td></tr>
+                    <tr><td>XXL</td><td>114</td><td>51</td><td>106</td><td>76</td><td>66</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="sg-section-title">How to Measure</div>
+        <div class="sg-measure-grid">
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📏</div>
+                <div class="sg-measure-name">Chest</div>
+                <div class="sg-measure-desc">Measure around the fullest part of your chest, keeping the tape parallel to the floor.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">🔵</div>
+                <div class="sg-measure-name">Shoulder</div>
+                <div class="sg-measure-desc">Measure from the edge of one shoulder seam across to the other shoulder seam.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📐</div>
+                <div class="sg-measure-name">Length</div>
+                <div class="sg-measure-desc">Measure from the highest point of the shoulder down to the desired hem length.</div>
+            </div>
+            <div class="sg-measure-item">
+                <div class="sg-measure-icon">📏</div>
+                <div class="sg-measure-name">Sleeve</div>
+                <div class="sg-measure-desc">Measure from the center back neck, over the shoulder, to the end of the sleeve.</div>
+            </div>
+        </div>
+
+        <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
+
+        <button class="btn btn-ghost" onclick="closeClothingSizeGuide()">Close Guide</button>
+    </div>
+</div>
+
+<!-- TROUSER SIZE GUIDE MODAL -->
+<div id="trouserSizeGuideModal" class="modal">
+    <div class="modal-content" style="max-width:520px;">
+        <div class="sg-title">Size Guide</div>
+        <p class="sg-subtitle">Trousers & Pants · Measurements in Centimeters</p>
+
+        <div class="sg-model-note">
+            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong>
         </div>
 
         <div class="sg-section-title">Size Chart</div>
@@ -1008,14 +996,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>28</td><td>71</td><td>89</td><td>51</td><td>100</td><td>76</td></tr>
-                    <tr><td>30</td><td>76</td><td>94</td><td>54</td><td>101</td><td>77</td></tr>
-                    <tr><td>32</td><td>81</td><td>99</td><td>57</td><td>102</td><td>78</td></tr>
-                    <tr><td>34</td><td>86</td><td>104</td><td>60</td><td>103</td><td>79</td></tr>
-                    <tr><td>36</td><td>91</td><td>109</td><td>63</td><td>104</td><td>80</td></tr>
-                    <tr><td>38</td><td>97</td><td>114</td><td>66</td><td>105</td><td>81</td></tr>
-                    <tr><td>40</td><td>102</td><td>119</td><td>69</td><td>106</td><td>82</td></tr>
-                    <tr><td>42</td><td>107</td><td>124</td><td>72</td><td>107</td><td>83</td></tr>
+                    <tr><td>S</td><td>72</td><td>91</td><td>52</td><td>100</td><td>76</td></tr>
+                    <tr><td>M</td><td>78</td><td>97</td><td>55</td><td>101</td><td>77</td></tr>
+                    <tr><td>L</td><td>84</td><td>103</td><td>58</td><td>102</td><td>78</td></tr>
+                    <tr><td>XL</td><td>90</td><td>109</td><td>61</td><td>103</td><td>79</td></tr>
+                    <tr><td>XXL</td><td>98</td><td>117</td><td>65</td><td>104</td><td>80</td></tr>
                 </tbody>
             </table>
         </div>
@@ -1046,7 +1031,7 @@
 
         <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
 
-        <button class="btn btn-ghost" onclick="closeSizeGuide()">Close Guide</button>
+        <button class="btn btn-ghost" onclick="closeTrouserSizeGuide()">Close Guide</button>
     </div>
 </div>
 
@@ -1417,30 +1402,30 @@
         </p>
     </footer>
 
-    <!-- FLOATING BUTTONS -->
-    <div id="cart-btn" class="cart-float" onclick="showCart()">🛒<span id="cart-count" class="cart-count">0</span></div>
-    <div id="profile-btn" class="profile-float" onclick="openProfileHub()">👤</div>
-    <a href="https://t.me/@OUMER_FETE" class="tg-float" target="_blank">📲</a>
-
     <!-- PRODUCT MODAL -->
     <div id="pModal" class="modal">
         <div class="modal-content">
             <img id="modal-img" alt="Product Image" onclick="openZoom()">
             <h2 id="m-name">Product</h2>
             <span id="m-price">0 ETB</span>
-            <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size 32</p>
+            <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size L</p>
             <div class="m-divider"></div>
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
+
+            <!-- SIZE SELECTOR -->
             <div id="pModalSizeWrapper">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:0;">
-                    <label class="field-label" style="margin-top:0;margin-bottom:0;">Select Size</label>
-                    <span id="size-guide-btn" class="size-guide-trigger" onclick="openSizeGuide()" style="display:none;">📐 Size Guide</span>
+                <div class="size-selector-wrap">
+                    <div class="size-selector-header">
+                        <span class="size-selector-label">Select Size</span>
+                        <span id="size-guide-btn" class="size-guide-trigger" style="display:none;" onclick="openSizeGuide()">📐 Size Guide</span>
+                    </div>
+                    <div id="size-buttons-row" class="size-buttons"></div>
                 </div>
-                <select id="size-box" class="order-input"></select>
             </div>
+
             <div class="m-divider"></div>
             <button class="btn btn-gold" onclick="handleAddToCartClick()">Add to Bag</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeModal()">Cancel</button>
@@ -1616,18 +1601,16 @@
     }
 })();
 
-/* ══════ VIDEO — force play, never stop, no controls ══════ */
+/* ══════ VIDEO ══════ */
 (function() {
     const v = document.getElementById('bg-video');
     if (!v) return;
-    // Remove controls attributes entirely
     v.controls = false;
     v.removeAttribute('controls');
     function tryPlay() {
         const p = v.play();
         if (p !== undefined) p.catch(() => { setTimeout(tryPlay, 500); });
     }
-    // Keep playing always
     v.addEventListener('pause', function() { setTimeout(tryPlay, 50); });
     v.addEventListener('ended', function() { v.currentTime = 0; tryPlay(); });
     v.addEventListener('stalled', function() { setTimeout(tryPlay, 500); });
@@ -1635,7 +1618,6 @@
     document.addEventListener('visibilitychange', function() { if (!document.hidden) tryPlay(); });
     window.addEventListener('focus', tryPlay);
     tryPlay();
-    // Periodic keep-alive check
     setInterval(function() { if (v.paused) tryPlay(); }, 2000);
 })();
 
@@ -1645,7 +1627,7 @@ window.addEventListener('scroll', function() {
     if (h) h.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
-/* ══════ NAV ACTIVE ══════ */
+/* ══════ NAV ══════ */
 function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1658,21 +1640,27 @@ function unlockScroll() { document.documentElement.classList.remove('overlay-ope
 function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
-/* ══════ SIZE GUIDE ══════ */
+/* ══════ SIZE GUIDES ══════ */
 function openSizeGuide() {
-    document.getElementById('sizeGuideModal').style.display = 'block';
+    if (isTrouserProduct) {
+        document.getElementById('trouserSizeGuideModal').style.display = 'block';
+    } else {
+        document.getElementById('clothingSizeGuideModal').style.display = 'block';
+    }
 }
-function closeSizeGuide() {
-    document.getElementById('sizeGuideModal').style.display = 'none';
-}
+function closeClothingSizeGuide() { document.getElementById('clothingSizeGuideModal').style.display = 'none'; }
+function closeTrouserSizeGuide() { document.getElementById('trouserSizeGuideModal').style.display = 'none'; }
 
 /* ══════ STATE ══════ */
 const DOM = {};
 let cart = [], currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
 let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '', isTrouserProduct = false;
 let privateModalReady = false;
-const sz = { clothe: ['M','L','XL','XXL'], shoes: ['40','41','42','43','44','45'], acc: ['Standard'] };
-const trouserSizes = ['28','30','32','34','36','38','40','42'];
+let selectedSize = '';
+
+const clothingSizes = ['S', 'M', 'L', 'XL', 'XXL'];
+const trouserSizes = ['S', 'M', 'L', 'XL', 'XXL'];
+
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 
 function selectPayment(el) {
@@ -1681,10 +1669,25 @@ function selectPayment(el) {
     el.querySelector('input[type="radio"]').checked = true;
 }
 
+function buildSizeButtons(sizes) {
+    const row = document.getElementById('size-buttons-row');
+    row.innerHTML = '';
+    selectedSize = sizes[0] || '';
+    sizes.forEach((s, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = s;
+        btn.onclick = function() {
+            row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedSize = s;
+        };
+        row.appendChild(btn);
+    });
+}
+
 window.addEventListener('load', () => {
     DOM.splash = document.getElementById('splash-screen');
-    DOM.cartBtn = document.getElementById('cart-btn');
-    DOM.cartCount = document.getElementById('cart-count');
     DOM.cartTotal = document.getElementById('cart-total');
     DOM.cartList = document.getElementById('cart-items-list');
     DOM.toast = document.getElementById('added-toast');
@@ -1696,7 +1699,6 @@ window.addEventListener('load', () => {
     DOM.variantList = document.getElementById('variant-list');
     DOM.variantArea = document.getElementById('variant-area');
     DOM.recList = document.getElementById('rec-list');
-    DOM.sizeBox = document.getElementById('size-box');
     DOM.sizeWrapper = document.getElementById('pModalSizeWrapper');
     DOM.zoomImg = document.getElementById('zoom-img');
     DOM.cartModal = document.getElementById('cartModal');
@@ -1709,14 +1711,12 @@ window.addEventListener('load', () => {
             document.documentElement.classList.remove('loading');
             document.body.classList.remove('loading');
             syncProfile();
-            setTimeout(() => document.body.classList.add('intro-complete'), 60);
         }, 2900);
     } else {
         DOM.splash.style.display = 'none';
         document.documentElement.classList.remove('loading');
         document.body.classList.remove('loading');
         syncProfile();
-        document.body.classList.add('intro-complete');
     }
     if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(filterProducts, 150));
     document.addEventListener('touchstart', () => {}, { passive: true });
@@ -1830,17 +1830,11 @@ function openP(n, t, price) {
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
 
-    // Check if trouser product
     isTrouserProduct = card.getAttribute('data-trouser') === 'true';
     const modelNote = document.getElementById('m-model-note');
     const sizeGuideBtn = document.getElementById('size-guide-btn');
-    if (isTrouserProduct) {
-        modelNote.style.display = 'block';
-        if (sizeGuideBtn) sizeGuideBtn.style.display = 'flex';
-    } else {
-        modelNote.style.display = 'none';
-        if (sizeGuideBtn) sizeGuideBtn.style.display = 'none';
-    }
+    modelNote.style.display = (t === 'clothe') ? 'block' : 'none';
+    if (sizeGuideBtn) sizeGuideBtn.style.display = (t === 'clothe') ? 'inline-flex' : 'none';
 
     const varData = card.getAttribute('data-variants');
     currentVariants = varData ? JSON.parse(varData) : [];
@@ -1870,12 +1864,13 @@ function openP(n, t, price) {
     });
     DOM.recList.appendChild(recFrag);
 
-    DOM.sizeBox.innerHTML = '';
-    const sizeFrag = document.createDocumentFragment();
-    const sizes = isTrouserProduct ? trouserSizes : (sz[t] || sz.acc);
-    sizes.forEach(s => { const o = document.createElement('option'); o.text = s; sizeFrag.appendChild(o); });
-    DOM.sizeBox.appendChild(sizeFrag);
-    DOM.sizeWrapper.style.display = (t==='clothe'||t==='shoes') ? 'block' : 'none';
+    if (t === 'clothe') {
+        DOM.sizeWrapper.style.display = 'block';
+        buildSizeButtons(isTrouserProduct ? trouserSizes : clothingSizes);
+    } else {
+        DOM.sizeWrapper.style.display = 'none';
+    }
+
     DOM.pModal.style.display = 'block';
 }
 
@@ -1885,7 +1880,7 @@ function addToCart() {
     const aS = aI ? aI.querySelector('span') : null;
     const dC = aS ? ` <span class="admin-only">[${aS.innerText}]</span>` : '';
     const iC = aS ? ` [${aS.innerText}]` : '';
-    const cS = (currentProductType==='clothe'||currentProductType==='shoes') ? DOM.sizeBox.value : 'Standard';
+    const cS = (currentProductType === 'clothe') ? selectedSize : 'Standard';
     cart.push({ name: currentP+dC, internalName: currentP+iC, size: cS, price: currentPrice });
     updateCartDisplay(); closeModal();
     DOM.toastText.innerHTML = `<strong>${currentP}</strong> Added`;
@@ -1894,11 +1889,9 @@ function addToCart() {
 }
 function updateCartDisplay() {
     requestAnimationFrame(() => {
-        DOM.cartCount.innerText = cart.length;
-        const hCart = document.getElementById('header-cart-count');
-        if (hCart) hCart.innerText = cart.length;
+        const hCartCount = document.getElementById('header-cart-count');
         const hCartBtn = document.getElementById('header-cart-btn');
-        if (DOM.cartBtn) DOM.cartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
+        if (hCartCount) hCartCount.innerText = cart.length;
         if (hCartBtn) hCartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
         localStorage.setItem('oumer_cart', JSON.stringify(cart));
     });
@@ -2012,5 +2005,3 @@ function submitPrivateRequest() {
 </script>
 </body>
 </html>
-
-
