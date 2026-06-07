@@ -47,33 +47,107 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        #bg-video {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -3;
-            opacity: 0.45;
-            pointer-events: none !important;
-            user-select: none;
-        }
-        #bg-video::-webkit-media-controls,
-        #bg-video::-webkit-media-controls-enclosure,
-        #bg-video::-webkit-media-controls-panel,
-        #bg-video::-webkit-media-controls-play-button,
-        #bg-video::-webkit-media-controls-start-playback-button,
-        #bg-video::-webkit-media-controls-overlay-play-button { 
-            display: none !important; 
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-        video::-webkit-media-controls { display: none !important; }
+        /* ══════════════════════════════
+           CSS ANIMATED BACKGROUND SYSTEM
+           Starts instantly, no interaction needed,
+           works on all mobile + desktop browsers.
+        ══════════════════════════════ */
 
-        #video-shield {
-            position: fixed; inset: 0; z-index: -2;
+        /* Base dark canvas */
+        #bg-canvas {
+            position: fixed; inset: 0; z-index: -4;
+            background: #050505;
             pointer-events: none;
-            background: transparent;
         }
 
+        /* Slowly drifting orb 1 — warm amber */
+        #bg-orb1 {
+            position: fixed; z-index: -3; pointer-events: none;
+            width: 140vmax; height: 140vmax;
+            top: -40vmax; left: -30vmax;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center,
+                rgba(180,120,10,0.28) 0%,
+                rgba(120,70,5,0.14) 35%,
+                transparent 70%);
+            animation: orbDrift1 28s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes orbDrift1 {
+            0%   { transform: translate(0%, 0%) scale(1); }
+            25%  { transform: translate(18%, 12%) scale(1.08); }
+            50%  { transform: translate(8%, 22%) scale(0.95); }
+            75%  { transform: translate(25%, 6%) scale(1.05); }
+            100% { transform: translate(14%, 18%) scale(1.02); }
+        }
+
+        /* Slowly drifting orb 2 — deep gold */
+        #bg-orb2 {
+            position: fixed; z-index: -3; pointer-events: none;
+            width: 110vmax; height: 110vmax;
+            bottom: -30vmax; right: -20vmax;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center,
+                rgba(200,140,0,0.22) 0%,
+                rgba(140,90,0,0.10) 40%,
+                transparent 70%);
+            animation: orbDrift2 34s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes orbDrift2 {
+            0%   { transform: translate(0%, 0%) scale(1); }
+            30%  { transform: translate(-14%, -10%) scale(1.1); }
+            60%  { transform: translate(-22%, -5%) scale(0.92); }
+            100% { transform: translate(-10%, -16%) scale(1.06); }
+        }
+
+        /* Orb 3 — subtle cool-dark accent, far corner */
+        #bg-orb3 {
+            position: fixed; z-index: -3; pointer-events: none;
+            width: 80vmax; height: 80vmax;
+            top: 30vh; left: 35vw;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center,
+                rgba(100,60,0,0.12) 0%,
+                rgba(60,30,0,0.05) 50%,
+                transparent 72%);
+            animation: orbDrift3 42s ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes orbDrift3 {
+            0%   { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+            33%  { transform: translate(-18%, 12%) scale(1.15) rotate(5deg); }
+            66%  { transform: translate(10%, -18%) scale(0.88) rotate(-3deg); }
+            100% { transform: translate(20%, 8%) scale(1.08) rotate(8deg); }
+        }
+
+        /* Slow flowing mesh overlay */
+        #bg-mesh {
+            position: fixed; inset: 0; z-index: -3; pointer-events: none;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 120px,
+                    rgba(255,200,0,0.012) 120px,
+                    rgba(255,200,0,0.012) 121px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 120px,
+                    rgba(255,200,0,0.008) 120px,
+                    rgba(255,200,0,0.008) 121px
+                );
+            animation: meshDrift 60s linear infinite;
+            will-change: background-position;
+        }
+        @keyframes meshDrift {
+            0%   { background-position: 0 0, 0 0; }
+            100% { background-position: 240px 240px, -240px 240px; }
+        }
+
+        /* Breathing veil — exact same as original */
         #bg-veil {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             animation: veilBreathe 18s ease-in-out infinite alternate;
@@ -85,6 +159,7 @@
             100% { background: radial-gradient(ellipse 110% 100% at 20% 60%, rgba(5,5,5,0.26) 0%, rgba(5,5,5,0.66) 100%); }
         }
 
+        /* Aurora — exact same as original */
         #bg-aurora {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             background:
@@ -98,6 +173,7 @@
             100% { transform: translate(-2%, 3%) scale(0.98); }
         }
 
+        /* Particles — exact same as original */
         #particles { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
         .particle {
             position: absolute; border-radius: 50%;
@@ -112,6 +188,7 @@
             100% { transform: translateY(-15vh) translateX(var(--px-drift)) scale(1.4); opacity: 0; }
         }
 
+        /* Film grain — exact same as original */
         body::after {
             content: '';
             position: fixed; inset: 0;
@@ -194,9 +271,7 @@
             border-bottom: 1px solid rgba(255,215,0,0.06);
             transition: background 0.4s ease;
         }
-        header.scrolled {
-            background: rgba(5,5,5,0.75);
-        }
+        header.scrolled { background: rgba(5,5,5,0.75); }
         .header-left { display: flex; align-items: center; gap: 14px; }
         .header-logo { height: 30px; border-radius: 6px; opacity: 0.9; }
         .brand-name {
@@ -263,10 +338,7 @@
         .badge-text { color: rgba(255,255,255,0.20); font-size: 8.5px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; }
 
         /* HERO HEADLINE */
-        .hero-headline {
-            text-align: center;
-            padding: 56px 24px 16px;
-        }
+        .hero-headline { text-align: center; padding: 56px 24px 16px; }
         .hero-headline h1 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(38px, 6vw, 72px);
@@ -302,10 +374,7 @@
         }
 
         /* CATEGORY SECTIONS */
-        .category-section {
-            padding: 96px 0 0;
-            position: relative; z-index: 1;
-        }
+        .category-section { padding: 96px 0 0; position: relative; z-index: 1; }
         .category-header {
             display: flex; align-items: center; gap: 22px;
             padding: 0 48px; margin-bottom: 44px;
@@ -351,12 +420,9 @@
             background: rgba(255,255,255,0.04);
         }
 
-        .img-area {
-            height: 268px; overflow: hidden;
-            position: relative;
-        }
-        .img-area img { 
-            width: 100%; height: 100%; object-fit: cover; display: block; 
+        .img-area { height: 268px; overflow: hidden; position: relative; }
+        .img-area img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
             transition: transform 0.75s var(--transition);
         }
         .product-card:hover .img-area img { transform: scale(1.1); }
@@ -380,7 +446,7 @@
         .info-area { padding: 20px 18px 22px; }
         .info-area h3 {
             font-size: 11.5px; color: rgba(255,255,255,0.5);
-            overflow: hidden; font-weight: 400; letter-spacing: 0.4px; 
+            overflow: hidden; font-weight: 400; letter-spacing: 0.4px;
             line-height: 1.55; margin-bottom: 10px;
             font-family: 'DM Sans', sans-serif;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
@@ -447,8 +513,8 @@
             font-size: 26px; font-style: italic; font-weight: 400;
             letter-spacing: 1px; line-height: 1.25; margin-bottom: 8px;
         }
-        #m-price { 
-            color: var(--gold); font-weight: 700; font-size: 20px; 
+        #m-price {
+            color: var(--gold); font-weight: 700; font-size: 20px;
             display: block; margin-bottom: 6px;
             font-family: 'DM Sans', sans-serif;
         }
@@ -497,9 +563,7 @@
             transition: color 0.2s, border-color 0.2s;
         }
         .size-guide-trigger:hover { color: var(--gold); border-color: rgba(255,215,0,0.5); }
-        .size-buttons {
-            display: flex; gap: 10px; flex-wrap: wrap;
-        }
+        .size-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
         .size-btn {
             min-width: 54px; padding: 10px 14px;
             border-radius: 12px;
@@ -511,213 +575,86 @@
             font-family: 'DM Sans', sans-serif;
             text-align: center; letter-spacing: 0.5px;
         }
-        .size-btn:hover {
-            border-color: rgba(255,215,0,0.35);
-            color: white;
-            background: rgba(255,215,0,0.06);
-        }
-        .size-btn.active {
-            border-color: var(--gold);
-            background: rgba(255,215,0,0.10);
-            color: var(--gold);
-            box-shadow: 0 0 0 1px rgba(255,215,0,0.15);
-        }
+        .size-btn:hover { border-color: rgba(255,215,0,0.35); color: white; background: rgba(255,215,0,0.06); }
+        .size-btn.active { border-color: var(--gold); background: rgba(255,215,0,0.10); color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.15); }
 
         /* SIZE GUIDE MODALS */
         #clothingSizeGuideModal, #trouserSizeGuideModal { z-index: 3000; }
         #clothingSizeGuideModal .modal-content, #trouserSizeGuideModal .modal-content { max-width: 520px; padding: 40px 28px 48px; }
-        .sg-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px; font-style: italic; color: var(--gold);
-            margin-bottom: 6px; letter-spacing: 1px;
-        }
+        .sg-title { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: var(--gold); margin-bottom: 6px; letter-spacing: 1px; }
         .sg-subtitle { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
         .sg-table-wrap { overflow-x: auto; margin-bottom: 28px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
         .sg-table { width: 100%; border-collapse: collapse; min-width: 360px; }
-        .sg-table th {
-            background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.7);
-            font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-            padding: 14px 12px; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
+        .sg-table th { background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.7); font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 14px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .sg-table th:first-child { text-align: left; padding-left: 18px; }
-        .sg-table td {
-            font-size: 12px; color: rgba(255,255,255,0.65);
-            padding: 13px 12px; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.2s;
-        }
+        .sg-table td { font-size: 12px; color: rgba(255,255,255,0.65); padding: 13px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.2s; }
         .sg-table td:first-child { color: white; font-weight: 600; text-align: left; padding-left: 18px; }
         .sg-table tr:last-child td { border-bottom: none; }
         .sg-table tr:hover td { background: rgba(255,215,0,0.03); }
-        .sg-section-title {
-            font-size: 9px; font-weight: 700; color: rgba(255,215,0,0.5);
-            letter-spacing: 3px; text-transform: uppercase;
-            margin-bottom: 18px; padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+        .sg-section-title { font-size: 9px; font-weight: 700; color: rgba(255,215,0,0.5); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .sg-measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-        .sg-measure-item {
-            background: rgba(255,255,255,0.025);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 14px; padding: 16px;
-        }
+        .sg-measure-item { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 16px; }
         .sg-measure-icon { font-size: 20px; margin-bottom: 8px; }
         .sg-measure-name { font-size: 10px; font-weight: 700; color: white; margin-bottom: 5px; letter-spacing: 0.5px; }
         .sg-measure-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.65; }
-        .sg-model-note {
-            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.1);
-            border-radius: 12px; padding: 14px 18px; margin-bottom: 24px;
-            font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: center;
-            line-height: 1.6;
-        }
+        .sg-model-note { background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.1); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: center; line-height: 1.6; }
         .sg-model-note strong { color: var(--gold); }
 
         /* RECS */
-        .rec-title {
-            font-size: 8.5px; font-weight: 700;
-            color: rgba(255,215,0,0.45); margin: 36px 0 18px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            padding-top: 28px; text-transform: uppercase; letter-spacing: 4px;
-        }
+        .rec-title { font-size: 8.5px; font-weight: 700; color: rgba(255,215,0,0.45); margin: 36px 0 18px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 28px; text-transform: uppercase; letter-spacing: 4px; }
         .rec-scroll { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
         .rec-item { flex: 0 0 105px; cursor: pointer; text-align: center; }
-        .rec-item img {
-            width: 100%; height: 105px; object-fit: cover;
-            border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            transition: transform 0.35s ease, box-shadow 0.35s;
-        }
+        .rec-item img { width: 100%; height: 105px; object-fit: cover; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); transition: transform 0.35s ease, box-shadow 0.35s; }
         .rec-item:hover img { transform: scale(1.05) translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.7); }
         .rec-item h4 { font-size: 9px; margin: 8px 0 0; color: rgba(255,255,255,0.28); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* BUTTONS */
-        .btn {
-            width: 100%; padding: 18px;
-            background: rgba(255,255,255,0.90); color: black;
-            border: none; border-radius: var(--radius-btn);
-            font-weight: 700; margin-top: 16px;
-            cursor: pointer; font-size: 11px; letter-spacing: 2.5px;
-            text-transform: uppercase;
-            transition: opacity 0.2s, transform 0.25s var(--transition), box-shadow 0.25s;
-            box-shadow: 0 8px 28px rgba(255,255,255,0.05);
-            font-family: 'DM Sans', sans-serif;
-        }
+        .btn { width: 100%; padding: 18px; background: rgba(255,255,255,0.90); color: black; border: none; border-radius: var(--radius-btn); font-weight: 700; margin-top: 16px; cursor: pointer; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; transition: opacity 0.2s, transform 0.25s var(--transition), box-shadow 0.25s; box-shadow: 0 8px 28px rgba(255,255,255,0.05); font-family: 'DM Sans', sans-serif; }
         .btn:hover { opacity: 0.93; transform: translateY(-2px); box-shadow: 0 14px 38px rgba(255,255,255,0.1); }
         .btn:active { transform: translateY(0); }
-        .btn-ghost {
-            background: transparent !important; color: rgba(255,255,255,0.30) !important;
-            border: 1px solid rgba(255,255,255,0.08) !important; box-shadow: none !important;
-        }
+        .btn-ghost { background: transparent !important; color: rgba(255,255,255,0.30) !important; border: 1px solid rgba(255,255,255,0.08) !important; box-shadow: none !important; }
         .btn-ghost:hover { background: rgba(255,255,255,0.04) !important; color: rgba(255,255,255,0.5) !important; }
-        .btn-gold {
-            background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37) !important;
-            color: #000 !important;
-            box-shadow: 0 10px 36px rgba(255,215,0,0.18) !important;
-        }
+        .btn-gold { background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37) !important; color: #000 !important; box-shadow: 0 10px 36px rgba(255,215,0,0.18) !important; }
         .btn-gold:hover { box-shadow: 0 16px 50px rgba(255,215,0,0.34) !important; }
 
         /* INPUTS */
-        .order-input, #size-box {
-            width: 100%; padding: 15px 0; margin-top: 10px;
-            border-radius: 0; border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.09);
-            background: transparent; color: white; font-size: 14px;
-            font-family: 'DM Sans', sans-serif;
-            transition: border-color 0.3s;
-        }
-        .order-input:focus, #size-box:focus {
-            outline: none; border-bottom-color: rgba(255,215,0,0.4);
-        }
+        .order-input, #size-box { width: 100%; padding: 15px 0; margin-top: 10px; border-radius: 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.09); background: transparent; color: white; font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; }
+        .order-input:focus, #size-box:focus { outline: none; border-bottom-color: rgba(255,215,0,0.4); }
         .order-input::placeholder { color: rgba(255,255,255,0.18); }
-        #size-box {
-            appearance: none; -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.45)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 4px center;
-            padding-right: 28px; cursor: pointer;
-        }
+        #size-box { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.45)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 28px; cursor: pointer; }
         #size-box option { background: #0f0d08; }
-
-        .field-label {
-            font-size: 8.5px; font-weight: 700;
-            color: rgba(255,255,255,0.18); text-transform: uppercase; 
-            letter-spacing: 3.5px; display: block; 
-            margin-top: 28px; margin-bottom: 0;
-            font-family: 'DM Sans', sans-serif;
-        }
+        .field-label { font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 3.5px; display: block; margin-top: 28px; margin-bottom: 0; font-family: 'DM Sans', sans-serif; }
 
         /* CART */
-        .cart-tab-bar {
-            display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 36px;
-        }
-        .cart-tab {
-            flex: 1; padding: 14px 0;
-            background: transparent; color: rgba(255,255,255,0.22);
-            border: none; border-bottom: 2px solid transparent;
-            font-weight: 700; font-size: 8.5px; letter-spacing: 2.5px;
-            text-transform: uppercase; cursor: pointer; transition: all 0.3s ease;
-            margin-bottom: -1px; font-family: 'DM Sans', sans-serif;
-        }
+        .cart-tab-bar { display: flex; gap: 0; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 36px; }
+        .cart-tab { flex: 1; padding: 14px 0; background: transparent; color: rgba(255,255,255,0.22); border: none; border-bottom: 2px solid transparent; font-weight: 700; font-size: 8.5px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-bottom: -1px; font-family: 'DM Sans', sans-serif; }
         .cart-tab.active { color: white; border-bottom-color: var(--gold); }
-
-        .cart-item {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 14px;
-        }
+        .cart-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); gap: 14px; }
         .cart-item:last-child { border-bottom: none; }
         .cart-item-name { font-size: 13.5px; font-weight: 600; margin-bottom: 5px; line-height: 1.35; }
         .cart-item-size { color: rgba(255,255,255,0.28); font-size: 10.5px; margin-bottom: 7px; }
         .cart-item-price { color: var(--gold); font-weight: 700; font-size: 14px; }
-        .remove-btn {
-            background: transparent; color: rgba(255,59,48,0.45); padding: 0; border: none;
-            font-size: 9px; font-weight: 700; cursor: pointer; letter-spacing: 1px;
-            text-transform: uppercase; transition: color 0.2s; white-space: nowrap;
-            flex-shrink: 0; text-decoration: underline;
-            text-decoration-color: rgba(255,59,48,0.2);
-            font-family: 'DM Sans', sans-serif;
-        }
+        .remove-btn { background: transparent; color: rgba(255,59,48,0.45); padding: 0; border: none; font-size: 9px; font-weight: 700; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; white-space: nowrap; flex-shrink: 0; text-decoration: underline; text-decoration-color: rgba(255,59,48,0.2); font-family: 'DM Sans', sans-serif; }
         .remove-btn:hover { color: var(--accent); }
-
         .cart-total-row { padding: 30px 0 14px; text-align: right; }
         .cart-total-label { font-size: 8.5px; font-weight: 700; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 8px; }
-        .cart-total-amount {
-            font-family: 'Playfair Display', serif;
-            font-size: 44px; font-weight: 400; font-style: italic;
-            color: var(--gold); letter-spacing: 1px;
-            text-shadow: 0 0 60px rgba(255,215,0,0.15);
-        }
-
+        .cart-total-amount { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 400; font-style: italic; color: var(--gold); letter-spacing: 1px; text-shadow: 0 0 60px rgba(255,215,0,0.15); }
         .telebirr-block { margin: 28px 0; }
         .telebirr-label { font-size: 8.5px; font-weight: 900; color: rgba(255,215,0,0.65); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px; }
         .telebirr-numbers { font-size: 18px; font-weight: 700; color: white; letter-spacing: 1.5px; line-height: 1.7; }
-
-        .pay-opt {
-            display: flex; align-items: flex-start; gap: 18px;
-            padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-            cursor: pointer; transition: opacity 0.2s;
-        }
+        .pay-opt { display: flex; align-items: flex-start; gap: 18px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer; transition: opacity 0.2s; }
         .pay-opt:last-child { border-bottom: none; }
         .pay-opt:hover { opacity: 0.8; }
         .pay-opt input[type="radio"] { display: none; }
-        .pay-radio {
-            width: 18px; height: 18px; border-radius: 50%;
-            border: 1.5px solid rgba(255,255,255,0.16); flex-shrink: 0; margin-top: 3px;
-            display: flex; align-items: center; justify-content: center; transition: border-color 0.3s;
-        }
+        .pay-radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.16); flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
         .pay-opt.selected .pay-radio { border-color: var(--gold); }
-        .pay-radio-dot {
-            width: 9px; height: 9px; border-radius: 50%;
-            background: var(--gold); opacity: 0; transform: scale(0);
-            transition: opacity 0.3s, transform 0.3s;
-        }
+        .pay-radio-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); opacity: 0; transform: scale(0); transition: opacity 0.3s, transform 0.3s; }
         .pay-opt.selected .pay-radio-dot { opacity: 1; transform: scale(1); }
         .pay-title { color: rgba(255,255,255,0.82); font-size: 13px; font-weight: 600; margin-bottom: 4px; }
         .pay-desc { color: rgba(255,255,255,0.26); font-size: 10.5px; line-height: 1.6; }
-
         .cart-note { display: flex; gap: 14px; padding: 16px 0 8px; }
         .cart-note-dot { color: rgba(255,215,0,0.45); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
         .cart-note-text { font-size: 11px; color: rgba(255,255,255,0.18); line-height: 1.7; }
-
         .order-card { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
         .order-card:last-child { border-bottom: none; }
         .order-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
@@ -735,96 +672,37 @@
         .profile-stat-value { color: rgba(255,255,255,0.78); font-size: 14px; font-weight: 600; }
         .profile-stat-value.gold { color: var(--gold); }
         .profile-stat-value.green { color: #00cc77; }
-        .profile-edit-btn {
-            background: transparent; color: rgba(255,255,255,0.32); border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 0;
-            font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase;
-            letter-spacing: 2.5px; transition: color 0.3s, border-color 0.3s;
-            width: 100%; text-align: left; font-family: 'DM Sans', sans-serif;
-        }
+        .profile-edit-btn { background: transparent; color: rgba(255,255,255,0.32); border: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 0; font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 2.5px; transition: color 0.3s, border-color 0.3s; width: 100%; text-align: left; font-family: 'DM Sans', sans-serif; }
         .profile-edit-btn:hover { color: var(--gold); border-bottom-color: rgba(255,215,0,0.3); }
 
         /* ABOUT PAGE */
-        #aboutPage {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(44px); -webkit-backdrop-filter: blur(44px);
-            z-index: 9999; overflow-y: auto; padding: 52px 24px;
-        }
+        #aboutPage { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(44px); -webkit-backdrop-filter: blur(44px); z-index: 9999; overflow-y: auto; padding: 52px 24px; }
         .about-content { max-width: 600px; margin: 0 auto; text-align: center; }
-        .about-content h2 {
-            color: var(--gold); font-family: 'Playfair Display', serif;
-            font-size: 40px; margin-bottom: 14px; font-style: italic; font-weight: 400;
-        }
+        .about-content h2 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 40px; margin-bottom: 14px; font-style: italic; font-weight: 400; }
 
         /* ZOOM */
-        #zoom-container {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.94); z-index: 9999;
-            flex-direction: column; justify-content: center; align-items: center;
-        }
+        #zoom-container { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; }
         .zoom-stage { position: relative; width: 100%; height: 72vh; display: flex; align-items: center; justify-content: center; }
         #zoom-img { max-width: 92%; max-height: 100%; object-fit: contain; border-radius: 16px; }
-        .zoom-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255,255,255,0.04); color: var(--gold);
-            border: 1px solid rgba(255,255,255,0.08); width: 52px; height: 52px; border-radius: 50%;
-            font-size: 26px; font-weight: 900; cursor: pointer; z-index: 10;
-            display: flex; align-items: center; justify-content: center; transition: background 0.2s;
-        }
+        .zoom-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.04); color: var(--gold); border: 1px solid rgba(255,255,255,0.08); width: 52px; height: 52px; border-radius: 50%; font-size: 26px; font-weight: 900; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
         .zoom-arrow:hover { background: rgba(255,215,0,0.08); }
         .arrow-left { left: 18px; } .arrow-right { right: 18px; }
-        .zoom-close {
-            margin-top: 36px; background: white; color: black;
-            border: none; padding: 14px 52px; border-radius: 40px;
-            font-weight: 700; cursor: pointer; letter-spacing: 2.5px;
-            font-size: 10.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif;
-        }
+        .zoom-close { margin-top: 36px; background: white; color: black; border: none; padding: 14px 52px; border-radius: 40px; font-weight: 700; cursor: pointer; letter-spacing: 2.5px; font-size: 10.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; }
 
         /* PRIVATE SECTION */
-        .private-section {
-            padding: 140px 24px 130px; text-align: center; margin-top: 60px;
-            position: relative;
-        }
-        .private-section::before {
-            content: '';
-            position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent);
-        }
-        .private-request-btn {
-            display: inline-block; padding: 20px 64px;
-            background: transparent;
-            color: rgba(212,175,55,0.6); border: 1px solid rgba(212,175,55,0.18);
-            border-radius: 70px; font-size: 9.5px; letter-spacing: 5px;
-            text-transform: uppercase; font-weight: 600; cursor: pointer;
-            transition: all 0.5s var(--transition); margin-top: 32px;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .private-request-btn:hover {
-            background: rgba(212,175,55,0.9); color: #000;
-            box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 20px 50px rgba(0,0,0,0.35);
-            transform: translateY(-3px);
-        }
+        .private-section { padding: 140px 24px 130px; text-align: center; margin-top: 60px; position: relative; }
+        .private-section::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.12), transparent); }
+        .private-request-btn { display: inline-block; padding: 20px 64px; background: transparent; color: rgba(212,175,55,0.6); border: 1px solid rgba(212,175,55,0.18); border-radius: 70px; font-size: 9.5px; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.5s var(--transition); margin-top: 32px; font-family: 'DM Sans', sans-serif; }
+        .private-request-btn:hover { background: rgba(212,175,55,0.9); color: #000; box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 20px 50px rgba(0,0,0,0.35); transform: translateY(-3px); }
 
         /* PRIVATE SOURCING MODAL */
         #privateSourcingModal .modal-content { max-width: 480px; }
-        #srcReferenceWrapper {
-            border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;
-            margin-top: 10px; display: flex; flex-direction: column; gap: 12px;
-        }
-        #srcReference {
-            width: 100%; background: transparent; border: none; color: white; outline: none;
-            font-size: 13px; min-height: 80px; resize: none;
-            font-family: 'DM Sans', sans-serif; line-height: 1.6;
-        }
+        #srcReferenceWrapper { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; margin-top: 10px; display: flex; flex-direction: column; gap: 12px; }
+        #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 13px; min-height: 80px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
         #srcReference::placeholder { color: rgba(255,255,255,0.16); }
 
         /* LEGAL PAGES */
-        .legal-page {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(40px);
-            z-index: 9998; overflow-y: auto;
-        }
+        .legal-page { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(40px); z-index: 9998; overflow-y: auto; }
         .legal-inner { max-width: 680px; margin: 0 auto; padding: 44px 28px 90px; }
         .legal-header { text-align: center; padding: 44px 0 32px; border-bottom: 1px solid rgba(255,255,255,0.04); margin-bottom: 38px; }
         .legal-header .legal-badge { font-size: 8px; color: #333; letter-spacing: 6px; text-transform: uppercase; margin-bottom: 16px; }
@@ -844,16 +722,8 @@
         #successModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
         /* FOOTER */
-        footer {
-            width: 100%; background: transparent;
-            padding: 56px 24px 44px;
-            position: relative;
-        }
-        footer::before {
-            content: '';
-            position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-        }
+        footer { width: 100%; background: transparent; padding: 56px 24px 44px; position: relative; }
+        footer::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
         .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding-bottom: 22px; }
         .footer-legal a { color: rgba(255,255,255,0.12); font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: color 0.2s; }
         .footer-legal a:hover { color: var(--gold); }
@@ -885,16 +755,15 @@
 </head>
 <body class="loading">
 
-<!-- LIVING VIDEO BG -->
-<video id="bg-video" autoplay loop muted playsinline
-    disablepictureinpicture
-    disableremoteplayback
-    x-webkit-airplay="deny"
-    controlslist="nodownload nofullscreen noremoteplayback"
-    oncontextmenu="return false;">
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260315_073750_51473149-4350-4920-ae24-c8214286f323.mp4" type="video/mp4">
-</video>
-<div id="video-shield"></div>
+<!-- ══════════════════════════════
+     CSS ANIMATED BACKGROUND — starts instantly,
+     zero interaction required, works on all devices
+══════════════════════════════ -->
+<div id="bg-canvas"></div>
+<div id="bg-orb1"></div>
+<div id="bg-orb2"></div>
+<div id="bg-orb3"></div>
+<div id="bg-mesh"></div>
 <div id="bg-veil"></div>
 <div id="bg-aurora"></div>
 <div id="particles"></div>
@@ -914,24 +783,11 @@
     <div class="modal-content" style="max-width:520px;">
         <div class="sg-title">Size Guide</div>
         <p class="sg-subtitle">Tops & Outerwear · Measurements in Centimeters</p>
-
-        <div class="sg-model-note">
-            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong>
-        </div>
-
+        <div class="sg-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
         <div class="sg-section-title">Size Chart</div>
         <div class="sg-table-wrap">
             <table class="sg-table">
-                <thead>
-                    <tr>
-                        <th>Size</th>
-                        <th>Chest</th>
-                        <th>Shoulder</th>
-                        <th>Waist</th>
-                        <th>Length</th>
-                        <th>Sleeve</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Size</th><th>Chest</th><th>Shoulder</th><th>Waist</th><th>Length</th><th>Sleeve</th></tr></thead>
                 <tbody>
                     <tr><td>S</td><td>96</td><td>43</td><td>88</td><td>68</td><td>62</td></tr>
                     <tr><td>M</td><td>100</td><td>45</td><td>92</td><td>70</td><td>63</td></tr>
@@ -941,33 +797,14 @@
                 </tbody>
             </table>
         </div>
-
         <div class="sg-section-title">How to Measure</div>
         <div class="sg-measure-grid">
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📏</div>
-                <div class="sg-measure-name">Chest</div>
-                <div class="sg-measure-desc">Measure around the fullest part of your chest, keeping the tape parallel to the floor.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">🔵</div>
-                <div class="sg-measure-name">Shoulder</div>
-                <div class="sg-measure-desc">Measure from the edge of one shoulder seam across to the other shoulder seam.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📐</div>
-                <div class="sg-measure-name">Length</div>
-                <div class="sg-measure-desc">Measure from the highest point of the shoulder down to the desired hem length.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📏</div>
-                <div class="sg-measure-name">Sleeve</div>
-                <div class="sg-measure-desc">Measure from the center back neck, over the shoulder, to the end of the sleeve.</div>
-            </div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Chest</div><div class="sg-measure-desc">Measure around the fullest part of your chest, keeping the tape parallel to the floor.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Shoulder</div><div class="sg-measure-desc">Measure from the edge of one shoulder seam across to the other shoulder seam.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the highest point of the shoulder down to the desired hem length.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Sleeve</div><div class="sg-measure-desc">Measure from the center back neck, over the shoulder, to the end of the sleeve.</div></div>
         </div>
-
         <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
-
         <button class="btn btn-ghost" onclick="closeClothingSizeGuide()">Close Guide</button>
     </div>
 </div>
@@ -977,24 +814,11 @@
     <div class="modal-content" style="max-width:520px;">
         <div class="sg-title">Size Guide</div>
         <p class="sg-subtitle">Trousers & Pants · Measurements in Centimeters</p>
-
-        <div class="sg-model-note">
-            <strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong>
-        </div>
-
+        <div class="sg-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
         <div class="sg-section-title">Size Chart</div>
         <div class="sg-table-wrap">
             <table class="sg-table">
-                <thead>
-                    <tr>
-                        <th>Size</th>
-                        <th>Waist</th>
-                        <th>Hip</th>
-                        <th>Thigh</th>
-                        <th>Length</th>
-                        <th>Inseam</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Size</th><th>Waist</th><th>Hip</th><th>Thigh</th><th>Length</th><th>Inseam</th></tr></thead>
                 <tbody>
                     <tr><td>S</td><td>72</td><td>91</td><td>52</td><td>100</td><td>76</td></tr>
                     <tr><td>M</td><td>78</td><td>97</td><td>55</td><td>101</td><td>77</td></tr>
@@ -1004,33 +828,14 @@
                 </tbody>
             </table>
         </div>
-
         <div class="sg-section-title">How to Measure</div>
         <div class="sg-measure-grid">
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📏</div>
-                <div class="sg-measure-name">Waist</div>
-                <div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose. Exhale normally.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">🔵</div>
-                <div class="sg-measure-name">Hips</div>
-                <div class="sg-measure-desc">Measure around the fullest part of your hips and seat, keeping the tape parallel to the floor.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📐</div>
-                <div class="sg-measure-name">Inseam</div>
-                <div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone while standing.</div>
-            </div>
-            <div class="sg-measure-item">
-                <div class="sg-measure-icon">📏</div>
-                <div class="sg-measure-name">Length</div>
-                <div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length at the ankle.</div>
-            </div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Waist</div><div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose. Exhale normally.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Hips</div><div class="sg-measure-desc">Measure around the fullest part of your hips and seat, keeping the tape parallel to the floor.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Inseam</div><div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone while standing.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length at the ankle.</div></div>
         </div>
-
         <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
-
         <button class="btn btn-ghost" onclick="closeTrouserSizeGuide()">Close Guide</button>
     </div>
 </div>
@@ -1163,7 +968,6 @@
         </div>
     </header>
 
-    <!-- NAV STRIP -->
     <nav class="nav-strip" id="nav-strip">
         <div class="nav-item" onclick="scrollToSection('cat-tshirts')">T-Shirts</div>
         <div class="nav-item" onclick="scrollToSection('cat-hoodies')">Hoodies</div>
@@ -1414,8 +1218,6 @@
                 <span class="variant-label">Select Color / Style</span>
                 <div id="variant-list" class="variant-scroll"></div>
             </div>
-
-            <!-- SIZE SELECTOR -->
             <div id="pModalSizeWrapper">
                 <div class="size-selector-wrap">
                     <div class="size-selector-header">
@@ -1425,7 +1227,6 @@
                     <div id="size-buttons-row" class="size-buttons"></div>
                 </div>
             </div>
-
             <div class="m-divider"></div>
             <button class="btn btn-gold" onclick="handleAddToCartClick()">Add to Bag</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeModal()">Cancel</button>
@@ -1440,16 +1241,12 @@
             <div style="font-size:8px;color:rgba(255,255,255,0.15);letter-spacing:6px;text-transform:uppercase;margin-bottom:20px;">PRIVATE CONCIERGE</div>
             <h2 style="margin-top:0;font-family:'Playfair Display',serif;color:#fff;letter-spacing:2px;font-size:28px;font-style:italic;font-weight:400;margin-bottom:6px;">Sourcing Intake 🌐</h2>
             <p style="font-size:8.5px;color:rgba(255,255,255,0.16);text-transform:uppercase;letter-spacing:3px;margin-bottom:36px;">Private Concierge Service</p>
-
             <label class="field-label" style="margin-top:0;">Item Classification</label>
             <p style="font-size:12px;color:rgba(255,255,255,0.26);margin-bottom:0;line-height:1.8;margin-top:10px;">Our catalog is tailored for men, but women's apparel, shoes, and accessories are available via private request.</p>
-
             <label class="field-label">Client Profile Name</label>
             <input type="text" id="srcClientName" placeholder="Your Full Name" class="order-input">
-
             <label class="field-label">Contact Number</label>
             <input type="tel" id="srcClientPhone" placeholder="Phone Number" class="order-input">
-
             <label class="field-label">Item Category</label>
             <select id="srcCategory" class="order-input">
                 <option value="Clothes">Clothes</option>
@@ -1458,18 +1255,14 @@
                 <option value="Bag">Bag / Other Accessories</option>
                 <option value="Other">Any Other Premium Goods</option>
             </select>
-
             <label class="field-label">Product Name & Details</label>
             <input type="text" id="srcProductName" placeholder="Brand, Model, Release Year, etc." class="order-input">
-
             <div id="srcSizeWrapper">
                 <label class="field-label">Required Sizing</label>
                 <input type="text" id="srcSize" placeholder="Your size (e.g., XL, 43, Standard)" class="order-input">
             </div>
-
             <label class="field-label">Preferred Budget</label>
             <input type="text" id="srcBudget" placeholder="Estimated Budget in ETB (Optional)" class="order-input">
-
             <label class="field-label">Reference Link / Image Description</label>
             <div id="srcReferenceWrapper">
                 <textarea id="srcReference" placeholder="Paste link or describe the colorway..."></textarea>
@@ -1482,7 +1275,6 @@
                     <input type="file" id="srcHiddenImageUpload" accept="image/*" style="display:none;">
                 </div>
             </div>
-
             <div style="margin-top:40px;">
                 <button class="btn btn-gold" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
@@ -1497,73 +1289,50 @@
                 <button id="toggle-active-bag" class="cart-tab active" onclick="switchCartView('bag')">Active Bag</button>
                 <button id="toggle-order-history" class="cart-tab" onclick="switchCartView('history')">Order History</button>
             </div>
-
             <div id="active-bag-view">
                 <div id="cart-items-list" style="margin-bottom:8px;"></div>
-
                 <div class="cart-total-row">
                     <span class="cart-total-label">Total Value</span>
                     <span class="cart-total-amount"><span id="cart-total">0</span> ETB</span>
                 </div>
-
                 <div class="m-divider"></div>
-
                 <p style="font-size:8.5px;color:rgba(255,255,255,0.18);letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;margin-top:4px;">Delivery Details</p>
-
                 <label class="field-label" style="margin-top:14px;">Full Name</label>
                 <input type="text" id="custName" placeholder="Your full name" class="order-input">
-
                 <label class="field-label">Phone Number</label>
                 <input type="tel" id="custPhone" placeholder="Phone number" class="order-input">
-
                 <label class="field-label">Delivery Address</label>
                 <input type="text" id="custAddress" placeholder="Delivery address in Addis Ababa" class="order-input">
-
                 <div class="telebirr-block">
                     <div class="telebirr-label">Telebirr Payment</div>
                     <div class="telebirr-numbers">0939 620 004<br>0940 028 820</div>
                 </div>
-
                 <div class="m-divider"></div>
-
                 <p style="font-size:8.5px;color:rgba(255,255,255,0.18);letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">Payment Preference</p>
-
                 <div id="paymentOptions">
                     <div class="pay-opt selected" data-value="Cash on Delivery (COD)" onclick="selectPayment(this)">
                         <input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked>
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-                        <div>
-                            <div class="pay-title">Cash on Delivery</div>
-                            <div class="pay-desc">No deposit needed. Settle total balance upon delivery.</div>
-                        </div>
+                        <div><div class="pay-title">Cash on Delivery</div><div class="pay-desc">No deposit needed. Settle total balance upon delivery.</div></div>
                     </div>
                     <div class="pay-opt" data-value="50% Secure Deposit" onclick="selectPayment(this)">
                         <input type="radio" name="payment_method" value="50% Secure Deposit">
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-                        <div>
-                            <div class="pay-title">50% Secure Deposit</div>
-                            <div class="pay-desc">Pay half upfront via Telebirr. Remainder due at your door.</div>
-                        </div>
+                        <div><div class="pay-title">50% Secure Deposit</div><div class="pay-desc">Pay half upfront via Telebirr. Remainder due at your door.</div></div>
                     </div>
                     <div class="pay-opt" data-value="Full Upfront Payment" onclick="selectPayment(this)">
                         <input type="radio" name="payment_method" value="Full Upfront Payment">
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-                        <div>
-                            <div class="pay-title">Full Upfront Payment</div>
-                            <div class="pay-desc">Settle in full via Telebirr for priority dispatch.</div>
-                        </div>
+                        <div><div class="pay-title">Full Upfront Payment</div><div class="pay-desc">Settle in full via Telebirr for priority dispatch.</div></div>
                     </div>
                 </div>
-
                 <div class="cart-note">
                     <span class="cart-note-dot">·</span>
                     <span class="cart-note-text">Prices may vary slightly based on supplier stock. Final pricing confirmed via Telegram before dispatch.</span>
                 </div>
-
                 <button class="btn btn-gold" style="margin-top:22px;" onclick="submitOrder()">Confirm Order</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeCart()">Close</button>
             </div>
-
             <div id="order-history-view" style="display:none;">
                 <div id="history-items-list" style="max-height:420px;overflow-y:auto;margin-bottom:16px;"></div>
                 <button class="btn btn-ghost" onclick="closeCart()">Close</button>
@@ -1599,26 +1368,6 @@
         p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--px-drift:${drift}px;animation-duration:${Math.random()*22+14}s;animation-delay:${Math.random()*22}s;opacity:0;`;
         c.appendChild(p);
     }
-})();
-
-/* ══════ VIDEO ══════ */
-(function() {
-    const v = document.getElementById('bg-video');
-    if (!v) return;
-    v.controls = false;
-    v.removeAttribute('controls');
-    function tryPlay() {
-        const p = v.play();
-        if (p !== undefined) p.catch(() => { setTimeout(tryPlay, 500); });
-    }
-    v.addEventListener('pause', function() { setTimeout(tryPlay, 50); });
-    v.addEventListener('ended', function() { v.currentTime = 0; tryPlay(); });
-    v.addEventListener('stalled', function() { setTimeout(tryPlay, 500); });
-    v.addEventListener('suspend', function() { setTimeout(tryPlay, 500); });
-    document.addEventListener('visibilitychange', function() { if (!document.hidden) tryPlay(); });
-    window.addEventListener('focus', tryPlay);
-    tryPlay();
-    setInterval(function() { if (v.paused) tryPlay(); }, 2000);
 })();
 
 /* ══════ HEADER SCROLL ══════ */
