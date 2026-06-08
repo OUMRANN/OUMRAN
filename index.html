@@ -181,7 +181,6 @@
         }
         .header-icon-btn:hover { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.2); transform: translateY(-1px); }
 
-        /* ═══ CART BADGE — GOLD GLOW ON ADD ═══ */
         .cart-count {
             position: absolute; top: -5px; right: -5px;
             background: linear-gradient(135deg, #b8901e, #FFD700);
@@ -444,52 +443,177 @@
         .private-request-btn { display: inline-block; padding: 20px 64px; background: transparent; color: rgba(212,175,55,0.6); border: 1px solid rgba(212,175,55,0.18); border-radius: 70px; font-size: 9.5px; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.5s var(--transition); margin-top: 32px; font-family: 'DM Sans', sans-serif; }
         .private-request-btn:hover { background: rgba(212,175,55,0.9); color: #000; box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 20px 50px rgba(0,0,0,0.35); transform: translateY(-3px); }
 
-        /* ═══ DIGITAL SERVICES SECTION ═══ */
+        /* ═══════════════════════════════════════════════════
+           PREMIUM DIGITAL SERVICES SECTION — FULL REDESIGN
+        ═══════════════════════════════════════════════════ */
         .services-section {
-            padding: 130px 48px 120px; position: relative; overflow: hidden;
+            padding: 140px 48px 130px; position: relative; overflow: hidden;
         }
         .services-section::before {
             content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.18), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.22), transparent);
         }
         .services-section::after {
-            content: ''; position: absolute; inset: 0; pointer-events: none;
-            background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(255,215,0,0.025) 0%, transparent 70%);
+            content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+            background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%);
         }
-        .services-eyebrow { text-align: center; font-size: 8px; color: rgba(255,215,0,0.45); letter-spacing: 9px; text-transform: uppercase; margin-bottom: 20px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+        .services-inner { position: relative; z-index: 1; }
+
+        /* Eyebrow + headline */
+        .services-eyebrow {
+            text-align: center; font-size: 8px; color: rgba(255,215,0,0.5);
+            letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px;
+            font-family: 'DM Sans', sans-serif; font-weight: 700;
+        }
         .services-headline {
             text-align: center; font-family: 'Playfair Display', serif;
-            font-size: clamp(30px,5vw,56px); font-weight: 400; font-style: italic;
-            letter-spacing: 3px; line-height: 1.18; margin-bottom: 22px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(255,215,0,0.82) 50%, rgba(255,255,255,0.65) 100%);
+            font-size: clamp(32px, 5vw, 58px); font-weight: 400; font-style: italic;
+            letter-spacing: 3px; line-height: 1.18; margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.85) 50%, rgba(255,255,255,0.65) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .services-subtext { text-align: center; max-width: 600px; margin: 0 auto 68px; font-size: 14px; color: rgba(255,255,255,0.30); line-height: 2.1; font-weight: 300; letter-spacing: 0.3px; }
-        .services-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; max-width: 900px; margin: 0 auto 60px; }
-        .service-card {
-            background: rgba(255,255,255,0.025); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 36px 28px 32px;
-            position: relative; overflow: hidden;
-            transition: transform 0.45s var(--transition), box-shadow 0.45s, border-color 0.35s, background 0.35s;
+        .services-subtext {
+            text-align: center; max-width: 600px; margin: 0 auto 80px;
+            font-size: 14px; color: rgba(255,255,255,0.30); line-height: 2.1;
+            font-weight: 300; letter-spacing: 0.3px;
         }
-        .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.25), transparent); opacity: 0; transition: opacity 0.4s; }
-        .service-card:hover { transform: translateY(-12px); box-shadow: 0 40px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,0,0.14), 0 0 60px rgba(255,215,0,0.05); border-color: rgba(255,215,0,0.14); background: rgba(255,255,255,0.04); }
-        .service-card:hover::before { opacity: 1; }
-        .service-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 22px; transition: background 0.3s, border-color 0.3s; }
-        .service-card:hover .service-icon { background: rgba(255,215,0,0.11); border-color: rgba(255,215,0,0.32); }
-        .service-name { font-family: 'Playfair Display', serif; font-size: 17px; font-style: italic; font-weight: 400; color: rgba(255,255,255,0.9); letter-spacing: 0.8px; margin-bottom: 12px; }
-        .service-desc { font-size: 12.5px; color: rgba(255,255,255,0.28); line-height: 1.9; font-weight: 300; }
-        .service-tag { display: inline-block; margin-top: 16px; font-size: 7.5px; color: rgba(255,215,0,0.52); letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid rgba(255,215,0,0.22); padding-bottom: 2px; }
-        .services-cta { text-align: center; }
-        .services-cta-note { font-size: 9px; color: rgba(255,255,255,0.16); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 28px; font-family: 'DM Sans', sans-serif; }
-        .services-cta-btn { display: inline-block; padding: 20px 64px; background: transparent; color: rgba(212,175,55,0.72); border: 1px solid rgba(212,175,55,0.28); border-radius: 70px; font-size: 9.5px; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.5s var(--transition); font-family: 'DM Sans', sans-serif; display: inline-block; }
-        .services-cta-btn:hover { background: rgba(212,175,55,0.92); color: #000; box-shadow: 0 0 60px rgba(212,175,55,0.22), 0 20px 50px rgba(0,0,0,0.35); transform: translateY(-3px); }
 
-        /* PRIVATE SOURCING MODAL */
-        #privateSourcingModal .modal-content { max-width: 480px; }
-        #srcReferenceWrapper { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; margin-top: 10px; display: flex; flex-direction: column; gap: 12px; }
-        #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 13px; min-height: 80px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
-        #srcReference::placeholder { color: rgba(255,255,255,0.16); }
+        /* Service card grid */
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 960px; margin: 0 auto; }
+
+        /* Individual service card */
+        .service-card {
+            background: rgba(255,255,255,0.025); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.07); border-radius: 28px; padding: 40px 32px 36px;
+            position: relative; overflow: hidden;
+            transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s;
+            cursor: default;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.35), transparent);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .service-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+            background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,215,0,0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .service-card:hover { transform: translateY(-14px); box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.18), 0 0 80px rgba(255,215,0,0.06); border-color: rgba(255,215,0,0.18); background: rgba(255,255,255,0.04); }
+        .service-card:hover::before { opacity: 1; }
+
+        /* Card number badge */
+        .service-number {
+            position: absolute; top: 28px; right: 28px;
+            font-family: 'Playfair Display', serif; font-size: 48px; font-style: italic;
+            color: rgba(255,215,0,0.06); font-weight: 400; line-height: 1; pointer-events: none;
+            transition: color 0.4s;
+        }
+        .service-card:hover .service-number { color: rgba(255,215,0,0.10); }
+
+        /* Icon */
+        .service-icon-wrap {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.18);
+            display: flex; align-items: center; justify-content: center; font-size: 24px;
+            margin-bottom: 24px; transition: background 0.4s, border-color 0.4s, transform 0.4s;
+        }
+        .service-card:hover .service-icon-wrap { background: rgba(255,215,0,0.12); border-color: rgba(255,215,0,0.4); transform: scale(1.08) rotate(-3deg); }
+
+        /* Card text */
+        .service-card-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+        .service-name { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 400; color: rgba(255,255,255,0.92); letter-spacing: 0.8px; margin-bottom: 14px; line-height: 1.2; }
+        .service-desc { font-size: 13px; color: rgba(255,255,255,0.30); line-height: 1.95; font-weight: 300; margin-bottom: 28px; }
+
+        /* Feature tags */
+        .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+        .service-tag-pill {
+            font-size: 8px; color: rgba(255,215,0,0.55); letter-spacing: 2px; text-transform: uppercase;
+            font-weight: 700; border: 1px solid rgba(255,215,0,0.14); border-radius: 30px;
+            padding: 5px 12px; background: rgba(255,215,0,0.04); transition: all 0.3s;
+        }
+        .service-card:hover .service-tag-pill { border-color: rgba(255,215,0,0.22); background: rgba(255,215,0,0.07); }
+
+        /* CTA button on card */
+        .service-cta-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 16px 24px;
+            background: transparent; border: 1px solid rgba(255,215,0,0.25); border-radius: 50px;
+            color: rgba(255,215,0,0.75); font-size: 9.5px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+            font-family: 'DM Sans', sans-serif; position: relative; z-index: 1;
+            transition: all 0.4s var(--transition);
+            overflow: hidden;
+        }
+        .service-cta-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37);
+            opacity: 0; transition: opacity 0.4s; border-radius: 50px;
+        }
+        .service-cta-btn:hover { color: #000; border-color: transparent; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,215,0,0.25); }
+        .service-cta-btn:hover::before { opacity: 1; }
+        .service-cta-btn span { position: relative; z-index: 1; }
+        .service-cta-arrow { position: relative; z-index: 1; transition: transform 0.3s; }
+        .service-cta-btn:hover .service-cta-arrow { transform: translateX(4px); }
+
+        /* Divider line between cards and CTA */
+        .services-divider { height: 1px; max-width: 960px; margin: 72px auto 0; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent); }
+
+        /* ═══ SERVICE FORM MODALS ═══ */
+        .svc-modal { display: none; position: fixed; z-index: 3000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.70); backdrop-filter: blur(44px); -webkit-backdrop-filter: blur(44px); overflow-y: auto; padding: 32px 16px; }
+        .svc-modal-content {
+            background: rgba(8,6,2,0.85); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
+            color: white; margin: 0 auto; padding: 52px 40px 56px;
+            width: 100%; max-width: 520px; border-radius: 36px;
+            border: 1px solid rgba(255,215,0,0.10);
+            box-shadow: 0 80px 140px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,215,0,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+        .svc-modal-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.42); letter-spacing: 7px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+        .svc-modal-title { font-family: 'Playfair Display', serif; font-size: 30px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 8px; line-height: 1.2; }
+        .svc-modal-sub { font-size: 9px; color: rgba(255,255,255,0.20); text-transform: uppercase; letter-spacing: 3.5px; margin-bottom: 40px; }
+        .svc-form-group { margin-bottom: 4px; }
+        .svc-label { font-size: 8px; font-weight: 700; color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 3.5px; display: block; margin-top: 28px; margin-bottom: 2px; }
+        .svc-input, .svc-textarea, .svc-select {
+            width: 100%; padding: 14px 0; border-radius: 0; border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.09);
+            background: transparent; color: white; font-size: 14px;
+            font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; resize: none;
+        }
+        .svc-input:focus, .svc-textarea:focus, .svc-select:focus { outline: none; border-bottom-color: rgba(255,215,0,0.45); }
+        .svc-input::placeholder, .svc-textarea::placeholder { color: rgba(255,255,255,0.16); }
+        .svc-select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 28px; cursor: pointer; }
+        .svc-select option { background: #0c0a04; color: white; }
+        .svc-textarea { min-height: 88px; padding-top: 14px; line-height: 1.7; }
+        .svc-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 36px 0 28px; }
+        .svc-submit-btn {
+            width: 100%; padding: 20px; margin-top: 6px;
+            background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020);
+            color: #000; border: none; border-radius: 60px;
+            font-weight: 900; font-size: 11px; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: transform 0.3s var(--transition), box-shadow 0.3s, opacity 0.2s;
+            box-shadow: 0 12px 40px rgba(255,215,0,0.20);
+        }
+        .svc-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 55px rgba(255,215,0,0.38); }
+        .svc-submit-btn:active { transform: translateY(0); }
+        .svc-cancel-btn {
+            width: 100%; padding: 16px; margin-top: 12px;
+            background: transparent; color: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.07); border-radius: 60px;
+            font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+            cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s;
+        }
+        .svc-cancel-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); }
+
+        /* Trust signals inside form */
+        .svc-trust { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.04); }
+        .svc-trust-item { display: flex; align-items: center; gap: 8px; }
+        .svc-trust-dot { color: var(--gold); font-size: 8px; }
+        .svc-trust-text { font-size: 9px; color: rgba(255,255,255,0.16); letter-spacing: 1.5px; text-transform: uppercase; }
+
+        /* Service success modal */
+        #svcSuccessModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
         /* LEGAL */
         .legal-page { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(40px); z-index: 9998; overflow-y: auto; }
@@ -521,6 +645,12 @@
         #profileOnboardingModal .modal-content { max-width: 380px; margin-top: 8vh; text-align: center; }
         #profileHubModal .modal-content { max-width: 440px; }
 
+        /* PRIVATE SOURCING MODAL */
+        #privateSourcingModal .modal-content { max-width: 480px; }
+        #srcReferenceWrapper { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px; margin-top: 10px; display: flex; flex-direction: column; gap: 12px; }
+        #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 13px; min-height: 80px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
+        #srcReference::placeholder { color: rgba(255,255,255,0.16); }
+
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
             header { padding: 0 22px; height: 64px; }
@@ -534,7 +664,9 @@
             .hero-headline { padding: 40px 22px 12px; }
             .sg-measure-grid { grid-template-columns: 1fr; }
             .services-section { padding: 90px 22px 80px; }
-            .services-grid { grid-template-columns: 1fr; gap: 16px; }
+            .services-grid { grid-template-columns: 1fr; gap: 20px; }
+            .svc-modal-content { padding: 36px 24px 44px; }
+            .service-card { padding: 32px 24px 28px; }
         }
     </style>
 </head>
@@ -611,10 +743,10 @@
         </div>
         <div class="sg-section-title">How to Measure</div>
         <div class="sg-measure-grid">
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Waist</div><div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose. Exhale normally.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Hips</div><div class="sg-measure-desc">Measure around the fullest part of your hips and seat, keeping the tape parallel to the floor.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Inseam</div><div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone while standing.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length at the ankle.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Waist</div><div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Hips</div><div class="sg-measure-desc">Measure around the fullest part of your hips and seat, parallel to the floor.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Inseam</div><div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone.</div></div>
+            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length.</div></div>
         </div>
         <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
         <button class="btn btn-ghost" onclick="closeTrouserSizeGuide()">Close Guide</button>
@@ -974,44 +1106,100 @@
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
 
-    <!-- ═══ DIGITAL SERVICES SECTION — id="cat-services" for nav ═══ -->
+    <!-- ═══════════════════════════════════════════════════════════
+         PREMIUM DIGITAL SERVICES SECTION — COMPLETELY REDESIGNED
+    ════════════════════════════════════════════════════════════ -->
     <div class="services-section" id="cat-services">
-        <div class="services-eyebrow">Digital Excellence by OUMRAN</div>
-        <h2 class="services-headline">Beyond Fashion.<br>We Build Prestige Online.</h2>
-        <p class="services-subtext">Beyond fashion, OUMRAN creates premium websites for businesses, brands, and entrepreneurs. Elegant design. Modern technology. An exceptional online presence — built to the same uncompromising standard as our curated collection.</p>
+        <div class="services-inner">
 
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🛒</div>
-                <div class="service-name">E-Commerce Stores</div>
-                <div class="service-desc">Full-featured online stores with secure payment integration, inventory management, and conversion-optimised product pages that sell around the clock.</div>
-                <div class="service-tag">Start Selling Online →</div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏢</div>
-                <div class="service-name">Business Websites</div>
-                <div class="service-desc">Professional corporate presences that establish authority, communicate your value proposition clearly, and generate qualified leads for your business.</div>
-                <div class="service-tag">Elevate Your Brand →</div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">⚙️</div>
-                <div class="service-name">Custom Web Development</div>
-                <div class="service-desc">Bespoke digital solutions built from scratch — custom functionality, fluid animations, and flawless performance across all devices and screen sizes.</div>
-                <div class="service-tag">Build Something Unique →</div>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✦</div>
-                <div class="service-name">Digital Branding</div>
-                <div class="service-desc">Complete brand systems — logos, color palettes, typography, and cohesive digital identity that commands instant recognition and lasting trust.</div>
-                <div class="service-tag">Own Your Identity →</div>
-            </div>
-        </div>
+            <div class="services-eyebrow">Digital Excellence by OUMRAN</div>
+            <h2 class="services-headline">Beyond Fashion.<br>We Build Prestige Online.</h2>
+            <p class="services-subtext">Beyond fashion, OUMRAN creates premium digital experiences for businesses, brands, and entrepreneurs across Ethiopia. Every project is crafted to the same uncompromising standard as our curated collection.</p>
 
-        <div class="services-cta">
-            <p class="services-cta-note">Ready to establish your digital presence?</p>
-            <a href="https://t.me/@OUMER_FETE" target="_blank" class="services-cta-btn">Request a Website →</a>
-        </div>
-    </div>
+            <div class="services-grid">
+
+                <!-- SERVICE 1 — E-COMMERCE -->
+                <div class="service-card">
+                    <div class="service-number">01</div>
+                    <div class="service-icon-wrap">🛒</div>
+                    <div class="service-card-eyebrow">Revenue-First Design</div>
+                    <div class="service-name">E-Commerce Stores</div>
+                    <div class="service-desc">Luxury online stores built to convert. Secure payment integration, smart inventory management, and mobile-optimised product pages that sell around the clock — while you sleep.</div>
+                    <div class="service-tags">
+                        <span class="service-tag-pill">Payment Gateway</span>
+                        <span class="service-tag-pill">Inventory System</span>
+                        <span class="service-tag-pill">Mobile Optimised</span>
+                        <span class="service-tag-pill">Analytics</span>
+                    </div>
+                    <button class="service-cta-btn" onclick="openSvcModal('ecommerce')">
+                        <span>Request E-Commerce Store</span>
+                        <span class="service-cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- SERVICE 2 — BUSINESS WEBSITES -->
+                <div class="service-card">
+                    <div class="service-number">02</div>
+                    <div class="service-icon-wrap">🏢</div>
+                    <div class="service-card-eyebrow">Authority & Credibility</div>
+                    <div class="service-name">Business Websites</div>
+                    <div class="service-desc">Professional corporate presences for companies, restaurants, agencies, and local businesses. Establish authority, communicate your value proposition, and generate qualified leads 24/7.</div>
+                    <div class="service-tags">
+                        <span class="service-tag-pill">Lead Generation</span>
+                        <span class="service-tag-pill">SEO Ready</span>
+                        <span class="service-tag-pill">CMS Integration</span>
+                        <span class="service-tag-pill">Multi-page</span>
+                    </div>
+                    <button class="service-cta-btn" onclick="openSvcModal('business')">
+                        <span>Request Business Website</span>
+                        <span class="service-cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- SERVICE 3 — PERSONAL BRAND -->
+                <div class="service-card">
+                    <div class="service-number">03</div>
+                    <div class="service-icon-wrap">✨</div>
+                    <div class="service-card-eyebrow">Identity & Influence</div>
+                    <div class="service-name">Personal Brands & Portfolios</div>
+                    <div class="service-desc">Premium digital homes for influencers, creators, freelancers, and entrepreneurs. A website that tells your story, showcases your work, and elevates your brand above the noise.</div>
+                    <div class="service-tags">
+                        <span class="service-tag-pill">Portfolio Gallery</span>
+                        <span class="service-tag-pill">Social Integration</span>
+                        <span class="service-tag-pill">Booking System</span>
+                        <span class="service-tag-pill">Blog</span>
+                    </div>
+                    <button class="service-cta-btn" onclick="openSvcModal('personal')">
+                        <span>Build My Brand</span>
+                        <span class="service-cta-arrow">→</span>
+                    </button>
+                </div>
+
+                <!-- SERVICE 4 — CUSTOM DEV -->
+                <div class="service-card">
+                    <div class="service-number">04</div>
+                    <div class="service-icon-wrap">⚙️</div>
+                    <div class="service-card-eyebrow">Bespoke Engineering</div>
+                    <div class="service-name">Custom Web Development</div>
+                    <div class="service-desc">Advanced custom-built platforms and unique digital solutions engineered from the ground up. Complex functionality, fluid animations, and flawless performance across every device and screen.</div>
+                    <div class="service-tags">
+                        <span class="service-tag-pill">Custom Backend</span>
+                        <span class="service-tag-pill">API Integration</span>
+                        <span class="service-tag-pill">Advanced UI</span>
+                        <span class="service-tag-pill">Scalable</span>
+                    </div>
+                    <button class="service-cta-btn" onclick="openSvcModal('custom')">
+                        <span>Request Custom Project</span>
+                        <span class="service-cta-arrow">→</span>
+                    </button>
+                </div>
+
+            </div><!-- /services-grid -->
+
+            <div class="services-divider"></div>
+
+        </div><!-- /services-inner -->
+    </div><!-- /services-section -->
 
     <!-- FOOTER -->
     <footer>
@@ -1161,7 +1349,7 @@
         </div>
     </div>
 
-    <!-- SUCCESS MODAL -->
+    <!-- SUCCESS MODAL (fashion orders) -->
     <div id="successModal" class="modal">
         <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:52px 32px;">
             <div style="font-size:8px;color:rgba(255,255,255,0.15);letter-spacing:6px;text-transform:uppercase;margin-bottom:28px;">OUMRAN STORE</div>
@@ -1171,6 +1359,234 @@
             <p style="font-size:13px;font-weight:300;margin-bottom:36px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
             <button class="btn btn-gold" onclick="window.location.href='https://t.me/@OUMER_FETE'">Open Telegram →</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="document.getElementById('successModal').style.display='none'">Return to Store</button>
+        </div>
+    </div>
+
+</div><!-- /site-wrapper -->
+
+<!-- ═══════════════════════════════════════
+     SERVICE FORM MODALS (outside site-wrapper for z-index)
+═══════════════════════════════════════ -->
+
+<!-- SERVICE SUCCESS MODAL -->
+<div id="svcSuccessModal" class="svc-modal" style="z-index:4000;">
+    <div class="svc-modal-content" style="text-align:center;max-width:400px;margin:10vh auto;">
+        <div style="font-size:7.5px;color:rgba(255,215,0,0.35);letter-spacing:7px;text-transform:uppercase;margin-bottom:32px;">OUMRAN DIGITAL</div>
+        <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#9a7010,#FFD700);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:28px;color:#000;font-weight:900;box-shadow:0 16px 50px rgba(255,215,0,0.28);">✓</div>
+        <h2 style="color:var(--gold);font-family:'Playfair Display',serif;font-size:34px;letter-spacing:2px;margin-bottom:14px;font-weight:400;font-style:italic;">Request Received</h2>
+        <p style="font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:18px;">OUMRAN Digital Concierge</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.38);line-height:2;font-weight:300;margin-bottom:36px;">Your project brief has been delivered to our development team. We'll reach out via Telegram within 24 hours with a tailored quote.</p>
+        <a href="https://t.me/@OUMER_FETE" target="_blank" style="display:block;">
+            <button class="svc-submit-btn">Message Us on Telegram →</button>
+        </a>
+        <button class="svc-cancel-btn" onclick="closeSvcSuccess()">Return to Store</button>
+    </div>
+</div>
+
+<!-- MODAL 1: E-COMMERCE -->
+<div id="svcModal_ecommerce" class="svc-modal">
+    <div class="svc-modal-content">
+        <div class="svc-modal-eyebrow">Service 01 · Revenue-First Design</div>
+        <div class="svc-modal-title">E-Commerce Store</div>
+        <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
+
+        <label class="svc-label">Full Name</label>
+        <input type="text" class="svc-input" id="ec_name" placeholder="Your full name">
+
+        <label class="svc-label">Business Name</label>
+        <input type="text" class="svc-input" id="ec_business" placeholder="Your business or brand name">
+
+        <label class="svc-label">Telegram Username</label>
+        <input type="text" class="svc-input" id="ec_telegram" placeholder="@yourusername">
+
+        <label class="svc-label">Phone Number</label>
+        <input type="tel" class="svc-input" id="ec_phone" placeholder="+251 9XX XXX XXX">
+
+        <label class="svc-label">Type of Products Sold</label>
+        <select class="svc-select" id="ec_products">
+            <option value="">Select product category</option>
+            <option>Fashion & Clothing</option>
+            <option>Electronics & Gadgets</option>
+            <option>Food & Beverages</option>
+            <option>Beauty & Cosmetics</option>
+            <option>Home & Furniture</option>
+            <option>Health & Wellness</option>
+            <option>Art & Crafts</option>
+            <option>Digital Products</option>
+            <option>Other</option>
+        </select>
+
+        <label class="svc-label">Budget Range (ETB)</label>
+        <select class="svc-select" id="ec_budget">
+            <option value="">Select your budget</option>
+            <option>5,000 – 15,000 ETB</option>
+            <option>15,000 – 30,000 ETB</option>
+            <option>30,000 – 60,000 ETB</option>
+            <option>60,000 – 100,000 ETB</option>
+            <option>100,000+ ETB (Premium)</option>
+            <option>Open to discussion</option>
+        </select>
+
+        <label class="svc-label">Additional Requirements</label>
+        <textarea class="svc-textarea" id="ec_notes" placeholder="Describe any specific features, integrations, design preferences, or examples you like..."></textarea>
+
+        <div class="svc-divider"></div>
+        <button class="svc-submit-btn" onclick="submitSvcForm('ecommerce')">Request Quote →</button>
+        <button class="svc-cancel-btn" onclick="closeSvcModal('ecommerce')">Cancel</button>
+
+        <div class="svc-trust">
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 2: BUSINESS WEBSITE -->
+<div id="svcModal_business" class="svc-modal">
+    <div class="svc-modal-content">
+        <div class="svc-modal-eyebrow">Service 02 · Authority & Credibility</div>
+        <div class="svc-modal-title">Business Website</div>
+        <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
+
+        <label class="svc-label">Full Name</label>
+        <input type="text" class="svc-input" id="biz_name" placeholder="Your full name">
+
+        <label class="svc-label">Business Name</label>
+        <input type="text" class="svc-input" id="biz_business" placeholder="Company or organisation name">
+
+        <label class="svc-label">Industry</label>
+        <select class="svc-select" id="biz_industry">
+            <option value="">Select your industry</option>
+            <option>Restaurant & Food Service</option>
+            <option>Retail & Commerce</option>
+            <option>Healthcare & Medical</option>
+            <option>Legal & Professional Services</option>
+            <option>Real Estate & Construction</option>
+            <option>Education & Training</option>
+            <option>Finance & Accounting</option>
+            <option>Technology & IT</option>
+            <option>Hospitality & Tourism</option>
+            <option>NGO / Non-profit</option>
+            <option>Other</option>
+        </select>
+
+        <label class="svc-label">Telegram Username</label>
+        <input type="text" class="svc-input" id="biz_telegram" placeholder="@yourusername">
+
+        <label class="svc-label">Phone Number</label>
+        <input type="tel" class="svc-input" id="biz_phone" placeholder="+251 9XX XXX XXX">
+
+        <label class="svc-label">Desired Features</label>
+        <textarea class="svc-textarea" id="biz_features" placeholder="e.g. Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials..."></textarea>
+
+        <label class="svc-label">Additional Notes</label>
+        <textarea class="svc-textarea" id="biz_notes" placeholder="Reference websites you like, brand colors, tone of voice, or anything else important..."></textarea>
+
+        <div class="svc-divider"></div>
+        <button class="svc-submit-btn" onclick="submitSvcForm('business')">Request Business Website →</button>
+        <button class="svc-cancel-btn" onclick="closeSvcModal('business')">Cancel</button>
+
+        <div class="svc-trust">
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 3: PERSONAL BRAND -->
+<div id="svcModal_personal" class="svc-modal">
+    <div class="svc-modal-content">
+        <div class="svc-modal-eyebrow">Service 03 · Identity & Influence</div>
+        <div class="svc-modal-title">Personal Brand & Portfolio</div>
+        <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
+
+        <label class="svc-label">Full Name</label>
+        <input type="text" class="svc-input" id="pb_name" placeholder="Your full name">
+
+        <label class="svc-label">Profession / Title</label>
+        <select class="svc-select" id="pb_profession">
+            <option value="">Select your profession</option>
+            <option>Content Creator / Influencer</option>
+            <option>Photographer / Videographer</option>
+            <option>Graphic Designer</option>
+            <option>Fashion Designer</option>
+            <option>Musician / Artist</option>
+            <option>Coach / Consultant</option>
+            <option>Freelancer / Contractor</option>
+            <option>Entrepreneur</option>
+            <option>Model</option>
+            <option>Other Creative</option>
+        </select>
+
+        <label class="svc-label">Telegram Username</label>
+        <input type="text" class="svc-input" id="pb_telegram" placeholder="@yourusername">
+
+        <label class="svc-label">Phone Number</label>
+        <input type="tel" class="svc-input" id="pb_phone" placeholder="+251 9XX XXX XXX">
+
+        <label class="svc-label">Social Media Links</label>
+        <input type="text" class="svc-input" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn — paste links here">
+
+        <label class="svc-label">Goals for Your Website</label>
+        <textarea class="svc-textarea" id="pb_goals" placeholder="What do you want your website to achieve? More brand deals, new clients, selling products, showcasing work..."></textarea>
+
+        <div class="svc-divider"></div>
+        <button class="svc-submit-btn" onclick="submitSvcForm('personal')">Build My Brand →</button>
+        <button class="svc-cancel-btn" onclick="closeSvcModal('personal')">Cancel</button>
+
+        <div class="svc-trust">
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 4: CUSTOM DEVELOPMENT -->
+<div id="svcModal_custom" class="svc-modal">
+    <div class="svc-modal-content">
+        <div class="svc-modal-eyebrow">Service 04 · Bespoke Engineering</div>
+        <div class="svc-modal-title">Custom Web Development</div>
+        <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
+
+        <label class="svc-label">Full Name</label>
+        <input type="text" class="svc-input" id="cd_name" placeholder="Your full name">
+
+        <label class="svc-label">Company / Organisation Name</label>
+        <input type="text" class="svc-input" id="cd_company" placeholder="Company or project name">
+
+        <label class="svc-label">Telegram Username</label>
+        <input type="text" class="svc-input" id="cd_telegram" placeholder="@yourusername">
+
+        <label class="svc-label">Phone Number</label>
+        <input type="tel" class="svc-input" id="cd_phone" placeholder="+251 9XX XXX XXX">
+
+        <label class="svc-label">Project Description</label>
+        <textarea class="svc-textarea" id="cd_description" placeholder="Describe your project in detail. What problem does it solve? Who are the users? What is the core purpose?"></textarea>
+
+        <label class="svc-label">Features Needed</label>
+        <textarea class="svc-textarea" id="cd_features" placeholder="List all features required: user authentication, dashboards, payment systems, admin panel, API integrations, real-time data, etc."></textarea>
+
+        <label class="svc-label">Budget Range (ETB)</label>
+        <select class="svc-select" id="cd_budget">
+            <option value="">Select your budget</option>
+            <option>30,000 – 60,000 ETB</option>
+            <option>60,000 – 120,000 ETB</option>
+            <option>120,000 – 250,000 ETB</option>
+            <option>250,000+ ETB (Enterprise)</option>
+            <option>Open to discussion</option>
+        </select>
+
+        <div class="svc-divider"></div>
+        <button class="svc-submit-btn" onclick="submitSvcForm('custom')">Submit Project Brief →</button>
+        <button class="svc-cancel-btn" onclick="closeSvcModal('custom')">Cancel</button>
+
+        <div class="svc-trust">
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">NDA available on request</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
+            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Fully confidential</span></div>
         </div>
     </div>
 </div>
@@ -1279,6 +1695,7 @@ window.addEventListener('load', () => {
     document.addEventListener('touchstart', () => {}, { passive: true });
 }, { once: true });
 
+/* ══ PROFILE ══ */
 function checkProfileOnboarding(type) {
     if (!localStorage.getItem('oumran_user_profile')) {
         pendingActionType = type;
@@ -1345,6 +1762,7 @@ function closeProfileHub() {
     unlockScroll();
 }
 
+/* ══ CART VIEWS ══ */
 function switchCartView(view) {
     const isBag = view === 'bag';
     document.getElementById('active-bag-view').style.display = isBag ? 'block' : 'none';
@@ -1361,6 +1779,7 @@ function renderOrderHistory() {
     c.innerHTML = h.map(o => `<div class="order-card"><div class="order-header"><span class="order-id">#${o.id}</span><span class="order-date">${o.date}</span></div><div class="order-items">${o.items.replace(/\n/g,'<br>')}</div><div class="order-method">${o.method}</div><div class="order-total">Total: <span>${o.total} ETB</span></div></div>`).join('');
 }
 
+/* ══ ZOOM ══ */
 function openZoom() {
     zoomIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el => el.classList.contains('active'));
     if (zoomIdx === -1) zoomIdx = 0;
@@ -1377,6 +1796,7 @@ function closeZoom() { document.getElementById('zoom-container').style.display =
 function openAbout() { lockScroll(); document.getElementById('aboutPage').style.display = 'block'; }
 function closeAbout() { document.getElementById('aboutPage').style.display = 'none'; unlockScroll(); }
 
+/* ══ PRODUCT MODAL ══ */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
     currentP = n; currentPrice = price; currentProductType = t;
@@ -1450,9 +1870,8 @@ function updateCartDisplay() {
         const hCartBtn   = document.getElementById('header-cart-btn');
         if (hCartCount) {
             hCartCount.innerText = cart.length;
-            /* Gold glow pulse every time item is added */
             hCartCount.classList.remove('glow');
-            void hCartCount.offsetWidth; /* force reflow so animation restarts */
+            void hCartCount.offsetWidth;
             if (cart.length > 0) hCartCount.classList.add('glow');
         }
         if (hCartBtn) hCartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
@@ -1499,6 +1918,8 @@ function filterProducts() {
         sec.style.display = match ? 'block' : 'none';
     });
 }
+
+/* ══ PRIVATE SOURCING ══ */
 function openPrivateSourcing() {
     scrollPos = window.pageYOffset; lockScroll();
     document.documentElement.classList.add('modal-open'); document.body.classList.add('modal-open');
@@ -1563,6 +1984,138 @@ function submitPrivateRequest() {
         srcAttachedImageBase64='';
         unlockScroll();
     }).catch(() => alert('An error occurred. Please try again.'));
+}
+
+/* ══════════════════════════════════════════════
+   DIGITAL SERVICES — FORM & SUBMISSION LOGIC
+══════════════════════════════════════════════ */
+
+const SVC_BOT_TOKEN = '8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
+const SVC_CHAT_ID   = '5715582254';
+
+function openSvcModal(type) {
+    scrollPos = window.pageYOffset;
+    lockScroll();
+    document.documentElement.classList.add('modal-open');
+    document.getElementById('svcModal_' + type).style.display = 'block';
+}
+
+function closeSvcModal(type) {
+    document.getElementById('svcModal_' + type).style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    unlockScroll();
+    window.scrollTo(0, scrollPos);
+}
+
+function closeSvcSuccess() {
+    document.getElementById('svcSuccessModal').style.display = 'none';
+    document.documentElement.classList.remove('modal-open');
+    unlockScroll();
+    window.scrollTo(0, scrollPos);
+}
+
+function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+}
+
+function saveSvcLead(type, data) {
+    const leads = JSON.parse(localStorage.getItem('oumran_svc_leads') || '[]');
+    leads.unshift({
+        id: 'SVC-' + Math.floor(1000 + Math.random() * 9000),
+        type,
+        timestamp: Date.now(),
+        date: new Date().toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' }),
+        ...data
+    });
+    localStorage.setItem('oumran_svc_leads', JSON.stringify(leads));
+}
+
+function submitSvcForm(type) {
+    const ts = new Date().toLocaleString('en-US', { dateStyle:'medium', timeStyle:'short' });
+    let text = '', data = {}, valid = true;
+
+    if (type === 'ecommerce') {
+        const name     = getVal('ec_name');
+        const business = getVal('ec_business');
+        const telegram = getVal('ec_telegram');
+        const phone    = getVal('ec_phone');
+        const products = getVal('ec_products');
+        const budget   = getVal('ec_budget');
+        const notes    = getVal('ec_notes') || 'None';
+        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data = { name, business, telegram, phone, products, budget, notes };
+        text = `🛒 *NEW E-COMMERCE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🛍️ *Products:* ${products || 'Not specified'}\n💰 *Budget:* ${budget || 'Not specified'}\n\n📝 *Requirements:*\n${notes}`;
+    }
+    else if (type === 'business') {
+        const name     = getVal('biz_name');
+        const business = getVal('biz_business');
+        const industry = getVal('biz_industry');
+        const telegram = getVal('biz_telegram');
+        const phone    = getVal('biz_phone');
+        const features = getVal('biz_features') || 'Not specified';
+        const notes    = getVal('biz_notes') || 'None';
+        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data = { name, business, industry, telegram, phone, features, notes };
+        text = `🏢 *NEW BUSINESS WEBSITE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business || 'Not specified'}\n🏭 *Industry:* ${industry || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n✅ *Desired Features:*\n${features}\n\n📝 *Additional Notes:*\n${notes}`;
+    }
+    else if (type === 'personal') {
+        const name       = getVal('pb_name');
+        const profession = getVal('pb_profession');
+        const telegram   = getVal('pb_telegram');
+        const phone      = getVal('pb_phone');
+        const social     = getVal('pb_social') || 'Not provided';
+        const goals      = getVal('pb_goals') || 'Not specified';
+        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data = { name, profession, telegram, phone, social, goals };
+        text = `✨ *NEW PERSONAL BRAND REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n💼 *Profession:* ${profession || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🔗 *Social Media:*\n${social}\n\n🎯 *Website Goals:*\n${goals}`;
+    }
+    else if (type === 'custom') {
+        const name        = getVal('cd_name');
+        const company     = getVal('cd_company');
+        const telegram    = getVal('cd_telegram');
+        const phone       = getVal('cd_phone');
+        const description = getVal('cd_description') || 'Not provided';
+        const features    = getVal('cd_features') || 'Not specified';
+        const budget      = getVal('cd_budget');
+        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data = { name, company, telegram, phone, description, features, budget };
+        text = `⚙️ *NEW CUSTOM DEVELOPMENT REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Company:* ${company || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n📋 *Project Description:*\n${description}\n\n🔧 *Features Needed:*\n${features}\n\n💰 *Budget:* ${budget || 'Not specified'}`;
+    }
+
+    /* Save to localStorage */
+    saveSvcLead(type, data);
+
+    /* Send Telegram notification */
+    fetch(`https://api.telegram.org/bot${SVC_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: SVC_CHAT_ID, text, parse_mode: 'Markdown' })
+    })
+    .then(() => {
+        /* Close the form modal */
+        document.getElementById('svcModal_' + type).style.display = 'none';
+        /* Clear form fields */
+        clearSvcForm(type);
+        /* Show success */
+        document.getElementById('svcSuccessModal').style.display = 'block';
+    })
+    .catch(() => {
+        /* Save locally even if Telegram fails */
+        document.getElementById('svcModal_' + type).style.display = 'none';
+        clearSvcForm(type);
+        document.getElementById('svcSuccessModal').style.display = 'block';
+    });
+}
+
+function clearSvcForm(type) {
+    const prefixes = { ecommerce: 'ec_', business: 'biz_', personal: 'pb_', custom: 'cd_' };
+    const px = prefixes[type];
+    if (!px) return;
+    document.querySelectorAll(`[id^="${px}"]`).forEach(el => {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = '';
+        else if (el.tagName === 'SELECT') el.selectedIndex = 0;
+    });
 }
 </script>
 </body>
