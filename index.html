@@ -2086,12 +2086,36 @@ function submitSvcForm(type) {
     /* Save to localStorage */
     saveSvcLead(type, data);
 
-    /* Send Telegram notification */
-    fetch(`https://api.telegram.org/bot${SVC_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: SVC_CHAT_ID, text, parse_mode: 'Markdown' })
+/* Send Telegram notification */
+fetch('https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        chat_id: '5715582254',
+        text: text
     })
+})
+.then(response => {
+    console.log("Telegram API response:", response);
+    return response.json();
+})
+.then(data => {
+    console.log("Success message:", data);
+    /* Close the form modal */
+    document.getElementById('svcModal_' + type).style.display = 'none';
+    /* Clear form fields */
+    clearSvcForm(type);
+    /* Show success */
+    document.getElementById('svcSuccessModal').style.display = 'block';
+})
+.catch(error => {
+    console.error("Error message:", error);
+    /* Save locally even if Telegram fails */
+    saveSvcLead(type, data);
+    clearSvcForm(type);
+    document.getElementById('svcSuccessModal').style.display = 'block';
+});
+
     .then(() => {
         /* Close the form modal */
         document.getElementById('svcModal_' + type).style.display = 'none';
