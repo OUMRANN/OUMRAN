@@ -2087,7 +2087,7 @@ function submitSvcForm(type) {
     saveSvcLead(type, data);
 
     /* Send Telegram notification */
-    fetch(`https://api.telegram.org/bot${'8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';}/sendMessage`, {
+    fetch(`https://api.telegram.org/bot${'8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc'}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: '5715582254', text, parse_mode: 'Markdown' })
