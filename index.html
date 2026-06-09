@@ -326,28 +326,6 @@
         .size-btn:hover { border-color: rgba(255,215,0,0.35); color: white; background: rgba(255,215,0,0.06); }
         .size-btn.active { border-color: var(--gold); background: rgba(255,215,0,0.10); color: var(--gold); box-shadow: 0 0 0 1px rgba(255,215,0,0.15); }
 
-        /* SIZE GUIDE MODALS */
-        #clothingSizeGuideModal, #trouserSizeGuideModal { z-index: 3000; }
-        #clothingSizeGuideModal .modal-content, #trouserSizeGuideModal .modal-content { max-width: 520px; padding: 40px 28px 48px; }
-        .sg-title { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: var(--gold); margin-bottom: 6px; letter-spacing: 1px; }
-        .sg-subtitle { font-size: 9px; color: rgba(255,255,255,0.22); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
-        .sg-table-wrap { overflow-x: auto; margin-bottom: 28px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06); }
-        .sg-table { width: 100%; border-collapse: collapse; min-width: 360px; }
-        .sg-table th { background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.7); font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 14px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
-        .sg-table th:first-child { text-align: left; padding-left: 18px; }
-        .sg-table td { font-size: 12px; color: rgba(255,255,255,0.65); padding: 13px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.2s; }
-        .sg-table td:first-child { color: white; font-weight: 600; text-align: left; padding-left: 18px; }
-        .sg-table tr:last-child td { border-bottom: none; }
-        .sg-table tr:hover td { background: rgba(255,215,0,0.03); }
-        .sg-section-title { font-size: 9px; font-weight: 700; color: rgba(255,215,0,0.5); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .sg-measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-        .sg-measure-item { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 16px; }
-        .sg-measure-icon { font-size: 20px; margin-bottom: 8px; }
-        .sg-measure-name { font-size: 10px; font-weight: 700; color: white; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .sg-measure-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.65; }
-        .sg-model-note { background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.1); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; font-size: 11.5px; color: rgba(255,255,255,0.45); text-align: center; line-height: 1.6; }
-        .sg-model-note strong { color: var(--gold); }
-
         /* RECS */
         .rec-title { font-size: 8.5px; font-weight: 700; color: rgba(255,215,0,0.45); margin: 36px 0 18px; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 28px; text-transform: uppercase; letter-spacing: 4px; }
         .rec-scroll { display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
@@ -443,177 +421,61 @@
         .private-request-btn { display: inline-block; padding: 20px 64px; background: transparent; color: rgba(212,175,55,0.6); border: 1px solid rgba(212,175,55,0.18); border-radius: 70px; font-size: 9.5px; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; cursor: pointer; transition: all 0.5s var(--transition); margin-top: 32px; font-family: 'DM Sans', sans-serif; }
         .private-request-btn:hover { background: rgba(212,175,55,0.9); color: #000; box-shadow: 0 0 60px rgba(212,175,55,0.2), 0 20px 50px rgba(0,0,0,0.35); transform: translateY(-3px); }
 
-        /* ═══════════════════════════════════════════════════
-           PREMIUM DIGITAL SERVICES SECTION — FULL REDESIGN
-        ═══════════════════════════════════════════════════ */
-        .services-section {
-            padding: 140px 48px 130px; position: relative; overflow: hidden;
-        }
-        .services-section::before {
-            content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.22), transparent);
-        }
-        .services-section::after {
-            content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-            background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%);
-        }
+        /* SERVICES SECTION */
+        .services-section { padding: 140px 48px 130px; position: relative; overflow: hidden; }
+        .services-section::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.22), transparent); }
+        .services-section::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 65% 50% at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%); }
         .services-inner { position: relative; z-index: 1; }
-
-        /* Eyebrow + headline */
-        .services-eyebrow {
-            text-align: center; font-size: 8px; color: rgba(255,215,0,0.5);
-            letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px;
-            font-family: 'DM Sans', sans-serif; font-weight: 700;
-        }
-        .services-headline {
-            text-align: center; font-family: 'Playfair Display', serif;
-            font-size: clamp(32px, 5vw, 58px); font-weight: 400; font-style: italic;
-            letter-spacing: 3px; line-height: 1.18; margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.85) 50%, rgba(255,255,255,0.65) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .services-subtext {
-            text-align: center; max-width: 600px; margin: 0 auto 80px;
-            font-size: 14px; color: rgba(255,255,255,0.30); line-height: 2.1;
-            font-weight: 300; letter-spacing: 0.3px;
-        }
-
-        /* Service card grid */
+        .services-eyebrow { text-align: center; font-size: 8px; color: rgba(255,215,0,0.5); letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px; font-family: 'DM Sans', sans-serif; font-weight: 700; }
+        .services-headline { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 58px); font-weight: 400; font-style: italic; letter-spacing: 3px; line-height: 1.18; margin-bottom: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,215,0,0.85) 50%, rgba(255,255,255,0.65) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .services-subtext { text-align: center; max-width: 600px; margin: 0 auto 80px; font-size: 14px; color: rgba(255,255,255,0.30); line-height: 2.1; font-weight: 300; letter-spacing: 0.3px; }
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: 960px; margin: 0 auto; }
-
-        /* Individual service card */
-        .service-card {
-            background: rgba(255,255,255,0.025); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.07); border-radius: 28px; padding: 40px 32px 36px;
-            position: relative; overflow: hidden;
-            transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s;
-            cursor: default;
-        }
-        .service-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.35), transparent);
-            opacity: 0; transition: opacity 0.4s;
-        }
-        .service-card::after {
-            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
-            background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,215,0,0.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
+        .service-card { background: rgba(255,255,255,0.025); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.07); border-radius: 28px; padding: 40px 32px 36px; position: relative; overflow: hidden; transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s; cursor: default; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.35), transparent); opacity: 0; transition: opacity 0.4s; }
+        .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,215,0,0.04) 0%, transparent 70%); pointer-events: none; }
         .service-card:hover { transform: translateY(-14px); box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.18), 0 0 80px rgba(255,215,0,0.06); border-color: rgba(255,215,0,0.18); background: rgba(255,255,255,0.04); }
         .service-card:hover::before { opacity: 1; }
-
-        /* Card number badge */
-        .service-number {
-            position: absolute; top: 28px; right: 28px;
-            font-family: 'Playfair Display', serif; font-size: 48px; font-style: italic;
-            color: rgba(255,215,0,0.06); font-weight: 400; line-height: 1; pointer-events: none;
-            transition: color 0.4s;
-        }
+        .service-number { position: absolute; top: 28px; right: 28px; font-family: 'Playfair Display', serif; font-size: 48px; font-style: italic; color: rgba(255,215,0,0.06); font-weight: 400; line-height: 1; pointer-events: none; transition: color 0.4s; }
         .service-card:hover .service-number { color: rgba(255,215,0,0.10); }
-
-        /* Icon */
-        .service-icon-wrap {
-            width: 56px; height: 56px; border-radius: 16px;
-            background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.18);
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
-            margin-bottom: 24px; transition: background 0.4s, border-color 0.4s, transform 0.4s;
-        }
+        .service-icon-wrap { width: 56px; height: 56px; border-radius: 16px; background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.18); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; transition: background 0.4s, border-color 0.4s, transform 0.4s; }
         .service-card:hover .service-icon-wrap { background: rgba(255,215,0,0.12); border-color: rgba(255,215,0,0.4); transform: scale(1.08) rotate(-3deg); }
-
-        /* Card text */
         .service-card-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
         .service-name { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 400; color: rgba(255,255,255,0.92); letter-spacing: 0.8px; margin-bottom: 14px; line-height: 1.2; }
         .service-desc { font-size: 13px; color: rgba(255,255,255,0.30); line-height: 1.95; font-weight: 300; margin-bottom: 28px; }
-
-        /* Feature tags */
         .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-        .service-tag-pill {
-            font-size: 8px; color: rgba(255,215,0,0.55); letter-spacing: 2px; text-transform: uppercase;
-            font-weight: 700; border: 1px solid rgba(255,215,0,0.14); border-radius: 30px;
-            padding: 5px 12px; background: rgba(255,215,0,0.04); transition: all 0.3s;
-        }
+        .service-tag-pill { font-size: 8px; color: rgba(255,215,0,0.55); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border: 1px solid rgba(255,215,0,0.14); border-radius: 30px; padding: 5px 12px; background: rgba(255,215,0,0.04); transition: all 0.3s; }
         .service-card:hover .service-tag-pill { border-color: rgba(255,215,0,0.22); background: rgba(255,215,0,0.07); }
-
-        /* CTA button on card */
-        .service-cta-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            width: 100%; padding: 16px 24px;
-            background: transparent; border: 1px solid rgba(255,215,0,0.25); border-radius: 50px;
-            color: rgba(255,215,0,0.75); font-size: 9.5px; font-weight: 700;
-            letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
-            font-family: 'DM Sans', sans-serif; position: relative; z-index: 1;
-            transition: all 0.4s var(--transition);
-            overflow: hidden;
-        }
-        .service-cta-btn::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37);
-            opacity: 0; transition: opacity 0.4s; border-radius: 50px;
-        }
+        .service-cta-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px 24px; background: transparent; border: 1px solid rgba(255,215,0,0.25); border-radius: 50px; color: rgba(255,215,0,0.75); font-size: 9.5px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; position: relative; z-index: 1; transition: all 0.4s var(--transition); overflow: hidden; }
+        .service-cta-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37); opacity: 0; transition: opacity 0.4s; border-radius: 50px; }
         .service-cta-btn:hover { color: #000; border-color: transparent; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,215,0,0.25); }
         .service-cta-btn:hover::before { opacity: 1; }
         .service-cta-btn span { position: relative; z-index: 1; }
         .service-cta-arrow { position: relative; z-index: 1; transition: transform 0.3s; }
         .service-cta-btn:hover .service-cta-arrow { transform: translateX(4px); }
-
-        /* Divider line between cards and CTA */
         .services-divider { height: 1px; max-width: 960px; margin: 72px auto 0; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent); }
 
-        /* ═══ SERVICE FORM MODALS ═══ */
+        /* SERVICE FORM MODALS */
         .svc-modal { display: none; position: fixed; z-index: 3000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.70); backdrop-filter: blur(44px); -webkit-backdrop-filter: blur(44px); overflow-y: auto; padding: 32px 16px; }
-        .svc-modal-content {
-            background: rgba(8,6,2,0.85); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
-            color: white; margin: 0 auto; padding: 52px 40px 56px;
-            width: 100%; max-width: 520px; border-radius: 36px;
-            border: 1px solid rgba(255,215,0,0.10);
-            box-shadow: 0 80px 140px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,215,0,0.06), inset 0 1px 0 rgba(255,255,255,0.04);
-        }
+        .svc-modal-content { background: rgba(8,6,2,0.85); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px); color: white; margin: 0 auto; padding: 52px 40px 56px; width: 100%; max-width: 520px; border-radius: 36px; border: 1px solid rgba(255,215,0,0.10); box-shadow: 0 80px 140px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,215,0,0.06), inset 0 1px 0 rgba(255,255,255,0.04); }
         .svc-modal-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.42); letter-spacing: 7px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
         .svc-modal-title { font-family: 'Playfair Display', serif; font-size: 30px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 8px; line-height: 1.2; }
         .svc-modal-sub { font-size: 9px; color: rgba(255,255,255,0.20); text-transform: uppercase; letter-spacing: 3.5px; margin-bottom: 40px; }
-        .svc-form-group { margin-bottom: 4px; }
         .svc-label { font-size: 8px; font-weight: 700; color: rgba(255,255,255,0.18); text-transform: uppercase; letter-spacing: 3.5px; display: block; margin-top: 28px; margin-bottom: 2px; }
-        .svc-input, .svc-textarea, .svc-select {
-            width: 100%; padding: 14px 0; border-radius: 0; border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.09);
-            background: transparent; color: white; font-size: 14px;
-            font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; resize: none;
-        }
+        .svc-input, .svc-textarea, .svc-select { width: 100%; padding: 14px 0; border-radius: 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.09); background: transparent; color: white; font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; resize: none; }
         .svc-input:focus, .svc-textarea:focus, .svc-select:focus { outline: none; border-bottom-color: rgba(255,215,0,0.45); }
         .svc-input::placeholder, .svc-textarea::placeholder { color: rgba(255,255,255,0.16); }
         .svc-select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,215,0,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 28px; cursor: pointer; }
         .svc-select option { background: #0c0a04; color: white; }
         .svc-textarea { min-height: 88px; padding-top: 14px; line-height: 1.7; }
         .svc-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 36px 0 28px; }
-        .svc-submit-btn {
-            width: 100%; padding: 20px; margin-top: 6px;
-            background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020);
-            color: #000; border: none; border-radius: 60px;
-            font-weight: 900; font-size: 11px; letter-spacing: 3px;
-            text-transform: uppercase; cursor: pointer;
-            font-family: 'DM Sans', sans-serif;
-            transition: transform 0.3s var(--transition), box-shadow 0.3s, opacity 0.2s;
-            box-shadow: 0 12px 40px rgba(255,215,0,0.20);
-        }
+        .svc-submit-btn { width: 100%; padding: 20px; margin-top: 6px; background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020); color: #000; border: none; border-radius: 60px; font-weight: 900; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.3s var(--transition), box-shadow 0.3s, opacity 0.2s; box-shadow: 0 12px 40px rgba(255,215,0,0.20); }
         .svc-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 55px rgba(255,215,0,0.38); }
-        .svc-submit-btn:active { transform: translateY(0); }
-        .svc-cancel-btn {
-            width: 100%; padding: 16px; margin-top: 12px;
-            background: transparent; color: rgba(255,255,255,0.25);
-            border: 1px solid rgba(255,255,255,0.07); border-radius: 60px;
-            font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-            cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s;
-        }
+        .svc-cancel-btn { width: 100%; padding: 16px; margin-top: 12px; background: transparent; color: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.07); border-radius: 60px; font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s; }
         .svc-cancel-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.45); }
-
-        /* Trust signals inside form */
         .svc-trust { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.04); }
         .svc-trust-item { display: flex; align-items: center; gap: 8px; }
         .svc-trust-dot { color: var(--gold); font-size: 8px; }
         .svc-trust-text { font-size: 9px; color: rgba(255,255,255,0.16); letter-spacing: 1.5px; text-transform: uppercase; }
-
-        /* Service success modal */
-        #svcSuccessModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
         /* LEGAL */
         .legal-page { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(40px); z-index: 9998; overflow-y: auto; }
@@ -651,7 +513,7 @@
         #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 13px; min-height: 80px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
         #srcReference::placeholder { color: rgba(255,255,255,0.16); }
 
-        /* ═══ MODULAR SIZE GUIDE POPUP ═══ */
+        /* ═══ PER-PRODUCT SIZE GUIDE POPUP ═══ */
         #sizeGuidePopup {
             display: none; position: fixed; inset: 0; z-index: 4500;
             background: rgba(0,0,0,0.72); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
@@ -665,60 +527,22 @@
             box-shadow: 0 60px 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
             position: relative;
         }
-        .sgp-eyebrow {
-            font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 6px;
-            text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .sgp-title {
-            font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic;
-            font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 6px;
-        }
-        .sgp-subtitle {
-            font-size: 8.5px; color: rgba(255,255,255,0.20); letter-spacing: 3px;
-            text-transform: uppercase; margin-bottom: 28px; font-family: 'DM Sans', sans-serif;
-        }
-        .sgp-model-note {
-            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.10);
-            border-radius: 10px; padding: 11px 16px; margin-bottom: 22px;
-            font-size: 11px; color: rgba(255,255,255,0.40); text-align: center; line-height: 1.6;
-        }
+        .sgp-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 6px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; }
+        .sgp-title { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 6px; }
+        .sgp-subtitle { font-size: 8.5px; color: rgba(255,255,255,0.20); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px; font-family: 'DM Sans', sans-serif; }
+        .sgp-model-note { background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.10); border-radius: 10px; padding: 11px 16px; margin-bottom: 22px; font-size: 11px; color: rgba(255,255,255,0.40); text-align: center; line-height: 1.6; }
         .sgp-model-note strong { color: var(--gold); }
-        .sgp-table-wrap {
-            overflow-x: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
-            margin-bottom: 24px;
-        }
+        .sgp-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 24px; }
         .sgp-table { width: 100%; border-collapse: collapse; min-width: 260px; }
-        .sgp-table th {
-            background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.70);
-            font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-            padding: 13px 12px; text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-        }
+        .sgp-table th { background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.70); font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 13px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); }
         .sgp-table th:first-child { text-align: left; padding-left: 16px; }
-        .sgp-table td {
-            font-size: 12.5px; color: rgba(255,255,255,0.65); padding: 12px 12px;
-            text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03);
-            transition: background 0.2s;
-        }
+        .sgp-table td { font-size: 12.5px; color: rgba(255,255,255,0.65); padding: 12px 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.2s; }
         .sgp-table td:first-child { color: white; font-weight: 700; text-align: left; padding-left: 16px; }
         .sgp-table tr:last-child td { border-bottom: none; }
         .sgp-table tr:hover td { background: rgba(255,215,0,0.03); }
-        /* empty cell placeholder */
-        .sgp-table td:not(:first-child):empty::after { content: '—'; color: rgba(255,255,255,0.15); }
-        .sgp-unit-note {
-            font-size: 9.5px; color: rgba(255,255,255,0.18); text-align: center;
-            letter-spacing: 1.5px; margin-bottom: 26px; line-height: 1.7;
-        }
-        .sgp-close-btn {
-            width: 100%; padding: 15px; background: transparent;
-            color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 50px; font-weight: 700; font-size: 10px;
-            letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer;
-            font-family: 'DM Sans', sans-serif; transition: all 0.3s;
-        }
+        .sgp-unit-note { font-size: 9.5px; color: rgba(255,255,255,0.18); text-align: center; letter-spacing: 1.5px; margin-bottom: 26px; line-height: 1.7; }
+        .sgp-close-btn { width: 100%; padding: 15px; background: transparent; color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s; }
         .sgp-close-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.14); }
-        /* ═══ END MODULAR SIZE GUIDE POPUP ═══ */
 
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
@@ -731,7 +555,6 @@
             .search-wrap { padding: 32px 22px 14px; }
             .category-header { padding: 0 22px; }
             .hero-headline { padding: 40px 22px 12px; }
-            .sg-measure-grid { grid-template-columns: 1fr; }
             .services-section { padding: 90px 22px 80px; }
             .services-grid { grid-template-columns: 1fr; gap: 20px; }
             .svc-modal-content { padding: 36px 24px 44px; }
@@ -758,68 +581,6 @@
         <button class="zoom-arrow arrow-right" onclick="changeZoom(1)">&#8250;</button>
     </div>
     <button class="zoom-close" onclick="closeZoom()">Close Gallery</button>
-</div>
-
-<!-- CLOTHING SIZE GUIDE -->
-<div id="clothingSizeGuideModal" class="modal">
-    <div class="modal-content" style="max-width:520px;">
-        <div class="sg-title">Size Guide</div>
-        <p class="sg-subtitle">Tops & Outerwear · Measurements in Centimeters</p>
-        <div class="sg-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
-        <div class="sg-section-title">Size Chart</div>
-        <div class="sg-table-wrap">
-            <table class="sg-table">
-                <thead><tr><th>Size</th><th>Chest</th><th>Shoulder</th><th>Waist</th><th>Length</th><th>Sleeve</th></tr></thead>
-                <tbody>
-                    <tr><td>S</td><td>96</td><td>43</td><td>88</td><td>68</td><td>62</td></tr>
-                    <tr><td>M</td><td>100</td><td>45</td><td>92</td><td>70</td><td>63</td></tr>
-                    <tr><td>L</td><td>104</td><td>47</td><td>96</td><td>72</td><td>64</td></tr>
-                    <tr><td>XL</td><td>108</td><td>49</td><td>100</td><td>74</td><td>65</td></tr>
-                    <tr><td>XXL</td><td>114</td><td>51</td><td>106</td><td>76</td><td>66</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="sg-section-title">How to Measure</div>
-        <div class="sg-measure-grid">
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Chest</div><div class="sg-measure-desc">Measure around the fullest part of your chest, keeping the tape parallel to the floor.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Shoulder</div><div class="sg-measure-desc">Measure from the edge of one shoulder seam across to the other shoulder seam.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the highest point of the shoulder down to the desired hem length.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Sleeve</div><div class="sg-measure-desc">Measure from the center back neck, over the shoulder, to the end of the sleeve.</div></div>
-        </div>
-        <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
-        <button class="btn btn-ghost" onclick="closeClothingSizeGuide()">Close Guide</button>
-    </div>
-</div>
-
-<!-- TROUSER SIZE GUIDE -->
-<div id="trouserSizeGuideModal" class="modal">
-    <div class="modal-content" style="max-width:520px;">
-        <div class="sg-title">Size Guide</div>
-        <p class="sg-subtitle">Trousers & Pants · Measurements in Centimeters</p>
-        <div class="sg-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
-        <div class="sg-section-title">Size Chart</div>
-        <div class="sg-table-wrap">
-            <table class="sg-table">
-                <thead><tr><th>Size</th><th>Waist</th><th>Hip</th><th>Thigh</th><th>Length</th><th>Inseam</th></tr></thead>
-                <tbody>
-                    <tr><td>S</td><td>72</td><td>91</td><td>52</td><td>100</td><td>76</td></tr>
-                    <tr><td>M</td><td>78</td><td>97</td><td>55</td><td>101</td><td>77</td></tr>
-                    <tr><td>L</td><td>84</td><td>103</td><td>58</td><td>102</td><td>78</td></tr>
-                    <tr><td>XL</td><td>90</td><td>109</td><td>61</td><td>103</td><td>79</td></tr>
-                    <tr><td>XXL</td><td>98</td><td>117</td><td>65</td><td>104</td><td>80</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="sg-section-title">How to Measure</div>
-        <div class="sg-measure-grid">
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Waist</div><div class="sg-measure-desc">Measure around your natural waistline, keeping the tape comfortably loose.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">🔵</div><div class="sg-measure-name">Hips</div><div class="sg-measure-desc">Measure around the fullest part of your hips and seat, parallel to the floor.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📐</div><div class="sg-measure-name">Inseam</div><div class="sg-measure-desc">Measure from the top of the inner thigh down to the bottom of the ankle bone.</div></div>
-            <div class="sg-measure-item"><div class="sg-measure-icon">📏</div><div class="sg-measure-name">Length</div><div class="sg-measure-desc">Measure from the waistband down along the outer seam to the desired hem length.</div></div>
-        </div>
-        <p style="font-size:11px;color:rgba(255,255,255,0.22);text-align:center;line-height:1.7;margin-bottom:24px;">Between sizes? Size up for a relaxed fit or size down for a slimmer cut. Measurements may vary ±1–2 cm.</p>
-        <button class="btn btn-ghost" onclick="closeTrouserSizeGuide()">Close Guide</button>
-    </div>
 </div>
 
 <!-- ABOUT -->
@@ -934,23 +695,10 @@
     </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════════
-     MODULAR SIZE GUIDE POPUP
-     ─────────────────────────────────────────────────────────────────
-     HOW TO EDIT MEASUREMENTS:
-     The JS object `SIZE_GUIDE_DATA` (in the <script> block) holds all
-     measurements. Each key maps to a product type:
-       "tops"    → T-Shirts, Hoodies, Jackets  (Size, Shoulder, Chest, Sleeve, Length)
-       "trouser" → Pants & Sweatpants           (Size, Waist, Length)
-       "set"     → Full Outfits / Tracksuits    (Size, Shoulder, Chest, Waist, Length, Sleeve)
-
-     To assign a type to a product card, add:   data-size-type="tops"
-     (trouser cards already use data-trouser="true"; set cards use data-size-type="set")
-     Tops are the default — no attribute needed for t-shirts/hoodies/jackets.
-═══════════════════════════════════════════════════════════════════ -->
+<!-- PER-PRODUCT SIZE GUIDE POPUP -->
 <div id="sizeGuidePopup">
     <div class="sgp-content">
-        <div class="sgp-eyebrow" id="sgp-eyebrow">Size Guide</div>
+        <div class="sgp-eyebrow">📐 Size Guide · OUMRAN</div>
         <div class="sgp-title" id="sgp-title">Size Guide</div>
         <div class="sgp-subtitle" id="sgp-subtitle">Measurements in Centimeters</div>
         <div class="sgp-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
@@ -1012,6 +760,25 @@
     </div>
 
     <main id="store-main">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             HOW PER-PRODUCT SIZE GUIDES WORK
+             ────────────────────────────────────────────────────────────
+             Each product card carries its own size guide inside a
+             data-size-guide attribute (JSON).
+
+             The JSON object has three keys:
+               title    → shown as the popup heading  (e.g. "Tops & Outerwear")
+               columns  → array of column header names  (first must always be "Size")
+               rows     → array of row objects; each key must match a column name
+
+             Leave any measurement value as "" and the popup will show a
+             dash (—) placeholder automatically.
+
+             data-trouser="true" is still supported for pants to auto-select
+             the trouser sizes; it does NOT affect the size guide table.
+        ═══════════════════════════════════════════════════════════════ -->
+
         <!-- GRAPHIC T-SHIRTS -->
         <div class="category-section" id="cat-tshirts">
             <div class="category-header">
@@ -1020,38 +787,71 @@
                 <div class="category-count">8 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Short-Sleeve Zip Knit','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'
+                     data-size-guide='{"title":"Short-Sleeve Zip Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
                     <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Vintage Polo','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'
+                     data-size-guide='{"title":"Vintage Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
                     <div class="info-area"><h3>Vintage Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Italian-Style Knit Polo','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'
+                     data-size-guide='{"title":"Italian-Style Knit Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
                     <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Premium Floral Short Sleeve','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'
+                     data-size-guide='{"title":"Premium Floral Short Sleeve","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
                     <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Half Zipped Black T-Shirt','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'
+                     data-size-guide='{"title":"Half Zipped Black T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
                     <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'
+                     data-size-guide='{"title":"Short-Sleeved Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
                     <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'
+                     data-size-guide='{"title":"Lapel Short-Sleeved Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
                     <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Strip Knit T-Shirt','clothe',2850)"
+                     data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'
+                     data-size-guide='{"title":"Strip Knit T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
                     <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
+
             </div>
         </div>
 
@@ -1063,30 +863,55 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Polo Knit Sweater','clothe',2500)" data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Polo Knit Sweater','clothe',2500)"
+                     data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'
+                     data-size-guide='{"title":"Polo Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div>
                     <div class="info-area"><h3>Polo Knit Sweater</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Half-Zip Sweater','clothe',2400)"
+                     data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'
+                     data-size-guide='{"title":"Half-Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div>
                     <div class="info-area"><h3>Half-Zip Sweater</h3><div class="card-footer"><div class="new-p">2,400 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Polo Cable Knit Sweater','clothe',3000)"
+                     data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'
+                     data-size-guide='{"title":"Polo Cable Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
                     <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)"
+                     data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'
+                     data-size-guide='{"title":"Versatile Polo Cable-Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
                     <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Denim Tears Hoodie','clothe',3500)"
+                     data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'
+                     data-size-guide='{"title":"Denim Tears Hoodie","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
                     <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)"
+                     data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'
+                     data-size-guide='{"title":"Alo Official Casual Half Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Official Casual Half Zip Sweater"></div>
                     <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
+
             </div>
         </div>
 
@@ -1098,18 +923,31 @@
                 <div class="category-count">3 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Suede Vintage Jacket','clothe',2800)"
+                     data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'
+                     data-size-guide='{"title":"Suede Vintage Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div>
                     <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="card-footer"><div class="new-p">2,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)"
+                     data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'
+                     data-size-guide='{"title":"American Retro Stand-Collar Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div>
                     <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="card-footer"><div class="new-p">3,250 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)"
+                     data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'
+                     data-size-guide='{"title":"Lapel Corduroy Pocket Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"M","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"","Sleeve":"","Length":""},{"Size":"XXL","Shoulder":"","Chest":"","Sleeve":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div>
                     <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
+
             </div>
         </div>
 
@@ -1121,42 +959,88 @@
                 <div class="category-count">9 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-trouser="true" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'
+                     data-size-guide='{"title":"Broken Planet Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div>
                     <div class="info-area"><h3>Broken Planet Fleece</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'
+                     data-size-guide='{"title":"Polo Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div>
                     <div class="info-area"><h3>Polo Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Denim Tears Sweatpants','clothe',2850)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'
+                     data-size-guide='{"title":"Denim Tears Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div>
                     <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'
+                     data-size-guide='{"title":"Embroidered Y2K Streetwear Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div>
                     <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'
+                     data-size-guide='{"title":"Signature Series Wide-Leg Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div>
                     <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'
+                     data-size-guide='{"title":"Cross Pattern Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div>
                     <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Elastic Casual Suit Pants','clothe',2850)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'
+                     data-size-guide='{"title":"Elastic Casual Suit Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div>
                     <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Wide-Leg Drape Pants','clothe',2850)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'
+                     data-size-guide='{"title":"Wide-Leg Drape Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div>
                     <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Slim-Fit Suit Trousers','clothe',2850)"
+                     data-trouser="true"
+                     data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'
+                     data-size-guide='{"title":"Slim-Fit Suit Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"","Length":""},{"Size":"M","Waist":"","Length":""},{"Size":"L","Waist":"","Length":""},{"Size":"XL","Waist":"","Length":""},{"Size":"XXL","Waist":"","Length":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div>
                     <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
+
             </div>
         </div>
 
@@ -1168,32 +1052,58 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'
+                     data-size-guide='{"title":"Denim Tears-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'
+                     data-size-guide='{"title":"Synaworld Signature Paneled Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
                     <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'
+                     data-size-guide='{"title":"Mertra Embroidered Fleece-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
                     <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'
+                     data-size-guide='{"title":"Mertra High-Street Heritage Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
                     <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'
+                     data-size-guide='{"title":"Chrome Hearts-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
                     <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+
+                <div class="product-card"
+                     onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)"
+                     data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'
+                     data-size-guide='{"title":"Denim Tears Jeans-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
+
             </div>
         </div>
+
     </main>
 
     <!-- PRIVATE REQUEST -->
@@ -1206,100 +1116,53 @@
         <button onclick="openPrivateSourcing()" class="private-request-btn">Submit a Private Request</button>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════
-         PREMIUM DIGITAL SERVICES SECTION — COMPLETELY REDESIGNED
-    ════════════════════════════════════════════════════════════ -->
+    <!-- SERVICES SECTION -->
     <div class="services-section" id="cat-services">
         <div class="services-inner">
-
             <div class="services-eyebrow">Digital Excellence by OUMRAN</div>
             <h2 class="services-headline">Beyond Fashion.<br>We Build Prestige Online.</h2>
             <p class="services-subtext">Beyond fashion, OUMRAN creates premium digital experiences for businesses, brands, and entrepreneurs across Ethiopia. Every project is crafted to the same uncompromising standard as our curated collection.</p>
-
             <div class="services-grid">
-
-                <!-- SERVICE 1 — E-COMMERCE -->
                 <div class="service-card">
                     <div class="service-number">01</div>
                     <div class="service-icon-wrap">🛒</div>
                     <div class="service-card-eyebrow">Revenue-First Design</div>
                     <div class="service-name">E-Commerce Stores</div>
                     <div class="service-desc">Luxury online stores built to convert. Secure payment integration, smart inventory management, and mobile-optimised product pages that sell around the clock — while you sleep.</div>
-                    <div class="service-tags">
-                        <span class="service-tag-pill">Payment Gateway</span>
-                        <span class="service-tag-pill">Inventory System</span>
-                        <span class="service-tag-pill">Mobile Optimised</span>
-                        <span class="service-tag-pill">Analytics</span>
-                    </div>
-                    <button class="service-cta-btn" onclick="openSvcModal('ecommerce')">
-                        <span>Request E-Commerce Store</span>
-                        <span class="service-cta-arrow">→</span>
-                    </button>
+                    <div class="service-tags"><span class="service-tag-pill">Payment Gateway</span><span class="service-tag-pill">Inventory System</span><span class="service-tag-pill">Mobile Optimised</span><span class="service-tag-pill">Analytics</span></div>
+                    <button class="service-cta-btn" onclick="openSvcModal('ecommerce')"><span>Request E-Commerce Store</span><span class="service-cta-arrow">→</span></button>
                 </div>
-
-                <!-- SERVICE 2 — BUSINESS WEBSITES -->
                 <div class="service-card">
                     <div class="service-number">02</div>
                     <div class="service-icon-wrap">🏢</div>
                     <div class="service-card-eyebrow">Authority & Credibility</div>
                     <div class="service-name">Business Websites</div>
                     <div class="service-desc">Professional corporate presences for companies, restaurants, agencies, and local businesses. Establish authority, communicate your value proposition, and generate qualified leads 24/7.</div>
-                    <div class="service-tags">
-                        <span class="service-tag-pill">Lead Generation</span>
-                        <span class="service-tag-pill">SEO Ready</span>
-                        <span class="service-tag-pill">CMS Integration</span>
-                        <span class="service-tag-pill">Multi-page</span>
-                    </div>
-                    <button class="service-cta-btn" onclick="openSvcModal('business')">
-                        <span>Request Business Website</span>
-                        <span class="service-cta-arrow">→</span>
-                    </button>
+                    <div class="service-tags"><span class="service-tag-pill">Lead Generation</span><span class="service-tag-pill">SEO Ready</span><span class="service-tag-pill">CMS Integration</span><span class="service-tag-pill">Multi-page</span></div>
+                    <button class="service-cta-btn" onclick="openSvcModal('business')"><span>Request Business Website</span><span class="service-cta-arrow">→</span></button>
                 </div>
-
-                <!-- SERVICE 3 — PERSONAL BRAND -->
                 <div class="service-card">
                     <div class="service-number">03</div>
                     <div class="service-icon-wrap">✨</div>
                     <div class="service-card-eyebrow">Identity & Influence</div>
                     <div class="service-name">Personal Brands & Portfolios</div>
                     <div class="service-desc">Premium digital homes for influencers, creators, freelancers, and entrepreneurs. A website that tells your story, showcases your work, and elevates your brand above the noise.</div>
-                    <div class="service-tags">
-                        <span class="service-tag-pill">Portfolio Gallery</span>
-                        <span class="service-tag-pill">Social Integration</span>
-                        <span class="service-tag-pill">Booking System</span>
-                        <span class="service-tag-pill">Blog</span>
-                    </div>
-                    <button class="service-cta-btn" onclick="openSvcModal('personal')">
-                        <span>Build My Brand</span>
-                        <span class="service-cta-arrow">→</span>
-                    </button>
+                    <div class="service-tags"><span class="service-tag-pill">Portfolio Gallery</span><span class="service-tag-pill">Social Integration</span><span class="service-tag-pill">Booking System</span><span class="service-tag-pill">Blog</span></div>
+                    <button class="service-cta-btn" onclick="openSvcModal('personal')"><span>Build My Brand</span><span class="service-cta-arrow">→</span></button>
                 </div>
-
-                <!-- SERVICE 4 — CUSTOM DEV -->
                 <div class="service-card">
                     <div class="service-number">04</div>
                     <div class="service-icon-wrap">⚙️</div>
                     <div class="service-card-eyebrow">Bespoke Engineering</div>
                     <div class="service-name">Custom Web Development</div>
                     <div class="service-desc">Advanced custom-built platforms and unique digital solutions engineered from the ground up. Complex functionality, fluid animations, and flawless performance across every device and screen.</div>
-                    <div class="service-tags">
-                        <span class="service-tag-pill">Custom Backend</span>
-                        <span class="service-tag-pill">API Integration</span>
-                        <span class="service-tag-pill">Advanced UI</span>
-                        <span class="service-tag-pill">Scalable</span>
-                    </div>
-                    <button class="service-cta-btn" onclick="openSvcModal('custom')">
-                        <span>Request Custom Project</span>
-                        <span class="service-cta-arrow">→</span>
-                    </button>
+                    <div class="service-tags"><span class="service-tag-pill">Custom Backend</span><span class="service-tag-pill">API Integration</span><span class="service-tag-pill">Advanced UI</span><span class="service-tag-pill">Scalable</span></div>
+                    <button class="service-cta-btn" onclick="openSvcModal('custom')"><span>Request Custom Project</span><span class="service-cta-arrow">→</span></button>
                 </div>
-
-            </div><!-- /services-grid -->
-
+            </div>
             <div class="services-divider"></div>
-
-        </div><!-- /services-inner -->
-    </div><!-- /services-section -->
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -1449,7 +1312,7 @@
         </div>
     </div>
 
-    <!-- SUCCESS MODAL (fashion orders) -->
+    <!-- SUCCESS MODAL -->
     <div id="successModal" class="modal">
         <div class="modal-content" style="text-align:center;max-width:400px;margin:10vh auto 20px;padding:52px 32px;">
             <div style="font-size:8px;color:rgba(255,255,255,0.15);letter-spacing:6px;text-transform:uppercase;margin-bottom:28px;">OUMRAN STORE</div>
@@ -1464,11 +1327,7 @@
 
 </div><!-- /site-wrapper -->
 
-<!-- ═══════════════════════════════════════
-     SERVICE FORM MODALS (outside site-wrapper for z-index)
-═══════════════════════════════════════ -->
-
-<!-- SERVICE SUCCESS MODAL -->
+<!-- SERVICE FORM MODALS -->
 <div id="svcSuccessModal" class="svc-modal" style="z-index:4000;">
     <div class="svc-modal-content" style="text-align:center;max-width:400px;margin:10vh auto;">
         <div style="font-size:7.5px;color:rgba(255,215,0,0.35);letter-spacing:7px;text-transform:uppercase;margin-bottom:32px;">OUMRAN DIGITAL</div>
@@ -1483,211 +1342,83 @@
     </div>
 </div>
 
-<!-- MODAL 1: E-COMMERCE -->
 <div id="svcModal_ecommerce" class="svc-modal">
     <div class="svc-modal-content">
         <div class="svc-modal-eyebrow">Service 01 · Revenue-First Design</div>
         <div class="svc-modal-title">E-Commerce Store</div>
         <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
-
-        <label class="svc-label">Full Name</label>
-        <input type="text" class="svc-input" id="ec_name" placeholder="Your full name">
-
-        <label class="svc-label">Business Name</label>
-        <input type="text" class="svc-input" id="ec_business" placeholder="Your business or brand name">
-
-        <label class="svc-label">Telegram Username</label>
-        <input type="text" class="svc-input" id="ec_telegram" placeholder="@yourusername">
-
-        <label class="svc-label">Phone Number</label>
-        <input type="tel" class="svc-input" id="ec_phone" placeholder="+251 9XX XXX XXX">
-
+        <label class="svc-label">Full Name</label><input type="text" class="svc-input" id="ec_name" placeholder="Your full name">
+        <label class="svc-label">Business Name</label><input type="text" class="svc-input" id="ec_business" placeholder="Your business or brand name">
+        <label class="svc-label">Telegram Username</label><input type="text" class="svc-input" id="ec_telegram" placeholder="@yourusername">
+        <label class="svc-label">Phone Number</label><input type="tel" class="svc-input" id="ec_phone" placeholder="+251 9XX XXX XXX">
         <label class="svc-label">Type of Products Sold</label>
-        <select class="svc-select" id="ec_products">
-            <option value="">Select product category</option>
-            <option>Fashion & Clothing</option>
-            <option>Electronics & Gadgets</option>
-            <option>Food & Beverages</option>
-            <option>Beauty & Cosmetics</option>
-            <option>Home & Furniture</option>
-            <option>Health & Wellness</option>
-            <option>Art & Crafts</option>
-            <option>Digital Products</option>
-            <option>Other</option>
-        </select>
-
+        <select class="svc-select" id="ec_products"><option value="">Select product category</option><option>Fashion & Clothing</option><option>Electronics & Gadgets</option><option>Food & Beverages</option><option>Beauty & Cosmetics</option><option>Home & Furniture</option><option>Health & Wellness</option><option>Art & Crafts</option><option>Digital Products</option><option>Other</option></select>
         <label class="svc-label">Budget Range (ETB)</label>
-        <select class="svc-select" id="ec_budget">
-            <option value="">Select your budget</option>
-            <option>5,000 – 15,000 ETB</option>
-            <option>15,000 – 30,000 ETB</option>
-            <option>30,000 – 60,000 ETB</option>
-            <option>60,000 – 100,000 ETB</option>
-            <option>100,000+ ETB (Premium)</option>
-            <option>Open to discussion</option>
-        </select>
-
-        <label class="svc-label">Additional Requirements</label>
-        <textarea class="svc-textarea" id="ec_notes" placeholder="Describe any specific features, integrations, design preferences, or examples you like..."></textarea>
-
+        <select class="svc-select" id="ec_budget"><option value="">Select your budget</option><option>5,000 – 15,000 ETB</option><option>15,000 – 30,000 ETB</option><option>30,000 – 60,000 ETB</option><option>60,000 – 100,000 ETB</option><option>100,000+ ETB (Premium)</option><option>Open to discussion</option></select>
+        <label class="svc-label">Additional Requirements</label><textarea class="svc-textarea" id="ec_notes" placeholder="Describe any specific features, integrations, design preferences, or examples you like..."></textarea>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('ecommerce')">Request Quote →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('ecommerce')">Cancel</button>
-
-        <div class="svc-trust">
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
-<!-- MODAL 2: BUSINESS WEBSITE -->
 <div id="svcModal_business" class="svc-modal">
     <div class="svc-modal-content">
         <div class="svc-modal-eyebrow">Service 02 · Authority & Credibility</div>
         <div class="svc-modal-title">Business Website</div>
         <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
-
-        <label class="svc-label">Full Name</label>
-        <input type="text" class="svc-input" id="biz_name" placeholder="Your full name">
-
-        <label class="svc-label">Business Name</label>
-        <input type="text" class="svc-input" id="biz_business" placeholder="Company or organisation name">
-
+        <label class="svc-label">Full Name</label><input type="text" class="svc-input" id="biz_name" placeholder="Your full name">
+        <label class="svc-label">Business Name</label><input type="text" class="svc-input" id="biz_business" placeholder="Company or organisation name">
         <label class="svc-label">Industry</label>
-        <select class="svc-select" id="biz_industry">
-            <option value="">Select your industry</option>
-            <option>Restaurant & Food Service</option>
-            <option>Retail & Commerce</option>
-            <option>Healthcare & Medical</option>
-            <option>Legal & Professional Services</option>
-            <option>Real Estate & Construction</option>
-            <option>Education & Training</option>
-            <option>Finance & Accounting</option>
-            <option>Technology & IT</option>
-            <option>Hospitality & Tourism</option>
-            <option>NGO / Non-profit</option>
-            <option>Other</option>
-        </select>
-
-        <label class="svc-label">Telegram Username</label>
-        <input type="text" class="svc-input" id="biz_telegram" placeholder="@yourusername">
-
-        <label class="svc-label">Phone Number</label>
-        <input type="tel" class="svc-input" id="biz_phone" placeholder="+251 9XX XXX XXX">
-
-        <label class="svc-label">Desired Features</label>
-        <textarea class="svc-textarea" id="biz_features" placeholder="e.g. Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials..."></textarea>
-
-        <label class="svc-label">Additional Notes</label>
-        <textarea class="svc-textarea" id="biz_notes" placeholder="Reference websites you like, brand colors, tone of voice, or anything else important..."></textarea>
-
+        <select class="svc-select" id="biz_industry"><option value="">Select your industry</option><option>Restaurant & Food Service</option><option>Retail & Commerce</option><option>Healthcare & Medical</option><option>Legal & Professional Services</option><option>Real Estate & Construction</option><option>Education & Training</option><option>Finance & Accounting</option><option>Technology & IT</option><option>Hospitality & Tourism</option><option>NGO / Non-profit</option><option>Other</option></select>
+        <label class="svc-label">Telegram Username</label><input type="text" class="svc-input" id="biz_telegram" placeholder="@yourusername">
+        <label class="svc-label">Phone Number</label><input type="tel" class="svc-input" id="biz_phone" placeholder="+251 9XX XXX XXX">
+        <label class="svc-label">Desired Features</label><textarea class="svc-textarea" id="biz_features" placeholder="e.g. Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials..."></textarea>
+        <label class="svc-label">Additional Notes</label><textarea class="svc-textarea" id="biz_notes" placeholder="Reference websites you like, brand colors, tone of voice, or anything else important..."></textarea>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('business')">Request Business Website →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('business')">Cancel</button>
-
-        <div class="svc-trust">
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
-<!-- MODAL 3: PERSONAL BRAND -->
 <div id="svcModal_personal" class="svc-modal">
     <div class="svc-modal-content">
         <div class="svc-modal-eyebrow">Service 03 · Identity & Influence</div>
         <div class="svc-modal-title">Personal Brand & Portfolio</div>
         <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
-
-        <label class="svc-label">Full Name</label>
-        <input type="text" class="svc-input" id="pb_name" placeholder="Your full name">
-
+        <label class="svc-label">Full Name</label><input type="text" class="svc-input" id="pb_name" placeholder="Your full name">
         <label class="svc-label">Profession / Title</label>
-        <select class="svc-select" id="pb_profession">
-            <option value="">Select your profession</option>
-            <option>Content Creator / Influencer</option>
-            <option>Photographer / Videographer</option>
-            <option>Graphic Designer</option>
-            <option>Fashion Designer</option>
-            <option>Musician / Artist</option>
-            <option>Coach / Consultant</option>
-            <option>Freelancer / Contractor</option>
-            <option>Entrepreneur</option>
-            <option>Model</option>
-            <option>Other Creative</option>
-        </select>
-
-        <label class="svc-label">Telegram Username</label>
-        <input type="text" class="svc-input" id="pb_telegram" placeholder="@yourusername">
-
-        <label class="svc-label">Phone Number</label>
-        <input type="tel" class="svc-input" id="pb_phone" placeholder="+251 9XX XXX XXX">
-
-        <label class="svc-label">Social Media Links</label>
-        <input type="text" class="svc-input" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn — paste links here">
-
-        <label class="svc-label">Goals for Your Website</label>
-        <textarea class="svc-textarea" id="pb_goals" placeholder="What do you want your website to achieve? More brand deals, new clients, selling products, showcasing work..."></textarea>
-
+        <select class="svc-select" id="pb_profession"><option value="">Select your profession</option><option>Content Creator / Influencer</option><option>Photographer / Videographer</option><option>Graphic Designer</option><option>Fashion Designer</option><option>Musician / Artist</option><option>Coach / Consultant</option><option>Freelancer / Contractor</option><option>Entrepreneur</option><option>Model</option><option>Other Creative</option></select>
+        <label class="svc-label">Telegram Username</label><input type="text" class="svc-input" id="pb_telegram" placeholder="@yourusername">
+        <label class="svc-label">Phone Number</label><input type="tel" class="svc-input" id="pb_phone" placeholder="+251 9XX XXX XXX">
+        <label class="svc-label">Social Media Links</label><input type="text" class="svc-input" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn — paste links here">
+        <label class="svc-label">Goals for Your Website</label><textarea class="svc-textarea" id="pb_goals" placeholder="What do you want your website to achieve? More brand deals, new clients, selling products, showcasing work..."></textarea>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('personal')">Build My Brand →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('personal')">Cancel</button>
-
-        <div class="svc-trust">
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">No upfront payment required</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
-<!-- MODAL 4: CUSTOM DEVELOPMENT -->
 <div id="svcModal_custom" class="svc-modal">
     <div class="svc-modal-content">
         <div class="svc-modal-eyebrow">Service 04 · Bespoke Engineering</div>
         <div class="svc-modal-title">Custom Web Development</div>
         <div class="svc-modal-sub">Complete your brief below · Response within 24 hours</div>
-
-        <label class="svc-label">Full Name</label>
-        <input type="text" class="svc-input" id="cd_name" placeholder="Your full name">
-
-        <label class="svc-label">Company / Organisation Name</label>
-        <input type="text" class="svc-input" id="cd_company" placeholder="Company or project name">
-
-        <label class="svc-label">Telegram Username</label>
-        <input type="text" class="svc-input" id="cd_telegram" placeholder="@yourusername">
-
-        <label class="svc-label">Phone Number</label>
-        <input type="tel" class="svc-input" id="cd_phone" placeholder="+251 9XX XXX XXX">
-
-        <label class="svc-label">Project Description</label>
-        <textarea class="svc-textarea" id="cd_description" placeholder="Describe your project in detail. What problem does it solve? Who are the users? What is the core purpose?"></textarea>
-
-        <label class="svc-label">Features Needed</label>
-        <textarea class="svc-textarea" id="cd_features" placeholder="List all features required: user authentication, dashboards, payment systems, admin panel, API integrations, real-time data, etc."></textarea>
-
+        <label class="svc-label">Full Name</label><input type="text" class="svc-input" id="cd_name" placeholder="Your full name">
+        <label class="svc-label">Company / Organisation Name</label><input type="text" class="svc-input" id="cd_company" placeholder="Company or project name">
+        <label class="svc-label">Telegram Username</label><input type="text" class="svc-input" id="cd_telegram" placeholder="@yourusername">
+        <label class="svc-label">Phone Number</label><input type="tel" class="svc-input" id="cd_phone" placeholder="+251 9XX XXX XXX">
+        <label class="svc-label">Project Description</label><textarea class="svc-textarea" id="cd_description" placeholder="Describe your project in detail. What problem does it solve? Who are the users? What is the core purpose?"></textarea>
+        <label class="svc-label">Features Needed</label><textarea class="svc-textarea" id="cd_features" placeholder="List all features required: user authentication, dashboards, payment systems, admin panel, API integrations, real-time data, etc."></textarea>
         <label class="svc-label">Budget Range (ETB)</label>
-        <select class="svc-select" id="cd_budget">
-            <option value="">Select your budget</option>
-            <option>30,000 – 60,000 ETB</option>
-            <option>60,000 – 120,000 ETB</option>
-            <option>120,000 – 250,000 ETB</option>
-            <option>250,000+ ETB (Enterprise)</option>
-            <option>Open to discussion</option>
-        </select>
-
+        <select class="svc-select" id="cd_budget"><option value="">Select your budget</option><option>30,000 – 60,000 ETB</option><option>60,000 – 120,000 ETB</option><option>120,000 – 250,000 ETB</option><option>250,000+ ETB (Enterprise)</option><option>Open to discussion</option></select>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('custom')">Submit Project Brief →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('custom')">Cancel</button>
-
-        <div class="svc-trust">
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">NDA available on request</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Fully confidential</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">NDA available on request</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24-hour response guaranteed</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Fully confidential</span></div></div>
     </div>
 </div>
 
@@ -1724,101 +1455,49 @@ function openLegal(id) { lockScroll(); document.getElementById(id).style.display
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
 /* ══════════════════════════════════════════════════════════════════
-   MODULAR SIZE GUIDE SYSTEM
+   PER-PRODUCT SIZE GUIDE SYSTEM
    ──────────────────────────────────────────────────────────────────
-   HOW TO EDIT MEASUREMENTS
-   ─────────────────────────
-   Each entry in SIZE_GUIDE_DATA is an array of row objects.
-   Each row object key must exactly match a column name in COLUMNS.
-   Leave a value as '' to show an em-dash placeholder in that cell.
-
-   PRODUCT TYPE is determined automatically when a product opens:
-     • data-trouser="true"  → type = 'trouser'
-     • data-size-type="set" → type = 'set'
-     • anything else        → type = 'tops'  (default)
-
-   To override any single product, add data-size-type="tops|trouser|set"
-   directly on that product-card div.
+   The openSizeGuide() function reads the data-size-guide JSON
+   attribute from the currently open product card.
+   No global table object exists — every product owns its own data.
 ══════════════════════════════════════════════════════════════════ */
-const SIZE_GUIDE_DATA = {
 
-    /* ── TOPS: T-Shirts, Hoodies, Jackets ─────────────────────────
-       Columns shown: Size · Shoulder · Chest · Sleeve · Length
-       All values in CM                                            */
-    tops: {
-        label:    'Tops & Outerwear',
-        subtitle: 'T-Shirts · Hoodies · Jackets · Measurements in CM',
-        columns:  ['Size', 'Shoulder', 'Chest', 'Sleeve', 'Length'],
-        rows: [
-            { Size: 'S',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
-            { Size: 'M',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
-            { Size: 'L',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
-            { Size: 'XL',  Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
-            { Size: 'XXL', Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
-        ]
-    },
-
-    /* ── TROUSERS: Pants, Sweatpants ───────────────────────────────
-       Columns shown: Size · Waist · Length
-       All values in CM                                            */
-    trouser: {
-        label:    'Trousers & Pants',
-        subtitle: 'Sweatpants · Suit Pants · Measurements in CM',
-        columns:  ['Size', 'Waist', 'Length'],
-        rows: [
-            { Size: 'S',   Waist: '',  Length: '' },
-            { Size: 'M',   Waist: '',  Length: '' },
-            { Size: 'L',   Waist: '',  Length: '' },
-            { Size: 'XL',  Waist: '',  Length: '' },
-            { Size: 'XXL', Waist: '',  Length: '' },
-        ]
-    },
-
-    /* ── SETS: Full Outfits / Tracksuits ───────────────────────────
-       Columns shown: Size · Shoulder · Chest · Waist · Length · Sleeve
-       All values in CM                                            */
-    set: {
-        label:    'Full Outfit Sets',
-        subtitle: 'Tracksuits · Complete Sets · Measurements in CM',
-        columns:  ['Size', 'Shoulder', 'Chest', 'Waist', 'Length', 'Sleeve'],
-        rows: [
-            { Size: 'S',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
-            { Size: 'M',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
-            { Size: 'L',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
-            { Size: 'XL',  Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
-            { Size: 'XXL', Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
-        ]
-    }
-};
-
-/* Determine which size type the current open product card is */
-let currentSizeType = 'tops';
+/* Holds a reference to the card that is currently open in the modal */
+let currentOpenCard = null;
 
 function openSizeGuide() {
-    const guide = SIZE_GUIDE_DATA[currentSizeType] || SIZE_GUIDE_DATA.tops;
+    if (!currentOpenCard) return;
+
+    const raw = currentOpenCard.getAttribute('data-size-guide');
+    if (!raw) return;
+
+    let guide;
+    try { guide = JSON.parse(raw); } catch(e) { console.warn('Invalid data-size-guide JSON', e); return; }
 
     /* Set header text */
-    document.getElementById('sgp-eyebrow').textContent = '📐 Size Guide · OUMRAN';
-    document.getElementById('sgp-title').textContent   = guide.label;
-    document.getElementById('sgp-subtitle').textContent = guide.subtitle;
+    document.getElementById('sgp-title').textContent    = guide.title    || 'Size Guide';
+    document.getElementById('sgp-subtitle').textContent = 'Measurements in Centimeters';
 
     /* Build thead */
     const theadRow = document.getElementById('sgp-thead-row');
-    theadRow.innerHTML = guide.columns.map((col, i) =>
+    theadRow.innerHTML = (guide.columns || []).map((col, i) =>
         `<th style="${i === 0 ? 'text-align:left;padding-left:16px;' : ''}">${col}</th>`
     ).join('');
 
     /* Build tbody */
     const tbody = document.getElementById('sgp-tbody');
-    tbody.innerHTML = guide.rows.map((row, rIdx) => {
-        const isLast = rIdx === guide.rows.length - 1;
-        const cells  = guide.columns.map((col, cIdx) => {
+    const rows  = guide.rows || [];
+    const cols  = guide.columns || [];
+    tbody.innerHTML = rows.map((row, rIdx) => {
+        const isLast = rIdx === rows.length - 1;
+        const cells  = cols.map((col, cIdx) => {
             const val   = row[col] !== undefined ? row[col] : '';
             const style = [
                 cIdx === 0 ? 'color:white;font-weight:700;text-align:left;padding-left:16px;' : '',
                 !isLast    ? 'border-bottom:1px solid rgba(255,255,255,0.03);' : ''
             ].join('');
-            return `<td style="${style}">${val}</td>`;
+            const display = val === '' ? '<span style="color:rgba(255,255,255,0.15)">—</span>' : val;
+            return `<td style="${style}">${display}</td>`;
         }).join('');
         return `<tr>${cells}</tr>`;
     }).join('');
@@ -1831,10 +1510,6 @@ function closeSizeGuidePopup() {
     document.getElementById('sizeGuidePopup').classList.remove('sgp-open');
     document.documentElement.classList.remove('modal-open');
 }
-
-/* Keep old names as aliases so nothing else breaks */
-function closeClothingSizeGuide() { closeSizeGuidePopup(); }
-function closeTrouserSizeGuide()  { closeSizeGuidePopup(); }
 
 /* ══ STATE ══ */
 const DOM = {};
@@ -2007,26 +1682,23 @@ function openP(n, t, price) {
     currentP = n; currentPrice = price; currentProductType = t;
     DOM.mName.innerText = n;
     DOM.mPrice.innerText = price.toLocaleString() + ' ETB';
+
     const card = event.currentTarget;
+    currentOpenCard = card; /* ← store reference for size guide */
+
     DOM.modalImg.src = card.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
 
     isTrouserProduct = card.getAttribute('data-trouser') === 'true';
 
-    /* ── Determine size guide type for this product ── */
-    const explicitType = card.getAttribute('data-size-type');
-    if (explicitType && SIZE_GUIDE_DATA[explicitType]) {
-        currentSizeType = explicitType;
-    } else if (isTrouserProduct) {
-        currentSizeType = 'trouser';
-    } else {
-        currentSizeType = 'tops';
-    }
-    const modelNote = document.getElementById('m-model-note');
+    const modelNote   = document.getElementById('m-model-note');
     const sizeGuideBtn = document.getElementById('size-guide-btn');
-    modelNote.style.display = (t === 'clothe') ? 'block' : 'none';
-    if (sizeGuideBtn) sizeGuideBtn.style.display = (t === 'clothe') ? 'inline-flex' : 'none';
+    modelNote.style.display   = (t === 'clothe') ? 'block' : 'none';
+
+    /* Show Size Guide button only when the card has data-size-guide */
+    const hasSizeGuide = !!card.getAttribute('data-size-guide');
+    if (sizeGuideBtn) sizeGuideBtn.style.display = (t === 'clothe' && hasSizeGuide) ? 'inline-flex' : 'none';
 
     const varData = card.getAttribute('data-variants');
     currentVariants = varData ? JSON.parse(varData) : [];
@@ -2078,7 +1750,7 @@ function addToCart() {
     setTimeout(() => DOM.toast.classList.remove('show'), 2800);
 }
 
-/* ══ CART DISPLAY + GOLD GLOW BADGE ══ */
+/* ══ CART DISPLAY ══ */
 function updateCartDisplay() {
     requestAnimationFrame(() => {
         const hCartCount = document.getElementById('header-cart-count');
@@ -2122,7 +1794,7 @@ function submitOrder() {
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id:'5715582254', text, parse_mode:'Markdown' }) })
     .then(() => { DOM.cartModal.style.display = 'none'; document.getElementById('successModal').style.display = 'block'; cart = []; updateCartDisplay(); });
 }
-function closeModal() { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display = 'none'; window.scrollTo(0, scrollPos); }
+function closeModal() { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display = 'none'; currentOpenCard = null; window.scrollTo(0, scrollPos); }
 function closeCart() { document.documentElement.classList.remove('modal-open'); DOM.cartModal.style.display = 'none'; window.scrollTo(0, scrollPos); }
 function loadCart() { const s = localStorage.getItem('oumer_cart'); if (s) { cart = JSON.parse(s); updateCartDisplay(); } }
 function filterProducts() {
@@ -2201,136 +1873,52 @@ function submitPrivateRequest() {
     }).catch(() => alert('An error occurred. Please try again.'));
 }
 
-/* ══════════════════════════════════════════════
-   DIGITAL SERVICES — FORM & SUBMISSION LOGIC
-══════════════════════════════════════════════ */
-
+/* ══ DIGITAL SERVICES ══ */
 const SVC_BOT_TOKEN = '8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
 const SVC_CHAT_ID   = '5715582254';
 
-function openSvcModal(type) {
-    scrollPos = window.pageYOffset;
-    lockScroll();
-    document.documentElement.classList.add('modal-open');
-    document.getElementById('svcModal_' + type).style.display = 'block';
-}
-
-function closeSvcModal(type) {
-    document.getElementById('svcModal_' + type).style.display = 'none';
-    document.documentElement.classList.remove('modal-open');
-    unlockScroll();
-    window.scrollTo(0, scrollPos);
-}
-
-function closeSvcSuccess() {
-    document.getElementById('svcSuccessModal').style.display = 'none';
-    document.documentElement.classList.remove('modal-open');
-    unlockScroll();
-    window.scrollTo(0, scrollPos);
-}
-
-function getVal(id) {
-    const el = document.getElementById(id);
-    return el ? el.value.trim() : '';
-}
-
+function openSvcModal(type) { scrollPos = window.pageYOffset; lockScroll(); document.documentElement.classList.add('modal-open'); document.getElementById('svcModal_' + type).style.display = 'block'; }
+function closeSvcModal(type) { document.getElementById('svcModal_' + type).style.display = 'none'; document.documentElement.classList.remove('modal-open'); unlockScroll(); window.scrollTo(0, scrollPos); }
+function closeSvcSuccess() { document.getElementById('svcSuccessModal').style.display = 'none'; document.documentElement.classList.remove('modal-open'); unlockScroll(); window.scrollTo(0, scrollPos); }
+function getVal(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
 function saveSvcLead(type, data) {
     const leads = JSON.parse(localStorage.getItem('oumran_svc_leads') || '[]');
-    leads.unshift({
-        id: 'SVC-' + Math.floor(1000 + Math.random() * 9000),
-        type,
-        timestamp: Date.now(),
-        date: new Date().toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' }),
-        ...data
-    });
+    leads.unshift({ id: 'SVC-' + Math.floor(1000 + Math.random() * 9000), type, timestamp: Date.now(), date: new Date().toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' }), ...data });
     localStorage.setItem('oumran_svc_leads', JSON.stringify(leads));
 }
-
 function submitSvcForm(type) {
     const ts = new Date().toLocaleString('en-US', { dateStyle:'medium', timeStyle:'short' });
-    let text = '', data = {}, valid = true;
-
+    let text = '', data = {};
     if (type === 'ecommerce') {
-        const name     = getVal('ec_name');
-        const business = getVal('ec_business');
-        const telegram = getVal('ec_telegram');
-        const phone    = getVal('ec_phone');
-        const products = getVal('ec_products');
-        const budget   = getVal('ec_budget');
-        const notes    = getVal('ec_notes') || 'None';
-        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
-        data = { name, business, telegram, phone, products, budget, notes };
-        text = `🛒 *NEW E-COMMERCE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🛍️ *Products:* ${products || 'Not specified'}\n💰 *Budget:* ${budget || 'Not specified'}\n\n📝 *Requirements:*\n${notes}`;
+        const name=getVal('ec_name'),business=getVal('ec_business'),telegram=getVal('ec_telegram'),phone=getVal('ec_phone'),products=getVal('ec_products'),budget=getVal('ec_budget'),notes=getVal('ec_notes')||'None';
+        if (!name||!phone||!telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data={name,business,telegram,phone,products,budget,notes};
+        text=`🛒 *NEW E-COMMERCE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business||'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🛍️ *Products:* ${products||'Not specified'}\n💰 *Budget:* ${budget||'Not specified'}\n\n📝 *Requirements:*\n${notes}`;
+    } else if (type === 'business') {
+        const name=getVal('biz_name'),business=getVal('biz_business'),industry=getVal('biz_industry'),telegram=getVal('biz_telegram'),phone=getVal('biz_phone'),features=getVal('biz_features')||'Not specified',notes=getVal('biz_notes')||'None';
+        if (!name||!phone||!telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data={name,business,industry,telegram,phone,features,notes};
+        text=`🏢 *NEW BUSINESS WEBSITE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business||'Not specified'}\n🏭 *Industry:* ${industry||'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n✅ *Desired Features:*\n${features}\n\n📝 *Additional Notes:*\n${notes}`;
+    } else if (type === 'personal') {
+        const name=getVal('pb_name'),profession=getVal('pb_profession'),telegram=getVal('pb_telegram'),phone=getVal('pb_phone'),social=getVal('pb_social')||'Not provided',goals=getVal('pb_goals')||'Not specified';
+        if (!name||!phone||!telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data={name,profession,telegram,phone,social,goals};
+        text=`✨ *NEW PERSONAL BRAND REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n💼 *Profession:* ${profession||'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🔗 *Social Media:*\n${social}\n\n🎯 *Website Goals:*\n${goals}`;
+    } else if (type === 'custom') {
+        const name=getVal('cd_name'),company=getVal('cd_company'),telegram=getVal('cd_telegram'),phone=getVal('cd_phone'),description=getVal('cd_description')||'Not provided',features=getVal('cd_features')||'Not specified',budget=getVal('cd_budget');
+        if (!name||!phone||!telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
+        data={name,company,telegram,phone,description,features,budget};
+        text=`⚙️ *NEW CUSTOM DEVELOPMENT REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Company:* ${company||'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n📋 *Project Description:*\n${description}\n\n🔧 *Features Needed:*\n${features}\n\n💰 *Budget:* ${budget||'Not specified'}`;
     }
-    else if (type === 'business') {
-        const name     = getVal('biz_name');
-        const business = getVal('biz_business');
-        const industry = getVal('biz_industry');
-        const telegram = getVal('biz_telegram');
-        const phone    = getVal('biz_phone');
-        const features = getVal('biz_features') || 'Not specified';
-        const notes    = getVal('biz_notes') || 'None';
-        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
-        data = { name, business, industry, telegram, phone, features, notes };
-        text = `🏢 *NEW BUSINESS WEBSITE REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Business:* ${business || 'Not specified'}\n🏭 *Industry:* ${industry || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n✅ *Desired Features:*\n${features}\n\n📝 *Additional Notes:*\n${notes}`;
-    }
-    else if (type === 'personal') {
-        const name       = getVal('pb_name');
-        const profession = getVal('pb_profession');
-        const telegram   = getVal('pb_telegram');
-        const phone      = getVal('pb_phone');
-        const social     = getVal('pb_social') || 'Not provided';
-        const goals      = getVal('pb_goals') || 'Not specified';
-        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
-        data = { name, profession, telegram, phone, social, goals };
-        text = `✨ *NEW PERSONAL BRAND REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n💼 *Profession:* ${profession || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n🔗 *Social Media:*\n${social}\n\n🎯 *Website Goals:*\n${goals}`;
-    }
-    else if (type === 'custom') {
-        const name        = getVal('cd_name');
-        const company     = getVal('cd_company');
-        const telegram    = getVal('cd_telegram');
-        const phone       = getVal('cd_phone');
-        const description = getVal('cd_description') || 'Not provided';
-        const features    = getVal('cd_features') || 'Not specified';
-        const budget      = getVal('cd_budget');
-        if (!name || !phone || !telegram) { alert('Please fill in your Name, Phone, and Telegram username.'); return; }
-        data = { name, company, telegram, phone, description, features, budget };
-        text = `⚙️ *NEW CUSTOM DEVELOPMENT REQUEST*\n📅 ${ts}\n\n👤 *Name:* ${name}\n🏢 *Company:* ${company || 'Not specified'}\n📱 *Telegram:* ${telegram}\n📞 *Phone:* ${phone}\n\n📋 *Project Description:*\n${description}\n\n🔧 *Features Needed:*\n${features}\n\n💰 *Budget:* ${budget || 'Not specified'}`;
-    }
-
-    /* Save to localStorage */
     saveSvcLead(type, data);
-
-    /* Send Telegram notification */
-    fetch(`https://api.telegram.org/bot${SVC_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: SVC_CHAT_ID, text, parse_mode: 'Markdown' })
-    })
-    .then(() => {
-        /* Close the form modal */
-        document.getElementById('svcModal_' + type).style.display = 'none';
-        /* Clear form fields */
-        clearSvcForm(type);
-        /* Show success */
-        document.getElementById('svcSuccessModal').style.display = 'block';
-    })
-    .catch(() => {
-        /* Save locally even if Telegram fails */
-        document.getElementById('svcModal_' + type).style.display = 'none';
-        clearSvcForm(type);
-        document.getElementById('svcSuccessModal').style.display = 'block';
-    });
+    fetch(`https://api.telegram.org/bot${SVC_BOT_TOKEN}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id:SVC_CHAT_ID, text, parse_mode:'Markdown' }) })
+    .then(() => { document.getElementById('svcModal_'+type).style.display='none'; clearSvcForm(type); document.getElementById('svcSuccessModal').style.display='block'; })
+    .catch(() => { document.getElementById('svcModal_'+type).style.display='none'; clearSvcForm(type); document.getElementById('svcSuccessModal').style.display='block'; });
 }
-
 function clearSvcForm(type) {
-    const prefixes = { ecommerce: 'ec_', business: 'biz_', personal: 'pb_', custom: 'cd_' };
-    const px = prefixes[type];
-    if (!px) return;
-    document.querySelectorAll(`[id^="${px}"]`).forEach(el => {
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = '';
-        else if (el.tagName === 'SELECT') el.selectedIndex = 0;
-    });
+    const prefixes = { ecommerce:'ec_', business:'biz_', personal:'pb_', custom:'cd_' };
+    const px = prefixes[type]; if (!px) return;
+    document.querySelectorAll(`[id^="${px}"]`).forEach(el => { if (el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.value=''; else if (el.tagName==='SELECT') el.selectedIndex=0; });
 }
 </script>
 </body>
