@@ -651,6 +651,75 @@
         #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 13px; min-height: 80px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.6; }
         #srcReference::placeholder { color: rgba(255,255,255,0.16); }
 
+        /* ═══ MODULAR SIZE GUIDE POPUP ═══ */
+        #sizeGuidePopup {
+            display: none; position: fixed; inset: 0; z-index: 4500;
+            background: rgba(0,0,0,0.72); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            overflow-y: auto; padding: 28px 16px;
+        }
+        #sizeGuidePopup.sgp-open { display: block; }
+        .sgp-content {
+            background: rgba(10,8,3,0.90); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
+            border: 1px solid rgba(255,215,0,0.12); border-radius: 28px;
+            padding: 40px 28px 44px; max-width: 480px; width: 100%; margin: 0 auto;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+            position: relative;
+        }
+        .sgp-eyebrow {
+            font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 6px;
+            text-transform: uppercase; font-weight: 700; margin-bottom: 10px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .sgp-title {
+            font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic;
+            font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 6px;
+        }
+        .sgp-subtitle {
+            font-size: 8.5px; color: rgba(255,255,255,0.20); letter-spacing: 3px;
+            text-transform: uppercase; margin-bottom: 28px; font-family: 'DM Sans', sans-serif;
+        }
+        .sgp-model-note {
+            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.10);
+            border-radius: 10px; padding: 11px 16px; margin-bottom: 22px;
+            font-size: 11px; color: rgba(255,255,255,0.40); text-align: center; line-height: 1.6;
+        }
+        .sgp-model-note strong { color: var(--gold); }
+        .sgp-table-wrap {
+            overflow-x: auto; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 24px;
+        }
+        .sgp-table { width: 100%; border-collapse: collapse; min-width: 260px; }
+        .sgp-table th {
+            background: rgba(255,215,0,0.06); color: rgba(255,215,0,0.70);
+            font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+            padding: 13px 12px; text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .sgp-table th:first-child { text-align: left; padding-left: 16px; }
+        .sgp-table td {
+            font-size: 12.5px; color: rgba(255,255,255,0.65); padding: 12px 12px;
+            text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: background 0.2s;
+        }
+        .sgp-table td:first-child { color: white; font-weight: 700; text-align: left; padding-left: 16px; }
+        .sgp-table tr:last-child td { border-bottom: none; }
+        .sgp-table tr:hover td { background: rgba(255,215,0,0.03); }
+        /* empty cell placeholder */
+        .sgp-table td:not(:first-child):empty::after { content: '—'; color: rgba(255,255,255,0.15); }
+        .sgp-unit-note {
+            font-size: 9.5px; color: rgba(255,255,255,0.18); text-align: center;
+            letter-spacing: 1.5px; margin-bottom: 26px; line-height: 1.7;
+        }
+        .sgp-close-btn {
+            width: 100%; padding: 15px; background: transparent;
+            color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50px; font-weight: 700; font-size: 10px;
+            letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer;
+            font-family: 'DM Sans', sans-serif; transition: all 0.3s;
+        }
+        .sgp-close-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.14); }
+        /* ═══ END MODULAR SIZE GUIDE POPUP ═══ */
+
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
             header { padding: 0 22px; height: 64px; }
@@ -865,6 +934,37 @@
     </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════════════
+     MODULAR SIZE GUIDE POPUP
+     ─────────────────────────────────────────────────────────────────
+     HOW TO EDIT MEASUREMENTS:
+     The JS object `SIZE_GUIDE_DATA` (in the <script> block) holds all
+     measurements. Each key maps to a product type:
+       "tops"    → T-Shirts, Hoodies, Jackets  (Size, Shoulder, Chest, Sleeve, Length)
+       "trouser" → Pants & Sweatpants           (Size, Waist, Length)
+       "set"     → Full Outfits / Tracksuits    (Size, Shoulder, Chest, Waist, Length, Sleeve)
+
+     To assign a type to a product card, add:   data-size-type="tops"
+     (trouser cards already use data-trouser="true"; set cards use data-size-type="set")
+     Tops are the default — no attribute needed for t-shirts/hoodies/jackets.
+═══════════════════════════════════════════════════════════════════ -->
+<div id="sizeGuidePopup">
+    <div class="sgp-content">
+        <div class="sgp-eyebrow" id="sgp-eyebrow">Size Guide</div>
+        <div class="sgp-title" id="sgp-title">Size Guide</div>
+        <div class="sgp-subtitle" id="sgp-subtitle">Measurements in Centimeters</div>
+        <div class="sgp-model-note"><strong>Model Reference:</strong> Our model is 183 cm tall and wears <strong>Size L</strong></div>
+        <div class="sgp-table-wrap">
+            <table class="sgp-table" id="sgp-table">
+                <thead><tr id="sgp-thead-row"></tr></thead>
+                <tbody id="sgp-tbody"></tbody>
+            </table>
+        </div>
+        <p class="sgp-unit-note">All measurements in centimeters · Between sizes? Size up for a relaxed fit.</p>
+        <button class="sgp-close-btn" onclick="closeSizeGuidePopup()">Close Size Guide</button>
+    </div>
+</div>
+
 <!-- SITE WRAPPER -->
 <div class="site-wrapper">
     <div id="added-toast"><div class="toast-icon">✓</div><span id="toast-text"></span></div>
@@ -1068,27 +1168,27 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
                     <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
                     <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
                     <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
                     <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-size-type="set" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1222,66 +1322,6 @@
             <h2 id="m-name">Product</h2>
             <span id="m-price">0 ETB</span>
             <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size L</p>
-
-            <!-- ═══ STATIC SIZE GUIDE TABLE — appears on every product ═══ -->
-            <div id="product-size-table" style="margin-top:18px;margin-bottom:4px;overflow-x:auto;border-radius:14px;border:1px solid rgba(255,255,255,0.06);">
-                <table style="width:100%;border-collapse:collapse;min-width:320px;">
-                    <thead>
-                        <tr>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);">Size</th>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">Shoulder</th>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">Chest</th>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">Waist</th>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">Length</th>
-                            <th style="background:rgba(255,215,0,0.06);color:rgba(255,215,0,0.7);font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:12px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.06);">Sleeve</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="color:white;font-weight:600;font-size:12px;padding:11px 10px;border-bottom:1px solid rgba(255,255,255,0.03);">S</td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                        </tr>
-                        <tr>
-                            <td style="color:white;font-weight:600;font-size:12px;padding:11px 10px;border-bottom:1px solid rgba(255,255,255,0.03);">M</td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                        </tr>
-                        <tr>
-                            <td style="color:white;font-weight:600;font-size:12px;padding:11px 10px;border-bottom:1px solid rgba(255,255,255,0.03);">L</td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                        </tr>
-                        <tr>
-                            <td style="color:white;font-weight:600;font-size:12px;padding:11px 10px;border-bottom:1px solid rgba(255,255,255,0.03);">XL</td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03);"></td>
-                        </tr>
-                        <tr>
-                            <td style="color:white;font-weight:600;font-size:12px;padding:11px 10px;">XXL</td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;"></td>
-                            <td style="color:rgba(255,255,255,0.60);font-size:12px;padding:11px 10px;text-align:center;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- ═══ END STATIC SIZE GUIDE TABLE ═══ -->
-
             <div class="m-divider"></div>
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
@@ -1683,13 +1723,118 @@ function unlockScroll() { document.documentElement.classList.remove('overlay-ope
 function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
-/* ══ SIZE GUIDES ══ */
+/* ══════════════════════════════════════════════════════════════════
+   MODULAR SIZE GUIDE SYSTEM
+   ──────────────────────────────────────────────────────────────────
+   HOW TO EDIT MEASUREMENTS
+   ─────────────────────────
+   Each entry in SIZE_GUIDE_DATA is an array of row objects.
+   Each row object key must exactly match a column name in COLUMNS.
+   Leave a value as '' to show an em-dash placeholder in that cell.
+
+   PRODUCT TYPE is determined automatically when a product opens:
+     • data-trouser="true"  → type = 'trouser'
+     • data-size-type="set" → type = 'set'
+     • anything else        → type = 'tops'  (default)
+
+   To override any single product, add data-size-type="tops|trouser|set"
+   directly on that product-card div.
+══════════════════════════════════════════════════════════════════ */
+const SIZE_GUIDE_DATA = {
+
+    /* ── TOPS: T-Shirts, Hoodies, Jackets ─────────────────────────
+       Columns shown: Size · Shoulder · Chest · Sleeve · Length
+       All values in CM                                            */
+    tops: {
+        label:    'Tops & Outerwear',
+        subtitle: 'T-Shirts · Hoodies · Jackets · Measurements in CM',
+        columns:  ['Size', 'Shoulder', 'Chest', 'Sleeve', 'Length'],
+        rows: [
+            { Size: 'S',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
+            { Size: 'M',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
+            { Size: 'L',   Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
+            { Size: 'XL',  Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
+            { Size: 'XXL', Shoulder: '',  Chest: '',  Sleeve: '',  Length: '' },
+        ]
+    },
+
+    /* ── TROUSERS: Pants, Sweatpants ───────────────────────────────
+       Columns shown: Size · Waist · Length
+       All values in CM                                            */
+    trouser: {
+        label:    'Trousers & Pants',
+        subtitle: 'Sweatpants · Suit Pants · Measurements in CM',
+        columns:  ['Size', 'Waist', 'Length'],
+        rows: [
+            { Size: 'S',   Waist: '',  Length: '' },
+            { Size: 'M',   Waist: '',  Length: '' },
+            { Size: 'L',   Waist: '',  Length: '' },
+            { Size: 'XL',  Waist: '',  Length: '' },
+            { Size: 'XXL', Waist: '',  Length: '' },
+        ]
+    },
+
+    /* ── SETS: Full Outfits / Tracksuits ───────────────────────────
+       Columns shown: Size · Shoulder · Chest · Waist · Length · Sleeve
+       All values in CM                                            */
+    set: {
+        label:    'Full Outfit Sets',
+        subtitle: 'Tracksuits · Complete Sets · Measurements in CM',
+        columns:  ['Size', 'Shoulder', 'Chest', 'Waist', 'Length', 'Sleeve'],
+        rows: [
+            { Size: 'S',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
+            { Size: 'M',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
+            { Size: 'L',   Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
+            { Size: 'XL',  Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
+            { Size: 'XXL', Shoulder: '',  Chest: '',  Waist: '',  Length: '',  Sleeve: '' },
+        ]
+    }
+};
+
+/* Determine which size type the current open product card is */
+let currentSizeType = 'tops';
+
 function openSizeGuide() {
-    if (isTrouserProduct) { document.getElementById('trouserSizeGuideModal').style.display = 'block'; }
-    else { document.getElementById('clothingSizeGuideModal').style.display = 'block'; }
+    const guide = SIZE_GUIDE_DATA[currentSizeType] || SIZE_GUIDE_DATA.tops;
+
+    /* Set header text */
+    document.getElementById('sgp-eyebrow').textContent = '📐 Size Guide · OUMRAN';
+    document.getElementById('sgp-title').textContent   = guide.label;
+    document.getElementById('sgp-subtitle').textContent = guide.subtitle;
+
+    /* Build thead */
+    const theadRow = document.getElementById('sgp-thead-row');
+    theadRow.innerHTML = guide.columns.map((col, i) =>
+        `<th style="${i === 0 ? 'text-align:left;padding-left:16px;' : ''}">${col}</th>`
+    ).join('');
+
+    /* Build tbody */
+    const tbody = document.getElementById('sgp-tbody');
+    tbody.innerHTML = guide.rows.map((row, rIdx) => {
+        const isLast = rIdx === guide.rows.length - 1;
+        const cells  = guide.columns.map((col, cIdx) => {
+            const val   = row[col] !== undefined ? row[col] : '';
+            const style = [
+                cIdx === 0 ? 'color:white;font-weight:700;text-align:left;padding-left:16px;' : '',
+                !isLast    ? 'border-bottom:1px solid rgba(255,255,255,0.03);' : ''
+            ].join('');
+            return `<td style="${style}">${val}</td>`;
+        }).join('');
+        return `<tr>${cells}</tr>`;
+    }).join('');
+
+    document.getElementById('sizeGuidePopup').classList.add('sgp-open');
+    document.documentElement.classList.add('modal-open');
 }
-function closeClothingSizeGuide() { document.getElementById('clothingSizeGuideModal').style.display = 'none'; }
-function closeTrouserSizeGuide() { document.getElementById('trouserSizeGuideModal').style.display = 'none'; }
+
+function closeSizeGuidePopup() {
+    document.getElementById('sizeGuidePopup').classList.remove('sgp-open');
+    document.documentElement.classList.remove('modal-open');
+}
+
+/* Keep old names as aliases so nothing else breaks */
+function closeClothingSizeGuide() { closeSizeGuidePopup(); }
+function closeTrouserSizeGuide()  { closeSizeGuidePopup(); }
 
 /* ══ STATE ══ */
 const DOM = {};
@@ -1868,6 +2013,16 @@ function openP(n, t, price) {
     document.body.classList.add('modal-open');
 
     isTrouserProduct = card.getAttribute('data-trouser') === 'true';
+
+    /* ── Determine size guide type for this product ── */
+    const explicitType = card.getAttribute('data-size-type');
+    if (explicitType && SIZE_GUIDE_DATA[explicitType]) {
+        currentSizeType = explicitType;
+    } else if (isTrouserProduct) {
+        currentSizeType = 'trouser';
+    } else {
+        currentSizeType = 'tops';
+    }
     const modelNote = document.getElementById('m-model-note');
     const sizeGuideBtn = document.getElementById('size-guide-btn');
     modelNote.style.display = (t === 'clothe') ? 'block' : 'none';
