@@ -23,6 +23,11 @@
             --radius-modal: 36px;
             --radius-btn: 60px;
             --transition: cubic-bezier(0.23, 1, 0.32, 1);
+            /* Tier colors */
+            --tier-normal: #aaaaaa;
+            --tier-standard: #4fc3f7;
+            --tier-exclusive: #ce93d8;
+            --tier-premium: #FFD700;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -131,6 +136,25 @@
         .admin-only { display: none; }
         .site-wrapper { width: 100%; max-width: 1440px; margin: 0 auto; }
 
+        /* ══ TIER BADGE SYSTEM ══ */
+        .tier-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 7px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+            border: 1px solid; white-space: nowrap;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .tier-normal    { color: var(--tier-normal);    border-color: rgba(170,170,170,0.2);   background: rgba(170,170,170,0.06); }
+        .tier-standard  { color: var(--tier-standard);  border-color: rgba(79,195,247,0.2);    background: rgba(79,195,247,0.06); }
+        .tier-exclusive { color: var(--tier-exclusive); border-color: rgba(206,147,216,0.2);   background: rgba(206,147,216,0.06); }
+        .tier-premium   { color: var(--tier-premium);   border-color: rgba(255,215,0,0.25);    background: rgba(255,215,0,0.07); }
+
+        /* Used in modal */
+        .m-tier-wrap { margin-bottom: 14px; }
+
+        /* ══ CARD TIER INDICATOR ══ */
+        .card-tier-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+
         /* SPLASH */
         #splash-screen {
             position: fixed; inset: 0;
@@ -224,6 +248,13 @@
         .badge-icon { color: var(--gold); font-size: 11px; }
         .badge-text { color: rgba(255,255,255,0.20); font-size: 8.5px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; }
 
+        /* TIER LEGEND */
+        .tier-legend {
+            display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+            gap: 12px; padding: 18px 24px 28px;
+        }
+        .tier-legend-label { font-size: 8px; color: rgba(255,255,255,0.16); letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-right: 6px; }
+
         /* HERO */
         .hero-headline { text-align: center; padding: 56px 24px 16px; }
         .hero-headline h1 {
@@ -262,6 +293,9 @@
             color: white; overflow: hidden; cursor: pointer;
             transition: transform 0.55s var(--transition), box-shadow 0.55s var(--transition), border-color 0.4s, background 0.4s;
             box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+            /* Preloading: will-change promotes card to its own composite layer */
+            will-change: transform;
+            content-visibility: auto;
         }
         .product-card:hover { transform: translateY(-18px) scale(1.02); box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.15), 0 0 60px rgba(255,215,0,0.06); border-color: rgba(255,215,0,0.14); background: rgba(255,255,255,0.04); }
         .img-area { height: 268px; overflow: hidden; position: relative; }
@@ -275,9 +309,9 @@
             text-transform: uppercase; opacity: 0; transform: translateY(-6px); transition: opacity 0.4s, transform 0.4s;
         }
         .product-card:hover .img-overlay-badge { opacity: 1; transform: translateY(0); }
-        .info-area { padding: 20px 18px 22px; }
+        .info-area { padding: 18px 18px 20px; }
         .info-area h3 { font-size: 11.5px; color: rgba(255,255,255,0.5); overflow: hidden; font-weight: 400; letter-spacing: 0.4px; line-height: 1.55; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
         .new-p { font-weight: 700; font-size: 15px; color: white; }
         .card-add-icon { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.3s; opacity: 0; transform: scale(0.7); }
         .product-card:hover .card-add-icon { opacity: 1; transform: scale(1); }
@@ -544,11 +578,25 @@
         .sgp-close-btn { width: 100%; padding: 15px; background: transparent; color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s; }
         .sgp-close-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.14); }
 
+        /* ══ UNIQUE: Floating Tier Indicator bar ══ */
+        .tier-floating-tip {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+            z-index: 4000; background: rgba(8,6,2,0.90); backdrop-filter: blur(32px);
+            border: 1px solid rgba(255,215,0,0.12); border-radius: 40px;
+            padding: 10px 20px; display: flex; align-items: center; gap: 14px;
+            font-size: 9px; color: rgba(255,255,255,0.35); letter-spacing: 1.5px;
+            transition: transform 0.5s var(--transition), opacity 0.5s;
+            opacity: 0; pointer-events: none;
+            white-space: nowrap;
+        }
+        .tier-floating-tip.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
             header { padding: 0 22px; height: 64px; }
             .nav-strip { gap: 22px; padding: 0 22px; top: 64px; }
             .trust-bar { gap: 16px; padding: 14px; flex-direction: column; text-align: center; }
+            .tier-legend { gap: 8px; }
             .modal { padding: 14px 10px; }
             .modal-content { padding: 30px 20px 38px; }
             .scroll-wrapper { gap: 20px; padding: 8px 22px 72px; }
@@ -572,6 +620,11 @@
 <div id="bg-veil"></div>
 <div id="bg-aurora"></div>
 <div id="particles"></div>
+
+<!-- Floating tier hint (shows on hover) -->
+<div class="tier-floating-tip" id="tierFloatingTip">
+    <span id="tierTipContent">✦ Viewing: Premium</span>
+</div>
 
 <!-- ZOOM -->
 <div id="zoom-container">
@@ -686,6 +739,10 @@
         <div class="profile-stat"><div class="profile-stat-label">Membership Tier</div><div class="profile-stat-value gold">✦ Client Portal</div></div>
         <div class="profile-stat"><div class="profile-stat-label">Logistics Terminal</div><div class="profile-stat-value">Addis Ababa Hub, Ethiopia</div></div>
         <div class="profile-stat"><div class="profile-stat-label">Account Verification Status</div><div class="profile-stat-value green">✓ Secure Handshake Verified</div></div>
+        <div class="profile-stat" id="hub-total-orders-stat" style="display:none;">
+            <div class="profile-stat-label">Total Orders Placed</div>
+            <div class="profile-stat-value gold" id="hub-total-orders">0</div>
+        </div>
         <button onclick="editProfileName()" class="profile-edit-btn" style="margin-top:24px;">Edit Profile →</button>
         <div style="margin-top:32px;padding:24px 0;border-top:1px solid rgba(255,255,255,0.04);text-align:center;">
             <p style="color:rgba(255,215,0,0.35);font-size:8px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin:0 0 14px;">Why Oumran Is Unique</p>
@@ -750,6 +807,15 @@
         <div class="badge"><span class="badge-icon">✦</span><span class="badge-text">Telegram Support 24/7</span></div>
     </div>
 
+    <!-- TIER LEGEND -->
+    <div class="tier-legend">
+        <span class="tier-legend-label">Tiers:</span>
+        <span class="tier-badge tier-normal">● Normal · Under 2k</span>
+        <span class="tier-badge tier-standard">● Standard · 2k–3k</span>
+        <span class="tier-badge tier-exclusive">● Exclusive · 3k–5k</span>
+        <span class="tier-badge tier-premium">● Premium · 5k+</span>
+    </div>
+
     <div class="hero-headline">
         <h1>Curated Luxury<br>for Addis Ababa</h1>
         <p class="hero-sub">Premium Fashion · Direct Sourcing · Delivered to Your Door</p>
@@ -761,24 +827,6 @@
 
     <main id="store-main">
 
-        <!-- ═══════════════════════════════════════════════════════════════
-             HOW PER-PRODUCT SIZE GUIDES WORK
-             ────────────────────────────────────────────────────────────
-             Each product card carries its own size guide inside a
-             data-size-guide attribute (JSON).
-
-             The JSON object has three keys:
-               title    → shown as the popup heading  (e.g. "Tops & Outerwear")
-               columns  → array of column header names  (first must always be "Size")
-               rows     → array of row objects; each key must match a column name
-
-             Leave any measurement value as "" and the popup will show a
-             dash (—) placeholder automatically.
-
-             data-trouser="true" is still supported for pants to auto-select
-             the trouser sizes; it does NOT affect the size guide table.
-        ═══════════════════════════════════════════════════════════════ -->
-
         <!-- GRAPHIC T-SHIRTS -->
         <div class="category-section" id="cat-tshirts">
             <div class="category-header">
@@ -789,74 +837,77 @@
             <div class="scroll-wrapper">
 
                 <div class="product-card"
-     onclick="openP('Short-Sleeve Zip Knit','clothe',1600)"
-     data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'
-     data-size-guide='{"title":"Short-Sleeve Zip Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"96","Sleeve":"20.5","Length":"65"},{"Size":"L","Shoulder":"44.2","Chest":"100","Sleeve":"21","Length":"67"},{"Size":"XL","Shoulder":"46","Chest":"104","Sleeve":"21.5","Length":"70"},{"Size":"2XL","Shoulder":"46.6","Chest":"108","Sleeve":"22","Length":"71"},{"Size":"3XL","Shoulder":"50","Chest":"114","Sleeve":"22.5","Length":"74"},{"Size":"4XL","Shoulder":"52","Chest":"120","Sleeve":"23","Length":"76"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
-    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
-
-                <div class="product-card"
-     onclick="openP('Vintage Polo','clothe',1800)"
-     data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'
-     data-size-guide='{"title":"Vintage Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"52.3","Chest":"116","Sleeve":"22.5","Length":"66"},{"Size":"L","Shoulder":"54","Chest":"120","Sleeve":"23","Length":"68"},{"Size":"XL","Shoulder":"55.7","Chest":"124","Sleeve":"23.5","Length":"70"},{"Size":"2XL","Shoulder":"57.4","Chest":"128","Sleeve":"24","Length":"72"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
-    <div class="info-area"><h3>Vintage Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
+                     onclick="openP('Short-Sleeve Zip Knit','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]'
+                     data-size-guide='{"title":"Short-Sleeve Zip Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"96","Sleeve":"20.5","Length":"65"},{"Size":"L","Shoulder":"44.2","Chest":"100","Sleeve":"21","Length":"67"},{"Size":"XL","Shoulder":"46","Chest":"104","Sleeve":"21.5","Length":"70"},{"Size":"2XL","Shoulder":"46.6","Chest":"108","Sleeve":"22","Length":"71"},{"Size":"3XL","Shoulder":"50","Chest":"114","Sleeve":"22.5","Length":"74"},{"Size":"4XL","Shoulder":"52","Chest":"120","Sleeve":"23","Length":"76"}]}'
+                     data-sizes="M,L,XL,2XL,3XL,4XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeve Zip Knit.jpg" loading="lazy" alt="Short-Sleeve Zip Knit"></div>
+                    <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
 
                 <div class="product-card"
-     onclick="openP('Italian-Style Knit Polo','clothe',1800)"
-     data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'
-     data-size-guide='{"title":"Italian-Style Knit Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"100","Sleeve":"22","Length":"65"},{"Size":"L","Shoulder":"44","Chest":"104","Sleeve":"23","Length":"67"},{"Size":"XL","Shoulder":"45","Chest":"108","Sleeve":"24","Length":"69"},{"Size":"2XL","Shoulder":"46","Chest":"112","Sleeve":"25","Length":"71"},{"Size":"3XL","Shoulder":"47","Chest":"116","Sleeve":"26","Length":"73"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
-    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
-
-                <div class="product-card"
-     onclick="openP('Premium Floral Short Sleeve','clothe',1800)"
-     data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'
-     data-size-guide='{"title":"Premium Floral Short Sleeve","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"44","Chest":"102","Sleeve":"","Length":""},{"Size":"L","Shoulder":"46","Chest":"106","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"48","Chest":"110","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"50","Chest":"114","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"52","Chest":"118","Sleeve":"","Length":""},{"Size":"4XL","Shoulder":"54","Chest":"122","Sleeve":"","Length":""}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
-    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
-           <div class="product-card"
-     onclick="openP('Half Zipped Black T-Shirt','clothe',1800)"
-     data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'
-     data-size-guide='{"title":"Half Zipped Black T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"","Chest":"110","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"114","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"118","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"","Chest":"122","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"","Chest":"126","Sleeve":"","Length":""}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
-    <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
-                
-                <div class="product-card"
-     onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)"
-     data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'
-     data-size-guide='{"title":"Short-Sleeved Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"40","Chest":"95","Sleeve":"","Length":""},{"Size":"L","Shoulder":"42","Chest":"98","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"43","Chest":"102","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"44","Chest":"106","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"45","Chest":"110","Sleeve":"","Length":""}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
-    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
+                     onclick="openP('Vintage Polo','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]'
+                     data-size-guide='{"title":"Vintage Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"52.3","Chest":"116","Sleeve":"22.5","Length":"66"},{"Size":"L","Shoulder":"54","Chest":"120","Sleeve":"23","Length":"68"},{"Size":"XL","Shoulder":"55.7","Chest":"124","Sleeve":"23.5","Length":"70"},{"Size":"2XL","Shoulder":"57.4","Chest":"128","Sleeve":"24","Length":"72"}]}'
+                     data-sizes="M,L,XL,2XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Vintage Polo.jpg" loading="lazy" alt="Vintage Polo"></div>
+                    <div class="info-area"><h3>Vintage Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
 
                 <div class="product-card"
-     onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)"
-     data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'
-     data-size-guide='{"title":"Lapel Short-Sleeved Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
-    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
+                     onclick="openP('Italian-Style Knit Polo','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]'
+                     data-size-guide='{"title":"Italian-Style Knit Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"100","Sleeve":"22","Length":"65"},{"Size":"L","Shoulder":"44","Chest":"104","Sleeve":"23","Length":"67"},{"Size":"XL","Shoulder":"45","Chest":"108","Sleeve":"24","Length":"69"},{"Size":"2XL","Shoulder":"46","Chest":"112","Sleeve":"25","Length":"71"},{"Size":"3XL","Shoulder":"47","Chest":"116","Sleeve":"26","Length":"73"}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Italian-Style Knit Polo.jpg" loading="lazy" alt="Italian-Style Knit Polo"></div>
+                    <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
 
+                <div class="product-card"
+                     onclick="openP('Premium Floral Short Sleeve','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]'
+                     data-size-guide='{"title":"Premium Floral Short Sleeve","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"44","Chest":"102","Sleeve":"","Length":""},{"Size":"L","Shoulder":"46","Chest":"106","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"48","Chest":"110","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"50","Chest":"114","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"52","Chest":"118","Sleeve":"","Length":""},{"Size":"4XL","Shoulder":"54","Chest":"122","Sleeve":"","Length":""}]}'
+                     data-sizes="M,L,XL,2XL,3XL,4XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium Floral Short Sleeve.jpg" loading="lazy" alt="Premium Floral Short Sleeve"></div>
+                    <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
 
-               <div class="product-card"
-     onclick="openP('Strip Knit T-Shirt','clothe',2850)"
-     data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'
-     data-size-guide='{"title":"Strip Knit T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
-    <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
+                <div class="product-card"
+                     onclick="openP('Half Zipped Black T-Shirt','clothe',1800)"
+                     data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]'
+                     data-size-guide='{"title":"Half Zipped Black T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"","Chest":"110","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"114","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"118","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"","Chest":"122","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"","Chest":"126","Sleeve":"","Length":""}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half zipped black t-shirt.jpg" loading="lazy" alt="Half Zipped Black T-Shirt"></div>
+                    <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
+
+                <div class="product-card"
+                     onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]'
+                     data-size-guide='{"title":"Short-Sleeved Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"40","Chest":"95","Sleeve":"","Length":""},{"Size":"L","Shoulder":"42","Chest":"98","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"43","Chest":"102","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"44","Chest":"106","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"45","Chest":"110","Sleeve":"","Length":""}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeved Knit Sweater.jpg" loading="lazy" alt="Short-Sleeved Knit Sweater"></div>
+                    <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
+
+                <div class="product-card"
+                     onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)"
+                     data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]'
+                     data-size-guide='{"title":"Lapel Short-Sleeved Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Short-Sleeved Sweater.jpg" loading="lazy" alt="Lapel Short-Sleeved Sweater"></div>
+                    <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-normal">● Normal</span></div></div>
+                </div>
+
+                <div class="product-card"
+                     onclick="openP('Strip Knit T-Shirt','clothe',2850)"
+                     data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]'
+                     data-size-guide='{"title":"Strip Knit T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Strip knit t-shirt.jpg" loading="lazy" alt="Strip Knit T-Shirt"></div>
+                    <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
+                </div>
+
             </div>
         </div>
 
@@ -872,54 +923,55 @@
                 <div class="product-card"
                      onclick="openP('Polo Knit Sweater','clothe',2500)"
                      data-variants='[{"name":"1","img":"Polo knit sweater.jpg"},{"name":"2","img":"Knit polo.jpg"},{"name":"3","img":"Polo knit.jpg"}]'
-                     data-size-guide='{"title":"Polo Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"42","Chest":"100","Sleeve":"21","Length":"66"},{"Size":"L","Shoulder":"43","Chest":"104","Sleeve":"22","Length":"68"},{"Size":"XL","Shoulder":"44","Chest":"108","Sleeve":"23","Length":"70"},{"Size":"2XL","Shoulder":"45","Chest":"112","Sleeve":"24","Length":"72"},{"Size":"3XL","Shoulder":"46","Chest":"116","Sleeve":"25","Length":"74"},{"Size":"4XL","Shoulder":"47","Chest":"120","Sleeve":"26","Length":"76"}]}'>
+                     data-size-guide='{"title":"Polo Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"42","Chest":"100","Sleeve":"21","Length":"66"},{"Size":"L","Shoulder":"43","Chest":"104","Sleeve":"22","Length":"68"},{"Size":"XL","Shoulder":"44","Chest":"108","Sleeve":"23","Length":"70"},{"Size":"2XL","Shoulder":"45","Chest":"112","Sleeve":"24","Length":"72"},{"Size":"3XL","Shoulder":"46","Chest":"116","Sleeve":"25","Length":"74"},{"Size":"4XL","Shoulder":"47","Chest":"120","Sleeve":"26","Length":"76"}]}'
+                     data-sizes="M,L,XL,2XL,3XL,4XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo knit sweater.jpg" loading="lazy" alt="Polo Knit Sweater"></div>
-                    <div class="info-area"><h3>Polo Knit Sweater</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Polo Knit Sweater</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
-
 
                 <div class="product-card"
                      onclick="openP('Half-Zip Sweater','clothe',2400)"
                      data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]'
-                     data-size-guide='{"title":"Half-Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}'>
+                     data-size-guide='{"title":"Half-Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half-Zip Sweater.jpg" loading="lazy" alt="Half-Zip Sweater"></div>
-                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="card-footer"><div class="new-p">2,400 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Half-Zip Sweater</h3><div class="card-footer"><div class="new-p">2,400 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
+                <div class="product-card"
+                     onclick="openP('Polo Cable Knit Sweater','clothe',3000)"
+                     data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'
+                     data-size-guide='{"title":"Polo Cable Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}'
+                     data-sizes="105,110,115,120,125">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
+                    <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
+                </div>
 
                 <div class="product-card"
-     onclick="openP('Polo Cable Knit Sweater','clothe',3000)"
-     data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]'
-     data-size-guide='{"title":"Polo Cable Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo cable knit collar soft sweater.jpg" loading="lazy" alt="Polo Cable Knit Sweater"></div>
-    <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
-
-                <div class="product-card"
-     onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)"
-     data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'
-     data-size-guide='{"title":"Versatile Polo Cable-Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"96","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"},{"Size":"130","Shoulder":"47","Chest":"116","Sleeve":"63","Length":"76"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
-    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
+                     onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)"
+                     data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]'
+                     data-size-guide='{"title":"Versatile Polo Cable-Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"96","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"},{"Size":"130","Shoulder":"47","Chest":"116","Sleeve":"63","Length":"76"}]}'
+                     data-sizes="105,110,115,120,125,130">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="lazy" alt="Versatile Polo Cable-Knit Sweater"></div>
+                    <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
+                </div>
 
                 <div class="product-card"
-     onclick="openP('Denim Tears Hoodie','clothe',3500)"
-     data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'
-     data-size-guide='{"title":"Denim Tears Hoodie","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"59","Chest":"120","Sleeve":"57","Length":"68"},{"Size":"M","Shoulder":"61","Chest":"124","Sleeve":"58","Length":"70"},{"Size":"L","Shoulder":"63","Chest":"128","Sleeve":"59","Length":"72"},{"Size":"XL","Shoulder":"65","Chest":"132","Sleeve":"60","Length":"74"}]}'>
-    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
-    <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
-</div>
-
+                     onclick="openP('Denim Tears Hoodie','clothe',3500)"
+                     data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]'
+                     data-size-guide='{"title":"Denim Tears Hoodie","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"59","Chest":"120","Sleeve":"57","Length":"68"},{"Size":"M","Shoulder":"61","Chest":"124","Sleeve":"58","Length":"70"},{"Size":"L","Shoulder":"63","Chest":"128","Sleeve":"59","Length":"72"},{"Size":"XL","Shoulder":"65","Chest":"132","Sleeve":"60","Length":"74"}]}'
+                     data-sizes="S,M,L,XL">
+                    <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim tears Hoodie.jpg" loading="lazy" alt="Denim Tears Hoodie"></div>
+                    <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
+                </div>
 
                 <div class="product-card"
                      onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)"
                      data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]'
-                     data-size-guide='{"title":"Alo Official Casual Half Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}'>
+                     data-size-guide='{"title":"Alo Official Casual Half Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Alo official casual half zip sweater.jpg" loading="lazy" alt="Alo Official Casual Half Zip Sweater"></div>
-                    <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
 
             </div>
@@ -934,29 +986,31 @@
             </div>
             <div class="scroll-wrapper">
 
-               <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Suede Vintage Jacket','clothe',2800)"
                      data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]'
-                     data-size-guide='{"title":"Suede Vintage Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"64"},{"Size":"M","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"66"},{"Size":"L","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"68"},{"Size":"XL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"70"},{"Size":"XXL","Shoulder":"52","Chest":"128","Sleeve":"63","Length":"72"}]}'>
+                     data-size-guide='{"title":"Suede Vintage Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"64"},{"Size":"M","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"66"},{"Size":"L","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"68"},{"Size":"XL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"70"},{"Size":"XXL","Shoulder":"52","Chest":"128","Sleeve":"63","Length":"72"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Suede vintage jacket.jpg" loading="lazy" alt="Suede Vintage Jacket"></div>
-                    <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="card-footer"><div class="new-p">2,800 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="card-footer"><div class="new-p">2,800 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
                 <div class="product-card"
                      onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)"
                      data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]'
-                     data-size-guide='{"title":"American Retro Stand-Collar Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"51.5","Chest":"116","Sleeve":"61","Length":"61"},{"Size":"L","Shoulder":"53","Chest":"120","Sleeve":"62","Length":"63"},{"Size":"XL","Shoulder":"54.5","Chest":"124","Sleeve":"63","Length":"65"},{"Size":"2XL","Shoulder":"56","Chest":"128","Sleeve":"64","Length":"67"}]}'>
+                     data-size-guide='{"title":"American Retro Stand-Collar Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"51.5","Chest":"116","Sleeve":"61","Length":"61"},{"Size":"L","Shoulder":"53","Chest":"120","Sleeve":"62","Length":"63"},{"Size":"XL","Shoulder":"54.5","Chest":"124","Sleeve":"63","Length":"65"},{"Size":"2XL","Shoulder":"56","Chest":"128","Sleeve":"64","Length":"67"}]}'
+                     data-sizes="M,L,XL,2XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="American Retro Stand-Collar Jacket.jpg" loading="lazy" alt="American Retro Stand-Collar Jacket"></div>
-                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="card-footer"><div class="new-p">3,250 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="card-footer"><div class="new-p">3,250 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
 
-
-              <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)"
                      data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]'
-                     data-size-guide='{"title":"Lapel Corduroy Pocket Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"47","Chest":"108","Sleeve":"58","Length":"65"},{"Size":"M","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"67"},{"Size":"L","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"69"},{"Size":"XL","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"71"},{"Size":"XXL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"73"}]}'>
+                     data-size-guide='{"title":"Lapel Corduroy Pocket Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"47","Chest":"108","Sleeve":"58","Length":"65"},{"Size":"M","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"67"},{"Size":"L","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"69"},{"Size":"XL","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"71"},{"Size":"XXL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"73"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Corduroy Pocket Jacket.jpg" loading="lazy" alt="Lapel Corduroy Pocket Jacket"></div>
-                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
 
             </div>
@@ -973,98 +1027,89 @@
 
                 <div class="product-card"
                      onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]'
-                     data-size-guide='{"title":"Broken Planet Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"68","Length":"105"},{"Size":"M","Waist":"72","Length":"107"},{"Size":"L","Waist":"76","Length":"109"},{"Size":"XL","Waist":"80","Length":"111"},{"Size":"XXL","Waist":"84","Length":"113"}]}'>
+                     data-size-guide='{"title":"Broken Planet Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"68","Length":"105"},{"Size":"M","Waist":"72","Length":"107"},{"Size":"L","Waist":"76","Length":"109"},{"Size":"XL","Waist":"80","Length":"111"},{"Size":"XXL","Waist":"84","Length":"113"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Broken Planet Fleece Sweatpants.jpg" loading="lazy" alt="Broken Planet Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Broken Planet Fleece</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
-
-               <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]'
-                     data-size-guide='{"title":"Polo Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"71-75","Length":"104"},{"Size":"M","Waist":"76-80","Length":"106"},{"Size":"L","Waist":"81-85","Length":"108"},{"Size":"XL","Waist":"86-90","Length":"110"},{"Size":"XXL","Waist":"91-95","Length":"112"}]}'>
+                     data-size-guide='{"title":"Polo Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"71-75","Length":"104"},{"Size":"M","Waist":"76-80","Length":"106"},{"Size":"L","Waist":"81-85","Length":"108"},{"Size":"XL","Waist":"86-90","Length":"110"},{"Size":"XXL","Waist":"91-95","Length":"112"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="lazy" alt="Polo Sweatpants"></div>
-                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Polo Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
-
-              <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Denim Tears Sweatpants','clothe',2850)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]'
-                     data-size-guide='{"title":"Denim Tears Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"70","Length":"105"},{"Size":"M","Waist":"74","Length":"107"},{"Size":"L","Waist":"78","Length":"109"},{"Size":"XL","Waist":"82","Length":"111"},{"Size":"XXL","Waist":"86","Length":"113"}]}'>
+                     data-size-guide='{"title":"Denim Tears Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"70","Length":"105"},{"Size":"M","Waist":"74","Length":"107"},{"Size":"L","Waist":"78","Length":"109"},{"Size":"XL","Waist":"82","Length":"111"},{"Size":"XXL","Waist":"86","Length":"113"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim Tears Sweatpants.jpg" loading="lazy" alt="Denim Tears Sweatpants"></div>
-                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
-
 
                 <div class="product-card"
                      onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]'
-                     data-size-guide='{"title":"Embroidered Y2K Streetwear Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"50","Length":"104"},{"Size":"M","Waist":"75","Length":"106"},{"Size":"L","Waist":"100","Length":"108"},{"Size":"XL","Waist":"125","Length":"110"},{"Size":"XXL","Waist":"150","Length":"112"}]}'>
+                     data-size-guide='{"title":"Embroidered Y2K Streetwear Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"50","Length":"104"},{"Size":"M","Waist":"75","Length":"106"},{"Size":"L","Waist":"100","Length":"108"},{"Size":"XL","Waist":"125","Length":"110"},{"Size":"XXL","Waist":"150","Length":"112"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Embroidered Y2K Streetwear Pants.jpg" loading="lazy" alt="Embroidered Y2K Streetwear Pants"></div>
-                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
-
 
                 <div class="product-card"
                      onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]'
-                     data-size-guide='{"title":"Signature Series Wide-Leg Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"72","Length":"104"},{"Size":"M","Waist":"76","Length":"106"},{"Size":"L","Waist":"80","Length":"108"},{"Size":"XL","Waist":"84","Length":"110"},{"Size":"XXL","Waist":"88","Length":"112"}]}'>
+                     data-size-guide='{"title":"Signature Series Wide-Leg Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"72","Length":"104"},{"Size":"M","Waist":"76","Length":"106"},{"Size":"L","Waist":"80","Length":"108"},{"Size":"XL","Waist":"84","Length":"110"},{"Size":"XXL","Waist":"88","Length":"112"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Signature Series Wide-Leg Trousers.jpg" loading="lazy" alt="Signature Series Wide-Leg Trousers"></div>
-                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
-
 
                 <div class="product-card"
                      onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]'
-                     data-size-guide='{"title":"Cross Pattern Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"74","Length":"106"},{"Size":"M","Waist":"78","Length":"108"},{"Size":"L","Waist":"82","Length":"110"},{"Size":"XL","Waist":"86","Length":"112"},{"Size":"XXL","Waist":"90","Length":"114"}]}'>
+                     data-size-guide='{"title":"Cross Pattern Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"74","Length":"106"},{"Size":"M","Waist":"78","Length":"108"},{"Size":"L","Waist":"82","Length":"110"},{"Size":"XL","Waist":"86","Length":"112"},{"Size":"XXL","Waist":"90","Length":"114"}]}'
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="lazy" alt="Cross Pattern Fleece Sweatpants"></div>
-                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-exclusive">● Exclusive</span></div></div>
                 </div>
 
-
-              <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Elastic Casual Suit Pants','clothe',2850)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]'
-                     data-size-guide='{"title":"Elastic Casual Suit Pants","columns":["Size"],"rows":[{"Size":"29"},{"Size":"30"},{"Size":"31"},{"Size":"32"},{"Size":"33"},{"Size":"34"},{"Size":"36"},{"Size":"38"},{"Size":"39"},{"Size":"40"},{"Size":"42"},{"Size":"43"},{"Size":"44"},{"Size":"45"}]}'>
+                     data-size-guide='{"title":"Elastic Casual Suit Pants","columns":["Size"],"rows":[{"Size":"29"},{"Size":"30"},{"Size":"31"},{"Size":"32"},{"Size":"33"},{"Size":"34"},{"Size":"36"},{"Size":"38"},{"Size":"39"},{"Size":"40"},{"Size":"42"},{"Size":"43"},{"Size":"44"},{"Size":"45"}]}'
+                     data-sizes="29,30,31,32,33,34,36,38,39,40,42,43,44,45">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Elastic casual suit pants.jpg" loading="lazy" alt="Elastic Casual Suit Pants"></div>
-                    <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
-
-
-              <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Wide-Leg Drape Pants','clothe',2850)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]'
-                     data-size-guide='{"title":"Wide-Leg Drape Pants","columns":["Size","Height","Weight"],"rows":[{"Size":"M","Height":"160-165","Weight":"50-60"},{"Size":"L","Height":"165-170","Weight":"60-70"},{"Size":"XL","Height":"170-175","Weight":"70-80"},{"Size":"2XL","Height":"175-180","Weight":"80-90"},{"Size":"3XL","Height":"180-185","Weight":"90-100"}]}'>
+                     data-size-guide='{"title":"Wide-Leg Drape Pants","columns":["Size","Height","Weight"],"rows":[{"Size":"M","Height":"160-165","Weight":"50-60"},{"Size":"L","Height":"165-170","Weight":"60-70"},{"Size":"XL","Height":"170-175","Weight":"70-80"},{"Size":"2XL","Height":"175-180","Weight":"80-90"},{"Size":"3XL","Height":"180-185","Weight":"90-100"}]}'
+                     data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Wide-Leg Drape Pants.jpg" loading="lazy" alt="Wide-Leg Drape Pants"></div>
-                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
-
-               <div class="product-card"
+                <div class="product-card"
                      onclick="openP('Slim-Fit Suit Trousers','clothe',2850)"
-                     data-trouser="true"
                      data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]'
-                     data-size-guide='{"title":"Slim-Fit Suit Trousers","columns":["Size","Height","Weight","Waist","Hip"],"rows":[{"Size":"28","Height":"170","Weight":"50","Waist":"71","Hip":"97"},{"Size":"29","Height":"172","Weight":"55","Waist":"74","Hip":"99"},{"Size":"30","Height":"172","Weight":"60","Waist":"77","Hip":"101"},{"Size":"31","Height":"175","Weight":"65","Waist":"80","Hip":"103"},{"Size":"32","Height":"175","Weight":"70","Waist":"83","Hip":"105"},{"Size":"33","Height":"175","Weight":"75","Waist":"86","Hip":"107"},{"Size":"34","Height":"180","Weight":"80","Waist":"89","Hip":"109"},{"Size":"36","Height":"180","Weight":"85","Waist":"92","Hip":"111"}]}'>
+                     data-size-guide='{"title":"Slim-Fit Suit Trousers","columns":["Size","Height","Weight","Waist","Hip"],"rows":[{"Size":"28","Height":"170","Weight":"50","Waist":"71","Hip":"97"},{"Size":"29","Height":"172","Weight":"55","Waist":"74","Hip":"99"},{"Size":"30","Height":"172","Weight":"60","Waist":"77","Hip":"101"},{"Size":"31","Height":"175","Weight":"65","Waist":"80","Hip":"103"},{"Size":"32","Height":"175","Weight":"70","Waist":"83","Hip":"105"},{"Size":"33","Height":"175","Weight":"75","Waist":"86","Hip":"107"},{"Size":"34","Height":"180","Weight":"80","Waist":"89","Hip":"109"},{"Size":"36","Height":"180","Weight":"85","Waist":"92","Hip":"111"}]}'
+                     data-sizes="28,29,30,31,32,33,34,36">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Slim-Fit Suit Trousers.jpg" loading="lazy" alt="Slim-Fit Suit Trousers"></div>
-                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-standard">● Standard</span></div></div>
                 </div>
 
             </div>
         </div>
 
-        <!-- FULL OUTFITS -->
+        <!-- FULL OUTFITS — No size guide, size buttons only -->
         <div class="category-section" id="cat-outfits">
             <div class="category-header">
                 <div class="category-title">Full Outfits 👔</div>
@@ -1074,51 +1119,51 @@
             <div class="scroll-wrapper">
 
                 <div class="product-card"
-                     onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)"
+                     onclick="openP('Denim Tears-Style Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'
-                     data-size-guide='{"title":"Denim Tears-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style tracksuit.WEBP" loading="lazy" alt="Denim Tears-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
                 <div class="product-card"
-                     onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)"
+                     onclick="openP('Synaworld Signature Paneled Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'
-                     data-size-guide='{"title":"Synaworld Signature Paneled Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="lazy" alt="Synaworld Signature Paneled Tracksuit"></div>
-                    <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
                 <div class="product-card"
-                     onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)"
+                     onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'
-                     data-size-guide='{"title":"Mertra Embroidered Fleece-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="lazy" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
                 <div class="product-card"
-                     onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)"
+                     onclick="openP('Mertra High-Street Heritage Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'
-                     data-size-guide='{"title":"Mertra High-Street Heritage Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="lazy" alt="Mertra High-Street Heritage Tracksuit"></div>
-                    <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
                 <div class="product-card"
-                     onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)"
+                     onclick="openP('Chrome Hearts-Style Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'
-                     data-size-guide='{"title":"Chrome Hearts-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Chrome Hearts-Style Tracksuit.jpg" loading="lazy" alt="Chrome Hearts-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
                 <div class="product-card"
-                     onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)"
+                     onclick="openP('Denim Tears Jeans-Style Tracksuit','outfit',7000)"
                      data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'
-                     data-size-guide='{"title":"Denim Tears Jeans-Style Tracksuit","columns":["Size","Shoulder","Chest","Waist","Length","Sleeve"],"rows":[{"Size":"S","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"M","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"L","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""},{"Size":"XXL","Shoulder":"","Chest":"","Waist":"","Length":"","Sleeve":""}]}'>
+                     data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style Tracksuit.jpg" loading="lazy" alt="Denim Tears Jeans-Style Tracksuit"></div>
-                    <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
+                    <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div><div class="card-tier-row"><span class="tier-badge tier-premium">✦ Premium</span></div></div>
                 </div>
 
             </div>
@@ -1140,14 +1185,8 @@
     <div class="services-section" id="cat-services">
         <div class="services-inner">
             <div class="services-eyebrow">Digital Excellence by OUMRAN</div>
-
-<h2 class="services-headline">
-Luxury Websites for Modern Businesses.
-</h2>
-
-<p class="services-subtext">
-OUMRAN doesn't only curate premium fashion. We design and build high-performance websites for businesses, entrepreneurs, restaurants, brands, and online stores across Ethiopia. Whether you need an e-commerce store, business website, personal brand platform, or custom digital solution, we create websites that look exceptional and drive real growth.
-</p>
+            <h2 class="services-headline">Luxury Websites for Modern Businesses.</h2>
+            <p class="services-subtext">OUMRAN doesn't only curate premium fashion. We design and build high-performance websites for businesses, entrepreneurs, restaurants, brands, and online stores across Ethiopia. Whether you need an e-commerce store, business website, personal brand platform, or custom digital solution, we create websites that look exceptional and drive real growth.</p>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-number">01</div>
@@ -1210,6 +1249,7 @@ OUMRAN doesn't only curate premium fashion. We design and build high-performance
             <img id="modal-img" alt="Product Image" onclick="openZoom()">
             <h2 id="m-name">Product</h2>
             <span id="m-price">0 ETB</span>
+            <div class="m-tier-wrap" id="m-tier-wrap"></div>
             <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size L</p>
             <div class="m-divider"></div>
             <div id="variant-area" class="variant-section">
@@ -1403,7 +1443,7 @@ OUMRAN doesn't only curate premium fashion. We design and build high-performance
         <label class="svc-label">Desired Features</label><textarea class="svc-textarea" id="biz_features" placeholder="e.g. Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials..."></textarea>
         <label class="svc-label">Additional Notes</label><textarea class="svc-textarea" id="biz_notes" placeholder="Reference websites you like, brand colors, tone of voice, or anything else important..."></textarea>
         <label class="svc-label">Budget Range (ETB)</label>
-        <select class="svc-select" id="cd_budget"><option value="">Select your budget</option><option>5,000 – 10,000 ETB</option><option>11,000 – 15,000 ETB</option><option>16,000 – 20,000 ETB</option><option>21,000+ ETB (Enterprise)</option><option>Open to discussion</option></select>
+        <select class="svc-select" id="biz_budget"><option value="">Select your budget</option><option>5,000 – 10,000 ETB</option><option>11,000 – 15,000 ETB</option><option>16,000 – 20,000 ETB</option><option>21,000+ ETB (Enterprise)</option><option>Open to discussion</option></select>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('business')">Request Business Website →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('business')">Cancel</button>
@@ -1423,8 +1463,8 @@ OUMRAN doesn't only curate premium fashion. We design and build high-performance
         <label class="svc-label">Phone Number</label><input type="tel" class="svc-input" id="pb_phone" placeholder="+251 9XX XXX XXX">
         <label class="svc-label">Social Media Links</label><input type="text" class="svc-input" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn — paste links here">
         <label class="svc-label">Goals for Your Website</label><textarea class="svc-textarea" id="pb_goals" placeholder="What do you want your website to achieve? More brand deals, new clients, selling products, showcasing work..."></textarea>
-       <label class="svc-label">Budget Range (ETB)</label>
-        <select class="svc-select" id="cd_budget"><option value="">Select your budget</option><option>5,000 – 10,000 ETB</option><option>11,000 – 15,000 ETB</option><option>16,000 – 20,000 ETB</option><option>21,000+ ETB (Enterprise)</option><option>Open to discussion</option></select>
+        <label class="svc-label">Budget Range (ETB)</label>
+        <select class="svc-select" id="pb_budget"><option value="">Select your budget</option><option>5,000 – 10,000 ETB</option><option>11,000 – 15,000 ETB</option><option>16,000 – 20,000 ETB</option><option>21,000+ ETB (Enterprise)</option><option>Open to discussion</option></select>
         <div class="svc-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('personal')">Build My Brand →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('personal')">Cancel</button>
@@ -1453,6 +1493,14 @@ OUMRAN doesn't only curate premium fashion. We design and build high-performance
 </div>
 
 <script>
+/* ══ TIER SYSTEM ══ */
+function getTier(price) {
+    if (price < 2000)  return { label: '● Normal',    cls: 'tier-normal' };
+    if (price < 3000)  return { label: '● Standard',  cls: 'tier-standard' };
+    if (price < 5000)  return { label: '● Exclusive',  cls: 'tier-exclusive' };
+    return               { label: '✦ Premium',   cls: 'tier-premium' };
+}
+
 /* ══ PARTICLES ══ */
 (function() {
     const c = document.getElementById('particles');
@@ -1464,6 +1512,33 @@ OUMRAN doesn't only curate premium fashion. We design and build high-performance
         p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--px-drift:${drift}px;animation-duration:${Math.random()*22+14}s;animation-delay:${Math.random()*22}s;opacity:0;`;
         c.appendChild(p);
     }
+})();
+
+/* ══ ASSET PRELOADING ══ */
+(function preloadImages() {
+    /* Eagerly decode all product images at idle time, eliminating pop-in */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; }
+                observer.unobserve(img);
+            }
+        });
+    }, { rootMargin: '300px' });
+
+    /* Preload all variant images into browser cache */
+    document.querySelectorAll('.product-card').forEach(card => {
+        const raw = card.getAttribute('data-variants');
+        if (!raw) return;
+        try {
+            JSON.parse(raw).forEach(v => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch'; link.as = 'image'; link.href = v.img;
+                document.head.appendChild(link);
+            });
+        } catch(e) {}
+    });
 })();
 
 /* ══ HEADER SCROLL ══ */
@@ -1484,58 +1559,39 @@ function unlockScroll() { document.documentElement.classList.remove('overlay-ope
 function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
-/* ══════════════════════════════════════════════════════════════════
-   PER-PRODUCT SIZE GUIDE SYSTEM
-   ──────────────────────────────────────────────────────────────────
-   The openSizeGuide() function reads the data-size-guide JSON
-   attribute from the currently open product card.
-   No global table object exists — every product owns its own data.
-══════════════════════════════════════════════════════════════════ */
-
-/* Holds a reference to the card that is currently open in the modal */
+/* ══ PER-PRODUCT SIZE GUIDE ══ */
 let currentOpenCard = null;
 
 function openSizeGuide() {
     if (!currentOpenCard) return;
-
     const raw = currentOpenCard.getAttribute('data-size-guide');
     if (!raw) return;
-
     let guide;
-    try { guide = JSON.parse(raw); } catch(e) { console.warn('Invalid data-size-guide JSON', e); return; }
-
-    /* Set header text */
+    try { guide = JSON.parse(raw); } catch(e) { return; }
     document.getElementById('sgp-title').textContent    = guide.title    || 'Size Guide';
     document.getElementById('sgp-subtitle').textContent = 'Measurements in Centimeters';
-
-    /* Build thead */
     const theadRow = document.getElementById('sgp-thead-row');
     theadRow.innerHTML = (guide.columns || []).map((col, i) =>
         `<th style="${i === 0 ? 'text-align:left;padding-left:16px;' : ''}">${col}</th>`
     ).join('');
-
-    /* Build tbody */
     const tbody = document.getElementById('sgp-tbody');
-    const rows  = guide.rows || [];
-    const cols  = guide.columns || [];
+    const rows = guide.rows || [], cols = guide.columns || [];
     tbody.innerHTML = rows.map((row, rIdx) => {
         const isLast = rIdx === rows.length - 1;
-        const cells  = cols.map((col, cIdx) => {
-            const val   = row[col] !== undefined ? row[col] : '';
+        const cells = cols.map((col, cIdx) => {
+            const val = row[col] !== undefined ? row[col] : '';
             const style = [
                 cIdx === 0 ? 'color:white;font-weight:700;text-align:left;padding-left:16px;' : '',
-                !isLast    ? 'border-bottom:1px solid rgba(255,255,255,0.03);' : ''
+                !isLast ? 'border-bottom:1px solid rgba(255,255,255,0.03);' : ''
             ].join('');
             const display = val === '' ? '<span style="color:rgba(255,255,255,0.15)">—</span>' : val;
             return `<td style="${style}">${display}</td>`;
         }).join('');
         return `<tr>${cells}</tr>`;
     }).join('');
-
     document.getElementById('sizeGuidePopup').classList.add('sgp-open');
     document.documentElement.classList.add('modal-open');
 }
-
 function closeSizeGuidePopup() {
     document.getElementById('sizeGuidePopup').classList.remove('sgp-open');
     document.documentElement.classList.remove('modal-open');
@@ -1544,14 +1600,13 @@ function closeSizeGuidePopup() {
 /* ══ STATE ══ */
 const DOM = {};
 let cart = [], currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
-let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '', isTrouserProduct = false;
-let privateModalReady = false, selectedSize = '';
-const clothingSizes = ['S','M','L','XL','XXL'];
-const trouserSizes  = ['S','M','L','XL','XXL'];
+let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '', selectedSize = '';
+let privateModalReady = false;
 
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 function selectPayment(el) { document.querySelectorAll('.pay-opt').forEach(o => o.classList.remove('selected')); el.classList.add('selected'); el.querySelector('input[type="radio"]').checked = true; }
 
+/* ══ DYNAMIC SIZE BUTTONS from data-sizes attribute ══ */
 function buildSizeButtons(sizes) {
     const row = document.getElementById('size-buttons-row');
     row.innerHTML = '';
@@ -1569,24 +1624,45 @@ function buildSizeButtons(sizes) {
     });
 }
 
+/* ══ TIER FLOATING TIP ══ */
+let tierTipTimer = null;
+function showTierTip(label) {
+    const tip = document.getElementById('tierFloatingTip');
+    const content = document.getElementById('tierTipContent');
+    content.textContent = label;
+    tip.classList.add('visible');
+    clearTimeout(tierTipTimer);
+    tierTipTimer = setTimeout(() => tip.classList.remove('visible'), 2200);
+}
+
 window.addEventListener('load', () => {
-    DOM.splash = document.getElementById('splash-screen');
-    DOM.cartTotal = document.getElementById('cart-total');
-    DOM.cartList = document.getElementById('cart-items-list');
-    DOM.toast = document.getElementById('added-toast');
-    DOM.toastText = document.getElementById('toast-text');
-    DOM.pModal = document.getElementById('pModal');
-    DOM.modalImg = document.getElementById('modal-img');
-    DOM.mName = document.getElementById('m-name');
-    DOM.mPrice = document.getElementById('m-price');
-    DOM.variantList = document.getElementById('variant-list');
-    DOM.variantArea = document.getElementById('variant-area');
-    DOM.recList = document.getElementById('rec-list');
-    DOM.sizeWrapper = document.getElementById('pModalSizeWrapper');
-    DOM.zoomImg = document.getElementById('zoom-img');
-    DOM.cartModal = document.getElementById('cartModal');
-    DOM.searchInput = document.getElementById('search-input');
+    DOM.splash     = document.getElementById('splash-screen');
+    DOM.cartTotal  = document.getElementById('cart-total');
+    DOM.cartList   = document.getElementById('cart-items-list');
+    DOM.toast      = document.getElementById('added-toast');
+    DOM.toastText  = document.getElementById('toast-text');
+    DOM.pModal     = document.getElementById('pModal');
+    DOM.modalImg   = document.getElementById('modal-img');
+    DOM.mName      = document.getElementById('m-name');
+    DOM.mPrice     = document.getElementById('m-price');
+    DOM.variantList= document.getElementById('variant-list');
+    DOM.variantArea= document.getElementById('variant-area');
+    DOM.recList    = document.getElementById('rec-list');
+    DOM.sizeWrapper= document.getElementById('pModalSizeWrapper');
+    DOM.zoomImg    = document.getElementById('zoom-img');
+    DOM.cartModal  = document.getElementById('cartModal');
+    DOM.searchInput= document.getElementById('search-input');
+
     loadCart();
+
+    /* Tier floating tip on card hover */
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const badge = card.querySelector('.tier-badge');
+            if (badge) showTierTip('Tier: ' + badge.textContent.replace('●','').replace('✦','').trim());
+        });
+    });
+
     if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown', 'true');
         setTimeout(() => {
@@ -1605,7 +1681,7 @@ window.addEventListener('load', () => {
     document.addEventListener('touchstart', () => {}, { passive: true });
 }, { once: true });
 
-/* ══ PROFILE ══ */
+/* ══ PERSISTENT PROFILE ══ */
 function checkProfileOnboarding(type) {
     if (!localStorage.getItem('oumran_user_profile')) {
         pendingActionType = type;
@@ -1623,6 +1699,7 @@ function saveOnboardingProfile() {
     const e = document.getElementById('onboardEmail').value.trim();
     if (!n || !e) return alert('Please enter your Full Name and Gmail address.');
     if (!e.toLowerCase().endsWith('@gmail.com')) return alert('Please enter a valid @gmail.com address.');
+    /* Persist permanently in localStorage — survives page refresh, browser close */
     localStorage.setItem('oumran_user_profile', JSON.stringify({ name: n, email: e.toLowerCase() }));
     document.getElementById('profileOnboardingModal').style.display = 'none';
     document.documentElement.classList.remove('modal-open');
@@ -1644,11 +1721,19 @@ function syncProfile() {
     const s = localStorage.getItem('oumran_user_profile');
     if (!s) return;
     const p = JSON.parse(s);
-    const map = { custName: 'name', srcClientName: 'name', hubProfileName: 'name', hubProfileEmail: 'email' };
+    const map = { custName:'name', srcClientName:'name', hubProfileName:'name', hubProfileEmail:'email' };
     for (const [id, key] of Object.entries(map)) {
         const el = document.getElementById(id);
         if (!el) continue;
         el.tagName === 'INPUT' ? el.value = p[key] : el.innerText = p[key];
+    }
+    /* Show order count in profile hub */
+    const history = JSON.parse(localStorage.getItem('oumran_order_history') || '[]');
+    const totalStat = document.getElementById('hub-total-orders-stat');
+    const totalEl   = document.getElementById('hub-total-orders');
+    if (totalStat && totalEl && history.length > 0) {
+        totalStat.style.display = 'block';
+        totalEl.textContent = history.length + (history.length === 1 ? ' Order' : ' Orders');
     }
 }
 function editProfileName() {
@@ -1675,10 +1760,10 @@ function closeProfileHub() {
 /* ══ CART VIEWS ══ */
 function switchCartView(view) {
     const isBag = view === 'bag';
-    document.getElementById('active-bag-view').style.display = isBag ? 'block' : 'none';
+    document.getElementById('active-bag-view').style.display    = isBag ? 'block' : 'none';
     document.getElementById('order-history-view').style.display = isBag ? 'none' : 'block';
-    document.getElementById('toggle-active-bag').className = 'cart-tab' + (isBag ? ' active' : '');
-    document.getElementById('toggle-order-history').className = 'cart-tab' + (!isBag ? ' active' : '');
+    document.getElementById('toggle-active-bag').className      = 'cart-tab' + (isBag ? ' active' : '');
+    document.getElementById('toggle-order-history').className   = 'cart-tab' + (!isBag ? ' active' : '');
     if (!isBag) renderOrderHistory();
 }
 function renderOrderHistory() {
@@ -1713,23 +1798,29 @@ function openP(n, t, price) {
     DOM.mName.innerText = n;
     DOM.mPrice.innerText = price.toLocaleString() + ' ETB';
 
+    /* Tier badge in modal */
+    const tier = getTier(price);
+    const tierWrap = document.getElementById('m-tier-wrap');
+    tierWrap.innerHTML = `<span class="tier-badge ${tier.cls}">${tier.label}</span>`;
+
     const card = event.currentTarget;
-    currentOpenCard = card; /* ← store reference for size guide */
+    currentOpenCard = card;
 
     DOM.modalImg.src = card.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
 
-    isTrouserProduct = card.getAttribute('data-trouser') === 'true';
+    const isOutfit = (t === 'outfit');
 
-    const modelNote   = document.getElementById('m-model-note');
+    const modelNote    = document.getElementById('m-model-note');
     const sizeGuideBtn = document.getElementById('size-guide-btn');
-    modelNote.style.display   = (t === 'clothe') ? 'block' : 'none';
+    modelNote.style.display = (!isOutfit) ? 'block' : 'none';
 
-    /* Show Size Guide button only when the card has data-size-guide */
-    const hasSizeGuide = !!card.getAttribute('data-size-guide');
-    if (sizeGuideBtn) sizeGuideBtn.style.display = (t === 'clothe' && hasSizeGuide) ? 'inline-flex' : 'none';
+    /* Size guide button: hidden for outfits, visible for clothe with size guide data */
+    const hasSizeGuide = !!card.getAttribute('data-size-guide') && !isOutfit;
+    if (sizeGuideBtn) sizeGuideBtn.style.display = hasSizeGuide ? 'inline-flex' : 'none';
 
+    /* Variants */
     const varData = card.getAttribute('data-variants');
     currentVariants = varData ? JSON.parse(varData) : [];
     DOM.variantList.innerHTML = '';
@@ -1746,6 +1837,7 @@ function openP(n, t, price) {
         DOM.variantList.appendChild(frag);
     } else { DOM.variantArea.style.display = 'none'; }
 
+    /* Recommendations */
     DOM.recList.innerHTML = '';
     const recFrag = document.createDocumentFragment();
     card.closest('.category-section').querySelectorAll('.product-card').forEach(prod => {
@@ -1758,10 +1850,11 @@ function openP(n, t, price) {
     });
     DOM.recList.appendChild(recFrag);
 
-    if (t === 'clothe') {
-        DOM.sizeWrapper.style.display = 'block';
-        buildSizeButtons(isTrouserProduct ? trouserSizes : clothingSizes);
-    } else { DOM.sizeWrapper.style.display = 'none'; }
+    /* Sizes — always read from data-sizes attribute for granular per-product control */
+    DOM.sizeWrapper.style.display = 'block';
+    const sizesRaw = card.getAttribute('data-sizes') || 'S,M,L,XL,XXL';
+    const sizes = sizesRaw.split(',').map(s => s.trim()).filter(Boolean);
+    buildSizeButtons(sizes);
 
     DOM.pModal.style.display = 'block';
 }
@@ -1769,18 +1862,15 @@ function openP(n, t, price) {
 function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
 function addToCart() {
     const aI = DOM.variantList.querySelector('.variant-item.active');
-    const aS = aI ? aI.querySelector('span') : null;
-    const dC = aS ? ` <span class="admin-only">[${aS.innerText}]</span>` : '';
-    const iC = aS ? ` [${aS.innerText}]` : '';
-    const cS = (currentProductType === 'clothe') ? selectedSize : 'Standard';
-    cart.push({ name: currentP+dC, internalName: currentP+iC, size: cS, price: currentPrice });
+    const cS = selectedSize || 'Standard';
+    cart.push({ name: currentP, size: cS, price: currentPrice });
     updateCartDisplay(); closeModal();
-    DOM.toastText.innerHTML = `<strong>${currentP}</strong> Added`;
+    DOM.toastText.innerHTML = `<strong>${currentP}</strong> — Size ${cS} Added`;
     DOM.toast.classList.add('show');
     setTimeout(() => DOM.toast.classList.remove('show'), 2800);
 }
 
-/* ══ CART DISPLAY ══ */
+/* ══ PERSISTENT CART ══ */
 function updateCartDisplay() {
     requestAnimationFrame(() => {
         const hCartCount = document.getElementById('header-cart-count');
@@ -1792,7 +1882,8 @@ function updateCartDisplay() {
             if (cart.length > 0) hCartCount.classList.add('glow');
         }
         if (hCartBtn) hCartBtn.style.display = cart.length > 0 ? 'flex' : 'none';
-        localStorage.setItem('oumer_cart', JSON.stringify(cart));
+        /* Persist cart to localStorage so it survives refresh */
+        localStorage.setItem('oumran_cart_v2', JSON.stringify(cart));
     });
 }
 
@@ -1815,18 +1906,32 @@ function submitOrder() {
     const a = document.getElementById('custAddress').value;
     if (!n||!p||!a) return alert('Please fill in all delivery details.');
     const method = document.querySelector('input[name="payment_method"]:checked').value;
-    const itemsStr = cart.map(i => `▫️ ${i.internalName} (${i.size})`).join('\n');
+    const itemsStr = cart.map(i => `▫️ ${i.name} (${i.size})`).join('\n');
     const totalVal = DOM.cartTotal.innerText;
+    /* Persist to order history in localStorage */
     let history = JSON.parse(localStorage.getItem('oumran_order_history')) || [];
-    history.push({ id: Math.floor(1000+Math.random()*9000), timestamp: Date.now(), date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}), items: itemsStr, method, total: totalVal });
+    history.push({
+        id: Math.floor(1000+Math.random()*9000),
+        timestamp: Date.now(),
+        date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}),
+        items: itemsStr, method, total: totalVal
+    });
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
     const text = `🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *TOTAL PORTFOLIO VALUE:* ${totalVal} ETB\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${method} ]\n\n—\n`;
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id:'5715582254', text, parse_mode:'Markdown' }) })
-    .then(() => { DOM.cartModal.style.display = 'none'; document.getElementById('successModal').style.display = 'block'; cart = []; updateCartDisplay(); });
+    .then(() => {
+        DOM.cartModal.style.display = 'none';
+        document.getElementById('successModal').style.display = 'block';
+        cart = []; updateCartDisplay();
+    });
 }
 function closeModal() { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display = 'none'; currentOpenCard = null; window.scrollTo(0, scrollPos); }
 function closeCart() { document.documentElement.classList.remove('modal-open'); DOM.cartModal.style.display = 'none'; window.scrollTo(0, scrollPos); }
-function loadCart() { const s = localStorage.getItem('oumer_cart'); if (s) { cart = JSON.parse(s); updateCartDisplay(); } }
+function loadCart() {
+    /* Load from new persistent key; fall back to old key for backwards compatibility */
+    const s = localStorage.getItem('oumran_cart_v2') || localStorage.getItem('oumer_cart');
+    if (s) { cart = JSON.parse(s); updateCartDisplay(); }
+}
 function filterProducts() {
     const q = DOM.searchInput.value.toLowerCase();
     document.querySelectorAll('.category-section').forEach(sec => {
@@ -1852,8 +1957,8 @@ function closePrivateSourcing() {
 }
 function submitPrivateSourcingWithOnboardingCheck() { if (checkProfileOnboarding('sourcing')) submitPrivateRequest(); }
 function initPrivateSourcingUploads() {
-    const fileInput = document.getElementById('srcHiddenImageUpload');
-    const previewSlot = document.getElementById('srcImagePreviewSlot');
+    const fileInput  = document.getElementById('srcHiddenImageUpload');
+    const previewSlot= document.getElementById('srcImagePreviewSlot');
     const cat = document.getElementById('srcCategory');
     const sizeW = document.getElementById('srcSizeWrapper');
     const sizeI = document.getElementById('srcSize');
@@ -1873,13 +1978,13 @@ function initPrivateSourcingUploads() {
     if (wrapper) wrapper.addEventListener('paste', e => { const items=(e.clipboardData||e.originalEvent.clipboardData).items; for (let i in items) { const it=items[i]; if (it.kind==='file') { const b=it.getAsFile(); processImageFile(b); const dt=new DataTransfer(); dt.items.add(b); fileInput.files=dt.files; } } });
 }
 function submitPrivateRequest() {
-    const name = document.getElementById('srcClientName').value;
-    const phone = document.getElementById('srcClientPhone').value;
+    const name     = document.getElementById('srcClientName').value;
+    const phone    = document.getElementById('srcClientPhone').value;
     const category = document.getElementById('srcCategory').value;
-    const product = document.getElementById('srcProductName').value;
-    const size = document.getElementById('srcSize').value || 'Standard';
-    const budget = document.getElementById('srcBudget').value || 'Not Specified';
-    const ref = document.getElementById('srcReference').value || 'None Provided';
+    const product  = document.getElementById('srcProductName').value;
+    const size     = document.getElementById('srcSize').value || 'Standard';
+    const budget   = document.getElementById('srcBudget').value || 'Not Specified';
+    const ref      = document.getElementById('srcReference').value || 'None Provided';
     if (!name||!phone||!product) return alert('Please fill in your name, contact, and requested item.');
     const text = `🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${name}\n📞 *Contact:* ${phone}\n\n📦 *Classification:* ${category}\n🏷️ *Product:* ${product}\n📐 *Size:* ${size}\n💰 *Budget:* ${budget}\n\n🔗 *Reference:* ${ref}`;
     let apiUrl = `https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
