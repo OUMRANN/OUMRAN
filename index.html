@@ -2142,7 +2142,7 @@ function submitOrder() {
     let history=JSON.parse(localStorage.getItem('oumran_order_history'))||[];
     history.push({ id:Math.floor(1000+Math.random()*9000), timestamp:Date.now(), date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}), items:itemsStr, method, total:grandTotal });
     localStorage.setItem('oumran_order_history',JSON.stringify(history));
-    const text=`🏛️ *NEW PRIVATE ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *ORDER BREAKDOWN*\nItems: ${itemsTotal.toLocaleString()} ETB\nDelivery Fee: ${DELIVERY_FEE} ETB\n*TOTAL: ${grandTotal} ETB*\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${method} ]\n\n—\n`;
+    const text=`🏛️ *NEW ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *ORDER BREAKDOWN*\nItems: ${itemsTotal.toLocaleString()} ETB\nDelivery Fee: ${DELIVERY_FEE} ETB\n*TOTAL: ${grandTotal} ETB*\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${method} ]\n\n—\n`;
     fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`,{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({chat_id:'5715582254',text,parse_mode:'Markdown'})
