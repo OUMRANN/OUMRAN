@@ -911,7 +911,6 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-               <!-- ✅ SIZE FIX: data-sizes changed from 105,110,115,120,125 → XL,2XL,3XL,4XL,5XL -->
                <div class="product-card" onclick="openP('Premium Polo Thermal Knit','clothe',3000)" data-variants='[{"name":"Premium Polo Thermal Knit — Main","img":"Premium polo thermal Knit.jpg"},{"name":"Premium Polo Thermal Knit — Brown","img":"Brown knit.jpg"},{"name":"Premium Polo Thermal Knit — Silver","img":"Silver knit.jpg"},{"name":"Premium Polo Thermal Knit — Black","img":"Black knit.jpg"}]' data-size-guide='{"title":"Premium Polo Thermal Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"XL","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"2XL","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"3XL","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"4XL","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"5XL","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}' data-sizes="XL,2XL,3XL,4XL,5XL">
                 <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium polo thermal Knit.jpg" loading="eager" fetchpriority="high" alt="Premium Polo Thermal Knit"></div>
                <div class="info-area"><h3>Premium Polo Thermal Knit</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div></div>
@@ -1409,7 +1408,7 @@
 <script>
 /* ════════════════════════════════════════════════════════════
    OUMRAN STORE — COMPLETE JAVASCRIPT
-   Includes: Enhanced Order Summary Card with photo integration
+   Variant selection index tracked; full order summary to Telegram
 ════════════════════════════════════════════════════════════ */
 
 const DELIVERY_FEE = 250;
@@ -1505,13 +1504,15 @@ function buildSizeButtonsFromGuide(card) {
     });
 }
 
-/* ── STATE ── */
+/* ════════════════════════════════════════════════════════════
+   STATE — currentVariantIdx tracks exact selection position (0-based)
+════════════════════════════════════════════════════════════ */
 const DOM = {};
 let cart = [];
 let currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
 let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '';
 let privateModalReady = false, selectedSize = '';
-let currentVariantIdx = 0; // ← tracks which variant is active
+let currentVariantIdx = 0; // ← 0-based index of the selected variant/color/style option
 
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 
@@ -1528,6 +1529,13 @@ function selectSrcPayment(el) {
 function getSelectedSrcPayment() {
     const sel = document.querySelector('#srcPaymentOptions .src-pay-row.selected');
     return sel ? sel.getAttribute('data-value') : 'Cash on Delivery (COD)';
+}
+
+/* ── ORDINAL HELPER ── returns "1st", "2nd", "3rd", "4th"… */
+function ordinal(n) {
+    const s = ['th','st','nd','rd'];
+    const v = n % 100;
+    return n + (s[(v-20)%10] || s[v] || s[0]);
 }
 
 window.addEventListener('load', () => {
@@ -1677,12 +1685,13 @@ function openAbout() { lockScroll(); document.getElementById('aboutPage').style.
 function closeAbout() { document.getElementById('aboutPage').style.display='none'; unlockScroll(); }
 
 /* ══════════════════════════════════════════════════════════
-   PRODUCT MODAL — captures full variant data for order card
+   PRODUCT MODAL
+   — currentVariantIdx is set to 0 on open, updated on each click
 ══════════════════════════════════════════════════════════ */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
     currentP = n; currentPrice = price; currentProductType = t;
-    currentVariantIdx = 0;
+    currentVariantIdx = 0; // reset to first option (index 0)
     DOM.mName.innerText = n;
     DOM.mPrice.innerText = price.toLocaleString()+' ETB';
     const card = event.currentTarget;
@@ -1711,7 +1720,7 @@ function openP(n, t, price) {
                 DOM.modalImg.src=v.img;
                 DOM.variantList.querySelectorAll('.variant-item').forEach(el=>el.classList.remove('active'));
                 this.classList.add('active');
-                currentVariantIdx=idx;
+                currentVariantIdx=idx; // ← store the exact index when user picks a variant
             };
             item.innerHTML=`<img src="${v.img}" loading="lazy" alt="${v.name}">`;
             frag.appendChild(item);
@@ -1737,18 +1746,23 @@ function openP(n, t, price) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   ADD TO CART — captures variant name, image URL, size guide row
+   ADD TO CART
+   — captures variant index, ordinal label, name, and image
 ══════════════════════════════════════════════════════════ */
 function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
 
 function addToCart() {
-    const activeVariant = currentVariants.length > 0 ? currentVariants[currentVariantIdx] : null;
-    const variantName   = activeVariant ? activeVariant.name : 'Default';
-    const variantImg    = activeVariant ? activeVariant.img  : (DOM.modalImg.src || '');
-    const chosenSize    = (currentProductType==='clothe') ? selectedSize : 'Standard';
+    const activeVariant    = currentVariants.length > 0 ? currentVariants[currentVariantIdx] : null;
+    const variantName      = activeVariant ? activeVariant.name  : 'Default';
+    const variantImg       = activeVariant ? activeVariant.img   : (DOM.modalImg.src || '');
+    const variantIndex     = currentVariantIdx; // 0-based
+    const variantPosition  = currentVariantIdx + 1; // 1-based (human-readable)
+    const variantOrdinal   = ordinal(variantPosition); // e.g. "1st", "2nd", "3rd"
+    const totalVariants    = currentVariants.length;
+    const chosenSize       = (currentProductType==='clothe') ? selectedSize : 'Standard';
 
-    // Pull matching size guide row for the chosen size
-    let sizeGuideRow = null;
+    // Pull matching size guide row for chosen size
+    let sizeGuideRow     = null;
     let sizeGuideColumns = [];
     if (currentOpenCard) {
         const raw = currentOpenCard.getAttribute('data-size-guide');
@@ -1762,18 +1776,22 @@ function addToCart() {
     }
 
     cart.push({
-        name:        currentP,
-        variantName: variantName,
-        variantImg:  variantImg,
-        size:        chosenSize,
-        price:       currentPrice,
+        name:             currentP,
+        variantName:      variantName,
+        variantImg:       variantImg,
+        variantIndex:     variantIndex,      // 0-based index
+        variantPosition:  variantPosition,   // 1-based position
+        variantOrdinal:   variantOrdinal,    // "1st", "2nd", etc.
+        totalVariants:    totalVariants,
+        size:             chosenSize,
+        price:            currentPrice,
         sizeGuideColumns: sizeGuideColumns,
         sizeGuideRow:     sizeGuideRow
     });
 
     updateCartDisplay();
     closeModal();
-    DOM.toastText.innerHTML=`<strong>${currentP}</strong> — ${variantName} · Size ${chosenSize} — Added`;
+    DOM.toastText.innerHTML=`<strong>${currentP}</strong> — ${variantOrdinal} option · Size ${chosenSize} — Added`;
     DOM.toast.classList.add('show');
     setTimeout(()=>DOM.toast.classList.remove('show'),3000);
 }
@@ -1803,7 +1821,7 @@ function showCart() {
         return `<div class="cart-item">
             <div style="flex:1;">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-size" style="font-size:10px;color:rgba(255,215,0,0.55);margin-bottom:3px;">${item.variantName}</div>
+                <div class="cart-item-size" style="font-size:10px;color:rgba(255,215,0,0.55);margin-bottom:3px;">${item.variantOrdinal} option — ${item.variantName}</div>
                 <div class="cart-item-size">Size: ${item.size}</div>
                 <div class="cart-item-price">${item.price.toLocaleString()} ETB</div>
             </div>
@@ -1824,7 +1842,15 @@ function removeItem(i) {
 }
 
 /* ══════════════════════════════════════════════════════════
-   SUBMIT ORDER — sends photo + comprehensive order summary card
+   SUBMIT ORDER
+   — Telegram message includes:
+     • Product Name
+     • Price
+     • Variant option index (ordinal: "1st option", "2nd option"…)
+     • Variant name / colorway
+     • Size selected
+     • Size measurements from the guide
+     • Variant image file reference
 ══════════════════════════════════════════════════════════ */
 function submitOrder() {
     const n = document.getElementById('custName').value.trim();
@@ -1838,10 +1864,10 @@ function submitOrder() {
     const orderID     = Math.floor(1000+Math.random()*9000);
     const orderDate   = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
 
-    /* ── Build per-item blocks ── */
+    /* ── Build per-item blocks with full variant index detail ── */
     const itemBlocks = cart.map((item, idx) => {
-        let sizeInfo = `📐 *Size Selected:* ${item.size}`;
-        // If we have the full size guide row, add each measurement
+        // Size measurements line
+        let measurementsLine = '';
         if (item.sizeGuideRow && item.sizeGuideColumns && item.sizeGuideColumns.length > 1) {
             const measurements = item.sizeGuideColumns
                 .filter(col => col !== 'Size')
@@ -1851,19 +1877,25 @@ function submitOrder() {
                 })
                 .filter(Boolean)
                 .join('  ·  ');
-            if (measurements) sizeInfo += `\n📏 *Measurements:* ${measurements}`;
+            if (measurements) measurementsLine = `\n📏 *Measurements:* ${measurements}`;
         }
 
+        // Variant selection summary line
+        const variantSelectionLine = item.totalVariants > 1
+            ? `🎨 *Color / Style Selected:* ${item.variantOrdinal} option of ${item.totalVariants} — "${item.variantName}"`
+            : `🎨 *Color / Style:* ${item.variantName}`;
+
         return `▸ *ITEM ${idx+1}*
-🏷️ *Product:* ${item.name}
-🎨 *Variant / Colorway:* ${item.variantName}
-${sizeInfo}
+🏷️ *Product Name:* ${item.name}
+${variantSelectionLine}
+🔢 *Selection Index:* Option #${item.variantPosition} (${item.variantOrdinal} out of ${item.totalVariants} available options)
+📐 *Size Selected:* ${item.size}${measurementsLine}
 💰 *Unit Price:* ${item.price.toLocaleString()} ETB
-🖼 *Variant Image:* ${item.variantImg}`;
+🖼 *Variant Image File:* ${item.variantImg}`;
     }).join('\n\n─────────────────────\n\n');
 
-    /* ── Simple items list for history ── */
-    const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantName} (${i.size})`).join('\n');
+    /* ── History items list ── */
+    const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantOrdinal} option (${i.variantName}) · Size ${i.size}`).join('\n');
 
     /* ── Save to order history ── */
     const history = JSON.parse(localStorage.getItem('oumran_order_history'))||[];
@@ -1873,7 +1905,7 @@ ${sizeInfo}
     });
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
 
-    /* ── Compose full Telegram message ── */
+    /* ── Full Telegram message ── */
     const caption = `🏛️ *NEW ORDER — OUMRAN STORE*
 🔖 *Order ID:* #${orderID}
 📅 *Date:* ${orderDate}
@@ -1904,10 +1936,6 @@ ${itemBlocks}
 ✨ ${method}
 📲 Telebirr: 0939 620 004 | 0940 028 820`;
 
-    /* ── Determine which variant image to send as the photo ──
-       Use the first item's variant image. If multiple items, send
-       the message as a text + all images as a media group. ── */
-
     const sendAll = () => {
         DOM.cartModal.style.display='none';
         document.getElementById('successModal').style.display='block';
@@ -1916,37 +1944,29 @@ ${itemBlocks}
     };
 
     if (cart.length === 1) {
-        // Single item: send photo with full caption
         const imgSrc = cart[0].variantImg;
         const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
-
         if (isAbsoluteUrl) {
-            // Direct photo URL
             fetch(`${TG_API}/sendPhoto`, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({ chat_id: CHAT_ID, photo: imgSrc, caption, parse_mode: 'Markdown' })
             }).then(sendAll).catch(()=>{
-                // Fallback to text if photo fails
                 fetch(`${TG_API}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' }) }).then(sendAll);
             });
         } else {
-            // Local relative image — send text message + note to check image manually
-            const textWithImgNote = caption + `\n\n🖼 *Product Image File:* \`${imgSrc}\``;
             fetch(`${TG_API}/sendMessage`, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ chat_id: CHAT_ID, text: textWithImgNote, parse_mode: 'Markdown' })
+                body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' })
             }).then(sendAll);
         }
     } else {
-        // Multiple items: send full text message first, then each variant image separately
         fetch(`${TG_API}/sendMessage`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' })
         }).then(() => {
-            // Send each variant image with a label
             const imagePromises = cart.map((item, idx) => {
                 const imgSrc = item.variantImg;
                 const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
@@ -1957,7 +1977,7 @@ ${itemBlocks}
                         body: JSON.stringify({
                             chat_id: CHAT_ID,
                             photo: imgSrc,
-                            caption: `📸 Item ${idx+1}: ${item.name}\n🎨 ${item.variantName} · Size ${item.size}`,
+                            caption: `📸 Item ${idx+1}: ${item.name}\n🎨 ${item.variantOrdinal} option — ${item.variantName}\n📐 Size: ${item.size}\n💰 ${item.price.toLocaleString()} ETB`,
                             parse_mode: 'Markdown'
                         })
                     }).catch(()=>{});
