@@ -83,7 +83,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* CSS ANIMATED BACKGROUND */
         #bg-canvas { position: fixed; inset: 0; z-index: -4; background: #050505; pointer-events: none; }
         #bg-orb1 {
             position: fixed; z-index: -3; pointer-events: none;
@@ -379,81 +378,41 @@
         .btn-gold { background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37) !important; color: #000 !important; box-shadow: 0 10px 36px rgba(255,215,0,0.18) !important; }
         .btn-gold:hover { box-shadow: 0 16px 50px rgba(255,215,0,0.34) !important; }
 
-        /* ═══════════════════════════════════════════════════════
-           LUXURY FLOATING LINE INPUTS — replaces all boxed fields
-        ═══════════════════════════════════════════════════════ */
-        .lx-field {
-            position: relative;
-            margin-top: 40px;
-        }
+        .lx-field { position: relative; margin-top: 40px; }
         .lx-field:first-of-type { margin-top: 0; }
         .lx-label {
-            display: block;
-            font-size: 7.5px;
-            font-weight: 700;
-            color: rgba(255,215,0,0.40);
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 14px;
+            display: block; font-size: 7.5px; font-weight: 700; color: rgba(255,215,0,0.40);
+            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 14px;
             font-family: 'DM Sans', sans-serif;
             transition: color 0.5s var(--ease-luxury), letter-spacing 0.5s var(--ease-luxury);
         }
-        .lx-field:focus-within .lx-label {
-            color: rgba(255,215,0,0.75);
-            letter-spacing: 6px;
-        }
-        .lx-input,
-        .lx-textarea,
-        .lx-select {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            outline: none;
-            color: white;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 300;
-            letter-spacing: 0.5px;
+        .lx-field:focus-within .lx-label { color: rgba(255,215,0,0.75); letter-spacing: 6px; }
+        .lx-input, .lx-textarea, .lx-select {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08); outline: none; color: white;
+            font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 300; letter-spacing: 0.5px;
             padding: 0 0 16px 0;
-            transition:
-                border-color 0.6s var(--ease-luxury),
-                box-shadow 0.6s var(--ease-luxury);
-            -webkit-appearance: none;
-            appearance: none;
-            border-radius: 0;
+            transition: border-color 0.6s var(--ease-luxury), box-shadow 0.6s var(--ease-luxury);
+            -webkit-appearance: none; appearance: none; border-radius: 0;
         }
-        .lx-input::placeholder,
-        .lx-textarea::placeholder { color: rgba(255,255,255,0.12); font-weight: 300; }
-        .lx-input:focus,
-        .lx-textarea:focus,
-        .lx-select:focus {
+        .lx-input::placeholder, .lx-textarea::placeholder { color: rgba(255,255,255,0.12); font-weight: 300; }
+        .lx-input:focus, .lx-textarea:focus, .lx-select:focus {
             border-bottom-color: rgba(255,215,0,0.55);
-            box-shadow: 0 1px 0 0 rgba(255,215,0,0.20),
-                        0 4px 20px 0 rgba(255,215,0,0.04);
+            box-shadow: 0 1px 0 0 rgba(255,215,0,0.20), 0 4px 20px 0 rgba(255,215,0,0.04);
         }
-        /* Animated glow line pseudo */
         .lx-line {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 1px;
+            position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
             background: linear-gradient(90deg, rgba(255,215,0,0.0), rgba(255,215,0,0.7), rgba(255,215,0,0.0));
-            transition: width 0.7s var(--ease-luxury);
-            pointer-events: none;
+            transition: width 0.7s var(--ease-luxury); pointer-events: none;
         }
         .lx-field:focus-within .lx-line { width: 100%; }
-
         .lx-select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,215,0,0.35)' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 2px bottom 18px;
-            padding-right: 24px;
-            cursor: pointer;
+            background-repeat: no-repeat; background-position: right 2px bottom 18px; padding-right: 24px; cursor: pointer;
         }
         .lx-select option { background: #0a0803; color: white; }
         .lx-textarea { resize: none; line-height: 1.8; min-height: 72px; padding-top: 4px; }
 
-        /* cart / order legacy inputs — keep existing style */
         .order-input, #size-box { width: 100%; padding: 15px 0; margin-top: 10px; border-radius: 0; border: none; border-bottom: 1px solid rgba(255,255,255,0.09); background: transparent; color: white; font-size: 14px; font-family: 'DM Sans', sans-serif; transition: border-color 0.3s; }
         .order-input:focus, #size-box:focus { outline: none; border-bottom-color: rgba(255,215,0,0.4); }
         .order-input::placeholder { color: rgba(255,255,255,0.18); }
@@ -473,10 +432,7 @@
         .remove-btn { background: transparent; color: rgba(255,59,48,0.45); padding: 0; border: none; font-size: 9px; font-weight: 700; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; white-space: nowrap; flex-shrink: 0; text-decoration: underline; text-decoration-color: rgba(255,59,48,0.2); font-family: 'DM Sans', sans-serif; }
         .remove-btn:hover { color: var(--accent); }
 
-        .delivery-fee-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 16px 0 0; border-top: 1px solid rgba(255,255,255,0.04); margin-top: 4px;
-        }
+        .delivery-fee-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0 0; border-top: 1px solid rgba(255,255,255,0.04); margin-top: 4px; }
         .delivery-fee-label { font-size: 10px; color: rgba(255,255,255,0.28); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .delivery-fee-amount { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 700; }
 
@@ -533,9 +489,7 @@
         .arrow-left { left: 18px; } .arrow-right { right: 18px; }
         .zoom-close { margin-top: 36px; background: white; color: black; border: none; padding: 14px 52px; border-radius: 40px; font-weight: 700; cursor: pointer; letter-spacing: 2.5px; font-size: 10.5px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; }
 
-        /* ═══════════════════════════════════════════════════════
-           PRIVATE SECTION
-        ═══════════════════════════════════════════════════════ */
+        /* PRIVATE SECTION */
         .private-section {
             padding: 140px 24px 130px; text-align: center; margin-top: 60px; position: relative;
             background: linear-gradient(180deg, transparent 0%, rgba(255,215,0,0.018) 50%, transparent 100%);
@@ -549,18 +503,12 @@
             cursor: pointer; transition: all 0.5s var(--transition); margin-top: 32px;
             font-family: 'DM Sans', sans-serif; position: relative; overflow: hidden;
         }
-        .private-request-btn::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020);
-            opacity: 0; transition: opacity 0.45s; border-radius: 70px;
-        }
+        .private-request-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020); opacity: 0; transition: opacity 0.45s; border-radius: 70px; }
         .private-request-btn:hover { color: #000; border-color: transparent; box-shadow: 0 0 70px rgba(212,175,55,0.28), 0 20px 50px rgba(0,0,0,0.4); transform: translateY(-4px); }
         .private-request-btn:hover::before { opacity: 1; }
         .private-request-btn span { position: relative; z-index: 1; }
 
-        /* ═══════════════════════════════════════════════════════
-           SERVICES SECTION
-        ═══════════════════════════════════════════════════════ */
+        /* SERVICES SECTION */
         .services-section {
             padding: 140px 48px 130px; position: relative; overflow: hidden;
             background: linear-gradient(180deg, transparent 0%, rgba(255,215,0,0.012) 40%, rgba(255,215,0,0.018) 60%, transparent 100%);
@@ -572,34 +520,26 @@
         .services-headline { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 58px); font-weight: 400; font-style: italic; letter-spacing: 3px; line-height: 1.18; margin-bottom: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,215,0,0.9) 45%, rgba(255,255,255,0.7) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .services-subtext { text-align: center; max-width: 600px; margin: 0 auto 80px; font-size: 14px; color: rgba(255,255,255,0.32); line-height: 2.1; font-weight: 300; letter-spacing: 0.3px; }
         .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
-
         .service-card {
-            background: rgba(10,8,3,0.55);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255,215,0,0.08); border-radius: 28px;
-            padding: 44px 36px 40px; position: relative; overflow: hidden;
-            transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s;
-            cursor: default;
+            background: rgba(10,8,3,0.55); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,215,0,0.08); border-radius: 28px; padding: 44px 36px 40px;
+            position: relative; overflow: hidden;
+            transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s; cursor: default;
         }
         .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent); opacity: 0; transition: opacity 0.4s; }
         .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 220px; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,215,0,0.05) 0%, transparent 70%); pointer-events: none; }
         .service-card:hover { transform: translateY(-16px); box-shadow: 0 60px 110px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,215,0,0.20), 0 0 90px rgba(255,215,0,0.07); border-color: rgba(255,215,0,0.20); background: rgba(14,11,4,0.70); }
         .service-card:hover::before { opacity: 1; }
-
         .service-number { position: absolute; top: 28px; right: 28px; font-family: 'Playfair Display', serif; font-size: 52px; font-style: italic; color: rgba(255,215,0,0.05); font-weight: 400; line-height: 1; pointer-events: none; transition: color 0.4s; }
         .service-card:hover .service-number { color: rgba(255,215,0,0.09); }
-
         .service-icon-wrap { width: 58px; height: 58px; border-radius: 18px; background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.15); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 26px; transition: background 0.4s, border-color 0.4s, transform 0.4s; }
         .service-card:hover .service-icon-wrap { background: rgba(255,215,0,0.10); border-color: rgba(255,215,0,0.35); transform: scale(1.06) rotate(-2deg); }
-
         .service-card-eyebrow { font-size: 7px; color: rgba(255,215,0,0.45); letter-spacing: 5px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
         .service-name { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 400; color: rgba(255,255,255,0.92); letter-spacing: 0.8px; margin-bottom: 14px; line-height: 1.2; }
         .service-desc { font-size: 13px; color: rgba(255,255,255,0.28); line-height: 2.0; font-weight: 300; margin-bottom: 28px; }
-
         .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
         .service-tag-pill { font-size: 7.5px; color: rgba(255,215,0,0.50); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; border: 1px solid rgba(255,215,0,0.12); border-radius: 30px; padding: 5px 12px; background: rgba(255,215,0,0.03); transition: all 0.3s; }
         .service-card:hover .service-tag-pill { border-color: rgba(255,215,0,0.22); background: rgba(255,215,0,0.06); }
-
         .service-cta-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px 24px; background: transparent; border: 1px solid rgba(255,215,0,0.22); border-radius: 50px; color: rgba(255,215,0,0.70); font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; position: relative; z-index: 1; transition: all 0.4s var(--transition); overflow: hidden; }
         .service-cta-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37); opacity: 0; transition: opacity 0.4s; border-radius: 50px; }
         .service-cta-btn:hover { color: #000; border-color: transparent; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,215,0,0.25); }
@@ -609,140 +549,43 @@
         .service-cta-btn:hover .service-cta-arrow { transform: translateX(4px); }
         .services-divider { height: 1px; max-width: 960px; margin: 72px auto 0; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent); }
 
-        /* ═══════════════════════════════════════════════════════
-           PRIVATE SOURCING MODAL — LUXURY REDESIGN
-        ═══════════════════════════════════════════════════════ */
-        #privateSourcingModal .modal-content {
-            max-width: 520px;
-            background: rgba(5,4,1,0.92);
-            border: 1px solid rgba(255,215,0,0.08);
-            padding: 56px 44px 64px;
-        }
-        .src-modal-eyebrow {
-            font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.35);
-            letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .src-modal-title {
-            font-family: 'Playfair Display', serif; font-size: 34px; font-style: italic;
-            font-weight: 400; color: white; letter-spacing: 1.5px; line-height: 1.15; margin-bottom: 8px;
-        }
-        .src-modal-sub {
-            font-size: 8px; color: rgba(255,255,255,0.14); letter-spacing: 4px;
-            text-transform: uppercase; margin-bottom: 56px; font-family: 'DM Sans', sans-serif;
-        }
-        .src-section-eyebrow {
-            font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.28);
-            letter-spacing: 6px; text-transform: uppercase; margin-bottom: 36px;
-            margin-top: 56px; padding-top: 44px;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            font-family: 'DM Sans', sans-serif; display: block;
-        }
+        /* PRIVATE SOURCING MODAL */
+        #privateSourcingModal .modal-content { max-width: 520px; background: rgba(5,4,1,0.92); border: 1px solid rgba(255,215,0,0.08); padding: 56px 44px 64px; }
+        .src-modal-eyebrow { font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.35); letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px; font-family: 'DM Sans', sans-serif; }
+        .src-modal-title { font-family: 'Playfair Display', serif; font-size: 34px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1.5px; line-height: 1.15; margin-bottom: 8px; }
+        .src-modal-sub { font-size: 8px; color: rgba(255,255,255,0.14); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 56px; font-family: 'DM Sans', sans-serif; }
+        .src-section-eyebrow { font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.28); letter-spacing: 6px; text-transform: uppercase; margin-bottom: 36px; margin-top: 56px; padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.04); font-family: 'DM Sans', sans-serif; display: block; }
         .src-section-eyebrow:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-
-        /* Private sourcing item type note */
-        .src-note {
-            font-size: 12px; color: rgba(255,255,255,0.20);
-            line-height: 1.9; font-weight: 300; margin-bottom: 0; letter-spacing: 0.2px;
-        }
-
-        /* Delivery notice — minimal */
-        .src-delivery-strip {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-top: 48px; padding: 22px 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .src-delivery-strip-label {
-            font-size: 8px; color: rgba(255,255,255,0.22); letter-spacing: 4px;
-            text-transform: uppercase; font-weight: 600; font-family: 'DM Sans', sans-serif;
-        }
-        .src-delivery-strip-amount {
-            font-family: 'Playfair Display', serif; font-size: 18px;
-            color: rgba(255,215,0,0.65); font-style: italic;
-        }
-
-        /* Payment options — no borders, open air */
-        .src-pay-row {
-            display: flex; align-items: flex-start; gap: 20px;
-            padding: 24px 0; cursor: pointer; transition: opacity 0.3s;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
+        .src-note { font-size: 12px; color: rgba(255,255,255,0.20); line-height: 1.9; font-weight: 300; margin-bottom: 0; letter-spacing: 0.2px; }
+        .src-delivery-strip { display: flex; align-items: center; justify-content: space-between; margin-top: 48px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .src-delivery-strip-label { font-size: 8px; color: rgba(255,255,255,0.22); letter-spacing: 4px; text-transform: uppercase; font-weight: 600; font-family: 'DM Sans', sans-serif; }
+        .src-delivery-strip-amount { font-family: 'Playfair Display', serif; font-size: 18px; color: rgba(255,215,0,0.65); font-style: italic; }
+        .src-pay-row { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; cursor: pointer; transition: opacity 0.3s; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .src-pay-row:last-child { border-bottom: none; }
         .src-pay-row:hover { opacity: 0.8; }
-        .src-pay-indicator {
-            flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.14); margin-top: 4px;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.5s var(--ease-luxury);
-        }
+        .src-pay-indicator { flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.14); margin-top: 4px; display: flex; align-items: center; justify-content: center; transition: border-color 0.5s var(--ease-luxury); }
         .src-pay-row.selected .src-pay-indicator { border-color: rgba(255,215,0,0.7); }
-        .src-pay-dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--gold); opacity: 0; transform: scale(0);
-            transition: opacity 0.4s var(--ease-luxury), transform 0.4s var(--ease-luxury);
-        }
+        .src-pay-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0; transform: scale(0); transition: opacity 0.4s var(--ease-luxury), transform 0.4s var(--ease-luxury); }
         .src-pay-row.selected .src-pay-dot { opacity: 1; transform: scale(1); }
         .src-pay-label { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 400; margin-bottom: 5px; letter-spacing: 0.3px; }
         .src-pay-desc { color: rgba(255,255,255,0.20); font-size: 10.5px; line-height: 1.7; font-weight: 300; }
-
-        .src-telebirr-note {
-            margin-top: 28px;
-            font-size: 10px; color: rgba(255,255,255,0.16);
-            letter-spacing: 1.5px; line-height: 1.8;
-        }
+        .src-telebirr-note { margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.16); letter-spacing: 1.5px; line-height: 1.8; }
         .src-telebirr-note strong { color: rgba(255,255,255,0.34); }
-
         #srcReferenceWrapper { position: relative; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-top: 0; transition: border-color 0.6s var(--ease-luxury); }
         #srcReferenceWrapper:focus-within { border-bottom-color: rgba(255,215,0,0.45); }
         #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 15px; min-height: 70px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.8; font-weight: 300; padding: 0; }
         #srcReference::placeholder { color: rgba(255,255,255,0.10); font-weight: 300; }
 
-        /* ═══════════════════════════════════════════════════════
-           SERVICE FORM MODALS — LUXURY REDESIGN
-        ═══════════════════════════════════════════════════════ */
+        /* SERVICE FORM MODALS */
         .svc-modal { display: none; position: fixed; z-index: 3000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.72); backdrop-filter: blur(52px); -webkit-backdrop-filter: blur(52px); overflow-y: auto; padding: 32px 16px; }
-        .svc-modal-content {
-            background: rgba(4,3,1,0.94);
-            backdrop-filter: blur(80px); -webkit-backdrop-filter: blur(80px);
-            color: white; margin: 0 auto; padding: 64px 52px 72px;
-            width: 100%; max-width: 560px; border-radius: 40px;
-            border: 1px solid rgba(255,215,0,0.07);
-            box-shadow: 0 120px 180px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,215,0,0.04), inset 0 1px 0 rgba(255,255,255,0.03);
-        }
-        .svc-eyebrow {
-            font-size: 7px; color: rgba(255,215,0,0.35); letter-spacing: 9px;
-            text-transform: uppercase; font-weight: 700; margin-bottom: 16px;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .svc-title {
-            font-family: 'Playfair Display', serif; font-size: 36px; font-style: italic;
-            font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 8px; line-height: 1.15;
-        }
-        .svc-subtitle {
-            font-size: 8px; color: rgba(255,255,255,0.12); letter-spacing: 4px;
-            text-transform: uppercase; margin-bottom: 64px; font-family: 'DM Sans', sans-serif;
-        }
-        .svc-section-divider {
-            height: 1px; background: rgba(255,255,255,0.04); margin: 52px 0 48px;
-        }
-        .svc-submit-btn {
-            width: 100%; padding: 22px; margin-top: 8px;
-            background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020);
-            color: #000; border: none; border-radius: 60px; font-weight: 900;
-            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-            cursor: pointer; font-family: 'DM Sans', sans-serif;
-            transition: transform 0.5s var(--ease-luxury), box-shadow 0.5s var(--ease-luxury), opacity 0.2s;
-            box-shadow: 0 14px 48px rgba(255,215,0,0.18);
-        }
+        .svc-modal-content { background: rgba(4,3,1,0.94); backdrop-filter: blur(80px); -webkit-backdrop-filter: blur(80px); color: white; margin: 0 auto; padding: 64px 52px 72px; width: 100%; max-width: 560px; border-radius: 40px; border: 1px solid rgba(255,215,0,0.07); box-shadow: 0 120px 180px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,215,0,0.04), inset 0 1px 0 rgba(255,255,255,0.03); }
+        .svc-eyebrow { font-size: 7px; color: rgba(255,215,0,0.35); letter-spacing: 9px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; font-family: 'DM Sans', sans-serif; }
+        .svc-title { font-family: 'Playfair Display', serif; font-size: 36px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 8px; line-height: 1.15; }
+        .svc-subtitle { font-size: 8px; color: rgba(255,255,255,0.12); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 64px; font-family: 'DM Sans', sans-serif; }
+        .svc-section-divider { height: 1px; background: rgba(255,255,255,0.04); margin: 52px 0 48px; }
+        .svc-submit-btn { width: 100%; padding: 22px; margin-top: 8px; background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020); color: #000; border: none; border-radius: 60px; font-weight: 900; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: transform 0.5s var(--ease-luxury), box-shadow 0.5s var(--ease-luxury), opacity 0.2s; box-shadow: 0 14px 48px rgba(255,215,0,0.18); }
         .svc-submit-btn:hover { transform: translateY(-4px); box-shadow: 0 24px 64px rgba(255,215,0,0.38); }
-        .svc-cancel-btn {
-            width: 100%; padding: 18px; margin-top: 14px; background: transparent;
-            color: rgba(255,255,255,0.18); border: none;
-            font-weight: 600; font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-            cursor: pointer; font-family: 'DM Sans', sans-serif;
-            transition: color 0.4s var(--ease-luxury);
-        }
+        .svc-cancel-btn { width: 100%; padding: 18px; margin-top: 14px; background: transparent; color: rgba(255,255,255,0.18); border: none; font-weight: 600; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.4s var(--ease-luxury); }
         .svc-cancel-btn:hover { color: rgba(255,255,255,0.42); }
         .svc-trust { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 40px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.03); }
         .svc-trust-item { display: flex; align-items: center; gap: 10px; }
@@ -766,10 +609,8 @@
         .legal-highlight-box { border: 1px solid rgba(255,215,0,0.06); border-radius: 16px; padding: 20px 24px; margin-bottom: 20px; }
         .legal-highlight-box p { margin: 0; font-size: 13px; color: #777; line-height: 1.75; }
 
-        /* SUCCESS */
         #successModal .modal-content { text-align: center; max-width: 400px; margin: 10vh auto 20px; padding: 52px 32px; }
 
-        /* FOOTER */
         footer { width: 100%; background: transparent; padding: 56px 24px 44px; position: relative; }
         footer::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
         .footer-legal { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; padding-bottom: 22px; }
@@ -779,19 +620,10 @@
         #profileOnboardingModal .modal-content { max-width: 380px; margin-top: 8vh; text-align: center; }
         #profileHubModal .modal-content { max-width: 440px; }
 
-        /* PER-PRODUCT SIZE GUIDE POPUP */
-        #sizeGuidePopup {
-            display: none; position: fixed; inset: 0; z-index: 4500;
-            background: rgba(0,0,0,0.72); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-            overflow-y: auto; padding: 28px 16px;
-        }
+        /* SIZE GUIDE POPUP */
+        #sizeGuidePopup { display: none; position: fixed; inset: 0; z-index: 4500; background: rgba(0,0,0,0.72); backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); overflow-y: auto; padding: 28px 16px; }
         #sizeGuidePopup.sgp-open { display: block; }
-        .sgp-content {
-            background: rgba(10,8,3,0.90); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
-            border: 1px solid rgba(255,215,0,0.12); border-radius: 28px;
-            padding: 40px 28px 44px; max-width: 480px; width: 100%; margin: 0 auto;
-            box-shadow: 0 60px 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
-        }
+        .sgp-content { background: rgba(10,8,3,0.90); backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px); border: 1px solid rgba(255,215,0,0.12); border-radius: 28px; padding: 40px 28px 44px; max-width: 480px; width: 100%; margin: 0 auto; box-shadow: 0 60px 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04); }
         .sgp-eyebrow { font-size: 7.5px; color: rgba(255,215,0,0.45); letter-spacing: 6px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; font-family: 'DM Sans', sans-serif; }
         .sgp-title { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1px; margin-bottom: 6px; }
         .sgp-subtitle { font-size: 8.5px; color: rgba(255,255,255,0.20); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px; font-family: 'DM Sans', sans-serif; }
@@ -962,7 +794,7 @@
     </div>
 </div>
 
-<!-- PER-PRODUCT SIZE GUIDE POPUP -->
+<!-- SIZE GUIDE POPUP -->
 <div id="sizeGuidePopup">
     <div class="sgp-content">
         <div class="sgp-eyebrow">📐 Size Guide · OUMRAN</div>
@@ -1036,35 +868,35 @@
                 <div class="category-count">8 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"2","img":"Fourth.jpg"},{"name":"3","img":"Sec.jpg"},{"name":"4","img":"Third.jpg"}]' data-size-guide='{"title":"Short-Sleeve Zip Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"96","Sleeve":"20.5","Length":"65"},{"Size":"L","Shoulder":"44.2","Chest":"100","Sleeve":"21","Length":"67"},{"Size":"XL","Shoulder":"46","Chest":"104","Sleeve":"21.5","Length":"70"},{"Size":"2XL","Shoulder":"46.6","Chest":"108","Sleeve":"22","Length":"71"},{"Size":"3XL","Shoulder":"50","Chest":"114","Sleeve":"22.5","Length":"74"},{"Size":"4XL","Shoulder":"52","Chest":"120","Sleeve":"23","Length":"76"}]}' data-sizes="M,L,XL,2XL,3XL,4XL">
+                <div class="product-card" onclick="openP('Short-Sleeve Zip Knit','clothe',1600)" data-variants='[{"name":"Main — Variant 1","img":"Short-Sleeve Zip Knit.jpg"},{"name":"Main — Variant 2","img":"Fourth.jpg"},{"name":"Main — Variant 3","img":"Sec.jpg"},{"name":"Main — Variant 4","img":"Third.jpg"}]' data-size-guide='{"title":"Short-Sleeve Zip Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"96","Sleeve":"20.5","Length":"65"},{"Size":"L","Shoulder":"44.2","Chest":"100","Sleeve":"21","Length":"67"},{"Size":"XL","Shoulder":"46","Chest":"104","Sleeve":"21.5","Length":"70"},{"Size":"2XL","Shoulder":"46.6","Chest":"108","Sleeve":"22","Length":"71"},{"Size":"3XL","Shoulder":"50","Chest":"114","Sleeve":"22.5","Length":"74"},{"Size":"4XL","Shoulder":"52","Chest":"120","Sleeve":"23","Length":"76"}]}' data-sizes="M,L,XL,2XL,3XL,4XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeve Zip Knit.jpg" loading="eager" fetchpriority="high" alt="Short-Sleeve Zip Knit"></div>
                     <div class="info-area"><h3>Short-Sleeve Zip Knit</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"1","img":"Vintage Polo.jpg"},{"name":"2","img":"Grey vintage.jpg"},{"name":"3","img":"Black vintage .jpg"}]' data-size-guide='{"title":"Vintage Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"52.3","Chest":"116","Sleeve":"22.5","Length":"66"},{"Size":"L","Shoulder":"54","Chest":"120","Sleeve":"23","Length":"68"},{"Size":"XL","Shoulder":"55.7","Chest":"124","Sleeve":"23.5","Length":"70"},{"Size":"2XL","Shoulder":"57.4","Chest":"128","Sleeve":"24","Length":"72"}]}' data-sizes="M,L,XL,2XL">
+                <div class="product-card" onclick="openP('Vintage Polo','clothe',1800)" data-variants='[{"name":"Vintage Polo — Variant 1","img":"Vintage Polo.jpg"},{"name":"Vintage Polo — Grey","img":"Grey vintage.jpg"},{"name":"Vintage Polo — Black","img":"Black vintage .jpg"}]' data-size-guide='{"title":"Vintage Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"52.3","Chest":"116","Sleeve":"22.5","Length":"66"},{"Size":"L","Shoulder":"54","Chest":"120","Sleeve":"23","Length":"68"},{"Size":"XL","Shoulder":"55.7","Chest":"124","Sleeve":"23.5","Length":"70"},{"Size":"2XL","Shoulder":"57.4","Chest":"128","Sleeve":"24","Length":"72"}]}' data-sizes="M,L,XL,2XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Vintage Polo.jpg" loading="eager" fetchpriority="high" alt="Vintage Polo"></div>
                     <div class="info-area"><h3>Vintage Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"1","img":"Italian-Style Knit Polo.jpg"},{"name":"2","img":"Grey polo.jpg"},{"name":"3","img":"White polo .jpg"},{"name":"4","img":"Black polo.jpg"}]' data-size-guide='{"title":"Italian-Style Knit Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"100","Sleeve":"22","Length":"65"},{"Size":"L","Shoulder":"44","Chest":"104","Sleeve":"23","Length":"67"},{"Size":"XL","Shoulder":"45","Chest":"108","Sleeve":"24","Length":"69"},{"Size":"2XL","Shoulder":"46","Chest":"112","Sleeve":"25","Length":"71"},{"Size":"3XL","Shoulder":"47","Chest":"116","Sleeve":"26","Length":"73"}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Italian-Style Knit Polo','clothe',1800)" data-variants='[{"name":"Italian-Style Knit Polo — Main","img":"Italian-Style Knit Polo.jpg"},{"name":"Italian-Style Knit Polo — Grey","img":"Grey polo.jpg"},{"name":"Italian-Style Knit Polo — White","img":"White polo .jpg"},{"name":"Italian-Style Knit Polo — Black","img":"Black polo.jpg"}]' data-size-guide='{"title":"Italian-Style Knit Polo","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"43","Chest":"100","Sleeve":"22","Length":"65"},{"Size":"L","Shoulder":"44","Chest":"104","Sleeve":"23","Length":"67"},{"Size":"XL","Shoulder":"45","Chest":"108","Sleeve":"24","Length":"69"},{"Size":"2XL","Shoulder":"46","Chest":"112","Sleeve":"25","Length":"71"},{"Size":"3XL","Shoulder":"47","Chest":"116","Sleeve":"26","Length":"73"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Italian-Style Knit Polo.jpg" loading="eager" fetchpriority="high" alt="Italian-Style Knit Polo"></div>
                     <div class="info-area"><h3>Italian-Style Knit Polo</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"1","img":"Premium Floral Short Sleeve.jpg"},{"name":"2","img":"Floral black.jpg"}]' data-size-guide='{"title":"Premium Floral Short Sleeve","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"44","Chest":"102","Sleeve":"","Length":""},{"Size":"L","Shoulder":"46","Chest":"106","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"48","Chest":"110","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"50","Chest":"114","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"52","Chest":"118","Sleeve":"","Length":""},{"Size":"4XL","Shoulder":"54","Chest":"122","Sleeve":"","Length":""}]}' data-sizes="M,L,XL,2XL,3XL,">
+                <div class="product-card" onclick="openP('Premium Floral Short Sleeve','clothe',1800)" data-variants='[{"name":"Premium Floral Short Sleeve — Main","img":"Premium Floral Short Sleeve.jpg"},{"name":"Premium Floral Short Sleeve — Black","img":"Floral black.jpg"}]' data-size-guide='{"title":"Premium Floral Short Sleeve","columns":["Size","Shoulder","Chest"],"rows":[{"Size":"M","Shoulder":"44","Chest":"102"},{"Size":"L","Shoulder":"46","Chest":"106"},{"Size":"XL","Shoulder":"48","Chest":"110"},{"Size":"2XL","Shoulder":"50","Chest":"114"},{"Size":"3XL","Shoulder":"52","Chest":"118"},{"Size":"4XL","Shoulder":"54","Chest":"122"}]}' data-sizes="M,L,XL,2XL,3XL,4XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium Floral Short Sleeve.jpg" loading="eager" fetchpriority="high" alt="Premium Floral Short Sleeve"></div>
                     <div class="info-area"><h3>Premium Floral Short Sleeve</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"1","img":"Half zipped black t-shirt.jpg"},{"name":"2","img":"White .jpg"}]' data-size-guide='{"title":"Half Zipped Black T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"","Chest":"110","Sleeve":"","Length":""},{"Size":"L","Shoulder":"","Chest":"114","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"","Chest":"118","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"","Chest":"122","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"","Chest":"126","Sleeve":"","Length":""}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Half Zipped Black T-Shirt','clothe',1800)" data-variants='[{"name":"Half Zipped — Black","img":"Half zipped black t-shirt.jpg"},{"name":"Half Zipped — White","img":"White .jpg"}]' data-size-guide='{"title":"Half Zipped Black T-Shirt","columns":["Size","Chest"],"rows":[{"Size":"M","Chest":"110"},{"Size":"L","Chest":"114"},{"Size":"XL","Chest":"118"},{"Size":"2XL","Chest":"122"},{"Size":"3XL","Chest":"126"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half zipped black t-shirt.jpg" loading="eager" fetchpriority="high" alt="Half Zipped Black T-Shirt"></div>
                     <div class="info-area"><h3>Half Zipped Black T-Shirt</h3><div class="card-footer"><div class="new-p">1,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"2","img":"Human.jpg"},{"name":"3","img":"All white.jpg"},{"name":"4","img":"All black.jpg"}]' data-size-guide='{"title":"Short-Sleeved Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"40","Chest":"95","Sleeve":"","Length":""},{"Size":"L","Shoulder":"42","Chest":"98","Sleeve":"","Length":""},{"Size":"XL","Shoulder":"43","Chest":"102","Sleeve":"","Length":""},{"Size":"2XL","Shoulder":"44","Chest":"106","Sleeve":"","Length":""},{"Size":"3XL","Shoulder":"45","Chest":"110","Sleeve":"","Length":""}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Short-Sleeved Knit Sweater','clothe',1600)" data-variants='[{"name":"Short-Sleeved Knit — Main","img":"Short-Sleeved Knit Sweater.jpg"},{"name":"Short-Sleeved Knit — Human Print","img":"Human.jpg"},{"name":"Short-Sleeved Knit — All White","img":"All white.jpg"},{"name":"Short-Sleeved Knit — All Black","img":"All black.jpg"}]' data-size-guide='{"title":"Short-Sleeved Knit Sweater","columns":["Size","Shoulder","Chest"],"rows":[{"Size":"M","Shoulder":"40","Chest":"95"},{"Size":"L","Shoulder":"42","Chest":"98"},{"Size":"XL","Shoulder":"43","Chest":"102"},{"Size":"2XL","Shoulder":"44","Chest":"106"},{"Size":"3XL","Shoulder":"45","Chest":"110"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Short-Sleeved Knit Sweater.jpg" loading="eager" fetchpriority="high" alt="Short-Sleeved Knit Sweater"></div>
                     <div class="info-area"><h3>Short-Sleeved Knit Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"1","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"2","img":"Lapel sweatshirt .jpg"},{"name":"3","img":"Blackwh .jpg"},{"name":"4","img":"Green.jpg"}]' data-size-guide='{"title":"Lapel Short-Sleeved Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Lapel Short-Sleeved Sweater','clothe',1600)" data-variants='[{"name":"Lapel Short-Sleeved — Main","img":"Lapel Short-Sleeved Sweater.jpg"},{"name":"Lapel Short-Sleeved — Sweatshirt","img":"Lapel sweatshirt .jpg"},{"name":"Lapel Short-Sleeved — Black & White","img":"Blackwh .jpg"},{"name":"Lapel Short-Sleeved — Green","img":"Green.jpg"}]' data-size-guide='{"title":"Lapel Short-Sleeved Sweater","columns":["Size","Shoulder","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Sleeve":"23","Length":"75"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Short-Sleeved Sweater.jpg" loading="eager" fetchpriority="high" alt="Lapel Short-Sleeved Sweater"></div>
                     <div class="info-area"><h3>Lapel Short-Sleeved Sweater</h3><div class="card-footer"><div class="new-p">1,600 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"1","img":"Strip knit t-shirt.jpg"},{"name":"2","img":"Striped.jpg"},{"name":"3","img":"Stripe t-shirt.jpg"}]' data-size-guide='{"title":"Strip Knit T-Shirt","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Chest":"","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Chest":"","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Chest":"","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Chest":"","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Chest":"","Sleeve":"23","Length":"75"}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Strip Knit T-Shirt','clothe',2850)" data-variants='[{"name":"Strip Knit — Main","img":"Strip knit t-shirt.jpg"},{"name":"Strip Knit — Striped","img":"Striped.jpg"},{"name":"Strip Knit — Stripe Alternate","img":"Stripe t-shirt.jpg"}]' data-size-guide='{"title":"Strip Knit T-Shirt","columns":["Size","Shoulder","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"50","Sleeve":"19","Length":"67"},{"Size":"L","Shoulder":"51","Sleeve":"20","Length":"69"},{"Size":"XL","Shoulder":"52","Sleeve":"21","Length":"71"},{"Size":"2XL","Shoulder":"53","Sleeve":"22","Length":"73"},{"Size":"3XL","Shoulder":"54","Sleeve":"23","Length":"75"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Strip knit t-shirt.jpg" loading="eager" fetchpriority="high" alt="Strip Knit T-Shirt"></div>
                     <div class="info-area"><h3>Strip Knit T-Shirt</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1079,26 +911,27 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-               <div class="product-card" onclick="openP('Premium polo thermal Knit','clothe',3000)" data-variants='[{"name":"1","img":"Premium polo thermal Knit.jpg"},{"name":"2","img":"Brown knit.jpg"},{"name":"3","img":"Silver knit.jpg"},{"name":"4","img":"Black knit.jpg"}]' data-size-guide='{"title":"Premium polo thermal Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}' data-sizes="XL,2XL,3XL,4XL,5XL">
-                <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium polo thermal Knit.jpg" loading="eager" fetchpriority="high" alt="Premium polo thermal Knit"></div>
-               <div class="info-area"><h3>Premium polo thermal Knit</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div></div>
-                <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"1","img":"Half-Zip Sweater.jpg"},{"name":"2","img":"Half zip.jpg"},{"name":"3","img":"half zip.jpg"}]' data-size-guide='{"title":"Half-Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}' data-sizes="S,M,L,XL,XXL">
+               <!-- ✅ SIZE FIX: data-sizes changed from 105,110,115,120,125 → XL,2XL,3XL,4XL,5XL -->
+               <div class="product-card" onclick="openP('Premium Polo Thermal Knit','clothe',3000)" data-variants='[{"name":"Premium Polo Thermal Knit — Main","img":"Premium polo thermal Knit.jpg"},{"name":"Premium Polo Thermal Knit — Brown","img":"Brown knit.jpg"},{"name":"Premium Polo Thermal Knit — Silver","img":"Silver knit.jpg"},{"name":"Premium Polo Thermal Knit — Black","img":"Black knit.jpg"}]' data-size-guide='{"title":"Premium Polo Thermal Knit","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"XL","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"2XL","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"3XL","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"4XL","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"5XL","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}' data-sizes="XL,2XL,3XL,4XL,5XL">
+                <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Premium polo thermal Knit.jpg" loading="eager" fetchpriority="high" alt="Premium Polo Thermal Knit"></div>
+               <div class="info-area"><h3>Premium Polo Thermal Knit</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div></div>
+                <div class="product-card" onclick="openP('Half-Zip Sweater','clothe',2400)" data-variants='[{"name":"Half-Zip Sweater — Main","img":"Half-Zip Sweater.jpg"},{"name":"Half-Zip Sweater — Variant 2","img":"Half zip.jpg"},{"name":"Half-Zip Sweater — Variant 3","img":"half zip.jpg"}]' data-size-guide='{"title":"Half-Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Half-Zip Sweater.jpg" loading="eager" fetchpriority="high" alt="Half-Zip Sweater"></div>
                     <div class="info-area"><h3>Half-Zip Sweater</h3><div class="card-footer"><div class="new-p">2,400 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Polo cable knit collar soft sweater.jpg"},{"name":"2","img":"Sweater.jpg"},{"name":"3","img":"sweater.jpg"},{"name":"4","img":"Sweaterr .jpg"}]' data-size-guide='{"title":"Polo Cable Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}' data-sizes="105,110,115,120,125">
+                <div class="product-card" onclick="openP('Polo Cable Knit Sweater','clothe',3000)" data-variants='[{"name":"Polo Cable Knit — Main","img":"Polo cable knit collar soft sweater.jpg"},{"name":"Polo Cable Knit — Variant 2","img":"Sweater.jpg"},{"name":"Polo Cable Knit — Variant 3","img":"sweater.jpg"},{"name":"Polo Cable Knit — Variant 4","img":"Sweaterr .jpg"}]' data-size-guide='{"title":"Polo Cable Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"90","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"}]}' data-sizes="105,110,115,120,125">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Polo cable knit collar soft sweater.jpg" loading="eager" fetchpriority="high" alt="Polo Cable Knit Sweater"></div>
                     <div class="info-area"><h3>Polo Cable Knit Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"1","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"2","img":"Blue .jpg"},{"name":"3","img":"Black.jpg"},{"name":"4","img":"Dark brown .jpg"}]' data-size-guide='{"title":"Versatile Polo Cable-Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"96","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"},{"Size":"130","Shoulder":"47","Chest":"116","Sleeve":"63","Length":"76"}]}' data-sizes="105,110,115,120,125,130">
+                <div class="product-card" onclick="openP('Versatile Polo Cable-Knit Sweater','clothe',3500)" data-variants='[{"name":"Versatile Cable-Knit — Main","img":"Versatile Polo Cable-Knit Sweater.jpg"},{"name":"Versatile Cable-Knit — Blue","img":"Blue .jpg"},{"name":"Versatile Cable-Knit — Black","img":"Black.jpg"},{"name":"Versatile Cable-Knit — Dark Brown","img":"Dark brown .jpg"}]' data-size-guide='{"title":"Versatile Polo Cable-Knit Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"105","Shoulder":"42","Chest":"96","Sleeve":"58","Length":"66"},{"Size":"110","Shoulder":"43","Chest":"100","Sleeve":"59","Length":"68"},{"Size":"115","Shoulder":"44","Chest":"104","Sleeve":"60","Length":"70"},{"Size":"120","Shoulder":"45","Chest":"108","Sleeve":"61","Length":"72"},{"Size":"125","Shoulder":"46","Chest":"112","Sleeve":"62","Length":"74"},{"Size":"130","Shoulder":"47","Chest":"116","Sleeve":"63","Length":"76"}]}' data-sizes="105,110,115,120,125,130">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Versatile Polo Cable-Knit Sweater.jpg" loading="eager" fetchpriority="high" alt="Versatile Polo Cable-Knit Sweater"></div>
                     <div class="info-area"><h3>Versatile Polo Cable-Knit Sweater</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"1","img":"Denim tears Hoodie.jpg"},{"name":"2","img":"Denim-grey.jpg"},{"name":"3","img":"Denim red.jpg"}]' data-size-guide='{"title":"Denim Tears Hoodie","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"59","Chest":"120","Sleeve":"57","Length":"68"},{"Size":"M","Shoulder":"61","Chest":"124","Sleeve":"58","Length":"70"},{"Size":"L","Shoulder":"63","Chest":"128","Sleeve":"59","Length":"72"},{"Size":"XL","Shoulder":"65","Chest":"132","Sleeve":"60","Length":"74"}]}' data-sizes="S,M,L,XL">
+                <div class="product-card" onclick="openP('Denim Tears Hoodie','clothe',3500)" data-variants='[{"name":"Denim Tears Hoodie — Main","img":"Denim tears Hoodie.jpg"},{"name":"Denim Tears Hoodie — Grey","img":"Denim-grey.jpg"},{"name":"Denim Tears Hoodie — Red","img":"Denim red.jpg"}]' data-size-guide='{"title":"Denim Tears Hoodie","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"59","Chest":"120","Sleeve":"57","Length":"68"},{"Size":"M","Shoulder":"61","Chest":"124","Sleeve":"58","Length":"70"},{"Size":"L","Shoulder":"63","Chest":"128","Sleeve":"59","Length":"72"},{"Size":"XL","Shoulder":"65","Chest":"132","Sleeve":"60","Length":"74"}]}' data-sizes="S,M,L,XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim tears Hoodie.jpg" loading="eager" fetchpriority="high" alt="Denim Tears Hoodie"></div>
                     <div class="info-area"><h3>Denim Tears Hoodie</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"1","img":"Alo official casual half zip sweater.jpg"},{"name":"2","img":"Dark alo .jpg"},{"name":"3","img":"Cream alo .jpg"},{"name":"4","img":"Grey alo.jpg"},{"name":"5","img":"White alo.jpg"},{"name":"6","img":"Blue alo.jpg"}]' data-size-guide='{"title":"Alo Official Casual Half Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Alo Official Casual Half Zip Sweater','clothe',3000)" data-variants='[{"name":"Alo Half Zip — Main","img":"Alo official casual half zip sweater.jpg"},{"name":"Alo Half Zip — Dark","img":"Dark alo .jpg"},{"name":"Alo Half Zip — Cream","img":"Cream alo .jpg"},{"name":"Alo Half Zip — Grey","img":"Grey alo.jpg"},{"name":"Alo Half Zip — White","img":"White alo.jpg"},{"name":"Alo Half Zip — Blue","img":"Blue alo.jpg"}]' data-size-guide='{"title":"Alo Official Casual Half Zip Sweater","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"42","Chest":"104","Sleeve":"58","Length":"66"},{"Size":"M","Shoulder":"43","Chest":"108","Sleeve":"59","Length":"68"},{"Size":"L","Shoulder":"44","Chest":"112","Sleeve":"60","Length":"70"},{"Size":"XL","Shoulder":"45","Chest":"116","Sleeve":"61","Length":"72"},{"Size":"XXL","Shoulder":"46","Chest":"120","Sleeve":"62","Length":"74"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Alo official casual half zip sweater.jpg" loading="eager" fetchpriority="high" alt="Alo Official Casual Half Zip Sweater"></div>
                     <div class="info-area"><h3>Alo Official Casual Half Zip Sweater</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1113,15 +946,15 @@
                 <div class="category-count">3 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"1","img":"Suede vintage jacket.jpg"},{"name":"2","img":"Dark jacket.jpg"},{"name":"3","img":"Silver jacket.jpg"}]' data-size-guide='{"title":"Suede Vintage Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"64"},{"Size":"M","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"66"},{"Size":"L","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"68"},{"Size":"XL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"70"},{"Size":"XXL","Shoulder":"52","Chest":"128","Sleeve":"63","Length":"72"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Suede Vintage Jacket','clothe',2800)" data-variants='[{"name":"Suede Vintage Jacket — Main","img":"Suede vintage jacket.jpg"},{"name":"Suede Vintage Jacket — Dark","img":"Dark jacket.jpg"},{"name":"Suede Vintage Jacket — Silver","img":"Silver jacket.jpg"}]' data-size-guide='{"title":"Suede Vintage Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"64"},{"Size":"M","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"66"},{"Size":"L","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"68"},{"Size":"XL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"70"},{"Size":"XXL","Shoulder":"52","Chest":"128","Sleeve":"63","Length":"72"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Suede vintage jacket.jpg" loading="eager" fetchpriority="high" alt="Suede Vintage Jacket"></div>
                     <div class="info-area"><h3>Suede Vintage Jacket</h3><div class="card-footer"><div class="new-p">2,800 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"1","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"2","img":"Silver.jpg"}]' data-size-guide='{"title":"American Retro Stand-Collar Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"51.5","Chest":"116","Sleeve":"61","Length":"61"},{"Size":"L","Shoulder":"53","Chest":"120","Sleeve":"62","Length":"63"},{"Size":"XL","Shoulder":"54.5","Chest":"124","Sleeve":"63","Length":"65"},{"Size":"2XL","Shoulder":"56","Chest":"128","Sleeve":"64","Length":"67"}]}' data-sizes="M,L,XL,2XL">
+                <div class="product-card" onclick="openP('American Retro Stand-Collar Jacket','clothe',3250)" data-variants='[{"name":"American Retro Jacket — Main","img":"American Retro Stand-Collar Jacket.jpg"},{"name":"American Retro Jacket — Silver","img":"Silver.jpg"}]' data-size-guide='{"title":"American Retro Stand-Collar Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"M","Shoulder":"51.5","Chest":"116","Sleeve":"61","Length":"61"},{"Size":"L","Shoulder":"53","Chest":"120","Sleeve":"62","Length":"63"},{"Size":"XL","Shoulder":"54.5","Chest":"124","Sleeve":"63","Length":"65"},{"Size":"2XL","Shoulder":"56","Chest":"128","Sleeve":"64","Length":"67"}]}' data-sizes="M,L,XL,2XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="American Retro Stand-Collar Jacket.jpg" loading="eager" fetchpriority="high" alt="American Retro Stand-Collar Jacket"></div>
                     <div class="info-area"><h3>American Retro Stand-Collar Jacket</h3><div class="card-footer"><div class="new-p">3,250 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"1","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"2","img":"Black jacket.jpg"}]' data-size-guide='{"title":"Lapel Corduroy Pocket Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"47","Chest":"108","Sleeve":"58","Length":"65"},{"Size":"M","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"67"},{"Size":"L","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"69"},{"Size":"XL","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"71"},{"Size":"XXL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"73"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Lapel Corduroy Pocket Jacket','clothe',3000)" data-variants='[{"name":"Lapel Corduroy Jacket — Main","img":"Lapel Corduroy Pocket Jacket.jpg"},{"name":"Lapel Corduroy Jacket — Black","img":"Black jacket.jpg"}]' data-size-guide='{"title":"Lapel Corduroy Pocket Jacket","columns":["Size","Shoulder","Chest","Sleeve","Length"],"rows":[{"Size":"S","Shoulder":"47","Chest":"108","Sleeve":"58","Length":"65"},{"Size":"M","Shoulder":"48","Chest":"112","Sleeve":"59","Length":"67"},{"Size":"L","Shoulder":"49","Chest":"116","Sleeve":"60","Length":"69"},{"Size":"XL","Shoulder":"50","Chest":"120","Sleeve":"61","Length":"71"},{"Size":"XXL","Shoulder":"51","Chest":"124","Sleeve":"62","Length":"73"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Lapel Corduroy Pocket Jacket.jpg" loading="eager" fetchpriority="high" alt="Lapel Corduroy Pocket Jacket"></div>
                     <div class="info-area"><h3>Lapel Corduroy Pocket Jacket</h3><div class="card-footer"><div class="new-p">3,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1136,39 +969,39 @@
                 <div class="category-count">9 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-trouser="true" data-variants='[{"name":"1","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"2","img":"Black sweatpants.jpg"}]' data-size-guide='{"title":"Broken Planet Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"68","Length":"105"},{"Size":"M","Waist":"72","Length":"107"},{"Size":"L","Waist":"76","Length":"109"},{"Size":"XL","Waist":"80","Length":"111"},{"Size":"XXL","Waist":"84","Length":"113"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Broken Planet Fleece Sweatpants','clothe',2500)" data-trouser="true" data-variants='[{"name":"Broken Planet Fleece — Main","img":"Broken Planet Fleece Sweatpants.jpg"},{"name":"Broken Planet Fleece — Black","img":"Black sweatpants.jpg"}]' data-size-guide='{"title":"Broken Planet Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"68","Length":"105"},{"Size":"M","Waist":"72","Length":"107"},{"Size":"L","Waist":"76","Length":"109"},{"Size":"XL","Waist":"80","Length":"111"},{"Size":"XXL","Waist":"84","Length":"113"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Broken Planet Fleece Sweatpants.jpg" loading="eager" fetchpriority="high" alt="Broken Planet Fleece Sweatpants"></div>
                     <div class="info-area"><h3>Broken Planet Fleece</h3><div class="card-footer"><div class="new-p">2,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"2","img":"Polo grey.jpg"},{"name":"3","img":"Polo white.jpg"}]' data-size-guide='{"title":"Polo Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"71-75","Length":"104"},{"Size":"M","Waist":"76-80","Length":"106"},{"Size":"L","Waist":"81-85","Length":"108"},{"Size":"XL","Waist":"86-90","Length":"110"},{"Size":"XXL","Waist":"91-95","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Loose Hip-Hop Polo Streetwear Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"Polo Sweatpants — Main","img":"Loose Hip-Hop polo Streetwear Sweatpants.jpg"},{"name":"Polo Sweatpants — Grey","img":"Polo grey.jpg"},{"name":"Polo Sweatpants — White","img":"Polo white.jpg"}]' data-size-guide='{"title":"Polo Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"71-75","Length":"104"},{"Size":"M","Waist":"76-80","Length":"106"},{"Size":"L","Waist":"81-85","Length":"108"},{"Size":"XL","Waist":"86-90","Length":"110"},{"Size":"XXL","Waist":"91-95","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Loose Hip-Hop polo Streetwear Sweatpants.jpg" loading="eager" fetchpriority="high" alt="Polo Sweatpants"></div>
                     <div class="info-area"><h3>Polo Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Denim Tears Sweatpants.jpg"},{"name":"2","img":"Grey denim.jpg"}]' data-size-guide='{"title":"Denim Tears Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"70","Length":"105"},{"Size":"M","Waist":"74","Length":"107"},{"Size":"L","Waist":"78","Length":"109"},{"Size":"XL","Waist":"82","Length":"111"},{"Size":"XXL","Waist":"86","Length":"113"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Denim Tears Sweatpants','clothe',2850)" data-trouser="true" data-variants='[{"name":"Denim Tears Sweatpants — Main","img":"Denim Tears Sweatpants.jpg"},{"name":"Denim Tears Sweatpants — Grey","img":"Grey denim.jpg"}]' data-size-guide='{"title":"Denim Tears Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"70","Length":"105"},{"Size":"M","Waist":"74","Length":"107"},{"Size":"L","Waist":"78","Length":"109"},{"Size":"XL","Waist":"82","Length":"111"},{"Size":"XXL","Waist":"86","Length":"113"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Denim Tears Sweatpants.jpg" loading="eager" fetchpriority="high" alt="Denim Tears Sweatpants"></div>
                     <div class="info-area"><h3>Denim Tears Sweatpants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"2","img":"Yk black.jpg"}]' data-size-guide='{"title":"Embroidered Y2K Streetwear Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"50","Length":"104"},{"Size":"M","Waist":"75","Length":"106"},{"Size":"L","Waist":"100","Length":"108"},{"Size":"XL","Waist":"125","Length":"110"},{"Size":"XXL","Waist":"150","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Embroidered Y2K Streetwear Pants','clothe',3500)" data-trouser="true" data-variants='[{"name":"Y2K Streetwear Pants — Main","img":"Embroidered Y2K Streetwear Pants.jpg"},{"name":"Y2K Streetwear Pants — Black","img":"Yk black.jpg"}]' data-size-guide='{"title":"Embroidered Y2K Streetwear Pants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"50","Length":"104"},{"Size":"M","Waist":"75","Length":"106"},{"Size":"L","Waist":"100","Length":"108"},{"Size":"XL","Waist":"125","Length":"110"},{"Size":"XXL","Waist":"150","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Embroidered Y2K Streetwear Pants.jpg" loading="eager" fetchpriority="high" alt="Embroidered Y2K Streetwear Pants"></div>
                     <div class="info-area"><h3>Embroidered Y2K Streetwear Pants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"2","img":"Wide grey.jpg"},{"name":"3","img":"Wide black.jpg"}]' data-size-guide='{"title":"Signature Series Wide-Leg Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"72","Length":"104"},{"Size":"M","Waist":"76","Length":"106"},{"Size":"L","Waist":"80","Length":"108"},{"Size":"XL","Waist":"84","Length":"110"},{"Size":"XXL","Waist":"88","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Signature Series Wide-Leg Trousers','clothe',3500)" data-trouser="true" data-variants='[{"name":"Wide-Leg Trousers — Main","img":"Signature Series Wide-Leg Trousers.jpg"},{"name":"Wide-Leg Trousers — Grey","img":"Wide grey.jpg"},{"name":"Wide-Leg Trousers — Black","img":"Wide black.jpg"}]' data-size-guide='{"title":"Signature Series Wide-Leg Trousers","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"72","Length":"104"},{"Size":"M","Waist":"76","Length":"106"},{"Size":"L","Waist":"80","Length":"108"},{"Size":"XL","Waist":"84","Length":"110"},{"Size":"XXL","Waist":"88","Length":"112"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Signature Series Wide-Leg Trousers.jpg" loading="eager" fetchpriority="high" alt="Signature Series Wide-Leg Trousers"></div>
                     <div class="info-area"><h3>Signature Series Wide-Leg Trousers</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-trouser="true" data-variants='[{"name":"1","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"2","img":"Grey cross.jpg"}]' data-size-guide='{"title":"Cross Pattern Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"74","Length":"106"},{"Size":"M","Waist":"78","Length":"108"},{"Size":"L","Waist":"82","Length":"110"},{"Size":"XL","Waist":"86","Length":"112"},{"Size":"XXL","Waist":"90","Length":"114"}]}' data-sizes="S,M,L,XL,XXL">
+                <div class="product-card" onclick="openP('Cross Pattern Fleece Sweatpants','clothe',3500)" data-trouser="true" data-variants='[{"name":"Cross Pattern Fleece — Main","img":"Cross Pattern Curved-Leg Fleece Sweatpants.jpg"},{"name":"Cross Pattern Fleece — Grey","img":"Grey cross.jpg"}]' data-size-guide='{"title":"Cross Pattern Fleece Sweatpants","columns":["Size","Waist","Length"],"rows":[{"Size":"S","Waist":"74","Length":"106"},{"Size":"M","Waist":"78","Length":"108"},{"Size":"L","Waist":"82","Length":"110"},{"Size":"XL","Waist":"86","Length":"112"},{"Size":"XXL","Waist":"90","Length":"114"}]}' data-sizes="S,M,L,XL,XXL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Cross Pattern Curved-Leg Fleece Sweatpants.jpg" loading="eager" fetchpriority="high" alt="Cross Pattern Fleece Sweatpants"></div>
                     <div class="info-area"><h3>Cross Pattern Fleece Sweatpants</h3><div class="card-footer"><div class="new-p">3,500 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Elastic casual suit pants.jpg"},{"name":"2","img":"Grey suit.jpg"},{"name":"3","img":"White suit.jpg"},{"name":"4","img":"Black suit.jpg"}]' data-size-guide='{"title":"Elastic Casual Suit Pants","columns":["Size"],"rows":[{"Size":"29"},{"Size":"30"},{"Size":"31"},{"Size":"32"},{"Size":"33"},{"Size":"34"},{"Size":"36"},{"Size":"38"},{"Size":"39"},{"Size":"40"},{"Size":"42"},{"Size":"43"},{"Size":"44"},{"Size":"45"}]}' data-sizes="29,30,31,32,33,34,36,38,39,40,42,43,44,45">
+                <div class="product-card" onclick="openP('Elastic Casual Suit Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"Elastic Suit Pants — Main","img":"Elastic casual suit pants.jpg"},{"name":"Elastic Suit Pants — Grey","img":"Grey suit.jpg"},{"name":"Elastic Suit Pants — White","img":"White suit.jpg"},{"name":"Elastic Suit Pants — Black","img":"Black suit.jpg"}]' data-size-guide='{"title":"Elastic Casual Suit Pants","columns":["Size"],"rows":[{"Size":"29"},{"Size":"30"},{"Size":"31"},{"Size":"32"},{"Size":"33"},{"Size":"34"},{"Size":"36"},{"Size":"38"},{"Size":"39"},{"Size":"40"},{"Size":"42"},{"Size":"43"},{"Size":"44"},{"Size":"45"}]}' data-sizes="29,30,31,32,33,34,36,38,39,40,42,43,44,45">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Elastic casual suit pants.jpg" loading="eager" fetchpriority="high" alt="Elastic Casual Suit Pants"></div>
                     <div class="info-area"><h3>Elastic Casual Suit Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Wide-Leg Drape Pants.jpg"},{"name":"2","img":"Dark silverr .jpg"},{"name":"3","img":"Greyyy.jpg"}]' data-size-guide='{"title":"Wide-Leg Drape Pants","columns":["Size","Height","Weight"],"rows":[{"Size":"M","Height":"160-165","Weight":"50-60"},{"Size":"L","Height":"165-170","Weight":"60-70"},{"Size":"XL","Height":"170-175","Weight":"70-80"},{"Size":"2XL","Height":"175-180","Weight":"80-90"},{"Size":"3XL","Height":"180-185","Weight":"90-100"}]}' data-sizes="M,L,XL,2XL,3XL">
+                <div class="product-card" onclick="openP('Wide-Leg Drape Pants','clothe',2850)" data-trouser="true" data-variants='[{"name":"Wide-Leg Drape Pants — Main","img":"Wide-Leg Drape Pants.jpg"},{"name":"Wide-Leg Drape Pants — Dark Silver","img":"Dark silverr .jpg"},{"name":"Wide-Leg Drape Pants — Grey","img":"Greyyy.jpg"}]' data-size-guide='{"title":"Wide-Leg Drape Pants","columns":["Size","Height (cm)","Weight (kg)"],"rows":[{"Size":"M","Height (cm)":"160-165","Weight (kg)":"50-60"},{"Size":"L","Height (cm)":"165-170","Weight (kg)":"60-70"},{"Size":"XL","Height (cm)":"170-175","Weight (kg)":"70-80"},{"Size":"2XL","Height (cm)":"175-180","Weight (kg)":"80-90"},{"Size":"3XL","Height (cm)":"180-185","Weight (kg)":"90-100"}]}' data-sizes="M,L,XL,2XL,3XL">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Wide-Leg Drape Pants.jpg" loading="eager" fetchpriority="high" alt="Wide-Leg Drape Pants"></div>
                     <div class="info-area"><h3>Wide-Leg Drape Pants</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-trouser="true" data-variants='[{"name":"1","img":"Slim-Fit Suit Trousers.jpg"},{"name":"2","img":"Blackk .jpg"}]' data-size-guide='{"title":"Slim-Fit Suit Trousers","columns":["Size","Height","Weight","Waist","Hip"],"rows":[{"Size":"28","Height":"170","Weight":"50","Waist":"71","Hip":"97"},{"Size":"29","Height":"172","Weight":"55","Waist":"74","Hip":"99"},{"Size":"30","Height":"172","Weight":"60","Waist":"77","Hip":"101"},{"Size":"31","Height":"175","Weight":"65","Waist":"80","Hip":"103"},{"Size":"32","Height":"175","Weight":"70","Waist":"83","Hip":"105"},{"Size":"33","Height":"175","Weight":"75","Waist":"86","Hip":"107"},{"Size":"34","Height":"180","Weight":"80","Waist":"89","Hip":"109"},{"Size":"36","Height":"180","Weight":"85","Waist":"92","Hip":"111"}]}' data-sizes="28,29,30,31,32,33,34,36">
+                <div class="product-card" onclick="openP('Slim-Fit Suit Trousers','clothe',2850)" data-trouser="true" data-variants='[{"name":"Slim-Fit Suit Trousers — Main","img":"Slim-Fit Suit Trousers.jpg"},{"name":"Slim-Fit Suit Trousers — Black","img":"Blackk .jpg"}]' data-size-guide='{"title":"Slim-Fit Suit Trousers","columns":["Size","Height","Weight","Waist","Hip"],"rows":[{"Size":"28","Height":"170","Weight":"50","Waist":"71","Hip":"97"},{"Size":"29","Height":"172","Weight":"55","Waist":"74","Hip":"99"},{"Size":"30","Height":"172","Weight":"60","Waist":"77","Hip":"101"},{"Size":"31","Height":"175","Weight":"65","Waist":"80","Hip":"103"},{"Size":"32","Height":"175","Weight":"70","Waist":"83","Hip":"105"},{"Size":"33","Height":"175","Weight":"75","Waist":"86","Hip":"107"},{"Size":"34","Height":"180","Weight":"80","Waist":"89","Hip":"109"},{"Size":"36","Height":"180","Weight":"85","Waist":"92","Hip":"111"}]}' data-sizes="28,29,30,31,32,33,34,36">
                     <div class="img-area"><div class="img-overlay-badge">NEW</div><img src="Slim-Fit Suit Trousers.jpg" loading="eager" fetchpriority="high" alt="Slim-Fit Suit Trousers"></div>
                     <div class="info-area"><h3>Slim-Fit Suit Trousers</h3><div class="card-footer"><div class="new-p">2,850 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1183,27 +1016,27 @@
                 <div class="category-count">6 Pieces</div>
             </div>
             <div class="scroll-wrapper">
-                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Denim tears-Style tracksuit.WEBP"},{"name":"2","img":"Grey Set- denim.JPG"}]'>
+                <div class="product-card" onclick="openP('Denim Tears-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Denim Tears Tracksuit — Main","img":"Denim tears-Style tracksuit.WEBP"},{"name":"Denim Tears Tracksuit — Grey Set","img":"Grey Set- denim.JPG"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style tracksuit.WEBP" loading="eager" fetchpriority="high" alt="Denim Tears-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"2","img":"Syna .jpg"},{"name":"3","img":"Ryna .jpg"},{"name":"4","img":"Lyna .jpg"}]'>
+                <div class="product-card" onclick="openP('Synaworld Signature Paneled Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Synaworld Tracksuit — Main","img":"Synaworld Signature Paneled Suite-Style Tracksuit.jpg"},{"name":"Synaworld Tracksuit — Syna","img":"Syna .jpg"},{"name":"Synaworld Tracksuit — Ryna","img":"Ryna .jpg"},{"name":"Synaworld Tracksuit — Lyna","img":"Lyna .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Synaworld Signature Paneled Suite-Style Tracksuit.jpg" loading="eager" fetchpriority="high" alt="Synaworld Signature Paneled Tracksuit"></div>
                     <div class="info-area"><h3>Synaworld Signature Paneled Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"2","img":"Metra black .jpg"}]'>
+                <div class="product-card" onclick="openP('Mertra Embroidered Fleece-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Mertra Embroidered Tracksuit — Main","img":"Mertra Embroidered Fleece-Style Tracksuit.jpg"},{"name":"Mertra Embroidered Tracksuit — Black","img":"Metra black .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra Embroidered Fleece-Style Tracksuit.jpg" loading="eager" fetchpriority="high" alt="Mertra Embroidered Fleece-Style Tracksuit"></div>
                     <div class="info-area"><h3>Mertra Embroidered Fleece-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"2","img":"Metru black.jpg"}]'>
+                <div class="product-card" onclick="openP('Mertra High-Street Heritage Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Mertra Heritage Tracksuit — Main","img":"Mertra High-Street Heritage Set-Style Tracksuit.jpg"},{"name":"Mertra Heritage Tracksuit — Black","img":"Metru black.jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Mertra High-Street Heritage Set-Style Tracksuit.jpg" loading="eager" fetchpriority="high" alt="Mertra High-Street Heritage Tracksuit"></div>
                     <div class="info-area"><h3>Mertra High-Street Heritage Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"2","img":"Black cross.jpg"}]'>
+                <div class="product-card" onclick="openP('Chrome Hearts-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Chrome Hearts Tracksuit — Main","img":"Chrome Hearts-Style Tracksuit.jpg"},{"name":"Chrome Hearts Tracksuit — Black Cross","img":"Black cross.jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Chrome Hearts-Style Tracksuit.jpg" loading="eager" fetchpriority="high" alt="Chrome Hearts-Style Tracksuit"></div>
                     <div class="info-area"><h3>Chrome Hearts-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
-                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"1","img":"Denim tears-Style Tracksuit.jpg"},{"name":"2","img":"O black.jpg"},{"name":"3","img":"O dark blue.jpg"},{"name":"4","img":"O blue.jpg"},{"name":"5","img":"O light blue .jpg"}]'>
+                <div class="product-card" onclick="openP('Denim Tears Jeans-Style Tracksuit','clothe',7000)" data-no-size-guide="true" data-variants='[{"name":"Denim Tears Jeans Tracksuit — Main","img":"Denim tears-Style Tracksuit.jpg"},{"name":"Denim Tears Jeans Tracksuit — Black","img":"O black.jpg"},{"name":"Denim Tears Jeans Tracksuit — Dark Blue","img":"O dark blue.jpg"},{"name":"Denim Tears Jeans Tracksuit — Blue","img":"O blue.jpg"},{"name":"Denim Tears Jeans Tracksuit — Light Blue","img":"O light blue .jpg"}]'>
                     <div class="img-area"><div class="img-overlay-badge">SET</div><img src="Denim tears-Style Tracksuit.jpg" loading="eager" fetchpriority="high" alt="Denim Tears Jeans-Style Tracksuit"></div>
                     <div class="info-area"><h3>Denim Tears Jeans-Style Tracksuit</h3><div class="card-footer"><div class="new-p">7,000 ETB</div><div class="card-add-icon">+</div></div></div>
                 </div>
@@ -1313,36 +1146,25 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         PRIVATE SOURCING MODAL — LUXURY FLOATING LINE REDESIGN
-    ═══════════════════════════════════════════════════════════════ -->
+    <!-- PRIVATE SOURCING MODAL -->
     <div id="privateSourcingModal" class="modal">
         <div class="modal-content" style="max-width:520px;">
-
             <div class="src-modal-eyebrow">Private Concierge · OUMRAN</div>
             <h2 class="src-modal-title">Sourcing<br>Intake</h2>
             <p class="src-modal-sub">Bespoke acquisition for discerning clients</p>
-
-            <!-- CLIENT INFO -->
             <span class="src-section-eyebrow" style="margin-top:0;padding-top:0;border-top:none;">Client</span>
-
             <p class="src-note" style="margin-bottom:36px;">Our catalog is tailored for men — women's apparel, shoes and accessories are available exclusively through this private channel.</p>
-
             <div class="lx-field">
                 <label class="lx-label">Full Name</label>
                 <input type="text" id="srcClientName" placeholder="Your name" class="lx-input">
                 <div class="lx-line"></div>
             </div>
-
             <div class="lx-field">
                 <label class="lx-label">Contact Number</label>
                 <input type="tel" id="srcClientPhone" placeholder="Phone number" class="lx-input">
                 <div class="lx-line"></div>
             </div>
-
-            <!-- ITEM DETAILS -->
             <span class="src-section-eyebrow">The Piece</span>
-
             <div class="lx-field">
                 <label class="lx-label">Item Category</label>
                 <select id="srcCategory" class="lx-select">
@@ -1354,13 +1176,11 @@
                 </select>
                 <div class="lx-line"></div>
             </div>
-
             <div class="lx-field">
                 <label class="lx-label">Product Name & Details</label>
                 <input type="text" id="srcProductName" placeholder="Brand, model, release year…" class="lx-input">
                 <div class="lx-line"></div>
             </div>
-
             <div id="srcSizeWrapper">
                 <div class="lx-field">
                     <label class="lx-label">Required Sizing</label>
@@ -1368,16 +1188,12 @@
                     <div class="lx-line"></div>
                 </div>
             </div>
-
             <div class="lx-field">
                 <label class="lx-label">Preferred Budget</label>
                 <input type="text" id="srcBudget" placeholder="Estimated budget in ETB — optional" class="lx-input">
                 <div class="lx-line"></div>
             </div>
-
-            <!-- REFERENCE -->
             <span class="src-section-eyebrow">Reference</span>
-
             <div class="lx-field">
                 <label class="lx-label">Link or Description</label>
                 <div id="srcReferenceWrapper">
@@ -1392,42 +1208,26 @@
                     </div>
                 </div>
             </div>
-
-            <!-- DELIVERY -->
             <div class="src-delivery-strip">
                 <span class="src-delivery-strip-label">Delivery · Addis Ababa</span>
                 <span class="src-delivery-strip-amount">+ 250 ETB</span>
             </div>
-
-            <!-- PAYMENT -->
             <span class="src-section-eyebrow">Settlement</span>
-
             <div id="srcPaymentOptions">
                 <div class="src-pay-row selected" data-value="Cash on Delivery (COD)" onclick="selectSrcPayment(this)">
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
-                    <div>
-                        <div class="src-pay-label">Cash on Delivery</div>
-                        <div class="src-pay-desc">No deposit required. Settle in full upon arrival in Addis Ababa.</div>
-                    </div>
+                    <div><div class="src-pay-label">Cash on Delivery</div><div class="src-pay-desc">No deposit required. Settle in full upon arrival in Addis Ababa.</div></div>
                 </div>
                 <div class="src-pay-row" data-value="50% Secure Deposit" onclick="selectSrcPayment(this)">
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
-                    <div>
-                        <div class="src-pay-label">50% Secure Deposit</div>
-                        <div class="src-pay-desc">Pay half upfront via Telebirr. Remainder due at delivery.</div>
-                    </div>
+                    <div><div class="src-pay-label">50% Secure Deposit</div><div class="src-pay-desc">Pay half upfront via Telebirr. Remainder due at delivery.</div></div>
                 </div>
                 <div class="src-pay-row" data-value="Full Upfront Payment" onclick="selectSrcPayment(this)">
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
-                    <div>
-                        <div class="src-pay-label">Full Upfront Payment</div>
-                        <div class="src-pay-desc">Settle in full via Telebirr for priority sourcing & dispatch.</div>
-                    </div>
+                    <div><div class="src-pay-label">Full Upfront Payment</div><div class="src-pay-desc">Settle in full via Telebirr for priority sourcing & dispatch.</div></div>
                 </div>
             </div>
-
             <p class="src-telebirr-note">Telebirr &nbsp;·&nbsp; <strong>0939 620 004 &nbsp;|&nbsp; 0940 028 820</strong></p>
-
             <div style="margin-top:52px;">
                 <button class="btn btn-gold" onclick="submitPrivateSourcingWithOnboardingCheck()">Send to Concierge Network</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closePrivateSourcing()">Cancel</button>
@@ -1512,9 +1312,7 @@
 
 </div><!-- /site-wrapper -->
 
-<!-- ═══════════════════════════════════════════════════════════════
-     SERVICE FORM MODALS — LUXURY FLOATING LINE REDESIGN
-═══════════════════════════════════════════════════════════════ -->
+<!-- SERVICE SUCCESS -->
 <div id="svcSuccessModal" class="svc-modal" style="z-index:4000;">
     <div class="svc-modal-content" style="text-align:center;max-width:420px;margin:10vh auto;">
         <div style="font-size:7px;color:rgba(255,215,0,0.30);letter-spacing:9px;text-transform:uppercase;margin-bottom:36px;font-family:'DM Sans',sans-serif;">OUMRAN DIGITAL</div>
@@ -1522,9 +1320,7 @@
         <h2 style="color:var(--gold);font-family:'Playfair Display',serif;font-size:36px;letter-spacing:2px;margin-bottom:14px;font-weight:400;font-style:italic;">Brief Received</h2>
         <p style="font-size:7.5px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.14);margin-bottom:22px;font-family:'DM Sans',sans-serif;">OUMRAN Digital Concierge</p>
         <p style="font-size:13px;color:rgba(255,255,255,0.35);line-height:2;font-weight:300;margin-bottom:40px;">Your project brief has been forwarded to our development team. Expect a tailored response via Telegram within 24 hours.</p>
-        <a href="https://t.me/OUMRAN_STORE" target="_blank" style="display:block;">
-            <button class="svc-submit-btn">Message Us on Telegram →</button>
-        </a>
+        <a href="https://t.me/OUMRAN_STORE" target="_blank" style="display:block;"><button class="svc-submit-btn">Message Us on Telegram →</button></a>
         <button class="svc-cancel-btn" onclick="closeSvcSuccess()">Return to Store</button>
     </div>
 </div>
@@ -1535,63 +1331,17 @@
         <div class="svc-eyebrow">Service 01 · Revenue-First Design</div>
         <div class="svc-title">E-Commerce<br>Store</div>
         <div class="svc-subtitle">Complete your brief · Response within 24 hours</div>
-
-        <div class="lx-field">
-            <label class="lx-label">Full Name</label>
-            <input type="text" id="ec_name" placeholder="Your full name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Business Name</label>
-            <input type="text" id="ec_business" placeholder="Your business or brand name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Telegram Username</label>
-            <input type="text" id="ec_telegram" placeholder="@yourusername" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Phone Number</label>
-            <input type="tel" id="ec_phone" placeholder="+251 9XX XXX XXX" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Type of Products Sold</label>
-            <select id="ec_products" class="lx-select">
-                <option value="">Select product category</option>
-                <option>Fashion & Clothing</option><option>Electronics & Gadgets</option>
-                <option>Food & Beverages</option><option>Beauty & Cosmetics</option>
-                <option>Home & Furniture</option><option>Health & Wellness</option>
-                <option>Art & Crafts</option><option>Digital Products</option><option>Other</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Budget Range (ETB)</label>
-            <select id="ec_budget" class="lx-select">
-                <option value="">Select your budget tier</option>
-                <option>Standard (10,000 – 15,000 ETB)</option>
-                <option>Exclusive (16,000 – 25,000 ETB)</option>
-                <option>Premium (26,000 – 35,000 ETB)</option>
-                <option>Elite / Custom (36,000+ ETB)</option>
-                <option>Open to discussion</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Additional Requirements</label>
-            <textarea id="ec_notes" class="lx-textarea" placeholder="Describe specific features, integrations, design preferences, or examples you love…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-
+        <div class="lx-field"><label class="lx-label">Full Name</label><input type="text" id="ec_name" placeholder="Your full name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Business Name</label><input type="text" id="ec_business" placeholder="Your business or brand name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Telegram Username</label><input type="text" id="ec_telegram" placeholder="@yourusername" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="ec_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Type of Products Sold</label><select id="ec_products" class="lx-select"><option value="">Select product category</option><option>Fashion & Clothing</option><option>Electronics & Gadgets</option><option>Food & Beverages</option><option>Beauty & Cosmetics</option><option>Home & Furniture</option><option>Health & Wellness</option><option>Art & Crafts</option><option>Digital Products</option><option>Other</option></select><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="ec_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Additional Requirements</label><textarea id="ec_notes" class="lx-textarea" placeholder="Describe specific features, integrations, design preferences, or examples you love…"></textarea><div class="lx-line"></div></div>
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('ecommerce')">Request Quote →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('ecommerce')">Cancel</button>
-        <div class="svc-trust"> 
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
@@ -1601,69 +1351,18 @@
         <div class="svc-eyebrow">Service 02 · Authority & Credibility</div>
         <div class="svc-title">Business<br>Website</div>
         <div class="svc-subtitle">Complete your brief · Response within 24 hours</div>
-
-        <div class="lx-field">
-            <label class="lx-label">Full Name</label>
-            <input type="text" id="biz_name" placeholder="Your full name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Business Name</label>
-            <input type="text" id="biz_business" placeholder="Company or organisation name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Industry</label>
-            <select id="biz_industry" class="lx-select">
-                <option value="">Select your industry</option>
-                <option>Restaurant & Food Service</option><option>Retail & Commerce</option>
-                <option>Healthcare & Medical</option><option>Legal & Professional Services</option>
-                <option>Real Estate & Construction</option><option>Education & Training</option>
-                <option>Finance & Accounting</option><option>Technology & IT</option>
-                <option>Hospitality & Tourism</option><option>NGO / Non-profit</option><option>Other</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Telegram Username</label>
-            <input type="text" id="biz_telegram" placeholder="@yourusername" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Phone Number</label>
-            <input type="tel" id="biz_phone" placeholder="+251 9XX XXX XXX" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Desired Features</label>
-            <textarea id="biz_features" class="lx-textarea" placeholder="Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Additional Notes</label>
-            <textarea id="biz_notes" class="lx-textarea" placeholder="Reference websites you admire, brand colors, tone of voice, anything else…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Budget Range (ETB)</label>
-            <select id="biz_budget" class="lx-select">
-                <option value="">Select your budget tier</option>
-                <option>Standard (10,000 – 15,000 ETB)</option>
-                <option>Exclusive (16,000 – 25,000 ETB)</option>
-                <option>Premium (26,000 – 35,000 ETB)</option>
-                <option>Elite / Custom (36,000+ ETB)</option>
-                <option>Open to discussion</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-
+        <div class="lx-field"><label class="lx-label">Full Name</label><input type="text" id="biz_name" placeholder="Your full name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Business Name</label><input type="text" id="biz_business" placeholder="Company or organisation name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Industry</label><select id="biz_industry" class="lx-select"><option value="">Select your industry</option><option>Restaurant & Food Service</option><option>Retail & Commerce</option><option>Healthcare & Medical</option><option>Legal & Professional Services</option><option>Real Estate & Construction</option><option>Education & Training</option><option>Finance & Accounting</option><option>Technology & IT</option><option>Hospitality & Tourism</option><option>NGO / Non-profit</option><option>Other</option></select><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Telegram Username</label><input type="text" id="biz_telegram" placeholder="@yourusername" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="biz_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Desired Features</label><textarea id="biz_features" class="lx-textarea" placeholder="Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials…"></textarea><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Additional Notes</label><textarea id="biz_notes" class="lx-textarea" placeholder="Reference websites you admire, brand colors, tone of voice, anything else…"></textarea><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="biz_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('business')">Request Business Website →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('business')">Cancel</button>
-        <div class="svc-trust">  
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
@@ -1673,64 +1372,17 @@
         <div class="svc-eyebrow">Service 03 · Identity & Influence</div>
         <div class="svc-title">Personal Brand<br>& Portfolio</div>
         <div class="svc-subtitle">Complete your brief · Response within 24 hours</div>
-
-        <div class="lx-field">
-            <label class="lx-label">Full Name</label>
-            <input type="text" id="pb_name" placeholder="Your full name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Profession / Title</label>
-            <select id="pb_profession" class="lx-select">
-                <option value="">Select your profession</option>
-                <option>Content Creator / Influencer</option><option>Photographer / Videographer</option>
-                <option>Graphic Designer</option><option>Fashion Designer</option>
-                <option>Musician / Artist</option><option>Coach / Consultant</option>
-                <option>Freelancer / Contractor</option><option>Entrepreneur</option>
-                <option>Model</option><option>Other Creative</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Telegram Username</label>
-            <input type="text" id="pb_telegram" placeholder="@yourusername" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Phone Number</label>
-            <input type="tel" id="pb_phone" placeholder="+251 9XX XXX XXX" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Social Media Links</label>
-            <input type="text" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn…" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Goals for Your Website</label>
-            <textarea id="pb_goals" class="lx-textarea" placeholder="Brand deals, new clients, selling products, showcasing work…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Budget Range (ETB)</label>
-            <select id="pb_budget" class="lx-select">
-                <option value="">Select your budget tier</option>
-                <option>Standard (10,000 – 15,000 ETB)</option>
-                <option>Exclusive (16,000 – 25,000 ETB)</option>
-                <option>Premium (26,000 – 35,000 ETB)</option>
-                <option>Elite / Custom (36,000+ ETB)</option>
-                <option>Open to discussion</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-
+        <div class="lx-field"><label class="lx-label">Full Name</label><input type="text" id="pb_name" placeholder="Your full name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Profession / Title</label><select id="pb_profession" class="lx-select"><option value="">Select your profession</option><option>Content Creator / Influencer</option><option>Photographer / Videographer</option><option>Graphic Designer</option><option>Fashion Designer</option><option>Musician / Artist</option><option>Coach / Consultant</option><option>Freelancer / Contractor</option><option>Entrepreneur</option><option>Model</option><option>Other Creative</option></select><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Telegram Username</label><input type="text" id="pb_telegram" placeholder="@yourusername" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="pb_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Social Media Links</label><input type="text" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn…" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Goals for Your Website</label><textarea id="pb_goals" class="lx-textarea" placeholder="Brand deals, new clients, selling products, showcasing work…"></textarea><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="pb_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('personal')">Build My Brand →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('personal')">Cancel</button>
-        <div class="svc-trust">  
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Confidential brief</span></div></div>
     </div>
 </div>
 
@@ -1740,65 +1392,32 @@
         <div class="svc-eyebrow">Service 04 · Bespoke Engineering</div>
         <div class="svc-title">Custom Web<br>Development</div>
         <div class="svc-subtitle">Complete your brief · Response within 24 hours</div>
-
-        <div class="lx-field">
-            <label class="lx-label">Full Name</label>
-            <input type="text" id="cd_name" placeholder="Your full name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Company / Organisation</label>
-            <input type="text" id="cd_company" placeholder="Company or project name" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Telegram Username</label>
-            <input type="text" id="cd_telegram" placeholder="@yourusername" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Phone Number</label>
-            <input type="tel" id="cd_phone" placeholder="+251 9XX XXX XXX" class="lx-input">
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Project Description</label>
-            <textarea id="cd_description" class="lx-textarea" placeholder="Describe your project in detail — the problem it solves, who uses it, its core purpose…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Features Needed</label>
-            <textarea id="cd_features" class="lx-textarea" placeholder="Authentication, dashboards, payment systems, admin panel, API integrations, real-time data…"></textarea>
-            <div class="lx-line"></div>
-        </div>
-        <div class="lx-field">
-            <label class="lx-label">Budget Range (ETB)</label>
-            <select id="cd_budget" class="lx-select">
-                <option value="">Select your budget tier</option>
-                <option>Standard (10,000 – 15,000 ETB)</option>
-                <option>Exclusive (16,000 – 25,000 ETB)</option>
-                <option>Premium (26,000 – 35,000 ETB)</option>
-                <option>Elite / Custom (36,000+ ETB)</option>
-                <option>Open to discussion</option>
-            </select>
-            <div class="lx-line"></div>
-        </div>
-
+        <div class="lx-field"><label class="lx-label">Full Name</label><input type="text" id="cd_name" placeholder="Your full name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Company / Organisation</label><input type="text" id="cd_company" placeholder="Company or project name" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Telegram Username</label><input type="text" id="cd_telegram" placeholder="@yourusername" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="cd_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Project Description</label><textarea id="cd_description" class="lx-textarea" placeholder="Describe your project in detail — the problem it solves, who uses it, its core purpose…"></textarea><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Features Needed</label><textarea id="cd_features" class="lx-textarea" placeholder="Authentication, dashboards, payment systems, admin panel, API integrations, real-time data…"></textarea><div class="lx-line"></div></div>
+        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="cd_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('custom')">Submit Project Brief →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('custom')">Cancel</button>
-        <div class="svc-trust"> 
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div>
-            <div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Fully confidential</span></div>
-        </div>
+        <div class="svc-trust"><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">24h response</span></div><div class="svc-trust-item"><span class="svc-trust-dot">✦</span><span class="svc-trust-text">Fully confidential</span></div></div>
     </div>
 </div>
 
 <script>
-/* ══ DELIVERY FEE ══ */
-const DELIVERY_FEE = 250;
+/* ════════════════════════════════════════════════════════════
+   OUMRAN STORE — COMPLETE JAVASCRIPT
+   Includes: Enhanced Order Summary Card with photo integration
+════════════════════════════════════════════════════════════ */
 
-/* ══ PARTICLES ══ */
+const DELIVERY_FEE = 250;
+const BOT_TOKEN = '8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
+const CHAT_ID = '5715582254';
+const TG_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
+
+/* ── PARTICLES ── */
 (function() {
     const c = document.getElementById('particles');
     for (let i = 0; i < 18; i++) {
@@ -1811,7 +1430,7 @@ const DELIVERY_FEE = 250;
     }
 })();
 
-/* ══ HEADER SCROLL ══ */
+/* ── HEADER SCROLL ── */
 window.addEventListener('scroll', function() {
     const h = document.getElementById('site-header');
     if (h) h.classList.toggle('scrolled', window.scrollY > 60);
@@ -1822,14 +1441,14 @@ function scrollToSection(id) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* ══ SCROLL LOCK ══ */
+/* ── SCROLL LOCK ── */
 let _scrollY = 0;
 function lockScroll() { _scrollY = window.scrollY; document.body.style.top = `-${_scrollY}px`; document.documentElement.classList.add('overlay-open'); document.body.classList.add('overlay-open'); }
 function unlockScroll() { document.documentElement.classList.remove('overlay-open'); document.body.classList.remove('overlay-open'); document.body.style.top = ''; window.scrollTo(0, _scrollY); }
 function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
-/* ══ SIZE GUIDE ══ */
+/* ── SIZE GUIDE ── */
 let currentOpenCard = null;
 
 function openSizeGuide() {
@@ -1868,23 +1487,31 @@ function buildSizeButtonsFromGuide(card) {
     selectedSize = '';
     const raw = card.getAttribute('data-size-guide');
     let sizes = [];
-    if (raw) { try { const guide = JSON.parse(raw); sizes = (guide.rows || []).map(r => String(r['Size'] || '')).filter(Boolean); } catch(e) {} }
+    if (raw) {
+        try { const guide = JSON.parse(raw); sizes = (guide.rows || []).map(r => String(r['Size'] || '')).filter(Boolean); } catch(e) {}
+    }
     if (!sizes.length) sizes = ['S','M','L','XL','XXL'];
     selectedSize = sizes[0];
     sizes.forEach((s, i) => {
         const btn = document.createElement('button');
         btn.className = 'size-btn' + (i===0?' active':'');
         btn.textContent = s;
-        btn.onclick = function() { row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); this.classList.add('active'); selectedSize = s; };
+        btn.onclick = function() {
+            row.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedSize = s;
+        };
         row.appendChild(btn);
     });
 }
 
-/* ══ STATE ══ */
+/* ── STATE ── */
 const DOM = {};
-let cart = [], currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
+let cart = [];
+let currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
 let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '';
 let privateModalReady = false, selectedSize = '';
+let currentVariantIdx = 0; // ← tracks which variant is active
 
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 
@@ -1923,16 +1550,24 @@ window.addEventListener('load', () => {
     loadCart();
     if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown','true');
-        setTimeout(() => { DOM.splash.classList.add('splash-exit'); document.documentElement.classList.remove('loading'); document.body.classList.remove('loading'); syncProfile(); }, 2900);
+        setTimeout(() => {
+            DOM.splash.classList.add('splash-exit');
+            document.documentElement.classList.remove('loading');
+            document.body.classList.remove('loading');
+            syncProfile();
+        }, 2900);
     } else {
-        DOM.splash.style.display = 'none'; document.documentElement.classList.remove('loading'); document.body.classList.remove('loading'); syncProfile();
+        DOM.splash.style.display = 'none';
+        document.documentElement.classList.remove('loading');
+        document.body.classList.remove('loading');
+        syncProfile();
     }
     if (DOM.searchInput) DOM.searchInput.addEventListener('input', debounce(filterProducts, 150));
     document.addEventListener('touchstart', () => {}, { passive: true });
     document.querySelectorAll('img[loading="eager"]').forEach(img => { if (img.decode) img.decode().catch(()=>{}); });
 }, { once: true });
 
-/* ══ PROFILE ══ */
+/* ── PROFILE ── */
 function checkProfileOnboarding(type) {
     if (!localStorage.getItem('oumran_user_profile')) {
         pendingActionType = type;
@@ -2004,7 +1639,7 @@ function closeProfileHub() {
     unlockScroll();
 }
 
-/* ══ CART VIEWS ══ */
+/* ── CART VIEWS ── */
 function switchCartView(view) {
     const isBag = view==='bag';
     document.getElementById('active-bag-view').style.display    = isBag?'block':'none';
@@ -2021,15 +1656,18 @@ function renderOrderHistory() {
     c.innerHTML=h.map(o=>`<div class="order-card"><div class="order-header"><span class="order-id">#${o.id}</span><span class="order-date">${o.date}</span></div><div class="order-items">${o.items.replace(/\n/g,'<br>')}</div><div class="order-method">${o.method}</div><div class="order-total">Total: <span>${o.total} ETB</span></div></div>`).join('');
 }
 
-/* ══ ZOOM ══ */
+/* ── ZOOM ── */
 function openZoom() {
-    zoomIdx = Array.from(document.querySelectorAll('.variant-item')).findIndex(el=>el.classList.contains('active'));
-    if (zoomIdx===-1) zoomIdx=0;
+    zoomIdx = currentVariantIdx;
     updateZoomImage();
     document.getElementById('zoom-container').style.display='flex';
     document.documentElement.classList.add('modal-open');
 }
-function changeZoom(dir) { if (!currentVariants.length) return; zoomIdx=(zoomIdx+dir+currentVariants.length)%currentVariants.length; updateZoomImage(); }
+function changeZoom(dir) {
+    if (!currentVariants.length) return;
+    zoomIdx=(zoomIdx+dir+currentVariants.length)%currentVariants.length;
+    updateZoomImage();
+}
 function updateZoomImage() {
     DOM.zoomImg.src=currentVariants.length>0?currentVariants[zoomIdx].img:DOM.modalImg.src;
     document.querySelectorAll('.zoom-arrow').forEach(a=>a.style.display=currentVariants.length>1?'flex':'none');
@@ -2038,38 +1676,49 @@ function closeZoom() { document.getElementById('zoom-container').style.display='
 function openAbout() { lockScroll(); document.getElementById('aboutPage').style.display='block'; }
 function closeAbout() { document.getElementById('aboutPage').style.display='none'; unlockScroll(); }
 
-/* ══ PRODUCT MODAL ══ */
+/* ══════════════════════════════════════════════════════════
+   PRODUCT MODAL — captures full variant data for order card
+══════════════════════════════════════════════════════════ */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
-    currentP=n; currentPrice=price; currentProductType=t;
-    DOM.mName.innerText=n;
-    DOM.mPrice.innerText=price.toLocaleString()+' ETB';
-    const card=event.currentTarget;
-    currentOpenCard=card;
-    DOM.modalImg.src=card.querySelector('img').src;
+    currentP = n; currentPrice = price; currentProductType = t;
+    currentVariantIdx = 0;
+    DOM.mName.innerText = n;
+    DOM.mPrice.innerText = price.toLocaleString()+' ETB';
+    const card = event.currentTarget;
+    currentOpenCard = card;
+    DOM.modalImg.src = card.querySelector('img').src;
     document.documentElement.classList.add('modal-open');
     document.body.classList.add('modal-open');
+
     const noSizeGuide  = card.getAttribute('data-no-size-guide')==='true';
     const hasSizeGuide = !!card.getAttribute('data-size-guide');
-    const modelNote = document.getElementById('m-model-note');
-    modelNote.style.display = t==='clothe'?'block':'none';
+    document.getElementById('m-model-note').style.display = t==='clothe'?'block':'none';
     const sizeGuideBtn = document.getElementById('size-guide-btn');
     if (sizeGuideBtn) sizeGuideBtn.style.display=(!noSizeGuide&&hasSizeGuide)?'inline-flex':'none';
-    const varData=card.getAttribute('data-variants');
-    currentVariants=varData?JSON.parse(varData):[];
+
+    const varData = card.getAttribute('data-variants');
+    currentVariants = varData ? JSON.parse(varData) : [];
     DOM.variantList.innerHTML='';
+
     if (currentVariants.length>0) {
         DOM.variantArea.style.display='block';
         const frag=document.createDocumentFragment();
         currentVariants.forEach((v,idx)=>{
             const item=document.createElement('div');
             item.className=`variant-item${idx===0?' active':''}`;
-            item.onclick=function(){ DOM.modalImg.src=v.img; DOM.variantList.querySelectorAll('.variant-item').forEach(el=>el.classList.remove('active')); this.classList.add('active'); };
-            item.innerHTML=`<img src="${v.img}" loading="lazy">`;
+            item.onclick=function(){
+                DOM.modalImg.src=v.img;
+                DOM.variantList.querySelectorAll('.variant-item').forEach(el=>el.classList.remove('active'));
+                this.classList.add('active');
+                currentVariantIdx=idx;
+            };
+            item.innerHTML=`<img src="${v.img}" loading="lazy" alt="${v.name}">`;
             frag.appendChild(item);
         });
         DOM.variantList.appendChild(frag);
     } else { DOM.variantArea.style.display='none'; }
+
     DOM.recList.innerHTML='';
     const recFrag=document.createDocumentFragment();
     card.closest('.category-section').querySelectorAll('.product-card').forEach(prod=>{
@@ -2081,33 +1730,67 @@ function openP(n, t, price) {
         }
     });
     DOM.recList.appendChild(recFrag);
+
     if (t==='clothe') { DOM.sizeWrapper.style.display='block'; buildSizeButtonsFromGuide(card); }
     else { DOM.sizeWrapper.style.display='none'; }
     DOM.pModal.style.display='block';
 }
 
+/* ══════════════════════════════════════════════════════════
+   ADD TO CART — captures variant name, image URL, size guide row
+══════════════════════════════════════════════════════════ */
 function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
+
 function addToCart() {
-    const aI=DOM.variantList.querySelector('.variant-item.active');
-    const aS=aI?aI.querySelector('span'):null;
-    const dC=aS?` <span class="admin-only">[${aS.innerText}]</span>`:'';
-    const iC=aS?` [${aS.innerText}]`:'';
-    const cS=(currentProductType==='clothe')?selectedSize:'Standard';
-    cart.push({ name:currentP+dC, internalName:currentP+iC, size:cS, price:currentPrice });
-    updateCartDisplay(); closeModal();
-    DOM.toastText.innerHTML=`<strong>${currentP}</strong> Added`;
+    const activeVariant = currentVariants.length > 0 ? currentVariants[currentVariantIdx] : null;
+    const variantName   = activeVariant ? activeVariant.name : 'Default';
+    const variantImg    = activeVariant ? activeVariant.img  : (DOM.modalImg.src || '');
+    const chosenSize    = (currentProductType==='clothe') ? selectedSize : 'Standard';
+
+    // Pull matching size guide row for the chosen size
+    let sizeGuideRow = null;
+    let sizeGuideColumns = [];
+    if (currentOpenCard) {
+        const raw = currentOpenCard.getAttribute('data-size-guide');
+        if (raw) {
+            try {
+                const guide = JSON.parse(raw);
+                sizeGuideColumns = guide.columns || [];
+                sizeGuideRow = (guide.rows || []).find(r => String(r['Size']) === String(chosenSize)) || null;
+            } catch(e){}
+        }
+    }
+
+    cart.push({
+        name:        currentP,
+        variantName: variantName,
+        variantImg:  variantImg,
+        size:        chosenSize,
+        price:       currentPrice,
+        sizeGuideColumns: sizeGuideColumns,
+        sizeGuideRow:     sizeGuideRow
+    });
+
+    updateCartDisplay();
+    closeModal();
+    DOM.toastText.innerHTML=`<strong>${currentP}</strong> — ${variantName} · Size ${chosenSize} — Added`;
     DOM.toast.classList.add('show');
-    setTimeout(()=>DOM.toast.classList.remove('show'),2800);
+    setTimeout(()=>DOM.toast.classList.remove('show'),3000);
 }
 
-/* ══ CART ══ */
+/* ── CART DISPLAY ── */
 function updateCartDisplay() {
     requestAnimationFrame(()=>{
-        const hCartCount=document.getElementById('header-cart-count');
-        const hCartBtn=document.getElementById('header-cart-btn');
-        if (hCartCount) { hCartCount.innerText=cart.length; hCartCount.classList.remove('glow'); void hCartCount.offsetWidth; if (cart.length>0) hCartCount.classList.add('glow'); }
+        const hCartCount = document.getElementById('header-cart-count');
+        const hCartBtn   = document.getElementById('header-cart-btn');
+        if (hCartCount) {
+            hCartCount.innerText=cart.length;
+            hCartCount.classList.remove('glow');
+            void hCartCount.offsetWidth;
+            if (cart.length>0) hCartCount.classList.add('glow');
+        }
         if (hCartBtn) hCartBtn.style.display=cart.length>0?'flex':'none';
-        localStorage.setItem('oumer_cart',JSON.stringify(cart));
+        localStorage.setItem('oumer_cart', JSON.stringify(cart));
     });
 }
 
@@ -2117,48 +1800,193 @@ function showCart() {
     let itemsTotal=0;
     DOM.cartList.innerHTML=cart.map((item,i)=>{
         itemsTotal+=item.price;
-        return `<div class="cart-item"><div style="flex:1;"><div class="cart-item-name">${item.name}</div><div class="cart-item-size">Size: ${item.size}</div><div class="cart-item-price">${item.price.toLocaleString()} ETB</div></div><button class="remove-btn" onclick="removeItem(${i})">Remove</button></div>`;
+        return `<div class="cart-item">
+            <div style="flex:1;">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-size" style="font-size:10px;color:rgba(255,215,0,0.55);margin-bottom:3px;">${item.variantName}</div>
+                <div class="cart-item-size">Size: ${item.size}</div>
+                <div class="cart-item-price">${item.price.toLocaleString()} ETB</div>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${i})">Remove</button>
+        </div>`;
     }).join('');
     const grandTotal=cart.length>0?itemsTotal+DELIVERY_FEE:0;
     DOM.cartTotal.innerText=grandTotal.toLocaleString();
     DOM.cartModal.style.display='block';
     switchCartView('bag');
 }
-function removeItem(i) { cart.splice(i,1); updateCartDisplay(); if (!cart.length) closeCart(); else showCart(); }
 
-function submitOrder() {
-    const n=document.getElementById('custName').value;
-    const p=document.getElementById('custPhone').value;
-    const a=document.getElementById('custAddress').value;
-    if (!n||!p||!a) return alert('Please fill in all delivery details.');
-    const method=document.querySelector('input[name="payment_method"]:checked').value;
-    const itemsStr=cart.map(i=>`▫️ ${i.internalName} (${i.size})`).join('\n');
-    const itemsTotal=cart.reduce((s,i)=>s+i.price,0);
-    const grandTotal=(itemsTotal+DELIVERY_FEE).toLocaleString();
-    let history=JSON.parse(localStorage.getItem('oumran_order_history'))||[];
-    history.push({ id:Math.floor(1000+Math.random()*9000), timestamp:Date.now(), date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}), items:itemsStr, method, total:grandTotal });
-    localStorage.setItem('oumran_order_history',JSON.stringify(history));
-    const text=`🏛️ *NEW ORDER | OUMRAN STORE*\n\n✨ *CLIENT PROFILE*\n▪️ Name: ${n}\n▪️ Contact: ${p}\n▪️ Destination: ${a}\n\n📦 *ALLOCATED SELECTION*\n${itemsStr}\n\n💰 *ORDER BREAKDOWN*\nItems: ${itemsTotal.toLocaleString()} ETB\nDelivery Fee: ${DELIVERY_FEE} ETB\n*TOTAL: ${grandTotal} ETB*\n\n💳 *SERVICE PREFERENCE*\n✨ [ ${method} ]\n\n—\n`;
-    fetch(`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`,{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({chat_id:'5715582254',text,parse_mode:'Markdown'})
-    }).then(()=>{ DOM.cartModal.style.display='none'; document.getElementById('successModal').style.display='block'; cart=[]; updateCartDisplay(); });
+function removeItem(i) {
+    cart.splice(i,1);
+    updateCartDisplay();
+    if (!cart.length) closeCart();
+    else showCart();
 }
 
-function closeModal() { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display='none'; currentOpenCard=null; window.scrollTo(0,scrollPos); }
-function closeCart() { document.documentElement.classList.remove('modal-open'); DOM.cartModal.style.display='none'; window.scrollTo(0,scrollPos); }
-function loadCart() { const s=localStorage.getItem('oumer_cart'); if (s) { try { cart=JSON.parse(s); } catch(e) { cart=[]; } updateCartDisplay(); } }
+/* ══════════════════════════════════════════════════════════
+   SUBMIT ORDER — sends photo + comprehensive order summary card
+══════════════════════════════════════════════════════════ */
+function submitOrder() {
+    const n = document.getElementById('custName').value.trim();
+    const p = document.getElementById('custPhone').value.trim();
+    const a = document.getElementById('custAddress').value.trim();
+    if (!n||!p||!a) return alert('Please fill in all delivery details.');
+
+    const method      = document.querySelector('input[name="payment_method"]:checked').value;
+    const itemsTotal  = cart.reduce((s,i)=>s+i.price, 0);
+    const grandTotal  = itemsTotal + DELIVERY_FEE;
+    const orderID     = Math.floor(1000+Math.random()*9000);
+    const orderDate   = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+
+    /* ── Build per-item blocks ── */
+    const itemBlocks = cart.map((item, idx) => {
+        let sizeInfo = `📐 *Size Selected:* ${item.size}`;
+        // If we have the full size guide row, add each measurement
+        if (item.sizeGuideRow && item.sizeGuideColumns && item.sizeGuideColumns.length > 1) {
+            const measurements = item.sizeGuideColumns
+                .filter(col => col !== 'Size')
+                .map(col => {
+                    const val = item.sizeGuideRow[col];
+                    return val ? `${col}: ${val} cm` : null;
+                })
+                .filter(Boolean)
+                .join('  ·  ');
+            if (measurements) sizeInfo += `\n📏 *Measurements:* ${measurements}`;
+        }
+
+        return `▸ *ITEM ${idx+1}*
+🏷️ *Product:* ${item.name}
+🎨 *Variant / Colorway:* ${item.variantName}
+${sizeInfo}
+💰 *Unit Price:* ${item.price.toLocaleString()} ETB
+🖼 *Variant Image:* ${item.variantImg}`;
+    }).join('\n\n─────────────────────\n\n');
+
+    /* ── Simple items list for history ── */
+    const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantName} (${i.size})`).join('\n');
+
+    /* ── Save to order history ── */
+    const history = JSON.parse(localStorage.getItem('oumran_order_history'))||[];
+    history.push({
+        id: orderID, timestamp: Date.now(), date: orderDate,
+        items: historyItems, method, total: grandTotal.toLocaleString()
+    });
+    localStorage.setItem('oumran_order_history', JSON.stringify(history));
+
+    /* ── Compose full Telegram message ── */
+    const caption = `🏛️ *NEW ORDER — OUMRAN STORE*
+🔖 *Order ID:* #${orderID}
+📅 *Date:* ${orderDate}
+
+━━━━━━━━━━━━━━━━━━━━━━
+👤 *CLIENT PROFILE*
+━━━━━━━━━━━━━━━━━━━━━━
+▪️ *Name:* ${n}
+▪️ *Phone:* ${p}
+▪️ *Delivery Address:* ${a}
+
+━━━━━━━━━━━━━━━━━━━━━━
+📦 *ORDER ITEMS (${cart.length})*
+━━━━━━━━━━━━━━━━━━━━━━
+
+${itemBlocks}
+
+━━━━━━━━━━━━━━━━━━━━━━
+💰 *FINANCIAL SUMMARY*
+━━━━━━━━━━━━━━━━━━━━━━
+🛍️ Items Subtotal: ${itemsTotal.toLocaleString()} ETB
+🚚 Delivery Fee: ${DELIVERY_FEE} ETB
+💵 *GRAND TOTAL: ${grandTotal.toLocaleString()} ETB*
+
+━━━━━━━━━━━━━━━━━━━━━━
+💳 *PAYMENT METHOD*
+━━━━━━━━━━━━━━━━━━━━━━
+✨ ${method}
+📲 Telebirr: 0939 620 004 | 0940 028 820`;
+
+    /* ── Determine which variant image to send as the photo ──
+       Use the first item's variant image. If multiple items, send
+       the message as a text + all images as a media group. ── */
+
+    const sendAll = () => {
+        DOM.cartModal.style.display='none';
+        document.getElementById('successModal').style.display='block';
+        cart=[];
+        updateCartDisplay();
+    };
+
+    if (cart.length === 1) {
+        // Single item: send photo with full caption
+        const imgSrc = cart[0].variantImg;
+        const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
+
+        if (isAbsoluteUrl) {
+            // Direct photo URL
+            fetch(`${TG_API}/sendPhoto`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ chat_id: CHAT_ID, photo: imgSrc, caption, parse_mode: 'Markdown' })
+            }).then(sendAll).catch(()=>{
+                // Fallback to text if photo fails
+                fetch(`${TG_API}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' }) }).then(sendAll);
+            });
+        } else {
+            // Local relative image — send text message + note to check image manually
+            const textWithImgNote = caption + `\n\n🖼 *Product Image File:* \`${imgSrc}\``;
+            fetch(`${TG_API}/sendMessage`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({ chat_id: CHAT_ID, text: textWithImgNote, parse_mode: 'Markdown' })
+            }).then(sendAll);
+        }
+    } else {
+        // Multiple items: send full text message first, then each variant image separately
+        fetch(`${TG_API}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' })
+        }).then(() => {
+            // Send each variant image with a label
+            const imagePromises = cart.map((item, idx) => {
+                const imgSrc = item.variantImg;
+                const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
+                if (isAbsoluteUrl) {
+                    return fetch(`${TG_API}/sendPhoto`, {
+                        method:'POST',
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            photo: imgSrc,
+                            caption: `📸 Item ${idx+1}: ${item.name}\n🎨 ${item.variantName} · Size ${item.size}`,
+                            parse_mode: 'Markdown'
+                        })
+                    }).catch(()=>{});
+                }
+                return Promise.resolve();
+            });
+            Promise.all(imagePromises).then(sendAll);
+        }).catch(sendAll);
+    }
+}
+
+function closeModal()  { document.documentElement.classList.remove('modal-open'); document.body.classList.remove('modal-open'); DOM.pModal.style.display='none'; currentOpenCard=null; window.scrollTo(0,scrollPos); }
+function closeCart()   { document.documentElement.classList.remove('modal-open'); DOM.cartModal.style.display='none'; window.scrollTo(0,scrollPos); }
+function loadCart()    { const s=localStorage.getItem('oumer_cart'); if (s) { try { cart=JSON.parse(s); } catch(e) { cart=[]; } updateCartDisplay(); } }
 
 function filterProducts() {
-    const q=DOM.searchInput.value.toLowerCase();
+    const q = DOM.searchInput.value.toLowerCase();
     document.querySelectorAll('.category-section').forEach(sec=>{
         let match=false;
-        sec.querySelectorAll('.product-card').forEach(card=>{ const show=card.querySelector('h3').innerText.toLowerCase().includes(q); card.style.display=show?'block':'none'; if (show) match=true; });
+        sec.querySelectorAll('.product-card').forEach(card=>{
+            const show=card.querySelector('h3').innerText.toLowerCase().includes(q);
+            card.style.display=show?'block':'none';
+            if (show) match=true;
+        });
         sec.style.display=match?'block':'none';
     });
 }
 
-/* ══ PRIVATE SOURCING ══ */
+/* ── PRIVATE SOURCING ── */
 function openPrivateSourcing() {
     scrollPos=window.pageYOffset; lockScroll();
     document.documentElement.classList.add('modal-open'); document.body.classList.add('modal-open');
@@ -2179,7 +2007,11 @@ function initPrivateSourcingUploads() {
     const cat=document.getElementById('srcCategory');
     const sizeW=document.getElementById('srcSizeWrapper');
     const sizeI=document.getElementById('srcSize');
-    if (cat) cat.addEventListener('change',function(){ const show=this.value==='Clothes'||this.value==='Shoes'; sizeW.style.display=show?'block':'none'; if (!show) sizeI.value='Standard'; else if (sizeI.value==='Standard') sizeI.value=''; });
+    if (cat) cat.addEventListener('change',function(){
+        const show=this.value==='Clothes'||this.value==='Shoes';
+        sizeW.style.display=show?'block':'none';
+        if (!show) sizeI.value='Standard'; else if (sizeI.value==='Standard') sizeI.value='';
+    });
     function processImageFile(file) {
         if (!file||!file.type.startsWith('image/')) return;
         const reader=new FileReader();
@@ -2192,28 +2024,40 @@ function initPrivateSourcingUploads() {
     }
     if (fileInput) fileInput.addEventListener('change',()=>processImageFile(fileInput.files[0]));
     const wrapper=document.getElementById('srcReferenceWrapper');
-    if (wrapper) wrapper.addEventListener('paste',e=>{ const items=(e.clipboardData||e.originalEvent.clipboardData).items; for (let i in items) { const it=items[i]; if (it.kind==='file') { const b=it.getAsFile(); processImageFile(b); const dt=new DataTransfer(); dt.items.add(b); fileInput.files=dt.files; } } });
+    if (wrapper) wrapper.addEventListener('paste',e=>{
+        const items=(e.clipboardData||e.originalEvent.clipboardData).items;
+        for (let i in items) {
+            const it=items[i];
+            if (it.kind==='file') {
+                const b=it.getAsFile(); processImageFile(b);
+                const dt=new DataTransfer(); dt.items.add(b); fileInput.files=dt.files;
+            }
+        }
+    });
 }
+
 function submitPrivateRequest() {
-    const name=document.getElementById('srcClientName').value;
-    const phone=document.getElementById('srcClientPhone').value;
-    const category=document.getElementById('srcCategory').value;
-    const product=document.getElementById('srcProductName').value;
-    const size=document.getElementById('srcSize').value||'Standard';
-    const budget=document.getElementById('srcBudget').value||'Not Specified';
-    const ref=document.getElementById('srcReference').value||'None Provided';
-    const payment=getSelectedSrcPayment();
+    const name    = document.getElementById('srcClientName').value;
+    const phone   = document.getElementById('srcClientPhone').value;
+    const category= document.getElementById('srcCategory').value;
+    const product = document.getElementById('srcProductName').value;
+    const size    = document.getElementById('srcSize').value||'Standard';
+    const budget  = document.getElementById('srcBudget').value||'Not Specified';
+    const ref     = document.getElementById('srcReference').value||'None Provided';
+    const payment = getSelectedSrcPayment();
     if (!name||!phone||!product) return alert('Please fill in your name, contact, and requested item.');
     const text=`🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${name}\n📞 *Contact:* ${phone}\n\n📦 *Classification:* ${category}\n🏷️ *Product:* ${product}\n📐 *Size:* ${size}\n💰 *Budget:* ${budget}\n\n💳 *Payment Preference:* ${payment}\n🚚 *Delivery Fee:* ${DELIVERY_FEE} ETB (Addis Ababa)\n\n🔗 *Reference:* ${ref}`;
-    let apiUrl=`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendMessage`;
+    let apiUrl=`${TG_API}/sendMessage`;
     let opts;
     if (srcAttachedImageBase64) {
-        apiUrl=`https://api.telegram.org/bot8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc/sendPhoto`;
-        const fd=new FormData(); fd.append('chat_id','5715582254'); fd.append('caption',text); fd.append('parse_mode','Markdown');
+        apiUrl=`${TG_API}/sendPhoto`;
+        const fd=new FormData(); fd.append('chat_id',CHAT_ID); fd.append('caption',text); fd.append('parse_mode','Markdown');
         const base=srcAttachedImageBase64.split(','); const mime=base[0].match(/:(.*?);/)[1]; const bin=atob(base[1]); let nl=bin.length; const arr=new Uint8Array(nl); while(nl--) arr[nl]=bin.charCodeAt(nl);
         fd.append('photo',new Blob([arr],{type:mime}),'upload.jpg');
         opts={method:'POST',body:fd};
-    } else { opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:'5715582254',text,parse_mode:'Markdown'})}; }
+    } else {
+        opts={method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text,parse_mode:'Markdown'})};
+    }
     fetch(apiUrl,opts).then(()=>{
         document.getElementById('privateSourcingModal').style.display='none';
         document.getElementById('successModal').style.display='block';
@@ -2228,7 +2072,7 @@ function submitPrivateRequest() {
     }).catch(()=>alert('An error occurred. Please try again.'));
 }
 
-/* ══ DIGITAL SERVICES ══ */
+/* ── DIGITAL SERVICES ── */
 const SVC_BOT_TOKEN='8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
 const SVC_CHAT_ID='5715582254';
 
