@@ -723,7 +723,7 @@
         <div class="legal-header"><div class="legal-badge">OUMRAN STORE &nbsp;•&nbsp; LEGAL</div><h1>Terms & Conditions</h1><p>Last updated: January 2026 &nbsp;|&nbsp; Addis Ababa, Ethiopia</p></div>
         <div class="legal-highlight-box"><p>By placing an order through OUMRAN STORE, you agree to these Terms & Conditions.</p></div>
         <div class="legal-section"><h2>1. Ordering</h2><ul><li>Placing an order constitutes a <strong>reservation request</strong>, not a confirmed sale.</li><li>Orders confirmed only after Telegram verification.</li></ul></div>
-        <div class="legal-section"><h2>2. Payment</h2><ul><li><strong>Cash on Delivery:</strong> Full payment upon receipt.</li><li><strong>50% Deposit:</strong> Half upfront via Telebirr.</li><li><strong>Full Upfront:</strong> Priority processing.</li><li>Telebirr: <strong>0939620004 | 0940028820</strong></li></ul></div>
+        <div class="legal-section"><h2>2. Payment</h2><ul><li><strong>Cash on Delivery:</strong> Full payment upon receipt.</li><li><strong>50% Deposit:</strong> Half upfront via Telebirr.</li><li><strong>Full Upfront:</strong> Priority processing.</li><li><strong>Oumran-Covered:</strong> Order covered by OUMRAN STORE.</li><li>Telebirr: <strong>0939620004 | 0940028820</strong></li></ul></div>
         <div class="legal-section"><h2>3. Delivery</h2><p>Exclusively within <strong>Addis Ababa</strong>. A fixed delivery fee of <strong>250 ETB</strong> applies to all orders.</p></div>
         <button class="btn" onclick="closeLegal('termsPage')">Return to Store</button>
     </div>
@@ -1217,13 +1217,17 @@
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
                     <div><div class="src-pay-label">Cash on Delivery</div><div class="src-pay-desc">No deposit required. Settle in full upon arrival in Addis Ababa.</div></div>
                 </div>
-                <div class="src-pay-row" data-value="50% Secure Deposit" onclick="selectSrcPayment(this)">
+                <div class="src-pay-row" data-value="50% Upfront" onclick="selectSrcPayment(this)">
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
-                    <div><div class="src-pay-label">50% Secure Deposit</div><div class="src-pay-desc">Pay half upfront via Telebirr. Remainder due at delivery.</div></div>
+                    <div><div class="src-pay-label">50% Upfront</div><div class="src-pay-desc">Pay half upfront via Telebirr. Remainder due at delivery.</div></div>
                 </div>
-                <div class="src-pay-row" data-value="Full Upfront Payment" onclick="selectSrcPayment(this)">
+                <div class="src-pay-row" data-value="Full Paid" onclick="selectSrcPayment(this)">
                     <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
-                    <div><div class="src-pay-label">Full Upfront Payment</div><div class="src-pay-desc">Settle in full via Telebirr for priority sourcing & dispatch.</div></div>
+                    <div><div class="src-pay-label">Full Paid</div><div class="src-pay-desc">Settle in full via Telebirr for priority sourcing & dispatch.</div></div>
+                </div>
+                <div class="src-pay-row" data-value="Oumran-Covered" onclick="selectSrcPayment(this)">
+                    <div class="src-pay-indicator"><div class="src-pay-dot"></div></div>
+                    <div><div class="src-pay-label">Oumran-Covered</div><div class="src-pay-desc">Order covered by OUMRAN STORE. No payment required from you.</div></div>
                 </div>
             </div>
             <p class="src-telebirr-note">Telebirr &nbsp;·&nbsp; <strong>0939 620 004 &nbsp;|&nbsp; 0940 028 820</strong></p>
@@ -1271,15 +1275,20 @@
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
                         <div><div class="pay-title">Cash on Delivery</div><div class="pay-desc">No deposit needed. Settle total balance upon delivery.</div></div>
                     </div>
-                    <div class="pay-opt" data-value="50% Secure Deposit" onclick="selectPayment(this)">
-                        <input type="radio" name="payment_method" value="50% Secure Deposit">
+                    <div class="pay-opt" data-value="50% Upfront" onclick="selectPayment(this)">
+                        <input type="radio" name="payment_method" value="50% Upfront">
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-                        <div><div class="pay-title">50% Secure Deposit</div><div class="pay-desc">Pay half upfront via Telebirr. Remainder due at your door.</div></div>
+                        <div><div class="pay-title">50% Upfront</div><div class="pay-desc">Pay half upfront via Telebirr. Remainder due at your door.</div></div>
                     </div>
-                    <div class="pay-opt" data-value="Full Upfront Payment" onclick="selectPayment(this)">
-                        <input type="radio" name="payment_method" value="Full Upfront Payment">
+                    <div class="pay-opt" data-value="Full Paid" onclick="selectPayment(this)">
+                        <input type="radio" name="payment_method" value="Full Paid">
                         <div class="pay-radio"><div class="pay-radio-dot"></div></div>
-                        <div><div class="pay-title">Full Upfront Payment</div><div class="pay-desc">Settle in full via Telebirr for priority dispatch.</div></div>
+                        <div><div class="pay-title">Full Paid</div><div class="pay-desc">Settle in full via Telebirr for priority dispatch.</div></div>
+                    </div>
+                    <div class="pay-opt" data-value="Oumran-Covered" onclick="selectPayment(this)">
+                        <input type="radio" name="payment_method" value="Oumran-Covered">
+                        <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+                        <div><div class="pay-title">Oumran-Covered</div><div class="pay-desc">Order covered by OUMRAN STORE. No payment required from you.</div></div>
                     </div>
                 </div>
                 <div class="cart-note">
@@ -1303,7 +1312,7 @@
             <div style="margin-bottom:26px;"><div style="width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#b8901e,#FFD700);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:26px;color:black;font-weight:900;box-shadow:0 12px 40px rgba(255,215,0,0.22);">✓</div></div>
             <h2 style="color:var(--gold);font-family:'Playfair Display',serif;font-size:32px;letter-spacing:2px;margin-bottom:16px;font-weight:400;font-style:italic;">Order Reserved</h2>
             <p style="text-transform:uppercase;font-size:8.5px;letter-spacing:3px;color:rgba(255,255,255,0.20);margin-bottom:14px;">Thank you for shopping with OUMRAN STORE</p>
-            <p style="font-size:13px;font-weight:300;margin-bottom:36px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
+            <p id="success-payment-msg" style="font-size:13px;font-weight:300;margin-bottom:36px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
             <button class="btn btn-gold" onclick="window.location.href='https://t.me/OUMRAN_STORE'">Open Telegram →</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="document.getElementById('successModal').style.display='none'">Return to Store</button>
         </div>
@@ -1408,13 +1417,32 @@
 <script>
 /* ════════════════════════════════════════════════════════════
    OUMRAN STORE — COMPLETE JAVASCRIPT
-   Variant selection index tracked; full order summary to Telegram
+   Dynamic payment messaging · Concise Telegram output
 ════════════════════════════════════════════════════════════ */
 
 const DELIVERY_FEE = 250;
 const BOT_TOKEN = '8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
 const CHAT_ID = '5715582254';
 const TG_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
+
+/* ── PAYMENT TYPE HELPERS ── */
+
+/* Maps internal payment value → canonical label sent to Telegram */
+function paymentLabel(value) {
+    if (value === 'Cash on Delivery (COD)') return 'Cash on Delivery (COD)';
+    if (value === '50% Upfront')            return '50% Upfront';
+    if (value === 'Full Paid')              return 'Full Paid';
+    if (value === 'Oumran-Covered')         return 'Oumran-Covered';
+    return value;
+}
+
+/* Maps payment value → dynamic success modal body text */
+function paymentSuccessMessage(value) {
+    if (value === '50% Upfront')    return 'Send your 50% deposit screenshot on Telegram to begin delivery immediately.';
+    if (value === 'Full Paid')      return 'Send your full payment screenshot on Telegram to begin delivery immediately.';
+    if (value === 'Oumran-Covered') return 'Your order is being processed by Oumran. We will reach out via Telegram to confirm delivery.';
+    return 'Your reservation is secured. Our team will contact you via Telegram to confirm delivery.';
+}
 
 /* ── PARTICLES ── */
 (function() {
@@ -1505,14 +1533,14 @@ function buildSizeButtonsFromGuide(card) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   STATE — currentVariantIdx tracks exact selection position (0-based)
+   STATE
 ════════════════════════════════════════════════════════════ */
 const DOM = {};
 let cart = [];
 let currentP = '', currentPrice = 0, currentVariants = [], zoomIdx = 0;
 let scrollPos = 0, srcAttachedImageBase64 = '', pendingActionType = '', currentProductType = '';
 let privateModalReady = false, selectedSize = '';
-let currentVariantIdx = 0; // ← 0-based index of the selected variant/color/style option
+let currentVariantIdx = 0;
 
 function debounce(fn, d) { let t; return function(...a) { clearTimeout(t); t = setTimeout(() => fn.apply(this, a), d); }; }
 
@@ -1531,7 +1559,7 @@ function getSelectedSrcPayment() {
     return sel ? sel.getAttribute('data-value') : 'Cash on Delivery (COD)';
 }
 
-/* ── ORDINAL HELPER ── returns "1st", "2nd", "3rd", "4th"… */
+/* ── ORDINAL HELPER ── */
 function ordinal(n) {
     const s = ['th','st','nd','rd'];
     const v = n % 100;
@@ -1686,12 +1714,11 @@ function closeAbout() { document.getElementById('aboutPage').style.display='none
 
 /* ══════════════════════════════════════════════════════════
    PRODUCT MODAL
-   — currentVariantIdx is set to 0 on open, updated on each click
 ══════════════════════════════════════════════════════════ */
 function openP(n, t, price) {
     scrollPos = window.pageYOffset;
     currentP = n; currentPrice = price; currentProductType = t;
-    currentVariantIdx = 0; // reset to first option (index 0)
+    currentVariantIdx = 0;
     DOM.mName.innerText = n;
     DOM.mPrice.innerText = price.toLocaleString()+' ETB';
     const card = event.currentTarget;
@@ -1720,7 +1747,7 @@ function openP(n, t, price) {
                 DOM.modalImg.src=v.img;
                 DOM.variantList.querySelectorAll('.variant-item').forEach(el=>el.classList.remove('active'));
                 this.classList.add('active');
-                currentVariantIdx=idx; // ← store the exact index when user picks a variant
+                currentVariantIdx=idx;
             };
             item.innerHTML=`<img src="${v.img}" loading="lazy" alt="${v.name}">`;
             frag.appendChild(item);
@@ -1747,46 +1774,27 @@ function openP(n, t, price) {
 
 /* ══════════════════════════════════════════════════════════
    ADD TO CART
-   — captures variant index, ordinal label, name, and image
 ══════════════════════════════════════════════════════════ */
 function handleAddToCartClick() { if (checkProfileOnboarding('cart')) addToCart(); }
 
 function addToCart() {
-    const activeVariant    = currentVariants.length > 0 ? currentVariants[currentVariantIdx] : null;
-    const variantName      = activeVariant ? activeVariant.name  : 'Default';
-    const variantImg       = activeVariant ? activeVariant.img   : (DOM.modalImg.src || '');
-    const variantIndex     = currentVariantIdx; // 0-based
-    const variantPosition  = currentVariantIdx + 1; // 1-based (human-readable)
-    const variantOrdinal   = ordinal(variantPosition); // e.g. "1st", "2nd", "3rd"
-    const totalVariants    = currentVariants.length;
-    const chosenSize       = (currentProductType==='clothe') ? selectedSize : 'Standard';
-
-    // Pull matching size guide row for chosen size
-    let sizeGuideRow     = null;
-    let sizeGuideColumns = [];
-    if (currentOpenCard) {
-        const raw = currentOpenCard.getAttribute('data-size-guide');
-        if (raw) {
-            try {
-                const guide = JSON.parse(raw);
-                sizeGuideColumns = guide.columns || [];
-                sizeGuideRow = (guide.rows || []).find(r => String(r['Size']) === String(chosenSize)) || null;
-            } catch(e){}
-        }
-    }
+    const activeVariant   = currentVariants.length > 0 ? currentVariants[currentVariantIdx] : null;
+    const variantName     = activeVariant ? activeVariant.name  : 'Default';
+    const variantImg      = activeVariant ? activeVariant.img   : (DOM.modalImg.src || '');
+    const variantPosition = currentVariantIdx + 1;
+    const variantOrdinal  = ordinal(variantPosition);
+    const totalVariants   = currentVariants.length;
+    const chosenSize      = (currentProductType==='clothe') ? selectedSize : 'Standard';
 
     cart.push({
-        name:             currentP,
-        variantName:      variantName,
-        variantImg:       variantImg,
-        variantIndex:     variantIndex,      // 0-based index
-        variantPosition:  variantPosition,   // 1-based position
-        variantOrdinal:   variantOrdinal,    // "1st", "2nd", etc.
-        totalVariants:    totalVariants,
-        size:             chosenSize,
-        price:            currentPrice,
-        sizeGuideColumns: sizeGuideColumns,
-        sizeGuideRow:     sizeGuideRow
+        name:            currentP,
+        variantName:     variantName,
+        variantImg:      variantImg,
+        variantPosition: variantPosition,
+        variantOrdinal:  variantOrdinal,
+        totalVariants:   totalVariants,
+        size:            chosenSize,
+        price:           currentPrice
     });
 
     updateCartDisplay();
@@ -1843,14 +1851,12 @@ function removeItem(i) {
 
 /* ══════════════════════════════════════════════════════════
    SUBMIT ORDER
-   — Telegram message includes:
-     • Product Name
-     • Price
-     • Variant option index (ordinal: "1st option", "2nd option"…)
-     • Variant name / colorway
-     • Size selected
-     • Size measurements from the guide
-     • Variant image file reference
+   Concise Telegram message:
+   • Product Name
+   • Selected Option (ordinal of product name)
+   • Size
+   • Unit Price
+   • Payment Type footer
 ══════════════════════════════════════════════════════════ */
 function submitOrder() {
     const n = document.getElementById('custName').value.trim();
@@ -1858,46 +1864,29 @@ function submitOrder() {
     const a = document.getElementById('custAddress').value.trim();
     if (!n||!p||!a) return alert('Please fill in all delivery details.');
 
-    const method      = document.querySelector('input[name="payment_method"]:checked').value;
+    const rawMethod   = document.querySelector('input[name="payment_method"]:checked').value;
+    const method      = paymentLabel(rawMethod);
     const itemsTotal  = cart.reduce((s,i)=>s+i.price, 0);
     const grandTotal  = itemsTotal + DELIVERY_FEE;
     const orderID     = Math.floor(1000+Math.random()*9000);
     const orderDate   = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
 
-    /* ── Build per-item blocks with full variant index detail ── */
+    /* ── Concise per-item blocks ── */
     const itemBlocks = cart.map((item, idx) => {
-        // Size measurements line
-        let measurementsLine = '';
-        if (item.sizeGuideRow && item.sizeGuideColumns && item.sizeGuideColumns.length > 1) {
-            const measurements = item.sizeGuideColumns
-                .filter(col => col !== 'Size')
-                .map(col => {
-                    const val = item.sizeGuideRow[col];
-                    return val ? `${col}: ${val} cm` : null;
-                })
-                .filter(Boolean)
-                .join('  ·  ');
-            if (measurements) measurementsLine = `\n📏 *Measurements:* ${measurements}`;
-        }
+        const optionLine = item.totalVariants > 1
+            ? `${item.variantOrdinal} option of ${item.name}`
+            : item.variantName;
+        return `▸ *Item ${idx+1}*
+🏷 ${item.name}
+🎨 Selected Option: ${optionLine}
+📐 Size: ${item.size}
+💰 ${item.price.toLocaleString()} ETB`;
+    }).join('\n\n');
 
-        // Variant selection summary line
-        const variantSelectionLine = item.totalVariants > 1
-            ? `🎨 *Color / Style Selected:* ${item.variantOrdinal} option of ${item.totalVariants} — "${item.variantName}"`
-            : `🎨 *Color / Style:* ${item.variantName}`;
+    /* ── History items ── */
+    const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantOrdinal} option · Size ${i.size}`).join('\n');
 
-        return `▸ *ITEM ${idx+1}*
-🏷️ *Product Name:* ${item.name}
-${variantSelectionLine}
-🔢 *Selection Index:* Option #${item.variantPosition} (${item.variantOrdinal} out of ${item.totalVariants} available options)
-📐 *Size Selected:* ${item.size}${measurementsLine}
-💰 *Unit Price:* ${item.price.toLocaleString()} ETB
-🖼 *Variant Image File:* ${item.variantImg}`;
-    }).join('\n\n─────────────────────\n\n');
-
-    /* ── History items list ── */
-    const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantOrdinal} option (${i.variantName}) · Size ${i.size}`).join('\n');
-
-    /* ── Save to order history ── */
+    /* ── Save to history ── */
     const history = JSON.parse(localStorage.getItem('oumran_order_history'))||[];
     history.push({
         id: orderID, timestamp: Date.now(), date: orderDate,
@@ -1906,33 +1895,30 @@ ${variantSelectionLine}
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
 
     /* ── Full Telegram message ── */
-    const caption = `🏛️ *NEW ORDER — OUMRAN STORE*
-🔖 *Order ID:* #${orderID}
-📅 *Date:* ${orderDate}
+    const caption =
+`🏛 *NEW ORDER — OUMRAN STORE*
+🔖 Order ID: #${orderID}
+📅 ${orderDate}
 
-👤 *CLIENT PROFILE*
-━━━━━━━━━━━━━━━━━━━━━━
-▪️ *Name:* ${n}
-▪️ *Phone:* ${p}
-▪️ *Delivery Address:* ${a}
-━━━━━━━━━━━━━━━━━━━━━━
-📦 *ORDER ITEMS (${cart.length})*
-━━━━━━━━━━━━━━━━━━━━━━
+👤 *CLIENT*
+▪️ Name: ${n}
+▪️ Phone: ${p}
+▪️ Address: ${a}
+
+📦 *ITEMS (${cart.length})*
+━━━━━━━━━━━━━━━━━
 ${itemBlocks}
-━━━━━━━━━━━━━━━━━━━━━━
-💰 *FINANCIAL SUMMARY*
-━━━━━━━━━━━━━━━━━━━━━━
-🛍️ Items Subtotal: ${itemsTotal.toLocaleString()} ETB
-🚚 Delivery Fee: ${DELIVERY_FEE} ETB
-💵 *GRAND TOTAL: ${grandTotal.toLocaleString()} ETB*
-━━━━━━━━━━━━━━━━━━━━━━
-💳 *PAYMENT METHOD*
-━━━━━━━━━━━━━━━━━━━━━━
-✨ ${method}
-📲 Telebirr: 0939 620 004 | 0940 028 820`;
+━━━━━━━━━━━━━━━━━
+🛍 Subtotal: ${itemsTotal.toLocaleString()} ETB
+🚚 Delivery: ${DELIVERY_FEE} ETB
+💵 *TOTAL: ${grandTotal.toLocaleString()} ETB*
+━━━━━━━━━━━━━━━━━
+💳 *PAYMENT TYPE: ${method}*`;
 
+    /* ── Show dynamic success modal then send ── */
     const sendAll = () => {
         DOM.cartModal.style.display='none';
+        document.getElementById('success-payment-msg').innerText = paymentSuccessMessage(rawMethod);
         document.getElementById('successModal').style.display='block';
         cart=[];
         updateCartDisplay();
@@ -1972,7 +1958,7 @@ ${itemBlocks}
                         body: JSON.stringify({
                             chat_id: CHAT_ID,
                             photo: imgSrc,
-                            caption: `📸 Item ${idx+1}: ${item.name}\n🎨 ${item.variantOrdinal} option — ${item.variantName}\n📐 Size: ${item.size}\n💰 ${item.price.toLocaleString()} ETB`,
+                            caption: `📸 Item ${idx+1}: ${item.name} · ${item.variantOrdinal} option · Size ${item.size}`,
                             parse_mode: 'Markdown'
                         })
                     }).catch(()=>{});
@@ -2059,9 +2045,25 @@ function submitPrivateRequest() {
     const size    = document.getElementById('srcSize').value||'Standard';
     const budget  = document.getElementById('srcBudget').value||'Not Specified';
     const ref     = document.getElementById('srcReference').value||'None Provided';
-    const payment = getSelectedSrcPayment();
+    const rawPay  = getSelectedSrcPayment();
+    const payment = paymentLabel(rawPay);
     if (!name||!phone||!product) return alert('Please fill in your name, contact, and requested item.');
-    const text=`🌐 *PRIVATE SOURCING REQUEST*\n\n👤 *Client:* ${name}\n📞 *Contact:* ${phone}\n\n📦 *Classification:* ${category}\n🏷️ *Product:* ${product}\n📐 *Size:* ${size}\n💰 *Budget:* ${budget}\n\n💳 *Payment Preference:* ${payment}\n🚚 *Delivery Fee:* ${DELIVERY_FEE} ETB (Addis Ababa)\n\n🔗 *Reference:* ${ref}`;
+    const text=
+`🌐 *PRIVATE SOURCING REQUEST*
+
+👤 *Client:* ${name}
+📞 *Contact:* ${phone}
+
+📦 *Classification:* ${category}
+🏷 *Product:* ${product}
+📐 *Size:* ${size}
+💰 *Budget:* ${budget}
+
+🔗 *Reference:* ${ref}
+
+🚚 *Delivery Fee:* ${DELIVERY_FEE} ETB (Addis Ababa)
+💳 *PAYMENT TYPE: ${payment}*`;
+
     let apiUrl=`${TG_API}/sendMessage`;
     let opts;
     if (srcAttachedImageBase64) {
@@ -2075,6 +2077,7 @@ function submitPrivateRequest() {
     }
     fetch(apiUrl,opts).then(()=>{
         document.getElementById('privateSourcingModal').style.display='none';
+        document.getElementById('success-payment-msg').innerText = paymentSuccessMessage(rawPay);
         document.getElementById('successModal').style.display='block';
         ['srcClientName','srcClientPhone','srcProductName','srcSize','srcBudget','srcReference'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
         document.getElementById('srcImagePreviewSlot').innerHTML='';
