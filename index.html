@@ -1422,8 +1422,7 @@ const TG_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 function paymentLabel(value) {
     if (value === 'Cash on Delivery (COD)') return 'Cash on Delivery (COD)';
     if (value === '50% Upfront')            return '50% Upfront';
-    if (value === 'Full Paid')              return 'Full Paid';
-    if (value === 'Oumran-Covered')         return 'Oumran-Covered';
+    if (value === 'Full Paid')              return 'Full Paid'; 
     return value;
 }
 
@@ -1431,7 +1430,6 @@ function paymentLabel(value) {
 function paymentSuccessMessage(value) {
     if (value === '50% Upfront')    return 'Send your 50% deposit screenshot on Telegram to begin delivery immediately.';
     if (value === 'Full Paid')      return 'Send your full payment screenshot on Telegram to begin delivery immediately.';
-    if (value === 'Oumran-Covered') return 'Your order is being processed by Oumran. We will reach out via Telegram to confirm delivery.';
     return 'Your reservation is secured. Our team will contact you via Telegram to confirm delivery.';
 }
 
