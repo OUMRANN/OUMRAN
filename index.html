@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  !DOCTYPE html>
 <html lang="en" class="loading">
 <head>
     <meta charset="UTF-8">
@@ -641,6 +641,186 @@
         .sgp-close-btn { width: 100%; padding: 15px; background: transparent; color: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.08); border-radius: 50px; font-weight: 700; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.3s; }
         .sgp-close-btn:hover { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.14); }
 
+        /* ═══════════════════════════════════════════════════════
+           LUXURY BUDGET TIER DROPDOWN
+        ═══════════════════════════════════════════════════════ */
+        .lx-budget-field { position: relative; margin-top: 40px; }
+        .lx-budget-label {
+            display: block; font-size: 7.5px; font-weight: 700; color: rgba(255,215,0,0.40);
+            text-transform: uppercase; letter-spacing: 5px; margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif;
+            transition: color 0.5s var(--ease-luxury);
+        }
+        .lx-budget-field.open .lx-budget-label { color: rgba(255,215,0,0.75); }
+
+        /* tagline above trigger */
+        .lx-budget-tagline {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 12px;
+            color: rgba(255,215,0,0.45);
+            letter-spacing: 0.3px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .lx-budget-trigger {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0 0 18px 0;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.5s var(--ease-luxury);
+        }
+        .lx-budget-field.open .lx-budget-trigger { border-bottom-color: rgba(255,215,0,0.4); }
+
+        .lx-budget-trigger-left { display: flex; flex-direction: column; gap: 4px; }
+        .lx-budget-selected-name {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.5px;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        .lx-budget-trigger-left .lx-budget-selected-name.placeholder { color: rgba(255,255,255,0.18); }
+        .lx-budget-selected-range {
+            font-size: 10px;
+            color: rgba(255,215,0,0.38);
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity 0.3s;
+            min-height: 14px;
+        }
+        .lx-budget-chevron {
+            flex-shrink: 0;
+            color: rgba(255,215,0,0.35);
+            transition: transform 0.45s var(--ease-luxury), color 0.3s;
+        }
+        .lx-budget-field.open .lx-budget-chevron {
+            transform: rotate(180deg);
+            color: rgba(255,215,0,0.65);
+        }
+
+        /* dropdown panel */
+        .lx-budget-panel {
+            position: relative;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.55s var(--ease-luxury), opacity 0.4s ease;
+            opacity: 0;
+        }
+        .lx-budget-field.open .lx-budget-panel {
+            max-height: 600px;
+            opacity: 1;
+        }
+        .lx-budget-panel-inner {
+            background: rgba(8,6,2,0.92);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255,215,0,0.09);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        .lx-budget-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+            padding: 22px 26px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            border-left: 3px solid transparent;
+            transition: background 0.3s ease, border-left-color 0.35s ease;
+            position: relative;
+        }
+        .lx-budget-option:last-child { border-bottom: none; }
+        .lx-budget-option:hover,
+        .lx-budget-option.selected {
+            background: rgba(255,215,0,0.04);
+            border-left-color: rgba(255,215,0,0.55);
+        }
+        .lx-budget-option.selected { background: rgba(255,215,0,0.06); }
+
+        .lx-budget-opt-body { flex: 1; padding-left: 18px; }
+        .lx-budget-opt-name {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 0.3px;
+            margin-bottom: 3px;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        .lx-budget-option:hover .lx-budget-opt-name,
+        .lx-budget-option.selected .lx-budget-opt-name { color: #fff; }
+
+        .lx-budget-opt-range {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,215,0,0.45);
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        .lx-budget-opt-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.22);
+            line-height: 1.65;
+            font-weight: 300;
+            letter-spacing: 0.1px;
+        }
+        .lx-budget-option:hover .lx-budget-opt-desc { color: rgba(255,255,255,0.32); }
+
+        .lx-budget-opt-check {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255,255,255,0.10);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            transition: border-color 0.35s, background 0.35s;
+        }
+        .lx-budget-option.selected .lx-budget-opt-check {
+            border-color: var(--gold);
+            background: rgba(255,215,0,0.12);
+        }
+        .lx-budget-opt-check-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--gold);
+            opacity: 0; transform: scale(0);
+            transition: opacity 0.3s var(--ease-luxury), transform 0.3s var(--ease-luxury);
+        }
+        .lx-budget-option.selected .lx-budget-opt-check-dot { opacity: 1; transform: scale(1); }
+
+        /* footer note */
+        .lx-budget-footer-note {
+            font-size: 10px;
+            color: rgba(255,255,255,0.14);
+            letter-spacing: 0.2px;
+            line-height: 1.75;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
             header { padding: 0 22px; height: 64px; }
@@ -658,6 +838,7 @@
             .service-card { padding: 32px 24px 28px; }
             #privateSourcingModal .modal-content { padding: 40px 28px 52px; }
             .lx-field { margin-top: 36px; }
+            .lx-budget-field { margin-top: 36px; }
         }
     </style>
 </head>
@@ -1335,7 +1516,25 @@
         <div class="lx-field"><label class="lx-label">Telegram Username</label><input type="text" id="ec_telegram" placeholder="@yourusername" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="ec_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Type of Products Sold</label><select id="ec_products" class="lx-select"><option value="">Select product category</option><option>Fashion & Clothing</option><option>Electronics & Gadgets</option><option>Food & Beverages</option><option>Beauty & Cosmetics</option><option>Home & Furniture</option><option>Health & Wellness</option><option>Art & Crafts</option><option>Digital Products</option><option>Other</option></select><div class="lx-line"></div></div>
-        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="ec_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
+
+        <!-- LUXURY BUDGET DROPDOWN — ECOMMERCE -->
+        <div class="lx-budget-field" id="budgetField_ecommerce">
+            <label class="lx-budget-label">Budget Range</label>
+            <em class="lx-budget-tagline">Select the architectural tier that aligns with your vision for growth.</em>
+            <button type="button" class="lx-budget-trigger" onclick="toggleBudget('ecommerce')">
+                <div class="lx-budget-trigger-left">
+                    <span class="lx-budget-selected-name placeholder" id="budgetName_ecommerce">Select your investment tier</span>
+                    <span class="lx-budget-selected-range" id="budgetRange_ecommerce"></span>
+                </div>
+                <svg class="lx-budget-chevron" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="lx-budget-panel" id="budgetPanel_ecommerce">
+                <div class="lx-budget-panel-inner" id="budgetOptions_ecommerce"></div>
+            </div>
+            <input type="hidden" id="ec_budget" value="">
+            <p class="lx-budget-footer-note">All investments are bespoke and tailored to your specific requirements. We prioritize transparency and premium delivery.</p>
+        </div>
+
         <div class="lx-field"><label class="lx-label">Additional Requirements</label><textarea id="ec_notes" class="lx-textarea" placeholder="Describe specific features, integrations, design preferences, or examples you love…"></textarea><div class="lx-line"></div></div>
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('ecommerce')">Request Quote →</button>
@@ -1357,7 +1556,25 @@
         <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="biz_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Desired Features</label><textarea id="biz_features" class="lx-textarea" placeholder="Contact form, gallery, blog, booking system, Google Maps, team profiles, testimonials…"></textarea><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Additional Notes</label><textarea id="biz_notes" class="lx-textarea" placeholder="Reference websites you admire, brand colors, tone of voice, anything else…"></textarea><div class="lx-line"></div></div>
-        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="biz_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
+
+        <!-- LUXURY BUDGET DROPDOWN — BUSINESS -->
+        <div class="lx-budget-field" id="budgetField_business">
+            <label class="lx-budget-label">Budget Range</label>
+            <em class="lx-budget-tagline">Select the architectural tier that aligns with your vision for growth.</em>
+            <button type="button" class="lx-budget-trigger" onclick="toggleBudget('business')">
+                <div class="lx-budget-trigger-left">
+                    <span class="lx-budget-selected-name placeholder" id="budgetName_business">Select your investment tier</span>
+                    <span class="lx-budget-selected-range" id="budgetRange_business"></span>
+                </div>
+                <svg class="lx-budget-chevron" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="lx-budget-panel" id="budgetPanel_business">
+                <div class="lx-budget-panel-inner" id="budgetOptions_business"></div>
+            </div>
+            <input type="hidden" id="biz_budget" value="">
+            <p class="lx-budget-footer-note">All investments are bespoke and tailored to your specific requirements. We prioritize transparency and premium delivery.</p>
+        </div>
+
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('business')">Request Business Website →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('business')">Cancel</button>
@@ -1377,7 +1594,25 @@
         <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="pb_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Social Media Links</label><input type="text" id="pb_social" placeholder="Instagram, TikTok, YouTube, LinkedIn…" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Goals for Your Website</label><textarea id="pb_goals" class="lx-textarea" placeholder="Brand deals, new clients, selling products, showcasing work…"></textarea><div class="lx-line"></div></div>
-        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="pb_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
+
+        <!-- LUXURY BUDGET DROPDOWN — PERSONAL -->
+        <div class="lx-budget-field" id="budgetField_personal">
+            <label class="lx-budget-label">Budget Range</label>
+            <em class="lx-budget-tagline">Select the architectural tier that aligns with your vision for growth.</em>
+            <button type="button" class="lx-budget-trigger" onclick="toggleBudget('personal')">
+                <div class="lx-budget-trigger-left">
+                    <span class="lx-budget-selected-name placeholder" id="budgetName_personal">Select your investment tier</span>
+                    <span class="lx-budget-selected-range" id="budgetRange_personal"></span>
+                </div>
+                <svg class="lx-budget-chevron" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="lx-budget-panel" id="budgetPanel_personal">
+                <div class="lx-budget-panel-inner" id="budgetOptions_personal"></div>
+            </div>
+            <input type="hidden" id="pb_budget" value="">
+            <p class="lx-budget-footer-note">All investments are bespoke and tailored to your specific requirements. We prioritize transparency and premium delivery.</p>
+        </div>
+
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('personal')">Build My Brand →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('personal')">Cancel</button>
@@ -1397,7 +1632,25 @@
         <div class="lx-field"><label class="lx-label">Phone Number</label><input type="tel" id="cd_phone" placeholder="+251 9XX XXX XXX" class="lx-input"><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Project Description</label><textarea id="cd_description" class="lx-textarea" placeholder="Describe your project in detail — the problem it solves, who uses it, its core purpose…"></textarea><div class="lx-line"></div></div>
         <div class="lx-field"><label class="lx-label">Features Needed</label><textarea id="cd_features" class="lx-textarea" placeholder="Authentication, dashboards, payment systems, admin panel, API integrations, real-time data…"></textarea><div class="lx-line"></div></div>
-        <div class="lx-field"><label class="lx-label">Budget Range (ETB)</label><select id="cd_budget" class="lx-select"><option value="">Select your budget tier</option><option>Standard (10,000 – 15,000 ETB)</option><option>Exclusive (16,000 – 25,000 ETB)</option><option>Premium (26,000 – 35,000 ETB)</option><option>Elite / Custom (36,000+ ETB)</option><option>Open to discussion</option></select><div class="lx-line"></div></div>
+
+        <!-- LUXURY BUDGET DROPDOWN — CUSTOM -->
+        <div class="lx-budget-field" id="budgetField_custom">
+            <label class="lx-budget-label">Budget Range</label>
+            <em class="lx-budget-tagline">Select the architectural tier that aligns with your vision for growth.</em>
+            <button type="button" class="lx-budget-trigger" onclick="toggleBudget('custom')">
+                <div class="lx-budget-trigger-left">
+                    <span class="lx-budget-selected-name placeholder" id="budgetName_custom">Select your investment tier</span>
+                    <span class="lx-budget-selected-range" id="budgetRange_custom"></span>
+                </div>
+                <svg class="lx-budget-chevron" width="14" height="8" viewBox="0 0 14 8" fill="none"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="lx-budget-panel" id="budgetPanel_custom">
+                <div class="lx-budget-panel-inner" id="budgetOptions_custom"></div>
+            </div>
+            <input type="hidden" id="cd_budget" value="">
+            <p class="lx-budget-footer-note">All investments are bespoke and tailored to your specific requirements. We prioritize transparency and premium delivery.</p>
+        </div>
+
         <div class="svc-section-divider"></div>
         <button class="svc-submit-btn" onclick="submitSvcForm('custom')">Submit Project Brief →</button>
         <button class="svc-cancel-btn" onclick="closeSvcModal('custom')">Cancel</button>
@@ -1408,7 +1661,7 @@
 <script>
 /* ════════════════════════════════════════════════════════════
    OUMRAN STORE — COMPLETE JAVASCRIPT
-   Dynamic payment messaging · Concise Telegram output
+   Luxury Budget Tier Dropdown · Dynamic payment messaging
 ════════════════════════════════════════════════════════════ */
 
 const DELIVERY_FEE = 250;
@@ -1416,20 +1669,124 @@ const BOT_TOKEN = '8406824466:AAHb2pnbptwRyqRF3u0349emh09o_ZUgbwc';
 const CHAT_ID = '5715582254';
 const TG_API = `https://api.telegram.org/bot${BOT_TOKEN}`;
 
-/* ── PAYMENT TYPE HELPERS ── */
+/* ══════════════════════════════════════════════════════════
+   LUXURY BUDGET TIER SYSTEM
+   Internal value → backend identifier (1–4)
+   Display name → professional tier name
+══════════════════════════════════════════════════════════ */
+const BUDGET_TIERS = [
+    {
+        value: '1',
+        name: 'Standard',
+        range: '10,000 – 15,000 ETB',
+        desc: 'Essential digital foundations for growing businesses.'
+    },
+    {
+        value: '2',
+        name: 'Exclusive',
+        range: '16,000 – 25,000 ETB',
+        desc: 'Strategic scaling with advanced performance features.'
+    },
+    {
+        value: '3',
+        name: 'Premium',
+        range: '26,000 – 35,000 ETB',
+        desc: 'Full-suite architectural precision and bespoke design.'
+    },
+    {
+        value: '4',
+        name: 'Elite / Custom',
+        range: '36,000+ ETB',
+        desc: 'Uncompromised, visionary development for market leaders.'
+    },
+    {
+        value: '5',
+        name: 'Open to Discussion',
+        range: '',
+        desc: 'Flexible arrangement — we tailor the scope to your vision.'
+    }
+];
 
-/* Maps internal payment value → canonical label sent to Telegram */
+/* Budget state per form */
+const budgetState = { ecommerce: '', business: '', personal: '', custom: '' };
+
+/* Build option lists on init */
+function buildBudgetDropdowns() {
+    ['ecommerce','business','personal','custom'].forEach(form => {
+        const container = document.getElementById('budgetOptions_' + form);
+        if (!container) return;
+        container.innerHTML = BUDGET_TIERS.map((tier, idx) => `
+            <div class="lx-budget-option" data-value="${tier.value}" data-name="${tier.name}" data-range="${tier.range}" onclick="selectBudget('${form}', this)">
+                <div class="lx-budget-opt-check"><div class="lx-budget-opt-check-dot"></div></div>
+                <div class="lx-budget-opt-body">
+                    <div class="lx-budget-opt-name">${tier.name}</div>
+                    ${tier.range ? `<div class="lx-budget-opt-range">${tier.range}</div>` : ''}
+                    <div class="lx-budget-opt-desc">${tier.desc}</div>
+                </div>
+            </div>
+        `).join('');
+    });
+}
+
+function toggleBudget(form) {
+    const field = document.getElementById('budgetField_' + form);
+    const isOpen = field.classList.contains('open');
+    /* Close all others first */
+    ['ecommerce','business','personal','custom'].forEach(f => {
+        document.getElementById('budgetField_' + f).classList.remove('open');
+    });
+    if (!isOpen) field.classList.add('open');
+}
+
+function selectBudget(form, el) {
+    const val   = el.getAttribute('data-value');
+    const name  = el.getAttribute('data-name');
+    const range = el.getAttribute('data-range');
+
+    /* Update state */
+    budgetState[form] = val;
+
+    /* Mark selected */
+    el.closest('.lx-budget-panel-inner').querySelectorAll('.lx-budget-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+
+    /* Update trigger display */
+    const nameEl  = document.getElementById('budgetName_'  + form);
+    const rangeEl = document.getElementById('budgetRange_' + form);
+    nameEl.textContent  = name;
+    nameEl.classList.remove('placeholder');
+    rangeEl.textContent = range;
+
+    /* Write to hidden input so submit can read it */
+    const map = { ecommerce: 'ec_budget', business: 'biz_budget', personal: 'pb_budget', custom: 'cd_budget' };
+    const hiddenInput = document.getElementById(map[form]);
+    if (hiddenInput) hiddenInput.value = name + (range ? ' (' + range + ')' : '');
+
+    /* Close panel */
+    document.getElementById('budgetField_' + form).classList.remove('open');
+}
+
+/* Close budget panels when clicking outside */
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.lx-budget-field')) {
+        ['ecommerce','business','personal','custom'].forEach(f => {
+            const field = document.getElementById('budgetField_' + f);
+            if (field) field.classList.remove('open');
+        });
+    }
+});
+
+/* ── PAYMENT TYPE HELPERS ── */
 function paymentLabel(value) {
     if (value === 'Cash on Delivery (COD)') return 'Cash on Delivery (COD)';
     if (value === '50% Upfront')            return '50% Upfront';
-    if (value === 'Full Paid')              return 'Full Paid'; 
+    if (value === 'Full Paid')              return 'Full Paid';
     return value;
 }
 
-/* Maps payment value → dynamic success modal body text */
 function paymentSuccessMessage(value) {
-    if (value === '50% Upfront')    return 'Send your 50% deposit screenshot on Telegram to begin delivery immediately.';
-    if (value === 'Full Paid')      return 'Send your full payment screenshot on Telegram to begin delivery immediately.';
+    if (value === '50% Upfront')  return 'Send your 50% deposit screenshot on Telegram to begin delivery immediately.';
+    if (value === 'Full Paid')    return 'Send your full payment screenshot on Telegram to begin delivery immediately.';
     return 'Your reservation is secured. Our team will contact you via Telegram to confirm delivery.';
 }
 
@@ -1439,7 +1796,7 @@ function paymentSuccessMessage(value) {
     for (let i = 0; i < 18; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
-        const size = Math.random() * 3.2 + 1;
+        const size  = Math.random() * 3.2 + 1;
         const drift = (Math.random() - 0.5) * 220;
         p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;--px-drift:${drift}px;animation-duration:${Math.random()*22+14}s;animation-delay:${Math.random()*22}s;opacity:0;`;
         c.appendChild(p);
@@ -1459,9 +1816,9 @@ function scrollToSection(id) {
 
 /* ── SCROLL LOCK ── */
 let _scrollY = 0;
-function lockScroll() { _scrollY = window.scrollY; document.body.style.top = `-${_scrollY}px`; document.documentElement.classList.add('overlay-open'); document.body.classList.add('overlay-open'); }
+function lockScroll()   { _scrollY = window.scrollY; document.body.style.top = `-${_scrollY}px`; document.documentElement.classList.add('overlay-open'); document.body.classList.add('overlay-open'); }
 function unlockScroll() { document.documentElement.classList.remove('overlay-open'); document.body.classList.remove('overlay-open'); document.body.style.top = ''; window.scrollTo(0, _scrollY); }
-function openLegal(id) { lockScroll(); document.getElementById(id).style.display = 'block'; }
+function openLegal(id)  { lockScroll(); document.getElementById(id).style.display = 'block'; }
 function closeLegal(id) { document.getElementById(id).style.display = 'none'; unlockScroll(); }
 
 /* ── SIZE GUIDE ── */
@@ -1481,7 +1838,7 @@ function openSizeGuide() {
     const cols = guide.columns || [];
     tbody.innerHTML = (guide.rows || []).map((row, rIdx, arr) => {
         const cells = cols.map((col, cIdx) => {
-            const val = row[col] !== undefined ? row[col] : '';
+            const val   = row[col] !== undefined ? row[col] : '';
             const style = [cIdx===0?'color:white;font-weight:700;text-align:left;padding-left:16px;':'', rIdx<arr.length-1?'border-bottom:1px solid rgba(255,255,255,0.03);':''].join('');
             const display = val===''?'<span style="color:rgba(255,255,255,0.15)">—</span>':val;
             return `<td style="${style}">${display}</td>`;
@@ -1573,6 +1930,7 @@ window.addEventListener('load', () => {
     DOM.cartModal   = document.getElementById('cartModal');
     DOM.searchInput = document.getElementById('search-input');
     loadCart();
+    buildBudgetDropdowns();
     if (!sessionStorage.getItem('oumran_splash_shown')) {
         sessionStorage.setItem('oumran_splash_shown','true');
         setTimeout(() => {
@@ -1596,7 +1954,7 @@ window.addEventListener('load', () => {
 function checkProfileOnboarding(type) {
     if (!localStorage.getItem('oumran_user_profile')) {
         pendingActionType = type;
-        if (type==='cart') DOM.pModal.style.display='none';
+        if (type==='cart')    DOM.pModal.style.display='none';
         if (type==='sourcing') document.getElementById('privateSourcingModal').style.display='none';
         scrollPos = window.pageYOffset;
         document.getElementById('profileOnboardingModal').style.display='block';
@@ -1616,7 +1974,7 @@ function saveOnboardingProfile() {
     document.documentElement.classList.remove('modal-open');
     window.scrollTo(0, scrollPos);
     syncProfile();
-    if (pendingActionType==='cart') { DOM.pModal.style.display='block'; addToCart(); }
+    if (pendingActionType==='cart')    { DOM.pModal.style.display='block'; addToCart(); }
     else if (pendingActionType==='sourcing') { document.getElementById('privateSourcingModal').style.display='block'; submitPrivateRequest(); }
     pendingActionType='';
 }
@@ -1624,7 +1982,7 @@ function saveOnboardingProfile() {
 function cancelOnboardingProfile() {
     document.getElementById('profileOnboardingModal').style.display='none';
     document.documentElement.classList.remove('modal-open');
-    if (pendingActionType==='cart') { DOM.pModal.style.display='block'; document.documentElement.classList.add('modal-open'); }
+    if (pendingActionType==='cart')    { DOM.pModal.style.display='block'; document.documentElement.classList.add('modal-open'); }
     else if (pendingActionType==='sourcing') { document.getElementById('privateSourcingModal').style.display='block'; document.documentElement.classList.add('modal-open'); }
     else { window.scrollTo(0,scrollPos); }
     pendingActionType='';
@@ -1697,8 +2055,8 @@ function updateZoomImage() {
     DOM.zoomImg.src=currentVariants.length>0?currentVariants[zoomIdx].img:DOM.modalImg.src;
     document.querySelectorAll('.zoom-arrow').forEach(a=>a.style.display=currentVariants.length>1?'flex':'none');
 }
-function closeZoom() { document.getElementById('zoom-container').style.display='none'; }
-function openAbout() { lockScroll(); document.getElementById('aboutPage').style.display='block'; }
+function closeZoom()  { document.getElementById('zoom-container').style.display='none'; }
+function openAbout()  { lockScroll(); document.getElementById('aboutPage').style.display='block'; }
 function closeAbout() { document.getElementById('aboutPage').style.display='none'; unlockScroll(); }
 
 /* ══════════════════════════════════════════════════════════
@@ -1776,14 +2134,8 @@ function addToCart() {
     const chosenSize      = (currentProductType==='clothe') ? selectedSize : 'Standard';
 
     cart.push({
-        name:            currentP,
-        variantName:     variantName,
-        variantImg:      variantImg,
-        variantPosition: variantPosition,
-        variantOrdinal:  variantOrdinal,
-        totalVariants:   totalVariants,
-        size:            chosenSize,
-        price:           currentPrice
+        name: currentP, variantName, variantImg, variantPosition, variantOrdinal,
+        totalVariants, size: chosenSize, price: currentPrice
     });
 
     updateCartDisplay();
@@ -1840,12 +2192,6 @@ function removeItem(i) {
 
 /* ══════════════════════════════════════════════════════════
    SUBMIT ORDER
-   Concise Telegram message:
-   • Product Name
-   • Selected Option (ordinal of product name)
-   • Size
-   • Unit Price
-   • Payment Type footer
 ══════════════════════════════════════════════════════════ */
 function submitOrder() {
     const n = document.getElementById('custName').value.trim();
@@ -1853,37 +2199,26 @@ function submitOrder() {
     const a = document.getElementById('custAddress').value.trim();
     if (!n||!p||!a) return alert('Please fill in all delivery details.');
 
-    const rawMethod   = document.querySelector('input[name="payment_method"]:checked').value;
-    const method      = paymentLabel(rawMethod);
-    const itemsTotal  = cart.reduce((s,i)=>s+i.price, 0);
-    const grandTotal  = itemsTotal + DELIVERY_FEE;
-    const orderID     = Math.floor(1000+Math.random()*9000);
-    const orderDate   = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const rawMethod  = document.querySelector('input[name="payment_method"]:checked').value;
+    const method     = paymentLabel(rawMethod);
+    const itemsTotal = cart.reduce((s,i)=>s+i.price, 0);
+    const grandTotal = itemsTotal + DELIVERY_FEE;
+    const orderID    = Math.floor(1000+Math.random()*9000);
+    const orderDate  = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
 
-    /* ── Concise per-item blocks ── */
     const itemBlocks = cart.map((item, idx) => {
         const optionLine = item.totalVariants > 1
             ? `${item.variantOrdinal} option of ${item.name}`
             : item.variantName;
-        return `▸ *Item ${idx+1}*
-🏷 ${item.name}
-🎨 Selected Option: ${optionLine}
-📐 Size: ${item.size}
-💰 ${item.price.toLocaleString()} ETB`;
+        return `▸ *Item ${idx+1}*\n🏷 ${item.name}\n🎨 Selected Option: ${optionLine}\n📐 Size: ${item.size}\n💰 ${item.price.toLocaleString()} ETB`;
     }).join('\n\n');
 
-    /* ── History items ── */
     const historyItems = cart.map(i=>`▫️ ${i.name} · ${i.variantOrdinal} option · Size ${i.size}`).join('\n');
 
-    /* ── Save to history ── */
     const history = JSON.parse(localStorage.getItem('oumran_order_history'))||[];
-    history.push({
-        id: orderID, timestamp: Date.now(), date: orderDate,
-        items: historyItems, method, total: grandTotal.toLocaleString()
-    });
+    history.push({ id: orderID, timestamp: Date.now(), date: orderDate, items: historyItems, method, total: grandTotal.toLocaleString() });
     localStorage.setItem('oumran_order_history', JSON.stringify(history));
 
-    /* ── Full Telegram message ── */
     const caption =
 `🏛 *NEW ORDER — OUMRAN STORE*
 🔖 Order ID: #${orderID}
@@ -1904,7 +2239,6 @@ ${itemBlocks}
 ━━━━━━━━━━━━━━━━━
 💳 *PAYMENT TYPE: ${method}*`;
 
-    /* ── Show dynamic success modal then send ── */
     const sendAll = () => {
         DOM.cartModal.style.display='none';
         document.getElementById('success-payment-msg').innerText = paymentSuccessMessage(rawMethod);
@@ -1915,42 +2249,21 @@ ${itemBlocks}
 
     if (cart.length === 1) {
         const imgSrc = cart[0].variantImg;
-        const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
-        if (isAbsoluteUrl) {
-            fetch(`${TG_API}/sendPhoto`, {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ chat_id: CHAT_ID, photo: imgSrc, caption, parse_mode: 'Markdown' })
-            }).then(sendAll).catch(()=>{
-                fetch(`${TG_API}/sendMessage`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' }) }).then(sendAll);
-            });
+        const isAbs  = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
+        if (isAbs) {
+            fetch(`${TG_API}/sendPhoto`,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, photo: imgSrc, caption, parse_mode:'Markdown' }) })
+            .then(sendAll).catch(()=>{ fetch(`${TG_API}/sendMessage`,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode:'Markdown' }) }).then(sendAll); });
         } else {
-            fetch(`${TG_API}/sendMessage`, {
-                method: 'POST',
-                headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' })
-            }).then(sendAll);
+            fetch(`${TG_API}/sendMessage`,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode:'Markdown' }) }).then(sendAll);
         }
     } else {
-        fetch(`${TG_API}/sendMessage`, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode: 'Markdown' })
-        }).then(() => {
-            const imagePromises = cart.map((item, idx) => {
+        fetch(`${TG_API}/sendMessage`,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, text: caption, parse_mode:'Markdown' }) })
+        .then(()=>{
+            const imagePromises = cart.map((item,idx)=>{
                 const imgSrc = item.variantImg;
-                const isAbsoluteUrl = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
-                if (isAbsoluteUrl) {
-                    return fetch(`${TG_API}/sendPhoto`, {
-                        method:'POST',
-                        headers:{'Content-Type':'application/json'},
-                        body: JSON.stringify({
-                            chat_id: CHAT_ID,
-                            photo: imgSrc,
-                            caption: `📸 Item ${idx+1}: ${item.name} · ${item.variantOrdinal} option · Size ${item.size}`,
-                            parse_mode: 'Markdown'
-                        })
-                    }).catch(()=>{});
+                const isAbs  = imgSrc.startsWith('http://') || imgSrc.startsWith('https://');
+                if (isAbs) {
+                    return fetch(`${TG_API}/sendPhoto`,{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chat_id: CHAT_ID, photo: imgSrc, caption: `📸 Item ${idx+1}: ${item.name} · ${item.variantOrdinal} option · Size ${item.size}`, parse_mode:'Markdown' }) }).catch(()=>{});
                 }
                 return Promise.resolve();
             });
@@ -1992,11 +2305,11 @@ function closePrivateSourcing() {
 }
 function submitPrivateSourcingWithOnboardingCheck() { if (checkProfileOnboarding('sourcing')) submitPrivateRequest(); }
 function initPrivateSourcingUploads() {
-    const fileInput=document.getElementById('srcHiddenImageUpload');
-    const previewSlot=document.getElementById('srcImagePreviewSlot');
-    const cat=document.getElementById('srcCategory');
-    const sizeW=document.getElementById('srcSizeWrapper');
-    const sizeI=document.getElementById('srcSize');
+    const fileInput  = document.getElementById('srcHiddenImageUpload');
+    const previewSlot= document.getElementById('srcImagePreviewSlot');
+    const cat        = document.getElementById('srcCategory');
+    const sizeW      = document.getElementById('srcSizeWrapper');
+    const sizeI      = document.getElementById('srcSize');
     if (cat) cat.addEventListener('change',function(){
         const show=this.value==='Clothes'||this.value==='Shoes';
         sizeW.style.display=show?'block':'none';
@@ -2027,8 +2340,8 @@ function initPrivateSourcingUploads() {
 }
 
 function submitPrivateRequest() {
-    const name    = document.getElementById('srcClientName').value;
-    const phone   = document.getElementById('srcClientPhone').value;
+    const name     = document.getElementById('srcClientName').value;
+    const phone    = document.getElementById('srcClientPhone').value;
     const category= document.getElementById('srcCategory').value;
     const product = document.getElementById('srcProductName').value;
     const size    = document.getElementById('srcSize').value||'Standard';
