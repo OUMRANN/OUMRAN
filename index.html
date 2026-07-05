@@ -821,6 +821,26 @@
             border-top: 1px solid rgba(255,255,255,0.04);
         }
 
+        /* DELIVERY TIMELINE NOTICE (China → Addis Ababa) */
+        .delivery-time-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 10.5px;
+            color: rgba(255,215,0,0.60);
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 4px;
+            padding: 12px 14px;
+            background: rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.14);
+            border-radius: 12px;
+            line-height: 1.5;
+        }
+        .delivery-time-note .dtn-icon { font-size: 13px; flex-shrink: 0; line-height: 1.3; }
+        .delivery-time-note b { color: var(--gold); font-weight: 700; }
+
         @media (min-width: 768px) { .modal-content { max-width: 560px !important; } .product-card { flex: 0 0 272px !important; } .img-area { height: 338px !important; } #modal-img { min-height: 360px !important; } }
         @media (max-width: 768px) {
             header { padding: 0 22px; height: 64px; }
@@ -880,7 +900,7 @@
             <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">• Telegram Verification</strong>
             <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;margin-bottom:22px;">Our team contacts you via Telegram to verify delivery details.</p>
             <strong style="display:block;color:var(--gold);margin-bottom:10px;font-size:8.5px;letter-spacing:2.5px;text-transform:uppercase;">• Delivery & Settlement</strong>
-            <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;">Receive your package at your door in Addis Ababa. Pay via Telebirr or cash.</p>
+            <p style="font-size:13px;color:rgba(255,255,255,0.40);line-height:1.95;">Receive your package at your door in Addis Ababa. Pay via Telebirr or cash. Estimated delivery time is 15 days from China to Addis Ababa.</p>
         </div>
         <button class="btn" style="margin-top:36px;" onclick="closeAbout()">Return to Store</button>
     </div>
@@ -905,7 +925,7 @@
         <div class="legal-highlight-box"><p>By placing an order through OUMRAN STORE, you agree to these Terms & Conditions.</p></div>
         <div class="legal-section"><h2>1. Ordering</h2><ul><li>Placing an order constitutes a <strong>reservation request</strong>, not a confirmed sale.</li><li>Orders confirmed only after Telegram verification.</li></ul></div>
         <div class="legal-section"><h2>2. Payment</h2><ul><li><strong>Cash on Delivery:</strong> Full payment upon receipt.</li><li><strong>50% Deposit:</strong> Half upfront via Telebirr.</li><li><strong>Full Upfront:</strong> Priority processing.</li><li><strong>Oumran-Covered:</strong> Order covered by OUMRAN STORE.</li><li>Telebirr: <strong>0939620004 | 0940028820</strong></li></ul></div>
-        <div class="legal-section"><h2>3. Delivery</h2><p>Exclusively within <strong>Addis Ababa</strong>. A fixed delivery fee of <strong>250 ETB</strong> applies to all orders.</p></div>
+        <div class="legal-section"><h2>3. Delivery</h2><p>Exclusively within <strong>Addis Ababa</strong>. A fixed delivery fee of <strong>250 ETB</strong> applies to all orders. Estimated delivery time is <strong>15 days from China to Addis Ababa</strong>.</p></div>
         <button class="btn" onclick="closeLegal('termsPage')">Return to Store</button>
     </div>
 </div>
@@ -1299,6 +1319,7 @@
             <h2 id="m-name">Product</h2>
             <span id="m-price">0 ETB</span>
             <p class="m-model-note" id="m-model-note" style="display:none;">Model is 183cm · Wearing Size L</p>
+            <div class="delivery-time-note"><span class="dtn-icon">✈️</span><span><b>Estimated Delivery: 15 Days</b><br>Shipped from China to Addis Ababa</span></div>
             <div class="m-divider"></div>
             <div id="variant-area" class="variant-section">
                 <span class="variant-label">Select Color / Style</span>
@@ -1387,6 +1408,7 @@
                 <span class="src-delivery-strip-label">Delivery · Addis Ababa</span>
                 <span class="src-delivery-strip-amount">+ 250 ETB</span>
             </div>
+            <p style="font-size:10px;color:rgba(255,215,0,0.45);letter-spacing:1px;margin-top:-16px;margin-bottom:28px;line-height:1.7;">✈️ Estimated delivery time: <strong>15 days</strong> from China to Addis Ababa.</p>
             <span class="src-section-eyebrow">Settlement</span>
             <div id="srcPaymentOptions">
                 <div class="src-pay-row selected" data-value="Cash on Delivery (COD)" onclick="selectSrcPayment(this)">
@@ -1423,6 +1445,7 @@
                     <span class="delivery-fee-label">🚚 Delivery Fee <span style="font-size:8px;color:rgba(255,255,255,0.18);letter-spacing:2px;">(ADDIS ABABA)</span></span>
                     <span class="delivery-fee-amount">250 ETB</span>
                 </div>
+                <div class="delivery-time-note"><span class="dtn-icon">✈️</span><span><b>Estimated Delivery: 15 Days</b><br>Shipped from China to Addis Ababa</span></div>
                 <div class="cart-total-row">
                     <span class="cart-total-label">Total (incl. Delivery)</span>
                     <span class="cart-total-amount"><span id="cart-total">0</span> ETB</span>
@@ -1460,7 +1483,7 @@
                 </div>
                 <div class="cart-note">
                     <span class="cart-note-dot">·</span>
-                    <span class="cart-note-text">Prices may vary slightly based on supplier stock. Final pricing confirmed via Telegram before dispatch. Delivery fee of 250 ETB is included in the total above.</span>
+                    <span class="cart-note-text">Prices may vary slightly based on supplier stock. Final pricing confirmed via Telegram before dispatch. Delivery fee of 250 ETB is included in the total above. Estimated delivery time is 15 days from China to Addis Ababa.</span>
                 </div>
                 <button class="btn btn-gold" style="margin-top:22px;" onclick="submitOrder()">Confirm Order</button>
                 <button class="btn btn-ghost" style="margin-top:10px;" onclick="closeCart()">Close</button>
@@ -1479,7 +1502,8 @@
             <div style="margin-bottom:26px;"><div style="width:66px;height:66px;border-radius:50%;background:linear-gradient(135deg,#b8901e,#FFD700);display:flex;align-items:center;justify-content:center;margin:0 auto;font-size:26px;color:black;font-weight:900;box-shadow:0 12px 40px rgba(255,215,0,0.22);">✓</div></div>
             <h2 style="color:var(--gold);font-family:'Playfair Display',serif;font-size:32px;letter-spacing:2px;margin-bottom:16px;font-weight:400;font-style:italic;">Order Reserved</h2>
             <p style="text-transform:uppercase;font-size:8.5px;letter-spacing:3px;color:rgba(255,255,255,0.20);margin-bottom:14px;">Thank you for shopping with OUMRAN STORE</p>
-            <p id="success-payment-msg" style="font-size:13px;font-weight:300;margin-bottom:36px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
+            <p id="success-payment-msg" style="font-size:13px;font-weight:300;margin-bottom:20px;line-height:1.9;color:rgba(255,255,255,0.40);">Your reservation is secured. Send your payment screenshot on Telegram to begin delivery immediately.</p>
+            <p style="font-size:11px;color:rgba(255,215,0,0.50);letter-spacing:1px;margin-bottom:36px;line-height:1.8;">✈️ Estimated delivery: <strong>15 days</strong>, China → Addis Ababa.</p>
             <button class="btn btn-gold" onclick="window.location.href='https://t.me/OUMRAN_STORE'">Open Telegram →</button>
             <button class="btn btn-ghost" style="margin-top:10px;" onclick="document.getElementById('successModal').style.display='none'">Return to Store</button>
         </div>
@@ -1857,6 +1881,12 @@ function buildSizeButtonsFromGuide(card) {
     let sizes = [];
     if (raw) {
         try { const guide = JSON.parse(raw); sizes = (guide.rows || []).map(r => String(r['Size'] || '')).filter(Boolean); } catch(e) {}
+    }
+    if (!sizes.length) {
+        const rawSizes = card.getAttribute('data-sizes');
+        if (rawSizes) {
+            sizes = rawSizes.split(',').map(s => s.trim()).filter(Boolean);
+        }
     }
     if (!sizes.length) sizes = ['M','L','XL','XXL'];
     selectedSize = sizes[0];
