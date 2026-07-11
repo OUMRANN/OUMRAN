@@ -546,32 +546,51 @@
         .service-cta-btn:hover .service-cta-arrow { transform: translateX(4px); }
         .services-divider { height: 1px; max-width: 960px; margin: 72px auto 0; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent); }
 
-        /* PRIVATE SOURCING MODAL */
-        #privateSourcingModal .modal-content { max-width: 520px; background: rgba(5,4,1,0.92); border: 1px solid rgba(255,215,0,0.08); padding: 56px 44px 64px; }
-        .src-modal-eyebrow { font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.35); letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px; font-family: 'DM Sans', sans-serif; }
-        .src-modal-title { font-family: 'Playfair Display', serif; font-size: 34px; font-style: italic; font-weight: 400; color: white; letter-spacing: 1.5px; line-height: 1.15; margin-bottom: 8px; }
-        .src-modal-sub { font-size: 8px; color: rgba(255,255,255,0.14); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 56px; font-family: 'DM Sans', sans-serif; }
-        .src-section-eyebrow { font-size: 7px; font-weight: 700; color: rgba(255,215,0,0.28); letter-spacing: 6px; text-transform: uppercase; margin-bottom: 36px; margin-top: 56px; padding-top: 44px; border-top: 1px solid rgba(255,255,255,0.04); font-family: 'DM Sans', sans-serif; display: block; }
-        .src-section-eyebrow:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-        .src-note { font-size: 12px; color: rgba(255,255,255,0.20); line-height: 1.9; font-weight: 300; margin-bottom: 0; letter-spacing: 0.2px; }
-        .src-delivery-strip { display: flex; align-items: center; justify-content: space-between; margin-top: 48px; padding: 22px 0; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
-        .src-delivery-strip-label { font-size: 8px; color: rgba(255,255,255,0.22); letter-spacing: 4px; text-transform: uppercase; font-weight: 600; font-family: 'DM Sans', sans-serif; }
-        .src-delivery-strip-amount { font-family: 'Playfair Display', serif; font-size: 18px; color: rgba(255,215,0,0.65); font-style: italic; }
-        .src-pay-row { display: flex; align-items: flex-start; gap: 20px; padding: 24px 0; cursor: pointer; transition: opacity 0.3s; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .src-pay-row:last-child { border-bottom: none; }
-        .src-pay-row:hover { opacity: 0.8; }
-        .src-pay-indicator { flex-shrink: 0; width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.14); margin-top: 4px; display: flex; align-items: center; justify-content: center; transition: border-color 0.5s var(--ease-luxury); }
-        .src-pay-row.selected .src-pay-indicator { border-color: rgba(255,215,0,0.7); }
-        .src-pay-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0; transform: scale(0); transition: opacity 0.4s var(--ease-luxury), transform 0.4s var(--ease-luxury); }
-        .src-pay-row.selected .src-pay-dot { opacity: 1; transform: scale(1); }
-        .src-pay-label { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 400; margin-bottom: 5px; letter-spacing: 0.3px; }
-        .src-pay-desc { color: rgba(255,255,255,0.20); font-size: 10.5px; line-height: 1.7; font-weight: 300; }
-        .src-telebirr-note { margin-top: 28px; font-size: 10px; color: rgba(255,255,255,0.16); letter-spacing: 1.5px; line-height: 1.8; }
-        .src-telebirr-note strong { color: rgba(255,255,255,0.34); }
-        #srcReferenceWrapper { position: relative; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-top: 0; transition: border-color 0.6s var(--ease-luxury); }
-        #srcReferenceWrapper:focus-within { border-bottom-color: rgba(255,215,0,0.45); }
-        #srcReference { width: 100%; background: transparent; border: none; color: white; outline: none; font-size: 15px; min-height: 70px; resize: none; font-family: 'DM Sans', sans-serif; line-height: 1.8; font-weight: 300; padding: 0; }
-        #srcReference::placeholder { color: rgba(255,255,255,0.10); font-weight: 300; }
+        /* PRICING SECTION */
+        .pricing-section {
+            padding: 140px 48px 100px; position: relative; overflow: hidden;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,215,0,0.014) 45%, transparent 100%);
+        }
+        .pricing-section::before { content: ''; position: absolute; top: 0; left: 8%; right: 8%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.24), transparent); }
+        .pricing-inner { position: relative; z-index: 1; }
+        .pricing-eyebrow { text-align: center; font-size: 8px; color: rgba(255,215,0,0.55); letter-spacing: 9px; text-transform: uppercase; margin-bottom: 18px; font-family: 'DM Sans', sans-serif; font-weight: 700; }
+        .pricing-headline { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 400; font-style: italic; letter-spacing: 3px; line-height: 1.18; margin-bottom: 20px; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,215,0,0.9) 45%, rgba(255,255,255,0.7) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pricing-subtext { text-align: center; max-width: 600px; margin: 0 auto 70px; font-size: 14px; color: rgba(255,255,255,0.32); line-height: 2.1; font-weight: 300; letter-spacing: 0.3px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 22px; max-width: 1280px; margin: 0 auto; }
+        .pricing-card {
+            background: rgba(10,8,3,0.55); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,215,0,0.08); border-radius: 26px; padding: 38px 28px 32px;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.5s var(--transition), box-shadow 0.5s, border-color 0.4s, background 0.4s;
+        }
+        .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent); opacity: 0; transition: opacity 0.4s; }
+        .pricing-card:hover { transform: translateY(-14px); box-shadow: 0 50px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,215,0,0.18), 0 0 80px rgba(255,215,0,0.06); border-color: rgba(255,215,0,0.20); background: rgba(14,11,4,0.70); }
+        .pricing-card:hover::before { opacity: 1; }
+        .pricing-card.featured { border-color: rgba(255,215,0,0.30); background: rgba(16,12,3,0.75); box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,215,0,0.18), 0 0 70px rgba(255,215,0,0.06); }
+        .pricing-badge { position: absolute; top: 18px; right: 18px; background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020); color: #000; font-size: 7px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; padding: 6px 12px; border-radius: 20px; box-shadow: 0 8px 20px rgba(255,215,0,0.25); }
+        .pricing-tier-eyebrow { font-size: 7px; color: rgba(255,215,0,0.45); letter-spacing: 5px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+        .pricing-tier-name { font-family: 'Playfair Display', serif; font-size: 24px; font-style: italic; font-weight: 400; color: rgba(255,255,255,0.94); letter-spacing: 0.6px; margin-bottom: 14px; line-height: 1.2; }
+        .pricing-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 26px; }
+        .pricing-price-amount { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; color: var(--gold); letter-spacing: 0.5px; font-style: italic; }
+        .pricing-price-amount.small { font-size: 22px; }
+        .pricing-price-unit { font-size: 9px; color: rgba(255,255,255,0.20); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+        .pricing-features { list-style: none; margin: 0 0 30px; padding: 0; flex: 1; }
+        .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.9; font-weight: 300; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .pricing-features li:last-child { border-bottom: none; }
+        .pricing-features li .pf-dot { color: var(--gold); font-size: 10px; flex-shrink: 0; margin-top: 3px; opacity: 0.65; }
+        .pricing-cta-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px 20px; background: transparent; border: 1px solid rgba(255,215,0,0.22); border-radius: 50px; color: rgba(255,215,0,0.70); font-size: 8.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; position: relative; z-index: 1; transition: all 0.4s var(--transition); overflow: hidden; text-decoration: none; }
+        .pricing-cta-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #b8901e, #FFD700, #d4af37); opacity: 0; transition: opacity 0.4s; border-radius: 50px; }
+        .pricing-cta-btn:hover { color: #000; border-color: transparent; transform: translateY(-2px); box-shadow: 0 14px 36px rgba(255,215,0,0.25); }
+        .pricing-cta-btn:hover::before { opacity: 1; }
+        .pricing-cta-btn span { position: relative; z-index: 1; }
+        .pricing-card.featured .pricing-cta-btn { border-color: transparent; background: linear-gradient(135deg, #9a7010, #FFD700, #c8a020); color: #000; box-shadow: 0 12px 34px rgba(255,215,0,0.22); }
+        .pricing-domain-note {
+            max-width: 760px; margin: 44px auto 0; text-align: center; padding: 18px 26px;
+            background: rgba(255,215,0,0.04); border: 1px solid rgba(255,215,0,0.12); border-radius: 16px;
+            font-size: 11.5px; color: rgba(255,215,0,0.55); line-height: 1.8; letter-spacing: 0.3px; font-weight: 500;
+        }
+        .pricing-domain-note strong { color: var(--gold); font-weight: 700; }
+        .pricing-divider { height: 1px; max-width: 960px; margin: 64px auto 0; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.14), transparent); }
 
         /* SERVICE FORM MODALS */
         .svc-modal { display: none; position: fixed; z-index: 3000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.72); backdrop-filter: blur(52px); -webkit-backdrop-filter: blur(52px); overflow-y: auto; padding: 32px 16px; }
@@ -853,6 +872,9 @@
             .services-grid { grid-template-columns: 1fr; gap: 20px; }
             .svc-modal-content { padding: 40px 28px 52px; }
             .service-card { padding: 32px 24px 28px; }
+            .pricing-section { padding: 90px 22px 70px; }
+            .pricing-grid { grid-template-columns: 1fr; gap: 18px; }
+            .pricing-card { padding: 32px 24px 28px; }
             #privateSourcingModal .modal-content { padding: 40px 28px 52px; }
             .lx-field { margin-top: 36px; }
             .lx-budget-field { margin-top: 36px; }
@@ -1033,7 +1055,8 @@
         <div class="nav-item" onclick="scrollToSection('cat-pants')">Pants</div>
         <div class="nav-item" onclick="scrollToSection('cat-outfits')">Outfits</div>
         <div class="nav-item" onclick="scrollToSection('cat-private')">Private requests</div>
-        <div class="nav-item" onclick="scrollToSection('cat-services')">Custom websites</div> 
+        <div class="nav-item" onclick="scrollToSection('cat-services')">Custom websites</div>
+        <div class="nav-item" onclick="scrollToSection('cat-pricing')">Pricing</div>
     </nav>
 
     <div class="promo-bar">
@@ -1283,6 +1306,97 @@
                 </div>
             </div>
             <div class="services-divider"></div>
+        </div>
+    </div>
+
+    <!-- PRICING SECTION -->
+    <div class="pricing-section" id="cat-pricing">
+        <div class="pricing-inner">
+            <div class="pricing-eyebrow">Investment Tiers</div>
+            <h2 class="pricing-headline">Transparent Pricing,<br>Bespoke Delivery.</h2>
+            <p class="pricing-subtext">Every OUMRAN Digital project is built single-file, mobile-first, and delivered directly to your Telegram. Choose the tier that matches your ambition — or reach out for something entirely your own.</p>
+            <div class="pricing-grid">
+
+                <!-- STANDARD -->
+                <div class="pricing-card">
+                    <div class="pricing-tier-eyebrow">Tier 01</div>
+                    <div class="pricing-tier-name">Standard</div>
+                    <div class="pricing-price"><span class="pricing-price-amount">15,000</span><span class="pricing-price-unit">ETB</span></div>
+                    <ul class="pricing-features">
+                        <li><span class="pf-dot">✦</span>Single-page responsive website</li>
+                        <li><span class="pf-dot">✦</span>Mobile-first, luxury-inspired layout</li>
+                        <li><span class="pf-dot">✦</span>WhatsApp or Telegram contact integration</li>
+                        <li><span class="pf-dot">✦</span>Up to 5 core sections</li>
+                        <li><span class="pf-dot">✦</span>3–5 day delivery</li>
+                    </ul>
+                    <button class="pricing-cta-btn" onclick="openSvcModal('business')"><span>Get Started →</span></button>
+                </div>
+
+                <!-- EXCLUSIVE -->
+                <div class="pricing-card">
+                    <div class="pricing-tier-eyebrow">Tier 02</div>
+                    <div class="pricing-tier-name">Exclusive</div>
+                    <div class="pricing-price"><span class="pricing-price-amount">25,000</span><span class="pricing-price-unit">ETB</span></div>
+                    <ul class="pricing-features">
+                        <li><span class="pf-dot">✦</span>Multi-page website (up to 5 pages)</li>
+                        <li><span class="pf-dot">✦</span>Custom animations & smooth transitions</li>
+                        <li><span class="pf-dot">✦</span>WhatsApp/Telegram order or contact form</li>
+                        <li><span class="pf-dot">✦</span>SEO-ready structure</li>
+                        <li><span class="pf-dot">✦</span>5–7 day delivery</li>
+                    </ul>
+                    <button class="pricing-cta-btn" onclick="openSvcModal('business')"><span>Get Started →</span></button>
+                </div>
+
+                <!-- PREMIUM -->
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier-eyebrow">Tier 03</div>
+                    <div class="pricing-tier-name">Premium</div>
+                    <div class="pricing-price"><span class="pricing-price-amount">35,000</span><span class="pricing-price-unit">ETB</span></div>
+                    <ul class="pricing-features">
+                        <li><span class="pf-dot">✦</span>Full e-commerce or business platform</li>
+                        <li><span class="pf-dot">✦</span>Advanced glassmorphism UI & custom cart/gallery</li>
+                        <li><span class="pf-dot">✦</span>Multiple integrations (Telegram bot, forms, galleries)</li>
+                        <li><span class="pf-dot">✦</span>Performance optimization & image preload</li>
+                        <li><span class="pf-dot">✦</span>7–10 day delivery, 1 revision round included</li>
+                    </ul>
+                    <button class="pricing-cta-btn" onclick="openSvcModal('ecommerce')"><span>Get Started →</span></button>
+                </div>
+
+                <!-- ELITE / CUSTOM -->
+                <div class="pricing-card">
+                    <div class="pricing-tier-eyebrow">Tier 04</div>
+                    <div class="pricing-tier-name">Elite / Custom</div>
+                    <div class="pricing-price"><span class="pricing-price-amount">45,000</span><span class="pricing-price-unit">ETB</span></div>
+                    <ul class="pricing-features">
+                        <li><span class="pf-dot">✦</span>Fully bespoke architecture & custom backend logic</li>
+                        <li><span class="pf-dot">✦</span>Advanced multi-tier systems (cart, profile, sourcing)</li>
+                        <li><span class="pf-dot">✦</span>Priority development & direct consultation</li>
+                        <li><span class="pf-dot">✦</span>Unlimited revisions during the build</li>
+                        <li><span class="pf-dot">✦</span>Dedicated post-launch support</li>
+                    </ul>
+                    <button class="pricing-cta-btn" onclick="openSvcModal('custom')"><span>Get Started →</span></button>
+                </div>
+
+                <!-- TAILORED SOLUTION -->
+                <div class="pricing-card">
+                    <div class="pricing-tier-eyebrow">Tier 05</div>
+                    <div class="pricing-tier-name">Tailored Solution</div>
+                    <div class="pricing-price"><span class="pricing-price-amount small">Open to Discussion</span></div>
+                    <ul class="pricing-features">
+                        <li><span class="pf-dot">✦</span>For unique or highly complex projects</li>
+                        <li><span class="pf-dot">✦</span>Custom scope, timeline & engagement model</li>
+                        <li><span class="pf-dot">✦</span>Direct consultation to define requirements</li>
+                        <li><span class="pf-dot">✦</span>Flexible pricing built around your vision</li>
+                    </ul>
+                    <button class="pricing-cta-btn" onclick="openSvcModal('custom')"><span>Discuss My Project →</span></button>
+                </div>
+
+            </div>
+
+            <p class="pricing-domain-note">Note: All custom domains (e.g., .com, .dev) require an additional <strong>5,000 ETB</strong> annual registration and management fee.</p>
+
+            <div class="pricing-divider"></div>
         </div>
     </div>
 
