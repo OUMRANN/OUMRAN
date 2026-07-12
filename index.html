@@ -2509,7 +2509,6 @@ function clearSvcForm(type) {
     const px=prefixes[type]; if (!px) return;
     document.querySelectorAll(`[id^="${px}"]`).forEach(el=>{ if (el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.value=''; else if (el.tagName==='SELECT') el.selectedIndex=0; });
 }
-<script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="zCO-wky_ct_7FY0X92RmQ";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </body>
